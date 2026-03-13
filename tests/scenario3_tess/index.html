@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scenario 3: TESS Signal Prioritization | inZORi</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --gold:#c9a227; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,215,0,0.22); border:1px solid rgba(255,215,0,0.55); border-radius:20px; padding:0.25rem 1rem; font-size:0.82rem; margin-bottom:0.75rem; letter-spacing:0.05em; color:#FFD700; font-weight:700; text-transform:uppercase; }
+  .header h1 { font-size:1.75rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .nav-back { background:#1a3a5c; padding:0.6rem 2rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .nav-back a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-back a:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .nav-back a.active { background:var(--primary); color:#fff; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:2rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger { color:var(--danger); }
+  .kr-card .kr-value.gold { color:var(--gold); }
+  .kr-card .kr-label { font-size:0.82rem; color:#666; margin-top:0.3rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .fig-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+  @media(max-width:700px){.fig-grid,.fig-grid-3{grid-template-columns:1fr;}}
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#fffde7; font-weight:700; border-left:3px solid var(--gold); }
+  .badge { display:inline-block; padding:0.15rem 0.6rem; border-radius:12px; font-size:0.78rem; font-weight:600; }
+  .badge-ok { background:#dcfce7; color:#15803d; }
+  .badge-fail { background:#fee2e2; color:#dc2626; }
+  .badge-warn { background:#fff3e0; color:#92400e; }
+  .claims-box { background:#fff3e0; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .claims-box ul { padding-left:1.2rem; }
+  .claims-box li { font-size:0.9rem; margin-bottom:0.4rem; }
+  .repro-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .conclusion-box { background:linear-gradient(135deg,#fafafa,#f0f4ff); border:2px solid var(--primary); border-radius:12px; padding:1.5rem 2rem; margin:1.5rem 0; }
+  .conclusion-box h3 { color:var(--primary); font-size:1.1rem; margin-bottom:0.75rem; }
+  .highlight-box { background:linear-gradient(135deg,#fffde7,#fff9c4); border-left:4px solid var(--gold); border-radius:8px; padding:1.25rem 1.5rem; margin:1rem 0; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul,ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase-badge">ASTRONOMY · TESS RANKING</div>
+  <h1>Scenario 3: inZORi Prioritization for TESS Light-Curve Signals</h1>
+  <div class="subtitle">Multi-Criteria Ranking of 13,000 Astronomical Signals — No Supervised Training</div>
+  <div class="meta">Dumitru Novic · February 2026 · 13,000 TESS signals · 294 clean transit candidates</div>
+</div>
+<div class="nav-back">
+  <a href="../scenario1_dynamic/index.html" class="active">Scenario 1: Dynamic Worlds</a>
+  <a href="../scenario2_social_iq/index.html">Scenario 2: IQ & Fertility</a>
+  <a href="index.html">Scenario 3: TESS</a>
+  <a href="../scenario4_robotics/index.html">Scenario 4: Robotics</a>
+  <a href="../scenario5_sdc/index.html">Scenario 5: SDC</a>
+  <a href="../social_density_effect/index.html">Social Density</a>
+  <a href="../refract_20seeds/index.html">REFRACT</a>
+  <a href="../../tests.html">All Tests</a>
+</div>
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>The inZORi engine is applied to <strong>13,000 TESS light-curve signals</strong> to produce a ranked priority list for follow-up observation &mdash; without supervised training, labeled examples, or explicit weighting formulas. Seven signal quality dimensions are evaluated: <em>regularity, stability, SNR, scatter, transit count, duration,</em> and <em>depth</em>. A consensus rank across 4 ranking variants identifies <strong>294 clean transit candidates</strong> for priority review; the top candidate achieves rank_sum&nbsp;=&nbsp;7.</p>
+  </div>
+  <div class="key-results">
+    <div class="kr-card"><div class="kr-value">13,000</div><div class="kr-label">TESS signals analyzed</div></div>
+    <div class="kr-card"><div class="kr-value success">294</div><div class="kr-label">Clean transit candidates</div></div>
+    <div class="kr-card"><div class="kr-value gold">7</div><div class="kr-label">Best consensus rank_sum</div></div>
+    <div class="kr-card"><div class="kr-value">4</div><div class="kr-label">Ranking variants (consensus)</div></div>
+    <div class="kr-card"><div class="kr-value">7</div><div class="kr-label">Signal quality dimensions</div></div>
+    <div class="kr-card"><div class="kr-value danger">0</div><div class="kr-label">Labeled training examples required</div></div>
+  </div>
+  <div class="section">
+    <h2>1. Experimental Setup</h2>
+    <h3>Signal Quality Dimensions</h3>
+    <table>
+      <thead><tr><th>Dimension</th><th>What it measures</th><th>Higher = better?</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Regularity</strong></td><td>Period stability across transits</td><td>Yes</td></tr>
+        <tr><td><strong>Stability</strong></td><td>Baseline flux consistency (out-of-transit)</td><td>Yes</td></tr>
+        <tr><td><strong>SNR (normalized)</strong></td><td>Signal-to-noise ratio of transit dip</td><td>Yes</td></tr>
+        <tr><td><strong>Quality fraction</strong></td><td>Fraction of valid (non-gapped) observations</td><td>Yes</td></tr>
+        <tr><td><strong>Scatter (normalized)</strong></td><td>Noise level &mdash; <em>lower</em> is better; filter: &le;0.7</td><td>No (inverted)</td></tr>
+        <tr><td><strong>Transit count (normalized)</strong></td><td>Number of detected transit events</td><td>Yes</td></tr>
+        <tr><td><strong>Duration / Depth</strong></td><td>Physical plausibility of transit shape</td><td>Contextual</td></tr>
+      </tbody>
+    </table>
+    <h3>Ranking Methodology</h3>
+    <p>Four independent ranking variants are computed over the 7 dimensions, each applying different weighting emphasis (regularity-first, SNR-first, composite, stability-first). A <strong>consensus rank_sum</strong> aggregates all four ranks &mdash; lower rank_sum means stronger consensus across methods. The scatter filter (scatter_norm &le; 0.7) removes high-noise signals before ranking.</p>
+    <div class="claims-box">
+      <ul>
+        <li>No neural network, no supervised labels, no predefined transit template</li>
+        <li>Criteria weights discovered through inZORi selection, not manually specified</li>
+        <li>Output is fully auditable: all 7 dimension scores per candidate are published</li>
+        <li>Designed for human-in-the-loop follow-up, not autonomous classification</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>2. Results</h2>
+    <div class="fig-grid">
+      <div class="fig-wrap">
+        <img src="../../demo_images/scenario4_tess_class_distribution.png" alt="Class distribution">
+        <div class="fig-caption">Fig 1 &mdash; Class distribution: 294 clean transit candidates (2.3%), 513 variable/artifact (3.9%), 12,191 uncertain (93.8%).</div>
+      </div>
+      <div class="fig-wrap">
+        <img src="../../demo_images/scenario4_tess_top10_ranksum.png" alt="Top 10 candidates">
+        <div class="fig-caption">Fig 2 &mdash; Top-10 consensus candidates ranked by rank_sum. Best candidate (TIC 55524055): rank_sum = 7, stability = 0.979, depth = 0.910.</div>
+      </div>
+    </div>
+    <h3>Signal Classification Breakdown</h3>
+    <table>
+      <thead><tr><th>Class</th><th>Count</th><th>% of Total</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr class="highlight"><td><strong>Clean transit candidates</strong></td><td>294</td><td>2.3%</td><td>Priority follow-up</td></tr>
+        <tr><td>Variable / artifact</td><td>513</td><td>3.9%</td><td>Secondary review</td></tr>
+        <tr><td>Eclipsing binary (confirmed)</td><td>1</td><td>&lt;0.01%</td><td>Known object</td></tr>
+        <tr><td>Weak signal</td><td>1</td><td>&lt;0.01%</td><td>Insufficient evidence</td></tr>
+        <tr><td>Uncertain</td><td>12,191</td><td>93.8%</td><td>Archive</td></tr>
+        <tr><td><strong>Total</strong></td><td>13,000</td><td>100%</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+    <h3>Top Candidate Profile (TIC 55524055)</h3>
+    <table>
+      <thead><tr><th>Metric</th><th>Value</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>Rank sum</td><td><strong>7</strong></td><td>Strongest multi-variant consensus</td></tr>
+        <tr><td>Rank max</td><td>3</td><td>Worst rank in any single variant</td></tr>
+        <tr><td>Stability</td><td><strong>0.979</strong></td><td>Excellent baseline stability</td></tr>
+        <tr><td>SNR (norm)</td><td>0.768</td><td>High signal-to-noise</td></tr>
+        <tr><td>Depth (norm)</td><td><strong>0.910</strong></td><td>Deep, well-defined transit dip</td></tr>
+        <tr><td>Scatter (norm)</td><td>0.599</td><td>Within filter threshold (&le;0.70)</td></tr>
+        <tr><td>Regularity</td><td>0.456</td><td>Moderate periodic regularity</td></tr>
+      </tbody>
+    </table>
+    <p><a href="../../tests/tess/candidates_report.md" style="color:var(--primary);">&rarr; Full candidates report (Markdown)</a> &nbsp;|&nbsp; <a href="../../tests/tess/candidates_report.json" style="color:var(--primary);">JSON data</a></p>
+  </div>
+  <div class="section">
+    <h2>3. Key Findings</h2>
+    <div class="highlight-box">
+      <ul>
+        <li><strong>294 clean transit candidates</strong> from 13,000 signals &mdash; 2.3% yield, consistent with survey expectations.</li>
+        <li><strong>Strong class separation</strong>: clean transit signals score distinctly higher on stability and SNR vs variable/artifact classes.</li>
+        <li><strong>Consensus ranking</strong>: rank_sum provides robust prioritization by aggregating 4 independent orderings.</li>
+        <li><strong>Fully auditable</strong>: all 7 dimension scores for every candidate are in the published JSON report.</li>
+        <li><strong>No supervision</strong>: the same inZORi engine that navigates 2D environments here evaluates 7D signal quality space.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>4. What This Demonstrates</h2>
+    <div class="conclusion-box">
+      <h3>Unsupervised Prioritization at Scale</h3>
+      <p>This scenario shows inZORi operating as a <strong>multi-criteria prioritization engine in a scientific domain with no labeled training data</strong>. The ranking is consensus-based across multiple evaluation perspectives &mdash; a single outlier dimension does not dominate, making output more robust to noise.</p>
+      <p><strong>Application:</strong> Genomics, drug screening, materials discovery, financial signal processing &mdash; any domain requiring expert-level triage of large catalogs with multi-dimensional quality criteria.</p>
+    </div>
+  </div>
+  <div class="section">
+    <h2>5. Reproducibility</h2>
+    <div class="repro-box">
+      <p><strong>Framework:</strong> inZORi v1.0 &nbsp;|&nbsp; <strong>Domain:</strong> Astronomy / TESS light-curve analysis</p>
+      <p><strong>Dataset:</strong> 13,000 TESS signals (S0001 snapshot) &nbsp;|&nbsp; <strong>Dimensions:</strong> 7 &nbsp;|&nbsp; <strong>Ranking variants:</strong> 4</p>
+      <p><strong>Output:</strong> <code>tests/tess/candidates_report.json</code> (full ranked list)</p>
+      <p><strong>Note:</strong> Evaluation strategy and genome encoding are proprietary. Quality dimensions and normalization are fully disclosed above.</p>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <p>inZORi &mdash; Emergent Intelligence &middot; Autonomous Evolutionary Universe</p>
+  <p><a href="../../index.html">inZORi Home</a> &nbsp;&middot;&nbsp; <a href="../../tests.html">All Tests</a> &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. All rights reserved.</p>
+</div>
+</body>
+</html>

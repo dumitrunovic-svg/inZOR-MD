@@ -1,0 +1,30 @@
+{
+  "title": "PFΔ Phase 1 core comparison metrics",
+  "source_note": "Metrics copied from published PFΔ Phase 1 tables in tests/pfdelta_phase1_118/index.html (Table A1 and Table A2).",
+  "strategies": [
+    {
+      "name": "Baseline A",
+      "s3_convergence_pct": 96.0,
+      "topology_recovery_steps": 2.91,
+      "s3_converged_steps_per_sec": 340.4
+    },
+    {
+      "name": "Baseline B",
+      "s3_convergence_pct": 86.0,
+      "topology_recovery_steps": 12.0,
+      "s3_converged_steps_per_sec": 258.6
+    },
+    {
+      "name": "inZORi",
+      "s3_convergence_pct": 99.1,
+      "topology_recovery_steps": 1.82,
+      "s3_converged_steps_per_sec": 246.8
+    },
+    {
+      "name": "Frozen-Top16-K1",
+      "s3_convergence_pct": 100.0,
+      "topology_recovery_steps": 1.0,
+      "s3_converged_steps_per_sec": 443.7
+    }
+  ]
+}

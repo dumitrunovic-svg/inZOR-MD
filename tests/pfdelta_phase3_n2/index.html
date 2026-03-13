@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi PF-Δ Phase 3 — N-2 Contingency Robustness | IEEE 118-bus</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.75rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .nav-phases { background:#1a3a5c; padding:0.6rem 2rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .nav-phases a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-phases a:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .nav-phases a.active { background:var(--primary); color:#fff; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:2rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger { color:var(--danger); }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media(max-width:700px){.fig-grid{grid-template-columns:1fr;}}
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#eaf4fb; font-weight:600; }
+  .badge { display:inline-block; padding:0.15rem 0.6rem; border-radius:12px; font-size:0.78rem; font-weight:600; }
+  .badge-n2 { background:#fffde7; color:#92400e; border:1px solid #fbbf24; }
+  .claims-box { background:#fff3e0; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .claims-box ul { padding-left:1.2rem; }
+  .claims-box li { font-size:0.9rem; margin-bottom:0.4rem; }
+  .repro-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .code-block { background:#1e293b; color:#e2e8f0; border-radius:6px; padding:0.8rem 1rem; font-family:'Consolas',monospace; font-size:0.85rem; margin:0.75rem 0; overflow-x:auto; }
+  .info-box { background:#eff6ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul,ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase-badge">PHASE 3 — N-2 CONTINGENCY</div>
+  <h1>inZORi PF-Δ Phase 3: N-2 Contingency Robustness</h1>
+  <div class="subtitle">Frozen Elite Genomes with Dedicated N-2 Specialists · IEEE 118-bus · Two Simultaneous Line Outages</div>
+  <div class="meta">Dumitru Novic · February 2026 · IEEE 118-bus · pandapower · 20 seeds × 50,000 steps · N-1+N-2 stress</div>
+</div>
+
+<div class="nav-phases">
+  <a href="../pfdelta_phase1_118/index.html">Phase 1: Proof of Concept</a>
+  <a href="../pfdelta_phase2_real/index.html">Phase 2: Real AC PF</a>
+  <a href="index.html" class="active">Phase 3: N-2</a>
+  <a href="../pfdelta_phase4_real/index.html">Phase 4: Blackouts</a>
+  <a href="../pfdelta_phase5_entsoe/index.html">Phase 5: ENTSO-E</a>
+  <a href="../pfdelta_phase6_capacity/index.html">Phase 6: Capacity ★</a>
+</div>
+
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>Phase 3 extends the inZORi Frozen Elite strategy to handle <strong>N-2 contingencies</strong> — the simultaneous outage of two transmission lines — the most demanding scenario in standard power system security analysis. Using a 15-generation evolutionary search, a superior genome pool was discovered achieving <strong>71.16% S3 convergence</strong> under combined N-1+N-2 stress. An 8-genome Frozen Elite pool with dedicated N-2 specialists was built and validated on IEEE 118-bus at 1.75× stressed load. inZORi achieves <strong>+16.14pp</strong> over Baseline A, with N-2 recovery in <strong>1.45 steps vs 4.12 steps</strong> (2.8× faster). Remarkably, inZORi recovers from N-2 events nearly as fast as N-1 events (1.45 vs 1.49 steps), demonstrating that dedicated N-2 specialists effectively neutralize the additional complexity of double-line outages.</p>
+  </div>
+
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value success">71.16%</div>
+      <div class="kr-label">inZORi S3 convergence<br>under N-1 + N-2 stress</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value danger">55.0%</div>
+      <div class="kr-label">Baseline A S3 convergence<br>(warm-start, no N-2 specialist)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#7c3aed">+16.14pp</div>
+      <div class="kr-label">Advantage vs Baseline A<br>CI95 [70.9%, 71.4%]</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">2.8×</div>
+      <div class="kr-label">Faster N-2 recovery<br>1.45 vs 4.12 steps</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#0891b2">8</div>
+      <div class="kr-label">Elite genomes in pool<br>incl. 2 N-2 specialists</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">15</div>
+      <div class="kr-label">Evolutionary generations<br>for genome discovery</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. Why N-2? Real-World Motivation</h2>
+
+    <div class="info-box">
+      <p>The <strong>N-1 security criterion</strong> (mandatory in Europe under ENTSO-E standards) requires grid stability after any single component failure. However, real blackouts rarely start with a single failure:</p>
+    </div>
+
+    <table>
+      <tr><th>Event</th><th>Type</th><th>Impact</th></tr>
+      <tr><td>Italy Blackout, 2003</td><td>N-2 in Switzerland (two 380kV lines tripped within seconds)</td><td>Full European cascade, 56 million people</td></tr>
+      <tr><td>Northeast US/Canada, 2003</td><td>Started N-3 in Ohio, cascaded to N-265</td><td>55 million people, $6 billion economic loss</td></tr>
+      <tr><td>ENTSO-E current policy</td><td>N-1 mandatory, N-2 increasingly required for critical corridors</td><td>Grid codes being updated</td></tr>
+    </table>
+
+    <p>Most AC power flow solvers are validated only under N-1 conditions. No published adaptive solver demonstrates robust N-2 recovery with convergence statistics across multiple seeds. This phase addresses that gap.</p>
+  </div>
+
+  <div class="section">
+    <h2>2. Genome Pool — 8 Genomes with N-2 Specialists</h2>
+
+    <h3>Evolutionary Search</h3>
+    <p>A <code>(μ+λ)</code> evolutionary strategy with 20 genomes × 15 generations, 4 seeds per evaluation. Convergence at generation 7; top genomes refined through local search into the final pool.</p>
+
+    <table>
+      <tr><th>#</th><th>Type</th><th>Profile</th></tr>
+      <tr class="highlight"><td>0</td><td><strong>G01 best (base)</strong></td><td>Top-fitness genome from evolutionary search — normal operation</td></tr>
+      <tr><td>1</td><td>Conservative</td><td>Low-risk profile, stable under moderate stress</td></tr>
+      <tr><td>2</td><td>High step_scale</td><td>Wider exploration radius for voltage deviation</td></tr>
+      <tr><td>3</td><td>High risk</td><td>Aggressive warm-start under high load</td></tr>
+      <tr><td>4</td><td>Moderate lr</td><td>Balanced memory / exploration trade-off</td></tr>
+      <tr><td>5</td><td>N-1 specialist</td><td>High DC-init tendency, activated on single outage</td></tr>
+      <tr class="highlight"><td>6</td><td><span class="badge badge-n2">N-2 aggressive</span></td><td>Very high DC-init jump, double outage recovery</td></tr>
+      <tr class="highlight"><td>7</td><td><span class="badge badge-n2">N-2 max DC-init</span></td><td>Maximum jump chance, worst-case N-2 scenario</td></tr>
+    </table>
+    <p style="font-size:0.85rem;color:#64748b;margin-top:0.5rem;">Exact genome parameters are proprietary to the inZORi framework.</p>
+
+    <h3>N-2 Selection Logic</h3>
+    <table>
+      <tr><th>Condition</th><th>Genome Selected</th><th>Rationale</th></tr>
+      <tr><td>Normal operation</td><td>#0 (G01 best)</td><td>Optimal for stable conditions</td></tr>
+      <tr><td>N-1 event detected</td><td>#5 (N-1 specialist)</td><td>DC-init retry for single outage</td></tr>
+      <tr><td>N-2 event detected</td><td>#6 or #7</td><td>Aggressive DC-init for double outage</td></tr>
+      <tr><td>Post-N-2 recovery</td><td>10-step recovery window</td><td>vs 5-step for N-1</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>3. Results</h2>
+
+    <div class="fig-wrap">
+      <img src="figures/fig1_s3_convergence_n2.png" alt="S3 Convergence N-2">
+      <div class="fig-caption">Fig. 1 — S3 convergence under combined N-1 + N-2 scenario. inZORi: 71.16% vs Baseline A: 55.02% (+16.14pp). CI95 [70.9%, 71.4%] — narrow intervals confirm statistical robustness across 20 seeds.</div>
+    </div>
+
+    <div class="fig-grid">
+      <div class="fig-wrap">
+        <img src="figures/fig2_recovery_n1_n2.png" alt="N-1 vs N-2 Recovery">
+        <div class="fig-caption">Fig. 2 — Mean recovery steps after N-1 and N-2 events. inZORi recovers from N-2 in 1.45 steps — nearly identical to N-1 recovery (1.49 steps). Baselines are ~2.8× slower and show no differentiation between N-1 and N-2.</div>
+      </div>
+      <div class="fig-wrap">
+        <img src="figures/fig4_phase_comparison.png" alt="Phase Comparison">
+        <div class="fig-caption">Fig. 3 — inZORi advantage maintained as difficulty increases: DC approx. → Real AC PF → AC PF + N-2. Consistent +15–16pp demonstrates algorithmic robustness, not scenario-specific tuning.</div>
+      </div>
+    </div>
+
+    <h3>Numerical Summary</h3>
+    <table>
+      <tr><th>Strategy</th><th>S3 Conv.</th><th>CI95</th><th>N-1 rec. (steps)</th><th>N-2 rec. (steps)</th></tr>
+      <tr><td>Baseline A (warm-start)</td><td>55.02%</td><td>[54.6, 55.4]</td><td>3.64</td><td>4.12</td></tr>
+      <tr><td>Baseline B (periodic reset)</td><td>55.35%</td><td>[55.0, 55.7]</td><td>3.34</td><td>4.05</td></tr>
+      <tr class="highlight"><td><strong>inZORi Frozen Elite N-2</strong></td><td><strong>71.16%</strong></td><td>[70.9, 71.4]</td><td><strong>1.49</strong></td><td><strong>1.45</strong></td></tr>
+    </table>
+    <p style="font-size:0.88rem;color:#666;">Key observation: Baseline A and B perform nearly identically (55.02% vs 55.35%), confirming neither has adaptive mechanism for N-2. inZORi's 2.8× recovery advantage comes entirely from N-2 specialist genomes using aggressive DC-initialization (<code>jump_chance=0.87–0.92</code>).</p>
+  </div>
+
+  <div class="section">
+    <h2>4. Experimental Setup</h2>
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>Network</td><td>IEEE 118-bus (pandapower)</td></tr>
+      <tr><td>Load scaling</td><td>1.75× base (stressed)</td></tr>
+      <tr><td>NR max iterations</td><td>5 (strict budget)</td></tr>
+      <tr><td>N-1 interval</td><td>Every 300 steps (S3 only)</td></tr>
+      <tr><td>N-2 interval</td><td>Every 600 steps (S3 only)</td></tr>
+      <tr><td>N-1 duration</td><td>25 steps</td></tr>
+      <tr><td>N-2 duration</td><td>20 steps</td></tr>
+      <tr><td>Seeds</td><td>20</td></tr>
+      <tr><td>Steps per seed</td><td>50,000</td></tr>
+      <tr><td>N-1 events per seed</td><td>~21</td></tr>
+      <tr><td>N-2 events per seed</td><td>~21</td></tr>
+      <tr><td>Total elapsed</td><td>66.8 min (12 workers)</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>5. Claims &amp; Limitations</h2>
+    <div class="claims-box">
+      <ul>
+        <li><strong>CLAIMS:</strong> inZORi Frozen Elite with N-2 specialists significantly outperforms warm-start and periodic-reset baselines under combined N-1+N-2 stress on IEEE 118-bus (+16.14pp, CI95 non-overlapping)</li>
+        <li><strong>CLAIMS:</strong> N-2 specialist genomes achieve recovery speed statistically indistinguishable from N-1 recovery (1.45 vs 1.49 steps)</li>
+        <li><strong>CLAIMS:</strong> Consistent advantage across Phases 1→3 as difficulty increases confirms algorithmic robustness, not scenario overfitting</li>
+        <li><strong>DOES NOT CLAIM:</strong> IEEE 118-bus is representative of real TSO networks — results on actual grid topologies may differ</li>
+        <li><strong>DOES NOT CLAIM:</strong> Load profiles are synthetic (seasonal drift) — real ENTSO-E profiles are addressed in Phase 5</li>
+        <li><strong>DOES NOT CLAIM:</strong> N-2 specialists are optimal — they were designed based on domain knowledge; automated N-2 genome evolution is future work</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6. Reproducibility</h2>
+    <div class="repro-box">
+      <div class="code-block">
+cd inzori/
+
+# Extended evolutionary search (15 generations)
+python3 -m problems.zor_pf_real_118.run_extended_evo
+
+# N-2 validation (20 seeds × 50,000 steps)
+python3 -m problems.zor_pf_real_118.run_n2_validation
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>inZORi PF-Δ Phase 3</strong> · Dumitru Novic · February 2026 · IEEE 118-bus · N-2 Contingency · 20 seeds</p>
+  <p style="margin-top:0.5rem;">
+    <a href="../pfdelta_phase2_real/index.html">← Phase 2</a> &nbsp;|&nbsp;
+    <a href="../../tests.html">All Tests</a> &nbsp;|&nbsp;
+    <a href="../pfdelta_phase4_real/index.html">Phase 4: Blackouts →</a>
+  </p>
+</div>
+
+</body>
+</html>

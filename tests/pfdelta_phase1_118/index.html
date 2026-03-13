@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi PF-Δ Phase 1 — Streaming Power Flow Robustness | IEEE 118-bus</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.75rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .header .doi-badge { display:inline-flex; align-items:center; gap:0.4rem; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.35); border-radius:6px; padding:0.3rem 0.8rem; font-size:0.82rem; text-decoration:none; color:#fff; margin-top:0.5rem; }
+  .nav-phases { background:#1a3a5c; padding:0.6rem 2rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .nav-phases a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-phases a:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .nav-phases a.active { background:var(--primary); color:#fff; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:2rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger { color:var(--danger); }
+  .kr-card .kr-label { font-size:0.82rem; color:#666; margin-top:0.3rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media(max-width:700px){.fig-grid{grid-template-columns:1fr;}}
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#eaf4fb; font-weight:600; }
+  .badge { display:inline-block; padding:0.15rem 0.6rem; border-radius:12px; font-size:0.78rem; font-weight:600; }
+  .badge-ok { background:#dcfce7; color:#15803d; }
+  .badge-fail { background:#fee2e2; color:#dc2626; }
+  .claims-box { background:#fff3e0; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .claims-box ul { padding-left:1.2rem; }
+  .claims-box li { font-size:0.9rem; margin-bottom:0.4rem; }
+  .repro-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .code-block { background:#1e293b; color:#e2e8f0; border-radius:6px; padding:0.8rem 1rem; font-family:'Consolas',monospace; font-size:0.85rem; margin:0.75rem 0; overflow-x:auto; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul,ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase-badge">PHASE 1 — PROOF OF CONCEPT</div>
+  <h1>inZORi PF-Δ Phase 1: Streaming Power Flow Robustness</h1>
+  <div class="subtitle">Multi-Shocks and N-1 Topology Events on IEEE 118-bus · Bio-Adaptive Genome Selection vs Static Baselines</div>
+  <div class="meta">Dumitru Novic · February 2026 · IEEE 118-bus · 30 seeds × 50k steps · Frozen-Elite runtime</div>
+  <div style="margin-top:0.8rem;">
+    <a class="doi-badge" href="https://doi.org/10.5281/zenodo.18716837" target="_blank" rel="noopener">
+      <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.18716837.svg" alt="DOI" style="height:1.2rem;">
+    </a>
+  </div>
+</div>
+
+<div class="nav-phases">
+  <a href="index.html" class="active">Phase 1: Proof of Concept</a>
+  <a href="../pfdelta_phase2_real/index.html">Phase 2: Real AC PF</a>
+  <a href="../pfdelta_phase3_n2/index.html">Phase 3: N-2</a>
+  <a href="../pfdelta_phase4_real/index.html">Phase 4: Blackouts</a>
+  <a href="../pfdelta_phase5_entsoe/index.html">Phase 5: ENTSO-E</a>
+  <a href="../pfdelta_phase6_capacity/index.html">Phase 6: Capacity ★</a>
+</div>
+
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>We demonstrate inZORi's adaptive capacity in a challenging streaming power flow scenario under extreme load/generation shocks, limited iteration budget (<code>nr_max=8</code>), periodic state subsampling (<code>pf_interval=5</code>), and sudden topology changes (N-1 line outages). Traditional fixed-strategy baselines suffer significant convergence degradation under the severe_plus regime (S3 convergence ~84–86%). The inZORi <strong>Frozen-Elite-16</strong> runtime extension — offline-evolved genomes deployed at O(1) cost — achieves <strong>S3 ≈ 100%</strong>, a <strong>+15.2 percentage point</strong> improvement over Baseline B and <strong>+3.1 pp</strong> over Baseline A. Recovery times after N-1 events are <strong>~7× faster</strong> than the periodic-reset baseline. All results are validated across 30 seeds with CI95 confidence intervals.</p>
+  </div>
+
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value success">99.1%</div>
+      <div class="kr-label">inZORi S3 convergence<br>CI95 [98.9%, 99.3%]</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value danger">83.9%</div>
+      <div class="kr-label">Baseline B S3 convergence<br>(periodic reset)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#7c3aed">+15.2pp</div>
+      <div class="kr-label">Advantage vs Baseline B<br>CI95 non-overlap confirmed</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">7×</div>
+      <div class="kr-label">Faster N-1 recovery<br>vs periodic-reset baseline</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#0891b2">~100%</div>
+      <div class="kr-label">Frozen-Elite-16 runtime<br>S3 convergence</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">30</div>
+      <div class="kr-label">Seeds validated<br>50,000 steps each</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. Problem and Motivation</h2>
+    <p>The PFΔ benchmark evaluates AI systems in realistic power grid operation scenarios where conditions drift continuously and solvers must adapt in real time. Unlike static benchmarks, PFΔ introduces:</p>
+    <ul>
+      <li><strong>Temporal dynamics:</strong> seasonal drift in base loads/generation over tens of thousands of steps</li>
+      <li><strong>Regional shocks:</strong> sudden multi-zone load spikes simulating cascading events</li>
+      <li><strong>Compute constraints:</strong> strict iteration budgets (<code>nr_max=8</code>) and periodic PF subsampling to mimic real-time SCADA refresh rates</li>
+      <li><strong>Topology changes:</strong> N-1 line outages that invalidate prior warm-start solutions</li>
+    </ul>
+    <p>Real-world grid operators cannot afford unlimited Newton-Raphson iterations per PF solve. When network conditions degrade (weak diagonal dominance, voltage collapse regimes), the solver either diverges, exhausts the budget, or requires manual intervention. This phase targets <strong>autonomous stability</strong> with zero online learning.</p>
+
+    <h3>inZORi Core Principles</h3>
+    <table>
+      <tr><th>Principle</th><th>Description</th></tr>
+      <tr><td>No RL/NN/Backpropagation</td><td>No gradient-based learning, no neural networks, no reinforcement learning</td></tr>
+      <tr><td>Energy &amp; Memory</td><td>Organisms gain/lose energy based on PF solve success; thresholds trigger reproduction/death</td></tr>
+      <tr><td>Genome-Driven Parameters</td><td>4-float genome (<code>risk</code>, <code>memory_lr</code>, <code>jump_chance</code>, <code>step_scale</code>) maps to PF parameters deterministically</td></tr>
+      <tr><td>Natural Selection</td><td>Only top-energy organisms reproduce; mutations are small Gaussian perturbations</td></tr>
+      <tr><td>World-Level PF Evaluation</td><td>Top-K candidates evaluated per step (not per organism) — 40–50× speedup vs naive implementation</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>2. Experimental Setup</h2>
+
+    <h3>Simulation Seasons</h3>
+    <table>
+      <tr><th>Season</th><th>Steps (FULL)</th><th>Conditions</th><th>N-1 events</th></tr>
+      <tr><td>S0 (Spring)</td><td>0–12,499</td><td>Mild load variation</td><td>None</td></tr>
+      <tr><td>S1 (Summer)</td><td>12,500–24,999</td><td>Elevated loads, regional shocks</td><td>None</td></tr>
+      <tr><td>S2 (Autumn)</td><td>25,000–37,499</td><td>Peak stress + occasional shocks</td><td>None</td></tr>
+      <tr><td><strong>S3 (Winter)</strong></td><td>37,500–49,999</td><td><strong>Severe stress + N-1 topology shocks</strong></td><td>Every 900 steps</td></tr>
+    </table>
+
+    <h3>Methods Compared</h3>
+    <table>
+      <tr><th>Method</th><th>Strategy</th><th>S3 Convergence</th></tr>
+      <tr><td>Baseline A</td><td>Warm-start tracking (always reuses previous solution)</td><td>95.9%</td></tr>
+      <tr><td>Baseline B</td><td>Periodic reset (flat start every 500 steps)</td><td>83.9%</td></tr>
+      <tr><td><strong>inZORi FULL</strong></td><td>Online evolutionary genome selection (K=2 top-K per step)</td><td><strong>99.1%</strong></td></tr>
+      <tr class="highlight"><td><strong>Frozen-Elite-16</strong></td><td>Pre-evolved pool, O(1) contextual selector, no online evolution</td><td><strong>~100%</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>3. Results</h2>
+
+    <div class="fig-wrap">
+      <img src="figures/core_comparison_baselineA_baselineB_inZORi_frozen.png" alt="S3 Convergence Comparison">
+      <div class="fig-caption">Fig. 1 — S3 convergence rate comparison with CI95 error bars. inZORi Frozen Elite achieves ~100%, inZORi FULL 99.1%, vs 95.9% (Baseline A) and 83.9% (Baseline B). Frozen Elite outperforms all alternatives with zero online computation.</div>
+    </div>
+
+    <div class="fig-grid">
+      <div class="fig-wrap">
+        <img src="figures/convergence_over_time.png" alt="Convergence Over Time">
+        <div class="fig-caption">Fig. 2 — Convergence rate over simulation time (S0→S3). inZORi maintains stability through all seasons; Baseline B degrades sharply in S3 when N-1 shocks begin.</div>
+      </div>
+      <div class="fig-wrap">
+        <img src="figures/recovery_time_distribution_eval4.png" alt="Recovery Time Distribution">
+        <div class="fig-caption">Fig. 3 — Distribution of N-1 recovery times. inZORi recovers in 1–2 steps; Baseline B requires 7–15 steps. The ~7× speedup comes from genome-encoded <code>jump_chance</code> triggering DC-init fallback.</div>
+      </div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fitness_progression_across_evals.png" alt="Fitness Progression">
+      <div class="fig-caption">Fig. 4 — Genome fitness progression across evolutionary evaluations. The best genome pool stabilizes by evaluation 4–5 and is then frozen for runtime deployment.</div>
+    </div>
+
+    <div class="fig-grid">
+      <div class="fig-wrap">
+        <img src="figures/seasonal_convergence_by_eval.png" alt="Seasonal Convergence">
+        <div class="fig-caption">Fig. 5 — Convergence rate per season across evaluations. S3 (winter/stress) shows the largest improvement as genomes specialize for high-shock conditions.</div>
+      </div>
+      <div class="fig-wrap">
+        <img src="figures/shock_events_timeline.png" alt="Shock Events Timeline">
+        <div class="fig-caption">Fig. 6 — N-1 shock event timeline showing load/topology perturbations in S3. Each spike corresponds to a line outage that invalidates the prior warm-start solution.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. The Frozen Elite Strategy</h2>
+    <p>The key innovation of this phase is the <strong>Frozen-Elite-16</strong> runtime approach: genomes are evolved offline once, then deployed as a fixed lookup pool at runtime. The contextual selector chooses among 16 pre-computed genomes based on:</p>
+    <ul>
+      <li><strong>Season-awareness:</strong> Aggressive genomes preferred in S0/S1; conservative in S3</li>
+      <li><strong>Convergence feedback:</strong> If recent window shows drops, switch to more stable genome</li>
+      <li><strong>N-1 detection:</strong> On topology shock, switch to genome with high <code>jump_chance</code> (DC-init retry) — automatic flat-restart when warm-start becomes invalid</li>
+    </ul>
+    <p>This approach has direct operational implications: <strong>no GPU, no neural network inference, no online gradient computation</strong> — just a lookup table evaluated in microseconds per step.</p>
+  </div>
+
+  <div class="section">
+    <h2>5. Claims &amp; Limitations</h2>
+    <div class="claims-box">
+      <ul>
+        <li><strong>CLAIMS:</strong> inZORi Frozen Elite achieves statistically significant (+15.2pp CI95 non-overlap) convergence improvement over static baselines in the severe_plus regime (multi-zone shocks + N-1)</li>
+        <li><strong>CLAIMS:</strong> N-1 recovery is ~7× faster due to DC-init fallback encoded in genome <code>jump_chance</code> parameter — no explicit topology rule required</li>
+        <li><strong>CLAIMS:</strong> Results validated across 30 independent seeds with CI95 non-overlapping intervals</li>
+        <li><strong>DOES NOT CLAIM:</strong> This phase uses a nonlinear surrogate model, not a full AC power flow engine — see Phase 2 for real pandapower validation</li>
+        <li><strong>DOES NOT CLAIM:</strong> Generalization to larger networks or real TSO topologies without further experiments</li>
+        <li><strong>DOES NOT CLAIM:</strong> Equivalence to commercial EMS/OPF solvers</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6. Reproducibility</h2>
+    <div class="repro-box">
+      <p><strong>Run Phase 1:</strong></p>
+      <div class="code-block">
+# Prerequisites
+pip install pandapower numpy scipy matplotlib
+
+# FULL mode (30 seeds × 50k steps, ~4h)
+cd inzori/
+python3 -m problems.zor_pf_real_118.run_full
+
+# DEV mode (rapid validation, 5k steps)
+python3 -m problems.zor_pf_real_118.run_dev
+
+# Frozen Elite runtime demo
+python3 -m problems.zor_pf_real_118.frozen_elite_demo
+      </div>
+      <p><strong>Key parameters:</strong> <code>nr_max=8</code> · <code>pf_interval=5</code> (DEV) / <code>=1</code> (FULL) · N-1 every 900 steps (S3) · K=2 top-K world-level evaluation</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>inZORi PF-Δ Phase 1</strong> · Dumitru Novic · February 2026 · IEEE 118-bus · 30 seeds</p>
+  <p style="margin-top:0.5rem;">
+    <a href="../../tests.html">← All Tests</a> &nbsp;|&nbsp;
+    <a href="../pfdelta_phase2_real/index.html">Phase 2: Real AC PF →</a>
+  </p>
+</div>
+
+</body>
+</html>

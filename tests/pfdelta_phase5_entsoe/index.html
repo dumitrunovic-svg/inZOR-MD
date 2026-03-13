@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi PF-Δ Phase 5 — ENTSO-E Real Load Validation (RO/DE/FR 2024)</title>
+<style>
+  :root {
+    --primary: #1a7dc4;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --warning: #e67e22;
+    --gray: #95a5a6;
+    --dark: #2c3e50;
+    --light-bg: #f8f9fa;
+    --border: #dee2e6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fff; color: var(--dark); line-height: 1.6; }
+  .header { background: linear-gradient(135deg, #1a3a5c 0%, #1a7dc4 100%); color: #fff; padding: 2.5rem 2rem 2rem; }
+  .header .phase-badge { display: inline-block; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 20px; padding: 0.25rem 1rem; font-size: 0.85rem; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+  .header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .header .subtitle { font-size: 1rem; opacity: 0.85; margin-bottom: 1rem; }
+  .header .meta { font-size: 0.82rem; opacity: 0.7; }
+  .nav-phases { background: #1a3a5c; padding: 0.6rem 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .nav-phases a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.82rem; padding: 0.2rem 0.7rem; border-radius: 12px; transition: all 0.2s; }
+  .nav-phases a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .nav-phases a.active { background: var(--primary); color: #fff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .abstract-box { background: linear-gradient(135deg, #eaf4fb, #ddeeff); border-left: 4px solid var(--primary); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+  .abstract-box h2 { font-size: 1rem; color: var(--primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .abstract-box p { font-size: 0.95rem; }
+  .key-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .kr-card { background: var(--light-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; text-align: center; }
+  .kr-card .kr-value { font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+  .kr-card .kr-value.danger { color: var(--danger); }
+  .kr-card .kr-value.success { color: var(--success); }
+  .kr-card .kr-value.warning { color: var(--warning); }
+  .kr-card .kr-label { font-size: 0.82rem; color: #666; margin-top: 0.3rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section h2 { font-size: 1.2rem; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 0.4rem; margin-bottom: 1.2rem; }
+  .section h3 { font-size: 1rem; font-weight: 600; margin: 1.2rem 0 0.6rem; color: #34495e; }
+  .fig-wrap { background: var(--light-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1.2rem 0; text-align: center; }
+  .fig-wrap img { max-width: 100%; border-radius: 4px; }
+  .fig-caption { font-size: 0.82rem; color: #555; margin-top: 0.6rem; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
+  th { background: var(--dark); color: #fff; padding: 0.6rem 1rem; text-align: left; font-weight: 600; }
+  td { padding: 0.55rem 1rem; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--light-bg); }
+  tr.highlight td { background: #eaf4fb; font-weight: 600; }
+  .badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 12px; font-size: 0.78rem; font-weight: 600; }
+  .badge-a { background: #dbeafe; color: #1a7dc4; }
+  .badge-b { background: #dcfce7; color: #15803d; }
+  .badge-c { background: #fee2e2; color: #dc2626; }
+  .badge-d { background: #f3f4f6; color: #4b5563; }
+  .source-badge { display: inline-flex; align-items: center; gap: 0.3rem; background: #fff3cd; border: 1px solid #ffc107; border-radius: 4px; padding: 0.1rem 0.5rem; font-size: 0.78rem; font-weight: 600; color: #856404; }
+  .claims-box { background: #fff3e0; border-left: 4px solid var(--warning); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .claims-box ul { padding-left: 1.2rem; }
+  .claims-box li { font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .repro-box { background: #f0fff4; border-left: 4px solid var(--success); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .repro-box code { background: #e8f5e9; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85rem; }
+  .footer { background: var(--light-bg); border-top: 1px solid var(--border); padding: 1.5rem 2rem; text-align: center; font-size: 0.82rem; color: #666; margin-top: 3rem; }
+  .entso-badge { display: inline-block; background: #003399; color: #fff; padding: 0.2rem 0.8rem; border-radius: 4px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.03em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="phase-badge">inZORi PF-Δ · Phase 5</div>
+    <h1>ENTSO-E Real Load Validation: Romania, Germany, France (2024)</h1>
+    <div class="subtitle">inZORi Multi-Genome Frozen Elite vs NR Standard · Real European Consumption Data · IEEE 118-bus</div>
+    <div class="meta">Author: Novic Dumitru · February 2026 · 48 jobs · 3 countries · 4 variants · 4 seeds · 1,920,000 steps total</div>
+  </div>
+</div>
+
+<div class="nav-phases">
+  <a href="../pfdelta_phase1_118/index.html">Phase 1: Proof of Concept</a>
+  <a href="../pfdelta_phase2_real/index.html">Phase 2: Real AC PF</a>
+  <a href="../pfdelta_phase3_n2/index.html">Phase 3: N-2</a>
+  <a href="../pfdelta_phase4_real/index.html">Phase 4: Blackouts</a>
+  <a href="index.html" class="active">Phase 5: ENTSO-E ★</a>
+  <a href="../pfdelta_phase6_capacity/index.html">Phase 6: Capacity ★</a>
+</div>
+
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>
+      Phase 5 provides the first validation of the inZORi Multi-Genome Frozen Elite algorithm
+      using <strong>live European grid consumption data</strong> sourced directly from the
+      <span class="entso-badge">ENTSO-E</span> Transparency Platform API (2024).
+      Three structurally distinct grids are tested: Romania (thermal/hydro mix),
+      Germany (renewables-heavy), and France (nuclear-dominant).
+      Under identical stressed conditions (N-1/N-2/N-4 contingencies, NR_MAX=3 iterations),
+      the inZORi FrozenElite algorithm achieves <strong>75–92% S3 convergence</strong>
+      versus <strong>4.5–15% for NR standard</strong> — a <strong>6× to 17× improvement</strong>
+      on real 2024 European consumption data.
+    </p>
+  </div>
+
+  <!-- Key Results Cards -->
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value">91.7%</div>
+      <div class="kr-label">FrozenElite S3 conv.<br>France (ENTSO-E 2024)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value danger">4.5%</div>
+      <div class="kr-label">NR Standard S3 conv.<br>Romania (ENTSO-E 2024)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value warning">×16.7</div>
+      <div class="kr-label">Multiplicative advantage<br>FrozenElite vs NR (RO)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">+70.8pp</div>
+      <div class="kr-label">Absolute advantage<br>FrozenElite vs NR (RO)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value">3</div>
+      <div class="kr-label">Countries tested<br>RO · DE · FR</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value">8,760</div>
+      <div class="kr-label">Real hourly data points<br>per country (full year 2024)</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Data Sources -->
+  <div class="section">
+    <h2>1. Data Sources — Real ENTSO-E 2024</h2>
+    <p>All load profiles are sourced directly from the ENTSO-E Transparency Platform API
+    (document type A74, actual total load), covering the full calendar year 2024 (8,760 hourly values per country).
+    No synthetic generation, no interpolation of historical averages.</p>
+
+    <table>
+      <tr><th>Country</th><th>Grid Type</th><th>ENTSO-E Zone</th><th>Year</th><th>Data Points</th><th>Load Range Applied</th></tr>
+      <tr>
+        <td><strong>Romania (RO)</strong></td>
+        <td>Thermal / Hydro mix</td>
+        <td>10YRO-TEL------P</td>
+        <td>2024</td>
+        <td>8,760 h</td>
+        <td>[1.575×, 1.925×] nominal</td>
+      </tr>
+      <tr>
+        <td><strong>Germany (DE)</strong></td>
+        <td>Renewables-heavy (wind/solar)</td>
+        <td>10Y1001A1001A82H</td>
+        <td>2024</td>
+        <td>8,760 h</td>
+        <td>[1.575×, 1.925×] nominal</td>
+      </tr>
+      <tr>
+        <td><strong>France (FR)</strong></td>
+        <td>Nuclear-dominant (≈70%)</td>
+        <td>10YFR-RTE------C</td>
+        <td>2024</td>
+        <td>8,760 h</td>
+        <td>[1.575×, 1.925×] nominal</td>
+      </tr>
+    </table>
+    <p style="font-size:0.85rem;color:#666;margin-top:0.5rem;">
+      Raw ENTSO-E profiles are normalized to [0,1] then scaled to
+      [1.575×, 1.925×] nominal IEEE 118-bus load, placing the network near voltage collapse
+      boundary where warm-start advantage is maximal.
+    </p>
+  </div>
+
+  <!-- Section 2: Methodology -->
+  <div class="section">
+    <h2>2. Methodology</h2>
+    <h3>Simulation Setup</h3>
+    <ul style="padding-left:1.4rem;font-size:0.92rem;">
+      <li><strong>Network:</strong> IEEE 118-bus (standard test case, real AC power flow via pandapower Newton-Raphson)</li>
+      <li><strong>Steps per job:</strong> 40,000 (seasons S0→S3; contingencies only in S3)</li>
+      <li><strong>NR budget:</strong> max 3 iterations (tight — forces flat-start NR to fail under stress)</li>
+      <li><strong>Local noise:</strong> ±12% per load zone (realistic inter-zone variability)</li>
+      <li><strong>Contingency schedule (S3 only):</strong> N-1 every 150 steps, N-2 every 300, N-4 every 900</li>
+      <li><strong>Seeds:</strong> 4 independent random seeds per (country, variant) combination</li>
+      <li><strong>Parallelism:</strong> 12 CPU cores, 48 total jobs</li>
+    </ul>
+
+    <h3>Variants Compared</h3>
+    <table>
+      <tr><th>Label</th><th>Algorithm</th><th>Load Profile</th><th>Description</th></tr>
+      <tr class="highlight">
+        <td><span class="badge badge-a">A</span></td>
+        <td>inZORi FrozenElite N-4</td>
+        <td><span class="source-badge">ENTSO-E Real</span></td>
+        <td>Adaptive selector, 12 frozen genomes (N-1/N-2/N-4 specialists) + real profile</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-b">B</span></td>
+        <td>G01 Static (best single genome)</td>
+        <td><span class="source-badge">ENTSO-E Real</span></td>
+        <td>Top-ranked genome only, no selection logic + real profile</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-c">C</span></td>
+        <td>NR Standard (flat-start)</td>
+        <td><span class="source-badge">ENTSO-E Real</span></td>
+        <td>Newton-Raphson with flat initialization (industry baseline) + real profile</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-d">D</span></td>
+        <td>inZORi FrozenElite N-4</td>
+        <td>Synthetic</td>
+        <td>Same FrozenElite on synthetic ShockGenerator (control: real vs synthetic)</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Section 3: Results -->
+  <div class="section">
+    <h2>3. Results</h2>
+
+    <div class="fig-wrap">
+      <img src="figures/fig1_s3_convergence.png" alt="S3 Convergence by Country and Variant">
+      <div class="fig-caption">Fig 1 — S3 Power Flow Convergence Rate (%) for four variants across three countries.
+      Error bars = CI95 over 4 seeds. NR Standard (red) collapses under real ENTSO-E stress.</div>
+    </div>
+
+    <h3>Detailed Results Table</h3>
+    <table>
+      <tr><th>Country</th><th>Variant</th><th>S3 Conv%</th><th>Mean Iter.</th><th>N1 Rec.</th><th>N2 Rec.</th><th>N4 Rec.</th><th>Source</th></tr>
+
+      <tr class="highlight">
+        <td rowspan="4"><strong>Romania</strong></td>
+        <td><span class="badge badge-a">A</span> FrozenElite+Real</td>
+        <td><strong>75.3%</strong></td><td>1.92</td><td>5.2</td><td>9.1</td><td>14.3</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E RO 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-b">B</span> G01static+Real</td>
+        <td><strong>75.8%</strong></td><td>1.94</td><td>5.4</td><td>9.3</td><td>14.6</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E RO 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-c">C</span> NR+Real</td>
+        <td style="color:var(--danger);font-weight:700;">4.5%</td><td>2.98</td><td>27.6</td><td>31.1</td><td>29.3</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E RO 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-d">D</span> FrozenElite+Synthetic</td>
+        <td>51.2%</td><td>1.88</td><td>5.1</td><td>8.9</td><td>13.8</td>
+        <td>Synthetic</td>
+      </tr>
+
+      <tr class="highlight">
+        <td rowspan="4"><strong>Germany</strong></td>
+        <td><span class="badge badge-a">A</span> FrozenElite+Real</td>
+        <td><strong>82.5%</strong></td><td>1.89</td><td>4.9</td><td>8.6</td><td>13.7</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E DE 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-b">B</span> G01static+Real</td>
+        <td><strong>82.8%</strong></td><td>1.91</td><td>5.0</td><td>8.8</td><td>14.0</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E DE 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-c">C</span> NR+Real</td>
+        <td style="color:var(--danger);font-weight:700;">11.4%</td><td>2.97</td><td>25.1</td><td>29.4</td><td>28.2</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E DE 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-d">D</span> FrozenElite+Synthetic</td>
+        <td>51.3%</td><td>1.87</td><td>4.9</td><td>8.7</td><td>13.6</td>
+        <td>Synthetic</td>
+      </tr>
+
+      <tr class="highlight">
+        <td rowspan="4"><strong>France</strong></td>
+        <td><span class="badge badge-a">A</span> FrozenElite+Real</td>
+        <td><strong>91.7%</strong></td><td>1.86</td><td>4.5</td><td>8.1</td><td>12.9</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E FR 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-b">B</span> G01static+Real</td>
+        <td><strong>92.2%</strong></td><td>1.88</td><td>4.7</td><td>8.3</td><td>13.2</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E FR 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-c">C</span> NR+Real</td>
+        <td style="color:var(--danger);font-weight:700;">15.1%</td><td>2.97</td><td>23.8</td><td>27.6</td><td>26.5</td>
+        <td><span class="entso-badge" style="font-size:0.7rem;">ENTSO-E FR 2024</span></td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-d">D</span> FrozenElite+Synthetic</td>
+        <td>51.4%</td><td>1.87</td><td>4.6</td><td>8.2</td><td>13.1</td>
+        <td>Synthetic</td>
+      </tr>
+    </table>
+
+    <div class="fig-wrap">
+      <img src="figures/fig2_fe_advantage.png" alt="FrozenElite Advantage over NR">
+      <div class="fig-caption">Fig 2 — Left: Absolute advantage (percentage points) of FrozenElite over NR Standard.
+      Right: Multiplicative factor — FrozenElite converges 6× to 17× more often than NR on real ENTSO-E data.</div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fig3_recovery_times.png" alt="Recovery Times N-1/N-2/N-4">
+      <div class="fig-caption">Fig 3 — Average recovery steps after N-1, N-2, and N-4 contingency events.
+      FrozenElite and G01 recover in 4–15 steps; NR Standard requires 24–31 steps (when it converges at all).</div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fig4_phase_progression.png" alt="Research Progression Phase 1 to 5">
+      <div class="fig-caption">Fig 4 — inZORi research progression from Phase 1 (synthetic) to Phase 5 (real ENTSO-E).
+      The advantage gap widens as test conditions become more realistic.</div>
+    </div>
+  </div>
+
+  <!-- Section 4: Key Findings -->
+  <div class="section">
+    <h2>4. Key Findings</h2>
+
+    <h3>Finding 1 — NR Standard fails catastrophically on real ENTSO-E data</h3>
+    <p>With NR_MAX=3 iterations (operationally realistic for real-time grid management),
+    NR Standard converges in only 4.5% (RO), 11.4% (DE), and 15.1% (FR) of stressed S3 steps.
+    This represents a near-total failure of the baseline method under realistic European consumption patterns.</p>
+
+    <h3>Finding 2 — Grid structure explains performance variation</h3>
+    <p>France (nuclear baseload, very stable profile) → 91.7% FrozenElite convergence.
+    Germany (high renewables variability) → 82.5%. Romania (smaller grid, volatile) → 75.3%.
+    The ranking matches expected physics — more stable consumption allows better warm-start initialization.</p>
+
+    <h3>Finding 3 — Adaptive selector adds minimal advantage over best static genome</h3>
+    <p>FrozenElite (A) ≈ G01static (B) within 0.5pp. The adaptive multi-genome selector provides
+    marginal benefit over simply using the best pre-evolved genome. This suggests G01 generalizes well
+    across contingency types on real data.</p>
+
+    <h3>Finding 4 — Real profiles are less chaotic than synthetic</h3>
+    <p>FrozenElite+Synthetic (D) achieves only 51% convergence versus 75–92% on real ENTSO-E profiles.
+    Synthetic ShockGenerator creates more extreme inter-zone variability than actual grid operation,
+    making it a conservative (harder) benchmark.</p>
+  </div>
+
+  <!-- Section 5: Claims & Limitations -->
+  <div class="section">
+    <h2>5. Claims &amp; Limitations</h2>
+    <div class="claims-box">
+      <strong>What this study claims:</strong>
+      <ul>
+        <li>On real ENTSO-E 2024 load data applied to IEEE 118-bus, inZORi FrozenElite converges 6–17× more often than NR standard under tight iteration budget (NR_MAX=3)</li>
+        <li>Results are consistent across three structurally distinct European grids (thermal/hydro, renewables-heavy, nuclear-dominant)</li>
+        <li>The warm-start genome approach is robust to real consumption variability, not just synthetic benchmarks</li>
+        <li>Recovery after N-1/N-2/N-4 contingencies is 2–6× faster with FrozenElite vs NR standard</li>
+      </ul>
+    </div>
+    <div class="claims-box" style="background:#fff3f3;border-color:var(--danger);">
+      <strong>What this study does NOT claim:</strong>
+      <ul>
+        <li>Results on real national grid topologies (Transelectrica, 50Hertz, RTE) — only IEEE 118-bus tested</li>
+        <li>Real-time operation validation — this is offline simulation on historical data</li>
+        <li>Superiority over deep learning approaches (GNN, RL) for power flow</li>
+        <li>NR_MAX=3 as the only valid operational setting — results will differ with higher iteration budgets</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Section 6: Reproducibility -->
+  <div class="section">
+    <h2>6. Reproducibility</h2>
+    <div class="repro-box">
+      <strong>To reproduce:</strong><br><br>
+      1. Set ENTSO-E API key: <code>echo "ENTSOE_API_KEY=your_key" &gt; .env</code><br>
+      2. Run validation: <code>python3 problems/zor_pf_real_118/run_real_vs_baseline.py</code><br>
+      3. Results saved to: <code>results/real_vs_baseline.json</code><br><br>
+      <strong>Dependencies:</strong> pandapower, entsoe-py, numpy, matplotlib, python-dotenv<br>
+      <strong>Hardware:</strong> 12 CPU cores recommended · ~42 minutes total runtime<br>
+      <strong>Data:</strong> Automatically downloaded from ENTSO-E Transparency Platform API
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  inZORi PF-Δ Phase 5 · Novic Dumitru · February 2026 · IEEE 118-bus · ENTSO-E Real Load (RO/DE/FR 2024)
+  <br>
+  <a href="../manifest.json" style="color:var(--primary);">← All Tests</a> ·
+  <a href="../pfdelta_phase4_real/index.html" style="color:var(--primary);">← Phase 4: Blackouts</a>
+</div>
+
+</body>
+</html>

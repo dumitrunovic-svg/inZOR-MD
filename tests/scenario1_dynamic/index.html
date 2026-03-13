@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scenario 1: Adaptation to Dynamic Environment | inZORi</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --gold:#c9a227; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,215,0,0.22); border:1px solid rgba(255,215,0,0.55); border-radius:20px; padding:0.25rem 1rem; font-size:0.82rem; margin-bottom:0.75rem; letter-spacing:0.05em; color:#FFD700; font-weight:700; text-transform:uppercase; }
+  .header h1 { font-size:1.75rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .nav-back { background:#1a3a5c; padding:0.6rem 2rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .nav-back a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-back a:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .nav-back a.active { background:var(--primary); color:#fff; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:2rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger { color:var(--danger); }
+  .kr-card .kr-value.gold { color:var(--gold); }
+  .kr-card .kr-label { font-size:0.82rem; color:#666; margin-top:0.3rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .fig-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+  @media(max-width:700px){.fig-grid,.fig-grid-3{grid-template-columns:1fr;}}
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#fffde7; font-weight:700; border-left:3px solid var(--gold); }
+  .badge { display:inline-block; padding:0.15rem 0.6rem; border-radius:12px; font-size:0.78rem; font-weight:600; }
+  .badge-ok { background:#dcfce7; color:#15803d; }
+  .badge-fail { background:#fee2e2; color:#dc2626; }
+  .badge-warn { background:#fff3e0; color:#92400e; }
+  .claims-box { background:#fff3e0; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .claims-box ul { padding-left:1.2rem; }
+  .claims-box li { font-size:0.9rem; margin-bottom:0.4rem; }
+  .repro-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .conclusion-box { background:linear-gradient(135deg,#fafafa,#f0f4ff); border:2px solid var(--primary); border-radius:12px; padding:1.5rem 2rem; margin:1.5rem 0; }
+  .conclusion-box h3 { color:var(--primary); font-size:1.1rem; margin-bottom:0.75rem; }
+  .highlight-box { background:linear-gradient(135deg,#fffde7,#fff9c4); border-left:4px solid var(--gold); border-radius:8px; padding:1.25rem 1.5rem; margin:1rem 0; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media(max-width:700px){.two-col{grid-template-columns:1fr;}}
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul,ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="phase-badge">ARTIFICIAL LIFE · SCENARIO 1</div>
+  <h1>Scenario 1: Adaptation to Dynamic Environment</h1>
+  <div class="subtitle">Population Survival and Strategy Emergence in Alternating 2D Worlds (A ↔ B)</div>
+  <div class="meta">Dumitru Novic · February 2026 · 40 organisms · 600 steps · 4 world transitions</div>
+</div>
+<div class="nav-back">
+  <a href="index.html" class="active">Scenario 1: Dynamic Worlds</a>
+  <a href="../scenario2_social_iq/index.html">Scenario 2: IQ & Fertility</a>
+  <a href="../scenario3_tess/index.html">Scenario 3: TESS</a>
+  <a href="../scenario4_robotics/index.html">Scenario 4: Robotics</a>
+  <a href="../scenario5_sdc/index.html">Scenario 5: SDC</a>
+  <a href="../social_density_effect/index.html">Social Density</a>
+  <a href="../refract_20seeds/index.html">REFRACT</a>
+  <a href="../../tests.html">All Tests</a>
+</div>
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>A population of <strong>40 autonomous organisms</strong> navigates a 2D environment that alternates periodically between two opposing configurations (World A and World B). Food and danger zones swap positions at each transition. No organism is told when or how the world changes &mdash; <strong>adaptation emerges entirely from survival pressure</strong>. Over 600 steps and 4 world transitions, the population not only survives but grows to ~200 individuals, developing energy-conservation strategies without any explicit training signal.</p>
+  </div>
+  <div class="key-results">
+    <div class="kr-card"><div class="kr-value success">99%</div><div class="kr-label">Survival rate across all transitions</div></div>
+    <div class="kr-card"><div class="kr-value">600</div><div class="kr-label">Total simulation steps</div></div>
+    <div class="kr-card"><div class="kr-value">4</div><div class="kr-label">World transitions (A ↔ B)</div></div>
+    <div class="kr-card"><div class="kr-value">40 → ~200</div><div class="kr-label">Population growth</div></div>
+    <div class="kr-card"><div class="kr-value gold">Emergent</div><div class="kr-label">No explicit reward function</div></div>
+  </div>
+  <div class="section">
+    <h2>1. Experimental Setup</h2>
+    <h3>Environment Architecture</h3>
+    <p>The 2D environment is a continuous space with two overlaid field types: <strong>food fields</strong> (reward energy) and <strong>danger fields</strong> (penalize energy). The two worlds have diametrically opposed layouts:</p>
+    <table>
+      <thead><tr><th>World</th><th>Food Zone</th><th>Danger Zone</th><th>Active Steps</th></tr></thead>
+      <tbody>
+        <tr><td><strong>World A</strong></td><td>Bottom-left quadrant</td><td>Top-right quadrant</td><td>0&ndash;150, 300&ndash;450</td></tr>
+        <tr><td><strong>World B</strong></td><td>Top-right quadrant</td><td>Bottom-left quadrant</td><td>150&ndash;300, 450&ndash;600</td></tr>
+      </tbody>
+    </table>
+    <h3>Organism Properties</h3>
+    <p>Each organism is fully autonomous &mdash; it maintains an internal energy state and a <strong>genome</strong> encoding behavioral parameters (risk tolerance, memory influence, exploration tendency, jump probability). No global map or inter-organism communication exists.</p>
+    <div class="claims-box">
+      <ul>
+        <li>Initial population: 40 organisms, randomly positioned</li>
+        <li>Selection: only survival determines which genomes persist and reproduce</li>
+        <li>No explicit reward signal, no predefined correct strategy</li>
+        <li>Local sensory information only (food/danger gradient in immediate neighborhood)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>2. Results</h2>
+    <div class="fig-wrap">
+      <img src="../../demo_images/scenario1_population_evolution_v2.png" alt="Population evolution in alternating worlds">
+      <div class="fig-caption">Fig 1 &mdash; Population dynamics over 600 steps across 4 world transitions (A &harr; B). Population grows from 40 to ~200 while maintaining ~99% survival rate at each transition. Brief dips at transition points (steps 150, 300, 450) are followed by rapid recovery.</div>
+    </div>
+    <h3>Behavioral Dynamics at Transitions</h3>
+    <p>Immediately after each world switch, a brief period of increased mortality (~1&ndash;2% loss) occurs as organisms navigate toward former food zones now turned dangerous. Within 20&ndash;30 steps, the surviving population &mdash; carrying more adaptive genomes &mdash; reorients toward the new food zone.</p>
+    <p>By the 3rd and 4th transitions, the population shows <strong>faster reorientation</strong> compared to earlier transitions. The genome distribution has shifted toward higher exploration and faster memory suppression after world changes.</p>
+    <h3>Energy Stabilization</h3>
+    <p>Despite world transitions, <strong>mean population energy stabilizes</strong> within ~15 steps after each shock. Organisms maintain energy buffers rather than depleting resources, reducing vulnerability during transition moments. This is a purely evolved behavior &mdash; no buffering rule was programmed.</p>
+  </div>
+  <div class="section">
+    <h2>3. Key Findings</h2>
+    <div class="highlight-box">
+      <ul>
+        <li><strong>99% survival</strong> across 4 complete world reversals with zero explicit training.</li>
+        <li><strong>Emergent spatial reorientation</strong>: population collectively relocates to new food zones within 20&ndash;30 steps.</li>
+        <li><strong>Energy buffer strategy</strong>: high-survival organisms maintain energy reserves rather than exhausting resources &mdash; a purely evolved behavior.</li>
+        <li><strong>Population amplification</strong>: 40 organisms grow to ~200 by step 600, demonstrating net positive selection pressure.</li>
+        <li><strong>No map, no signal</strong>: organisms use only local sensory information and genome-encoded heuristics.</li>
+        <li><strong>Accelerated adaptation</strong>: later transitions are handled faster than earlier ones as the genome distribution self-selects.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="section">
+    <h2>4. What This Demonstrates</h2>
+    <div class="conclusion-box">
+      <h3>Why This Matters</h3>
+      <p>This scenario validates a core inZORi claim: <strong>complex adaptive strategies emerge from simple survival rules without explicit programming</strong>. The population does not know about World A or B &mdash; yet it successfully navigates periodic environmental reversals by evolving a genome distribution that tolerates uncertainty and explores efficiently.</p>
+      <p>This is fundamentally different from a reinforcement learning agent (which requires a reward signal, world model, or policy updates) or a rule-based system (which must enumerate transition conditions). inZORi organisms carry their strategy in their genome and pass it through selection.</p>
+      <p><strong>Domain analogs:</strong> Power grid topology switches, market regime changes, seasonal supply chain shifts &mdash; any system requiring real-time adaptation to phase changes without prior knowledge of when changes occur.</p>
+    </div>
+  </div>
+  <div class="section">
+    <h2>5. Reproducibility</h2>
+    <div class="repro-box">
+      <p><strong>Framework:</strong> inZORi v1.0 &nbsp;|&nbsp; <strong>Domain:</strong> Artificial life / 2D continuous environment</p>
+      <p><strong>Parameters:</strong> 40 initial organisms &middot; 600 steps &middot; 4 transitions at steps 150, 300, 450 &middot; 2D continuous space</p>
+      <p><strong>Note:</strong> inZORi genome encoding and selection mechanism are proprietary. Results and high-level methodology are fully disclosed; source code is not published.</p>
+    </div>
+  </div>
+
+</div>
+<div class="footer">
+  <p>inZORi &mdash; Emergent Intelligence &middot; Autonomous Evolutionary Universe</p>
+  <p><a href="../../index.html">inZORi Home</a> &nbsp;&middot;&nbsp; <a href="../../tests.html">All Tests</a> &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. All rights reserved.</p>
+</div>
+</body>
+</html>

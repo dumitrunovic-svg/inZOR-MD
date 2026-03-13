@@ -1,0 +1,202 @@
+[
+  {
+    "signal_id": "tess2018206045859-s0001-0000000055524055-0120-s_lc",
+    "rank_sum": 7,
+    "rank_max": 3,
+    "variant_ranks": {
+      "baseline": 1,
+      "scatter_strict": 2,
+      "regularity_focus": 1,
+      "snr_focus": 3
+    },
+    "regularity": 0.4556114881934945,
+    "stability": 0.9790936534966534,
+    "snr_norm": 0.7676861791663147,
+    "quality_frac": 0.7628013548515641,
+    "scatter_norm": 0.5988327655615837,
+    "transit_count_norm": 0.0,
+    "duration_norm": 0.0907689051712632,
+    "depth_norm": 0.9100232728600812,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000139825582-0120-s_lc",
+    "rank_sum": 13,
+    "rank_max": 5,
+    "variant_ranks": {
+      "baseline": 2,
+      "scatter_strict": 5,
+      "regularity_focus": 2,
+      "snr_focus": 4
+    },
+    "regularity": 0.20176311758847398,
+    "stability": 0.8218056547083412,
+    "snr_norm": 0.9362390932637457,
+    "quality_frac": 0.910290894600518,
+    "scatter_norm": 0.147646098244193,
+    "transit_count_norm": 0.1608187134502924,
+    "duration_norm": 0.5972868549801215,
+    "depth_norm": 0.1010017325502644,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000267116011-0120-s_lc",
+    "rank_sum": 13,
+    "rank_max": 5,
+    "variant_ranks": {
+      "baseline": 3,
+      "scatter_strict": 4,
+      "regularity_focus": 5,
+      "snr_focus": 1
+    },
+    "regularity": 0.0,
+    "stability": 0.9237864178744615,
+    "snr_norm": 1.0,
+    "quality_frac": 0.9093943016537159,
+    "scatter_norm": 0.06377108342694017,
+    "transit_count_norm": 0.26169590643274854,
+    "duration_norm": 0.6935203587477312,
+    "depth_norm": 0.03657781382421002,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000177179102-0120-s_lc",
+    "rank_sum": 19,
+    "rank_max": 6,
+    "variant_ranks": {
+      "baseline": 5,
+      "scatter_strict": 6,
+      "regularity_focus": 6,
+      "snr_focus": 2
+    },
+    "regularity": 0.0,
+    "stability": 0.8852484842927032,
+    "snr_norm": 1.0,
+    "quality_frac": 0.909842598127117,
+    "scatter_norm": 0.034387826089823346,
+    "transit_count_norm": 0.1915204678362573,
+    "duration_norm": 0.23016403490734758,
+    "depth_norm": 0.0165697134609996,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000144048277-0120-s_lc",
+    "rank_sum": 20,
+    "rank_max": 8,
+    "variant_ranks": {
+      "baseline": 4,
+      "scatter_strict": 3,
+      "regularity_focus": 8,
+      "snr_focus": 5
+    },
+    "regularity": 0.0,
+    "stability": 0.9007615842172406,
+    "snr_norm": 0.9288500245362024,
+    "quality_frac": 0.9074516836023112,
+    "scatter_norm": 0.075188911342248,
+    "transit_count_norm": 0.3757309941520468,
+    "duration_norm": 0.9290875505945809,
+    "depth_norm": 0.03775181184407892,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000033910267-0120-s_lc",
+    "rank_sum": 25,
+    "rank_max": 11,
+    "variant_ranks": {
+      "baseline": 6,
+      "scatter_strict": 1,
+      "regularity_focus": 11,
+      "snr_focus": 7
+    },
+    "regularity": 0.0,
+    "stability": 0.8656470808051666,
+    "snr_norm": 0.8189504688045669,
+    "quality_frac": 0.909593544530783,
+    "scatter_norm": 0.1656997852423368,
+    "transit_count_norm": 0.6008771929824561,
+    "duration_norm": 0.467007362081956,
+    "depth_norm": 0.12839208868267632,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000403150483-0120-s_lc",
+    "rank_sum": 34,
+    "rank_max": 12,
+    "variant_ranks": {
+      "baseline": 7,
+      "scatter_strict": 12,
+      "regularity_focus": 9,
+      "snr_focus": 6
+    },
+    "regularity": 0.0,
+    "stability": 0.8730856036086232,
+    "snr_norm": 1.0,
+    "quality_frac": 0.907501494321578,
+    "scatter_norm": 0.020814332447535222,
+    "transit_count_norm": 0.06140350877192982,
+    "duration_norm": 0.2887042383899744,
+    "depth_norm": 0.030922815794002956,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000099739806-0120-s_lc",
+    "rank_sum": 59,
+    "rank_max": 34,
+    "variant_ranks": {
+      "baseline": 8,
+      "scatter_strict": 34,
+      "regularity_focus": 4,
+      "snr_focus": 13
+    },
+    "regularity": 0.2404180356736496,
+    "stability": 0.7038167451555271,
+    "snr_norm": 0.8774190870328779,
+    "quality_frac": 0.9056584977087069,
+    "scatter_norm": 0.0,
+    "transit_count_norm": 0.0,
+    "duration_norm": 0.0,
+    "depth_norm": 0.011401493797258942,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000327724621-0120-s_lc",
+    "rank_sum": 64,
+    "rank_max": 35,
+    "variant_ranks": {
+      "baseline": 9,
+      "scatter_strict": 35,
+      "regularity_focus": 12,
+      "snr_focus": 8
+    },
+    "regularity": 0.0,
+    "stability": 0.8301026157481184,
+    "snr_norm": 1.0,
+    "quality_frac": 0.9080494122335127,
+    "scatter_norm": 0.3983060332465868,
+    "transit_count_norm": 0.017543859649122806,
+    "duration_norm": 0.05909488110775112,
+    "depth_norm": 0.8670201953872047,
+    "plot": null
+  },
+  {
+    "signal_id": "tess2018206045859-s0001-0000000260795451-0120-s_lc",
+    "rank_sum": 79,
+    "rank_max": 28,
+    "variant_ranks": {
+      "baseline": 20,
+      "scatter_strict": 8,
+      "regularity_focus": 28,
+      "snr_focus": 23
+    },
+    "regularity": 0.0,
+    "stability": 0.8758268094277509,
+    "snr_norm": 0.35113203750936767,
+    "quality_frac": 0.909593544530783,
+    "scatter_norm": 0.027715076637167966,
+    "transit_count_norm": 0.7880116959064327,
+    "duration_norm": 0.24988814739075627,
+    "depth_norm": 0.03080059116639078,
+    "plot": null
+  }
+]

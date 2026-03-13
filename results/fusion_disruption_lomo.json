@@ -1,0 +1,43 @@
+{
+  "description": "LOMO: train on 2 machines, test on the 3rd. Formula 3-term fixed (\u03b7 \u2248 \u2212kurtosis + a\u00b7rate_ratio + b\u00b7cv_ratio). No retraining.",
+  "criterion": "pass = sep > 0 and ROC-AUC > 0.5 on test machine.",
+  "folds": [
+    {
+      "train_machines": [
+        "C-Mod",
+        "HL-2A"
+      ],
+      "test_machine": "MAST",
+      "sep": 11.786085178979224,
+      "roc_auc": 0.9801544133261841,
+      "n_d": 674,
+      "n_n": 3647,
+      "pass": true
+    },
+    {
+      "train_machines": [
+        "MAST",
+        "HL-2A"
+      ],
+      "test_machine": "C-Mod",
+      "sep": 1.0712729086846422,
+      "roc_auc": 0.7569676700111483,
+      "n_d": 414,
+      "n_n": 13,
+      "pass": true
+    },
+    {
+      "train_machines": [
+        "MAST",
+        "C-Mod"
+      ],
+      "test_machine": "HL-2A",
+      "sep": 9.343742203559113,
+      "roc_auc": 0.9878209459459459,
+      "n_d": 296,
+      "n_n": 600,
+      "pass": true
+    }
+  ],
+  "overall_pass": true
+}

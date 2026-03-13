@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi PF-Δ Phase 4 — Real Load Profiles + Historical Blackout Scenarios</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.75rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .nav-phases { background:#1a3a5c; padding:0.6rem 2rem; display:flex; gap:0.5rem; flex-wrap:wrap; }
+  .nav-phases a { color:rgba(255,255,255,0.65); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-phases a:hover { background:rgba(255,255,255,0.15); color:#fff; }
+  .nav-phases a.active { background:var(--primary); color:#fff; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:2rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger { color:var(--danger); }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media(max-width:700px){.fig-grid{grid-template-columns:1fr;}}
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#eaf4fb; font-weight:600; }
+  .blackout-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1rem; margin:1rem 0; }
+  .blackout-card { border:1px solid var(--border); border-radius:10px; padding:1.2rem; background:var(--light-bg); }
+  .blackout-card .bk-title { font-weight:700; font-size:1rem; color:var(--dark); margin-bottom:0.5rem; }
+  .blackout-card .bk-meta { font-size:0.82rem; color:#666; margin-bottom:0.75rem; }
+  .blackout-card .bk-result { font-size:0.9rem; margin-top:0.5rem; }
+  .claims-box { background:#fff3e0; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .claims-box ul { padding-left:1.2rem; }
+  .claims-box li { font-size:0.9rem; margin-bottom:0.4rem; }
+  .repro-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .code-block { background:#1e293b; color:#e2e8f0; border-radius:6px; padding:0.8rem 1rem; font-family:'Consolas',monospace; font-size:0.85rem; margin:0.75rem 0; overflow-x:auto; }
+  .source-badge { display:inline-flex; align-items:center; gap:0.3rem; background:#fff3cd; border:1px solid #ffc107; border-radius:4px; padding:0.1rem 0.5rem; font-size:0.78rem; font-weight:600; color:#856404; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul,ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase-badge">PHASE 4 — REAL LOAD + BLACKOUT REPLAY</div>
+  <h1>inZORi PF-Δ Phase 4: Real Load Profiles + Historical Blackout Scenarios</h1>
+  <div class="subtitle">OPSD Real Data (UA/DE/FR) · N-4 Contingencies · Balkans 2006 · Ukraine 2015 · Moldova 2026</div>
+  <div class="meta">Dumitru Novic · February 2026 · IEEE 118-bus · OPSD real profiles · 3 countries · 5 seeds · CI95</div>
+</div>
+
+<div class="nav-phases">
+  <a href="../pfdelta_phase1_118/index.html">Phase 1: Proof of Concept</a>
+  <a href="../pfdelta_phase2_real/index.html">Phase 2: Real AC PF</a>
+  <a href="../pfdelta_phase3_n2/index.html">Phase 3: N-2</a>
+  <a href="index.html" class="active">Phase 4: Blackouts</a>
+  <a href="../pfdelta_phase5_entsoe/index.html">Phase 5: ENTSO-E</a>
+  <a href="../pfdelta_phase6_capacity/index.html">Phase 6: Capacity ★</a>
+</div>
+
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>Phase 4 extends the inZORi Frozen Elite validation from synthetic load profiles to <strong>real historical load data</strong> from the Open Power System Data (OPSD) platform, covering Ukraine (UA), Germany (DE), and France (FR) — three structurally distinct European grids. Additionally, three documented historical blackout events are replayed as stress scenarios: the <em>Balkans Cascading Blackout (Nov 2006)</em>, the <em>Ukraine Cyberattack (Dec 2015)</em>, and the <em>Moldova Blackout of 31 January 2026</em>. Across all three real-profile countries, inZORi FrozenElite consistently outperforms NR standard by <strong>+3.31% to +3.69%</strong> in S3 convergence rate with statistically non-overlapping CI95 intervals across 5 seeds.</p>
+  </div>
+
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value success">+3.64%</div>
+      <div class="kr-label">FrozenElite vs NR<br>Ukraine (UA) — 5 seeds</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">+3.69%</div>
+      <div class="kr-label">FrozenElite vs NR<br>Germany (DE) — 5 seeds</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">+3.31%</div>
+      <div class="kr-label">FrozenElite vs NR<br>France (FR) — 5 seeds</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#7c3aed">3</div>
+      <div class="kr-label">Historical blackout events<br>replayed &amp; analyzed</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#0891b2">60</div>
+      <div class="kr-label">Total simulation runs<br>3 countries × 4 variants × 5 seeds</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">CI95</div>
+      <div class="kr-label">Non-overlapping intervals<br>on all 3 countries</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. Methodology</h2>
+
+    <h3>1.1 Real Load Profile Integration</h3>
+    <p>Load profiles from <a href="https://open-power-system-data.org/" target="_blank">Open Power System Data (OPSD)</a> replace the synthetic ShockGenerator seasonal variation. For each simulation step, the real hourly load value (normalized to [0,1]) is mapped to a scaling factor:</p>
+    <div class="code-block">factor = 0.92 + normalized_profile[step] × 0.16   # → [0.92, 1.08] on base 1.75×</div>
+    <p>The ShockGenerator local zone perturbations (±3–12%) are retained on top, adding realistic local variability.</p>
+
+    <h3>1.2 Data Sources</h3>
+    <table>
+      <tr><th>Country</th><th>Grid Type</th><th>Data Source</th><th>Period</th></tr>
+      <tr><td>Ukraine (UA)</td><td>Post-Soviet thermal/hydro mix</td><td><span class="source-badge">OPSD 2020</span></td><td>2018–2019 hourly</td></tr>
+      <tr><td>Germany (DE)</td><td>Renewables-heavy (wind/solar)</td><td><span class="source-badge">OPSD 2020</span></td><td>2018–2019 hourly</td></tr>
+      <tr><td>France (FR)</td><td>Nuclear-dominant (~70%)</td><td><span class="source-badge">OPSD 2020</span></td><td>2018–2019 hourly</td></tr>
+    </table>
+
+    <h3>1.3 Variants Compared</h3>
+    <table>
+      <tr><th>Label</th><th>Algorithm</th><th>Load Profile</th><th>Role</th></tr>
+      <tr><td><strong>A: FrozenElite+Real</strong></td><td>Adaptive pool (12 genomes)</td><td>OPSD (UA/DE/FR)</td><td>Main result</td></tr>
+      <tr><td>B: G01 Static+Real</td><td>Fixed best genome</td><td>OPSD (UA/DE/FR)</td><td>Single-genome baseline</td></tr>
+      <tr><td>C: NR Standard+Real</td><td>Neutral genome (flat start)</td><td>OPSD (UA/DE/FR)</td><td>NR reference</td></tr>
+      <tr><td>D: FrozenElite+Synthetic</td><td>Adaptive pool (12 genomes)</td><td>ShockGenerator</td><td>Synthetic control</td></tr>
+    </table>
+    <p style="font-size:0.88rem;color:#666;">60 total runs: 3 countries × 4 variants × 5 seeds. Each run: 50,000 steps, N-1@300, N-2@600, N-4@1800. Runtime: 65.2 min on 12 cores.</p>
+  </div>
+
+  <div class="section">
+    <h2>2. Results — S3 Convergence per Country</h2>
+
+    <div class="fig-wrap">
+      <img src="figures/fig1_s3_convergence_countries.png" alt="S3 Convergence per country">
+      <div class="fig-caption">Fig. 1 — S3 convergence rate (mean ± CI95) for UA, DE, FR across four variants. Error bars show 95% confidence intervals (5 seeds). All FrozenElite vs NR advantages are statistically significant with non-overlapping CI95.</div>
+    </div>
+
+    <table>
+      <tr><th>Country</th><th>A: FE+Real</th><th>B: G01+Real</th><th>C: NR+Real</th><th>D: FE+Synt</th><th>Advantage (A−C)</th></tr>
+      <tr><td><strong>UA (Ukraine)</strong></td><td>74.17% ±0.48</td><td>73.66% ±0.35</td><td>70.54% ±0.54</td><td>71.14% ±0.49</td><td><strong style="color:var(--success)">+3.64%</strong></td></tr>
+      <tr><td><strong>DE (Germany)</strong></td><td>71.01% ±0.46</td><td>70.33% ±0.52</td><td>67.32% ±0.48</td><td>71.13% ±0.57</td><td><strong style="color:var(--success)">+3.69%</strong></td></tr>
+      <tr><td><strong>FR (France)</strong></td><td>76.30% ±0.44</td><td>75.87% ±0.53</td><td>72.99% ±0.58</td><td>71.20% ±0.53</td><td><strong style="color:var(--success)">+3.31%</strong></td></tr>
+    </table>
+
+    <div class="fig-grid">
+      <div class="fig-wrap">
+        <img src="figures/fig2_fe_advantage.png" alt="FrozenElite advantage over NR">
+        <div class="fig-caption">Fig. 2 — FrozenElite advantage over NR Standard per country (CI95 error bars). All three advantages are statistically significant with non-overlapping confidence intervals.</div>
+      </div>
+      <div class="fig-wrap">
+        <img src="figures/fig4_phase_progression.png" alt="Phase 1 to 4 progression">
+        <div class="fig-caption">Fig. 3 — inZORi research progression Phase 1→4. S3 convergence and FE advantage maintained across all phases. Phase 4 lower absolute values reflect harder real-world conditions.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. Historical Blackout Replay</h2>
+    <p>Three real documented blackout events are replayed in the IEEE 118-bus simulator. Each scenario uses the documented severity (N-k lines out) and estimated load level at the time of the event.</p>
+
+    <div class="blackout-grid">
+      <div class="blackout-card">
+        <div class="bk-title">Balkans Cascading Blackout</div>
+        <div class="bk-meta">4 November 2006, 22:10 CET — E.ON Netz line switching → European grid splits into 3 islands. ~15 million people affected in Western Europe.</div>
+        <table style="font-size:0.85rem;margin:0.5rem 0;">
+          <tr><td><strong>Severity:</strong></td><td>N-2</td></tr>
+          <tr><td><strong>Load level:</strong></td><td>1.0× nominal</td></tr>
+          <tr><td><strong>Duration:</strong></td><td>200 simulation steps</td></tr>
+          <tr><td><strong>Source:</strong></td><td>ENTSO-E Final Report 2007</td></tr>
+        </table>
+        <div class="bk-result">FrozenElite: <strong style="color:var(--success)">90.7%</strong> · NR: 88.8% · Advantage: <strong style="color:var(--success)">+1.9%</strong></div>
+      </div>
+
+      <div class="blackout-card">
+        <div class="bk-title">Ukraine Cyberattack Blackout</div>
+        <div class="bk-meta">23 December 2015, 15:30 local — BlackEnergy malware on 3 TSOs. ~30 substations disconnected simultaneously. 225,000 customers without power for 1–6 hours.</div>
+        <table style="font-size:0.85rem;margin:0.5rem 0;">
+          <tr><td><strong>Severity:</strong></td><td>N-4 equivalent</td></tr>
+          <tr><td><strong>Load level:</strong></td><td>1.15× nominal</td></tr>
+          <tr><td><strong>Duration:</strong></td><td>500 simulation steps</td></tr>
+          <tr><td><strong>Source:</strong></td><td>E-ISAC/SANS ICS Report 2016</td></tr>
+        </table>
+        <div class="bk-result">FrozenElite: <strong>11.7%</strong> · NR: 11.5% · Advantage: +0.2% (both struggle at N-4 extreme)</div>
+      </div>
+
+      <div class="blackout-card">
+        <div class="bk-title">Moldova Blackout</div>
+        <div class="bk-meta">31 January 2026 — Technical failure on Isaccea–Vulcănești–MGRES 400kV line. Moldova islanded from Romania and Ukraine. Chișinău affected. Restored same day.</div>
+        <table style="font-size:0.85rem;margin:0.5rem 0;">
+          <tr><td><strong>Severity:</strong></td><td>N-1 critical</td></tr>
+          <tr><td><strong>Load level:</strong></td><td>1.10× nominal</td></tr>
+          <tr><td><strong>Duration:</strong></td><td>150 simulation steps</td></tr>
+          <tr><td><strong>Source:</strong></td><td>Moldelectrica / Ukrenergo, Jan 2026</td></tr>
+        </table>
+        <div class="bk-result">FrozenElite: <strong style="color:var(--success)">22.5%</strong> · NR: 21.4% · Advantage: <strong style="color:var(--success)">+1.1%</strong></div>
+      </div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fig3_blackout_scenarios.png" alt="Blackout scenario replay results">
+      <div class="fig-caption">Fig. 4 — Convergence rate during critical event windows for three historical blackout scenarios. inZORi FrozenElite consistently maintains higher convergence. At N-4 extreme (Ukraine 2015), both methods struggle — the network approaches voltage collapse boundary.</div>
+    </div>
+
+    <div class="claims-box" style="background:#fff8f1;">
+      <ul>
+        <li><strong>Simulation note:</strong> Blackout scenarios use IEEE 118-bus topology, not the actual Isaccea–Vulcănești or Ukrainian TSO networks. N-k parameters and load levels are calibrated from public reports but the simulation is a proxy, not an exact replay. Exact reproduction requires CGMES network models from ENTSO-E (addressed in Phase 5 with ENTSO-E API data).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. Claims &amp; Limitations</h2>
+    <div class="claims-box">
+      <ul>
+        <li><strong>CLAIMS:</strong> inZORi FrozenElite maintains higher S3 convergence than NR standard on real OPSD load profiles from UA, DE, FR with statistically significant margins (CI95 non-overlapping) across 5 seeds</li>
+        <li><strong>CLAIMS:</strong> The advantage is consistent (+3.3–3.7%) regardless of grid structure (post-Soviet thermal, renewables-heavy, or nuclear-dominant)</li>
+        <li><strong>CLAIMS:</strong> Under extreme N-4 conditions (Ukraine 2015 scenario), all methods degrade equally — the advantage shrinks to ~0.2%, confirming inZORi cannot solve physically infeasible systems</li>
+        <li><strong>DOES NOT CLAIM:</strong> Results on real TSO network topologies (CGMES) — only IEEE 118-bus</li>
+        <li><strong>DOES NOT CLAIM:</strong> Exact replay of historical blackouts — only calibrated proxies using public report parameters</li>
+        <li><strong>DOES NOT CLAIM:</strong> Comparison with commercial solvers (PSS/E, PowerFactory) or deep learning approaches</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>5. Reproducibility</h2>
+    <div class="repro-box">
+      <table>
+        <tr><th>Component</th><th>Details</th></tr>
+        <tr><td>Load profiles</td><td>OPSD 2020-10-06, hourly, UA/DE/FR columns</td></tr>
+        <tr><td>Network</td><td>pandapower case118 (IEEE 118-bus)</td></tr>
+        <tr><td>Seeds</td><td>0–4 (5 independent runs per variant)</td></tr>
+        <tr><td>Steps</td><td>50,000 per run, seasons S0–S3 (25% each)</td></tr>
+        <tr><td>Contingencies</td><td>N-1@300, N-2@600, N-4@1800 steps (S3 only)</td></tr>
+        <tr><td>Runtime</td><td>65.2 min, 12 cores, ProcessPoolExecutor</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>inZORi PF-Δ Phase 4</strong> · Dumitru Novic · February 2026 · OPSD Real Load (UA/DE/FR) · N-4 + Blackout Replay</p>
+  <p style="margin-top:0.5rem;">
+    <a href="../pfdelta_phase3_n2/index.html">← Phase 3</a> &nbsp;|&nbsp;
+    <a href="../../tests.html">All Tests</a> &nbsp;|&nbsp;
+    <a href="../pfdelta_phase5_entsoe/index.html">Phase 5: ENTSO-E →</a>
+  </p>
+</div>
+
+</body>
+</html>

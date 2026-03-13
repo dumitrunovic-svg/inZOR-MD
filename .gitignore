@@ -1,0 +1,13 @@
+# Nu adăuga niciodată cod sursă în acest repo — doar web (HTML/CSS/JS/imagini/JSON date)
+*.py
+*.pyc
+*.sh
+__pycache__/
+.venv/
+
+# Nu adăuga task-uri sau outputuri din solver
+task_*.json
+*_runs/
+runs/*/logs/
+problems/**/logs/
+problems/**/out/

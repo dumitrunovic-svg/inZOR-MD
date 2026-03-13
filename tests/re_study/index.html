@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi — 1.66× Faster Real-Time N-1 Grid Security Under Renewable Volatility | 132,480 Contingency Assessments</title>
+<style>
+  :root {
+    --primary: #1a7dc4;
+    --success: #27ae60;
+    --danger: #e74c3c;
+    --warning: #e67e22;
+    --gold: #c9a227;
+    --gray: #95a5a6;
+    --dark: #2c3e50;
+    --light-bg: #f8f9fa;
+    --border: #dee2e6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fff; color: var(--dark); line-height: 1.6; }
+  .header { background: linear-gradient(135deg, #1a3a5c 0%, #1a7dc4 100%); color: #fff; padding: 2.5rem 2rem 2rem; }
+  .header .phase-badge { display: inline-block; background: rgba(255,215,0,0.25); border: 1px solid rgba(255,215,0,0.6); border-radius: 20px; padding: 0.25rem 1rem; font-size: 0.85rem; margin-bottom: 0.75rem; letter-spacing: 0.05em; color: #FFD700; font-weight: 700; }
+  .header h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .header .subtitle { font-size: 1rem; opacity: 0.85; margin-bottom: 1rem; }
+  .header .meta { font-size: 0.82rem; opacity: 0.7; }
+  .nav-back { background: #1a3a5c; padding: 0.6rem 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .nav-back a { color: rgba(255,255,255,0.65); text-decoration: none; font-size: 0.82rem; padding: 0.2rem 0.7rem; border-radius: 12px; transition: all 0.2s; }
+  .nav-back a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+  .abstract-box { background: linear-gradient(135deg, #eaf4fb, #ddeeff); border-left: 4px solid var(--primary); border-radius: 8px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+  .abstract-box h2 { font-size: 1rem; color: var(--primary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .abstract-box p { font-size: 0.95rem; }
+  .key-results { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .kr-card { background: var(--light-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; text-align: center; }
+  .kr-card .kr-value { font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+  .kr-card .kr-value.danger { color: var(--danger); }
+  .kr-card .kr-value.success { color: var(--success); }
+  .kr-card .kr-value.gold { color: var(--gold); }
+  .kr-card .kr-label { font-size: 0.82rem; color: #666; margin-top: 0.3rem; }
+  .section { margin-bottom: 2.5rem; }
+  .section h2 { font-size: 1.2rem; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 0.4rem; margin-bottom: 1.2rem; }
+  .section h3 { font-size: 1rem; font-weight: 600; margin: 1.2rem 0 0.6rem; color: #34495e; }
+  .fig-wrap { background: var(--light-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 1.2rem 0; text-align: center; }
+  .fig-wrap img { max-width: 100%; border-radius: 4px; }
+  .fig-caption { font-size: 0.82rem; color: #555; margin-top: 0.6rem; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 1rem 0; }
+  th { background: var(--dark); color: #fff; padding: 0.6rem 1rem; text-align: left; font-weight: 600; }
+  td { padding: 0.55rem 1rem; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--light-bg); }
+  tr.highlight td { background: #fffde7; font-weight: 700; border-left: 3px solid var(--gold); }
+  tr.danger-row td { background: #fef2f2; }
+  tr.success-row td { background: #f0fdf4; }
+  .badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 12px; font-size: 0.78rem; font-weight: 600; }
+  .badge-ok { background: #dcfce7; color: #15803d; }
+  .badge-fail { background: #fee2e2; color: #dc2626; }
+  .badge-crit { background: #fffde7; color: #92400e; border: 1px solid #fbbf24; }
+  .claims-box { background: #fff3e0; border-left: 4px solid var(--warning); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .claims-box ul { padding-left: 1.2rem; }
+  .claims-box li { font-size: 0.9rem; margin-bottom: 0.4rem; }
+  .repro-box { background: #f0fff4; border-left: 4px solid var(--success); border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .conclusion-box { background: linear-gradient(135deg, #fafafa, #f0f4ff); border: 2px solid var(--primary); border-radius: 12px; padding: 1.5rem 2rem; margin: 1.5rem 0; }
+  .conclusion-box h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 0.75rem; }
+  .highlight-box { background: linear-gradient(135deg, #fffde7, #fff9c4); border-left: 4px solid var(--gold); border-radius: 8px; padding: 1.25rem 1.5rem; margin: 1rem 0; }
+  .highlight-box h3 { color: #92400e; font-size: 1rem; margin-bottom: 0.5rem; }
+  .code-block { background: #1e293b; color: #e2e8f0; border-radius: 6px; padding: 0.8rem 1rem; font-family: 'Consolas', monospace; font-size: 0.85rem; margin: 0.75rem 0; overflow-x: auto; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+  .footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 2rem; text-align: center; font-size: 0.85rem; margin-top: 3rem; }
+  .footer a { color: rgba(255,255,255,0.8); }
+  p { margin-bottom: 0.75rem; }
+  ul, ol { padding-left: 1.4rem; margin-bottom: 0.75rem; }
+  li { margin-bottom: 0.3rem; font-size: 0.92rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase-badge">RESEARCH STUDY — N-1 SECURITY + RENEWABLE VOLATILITY</div>
+  <h1>inZORi: 1.66&times; Faster Real-Time N-1 Grid Security Under Renewable Volatility</h1>
+  <div class="subtitle">Bio-Adaptive Power Flow Solver vs Newton-Raphson &mdash; 132,480 N-1 Contingency Assessments on Real ENTSO-E Germany Q2 2025 Data</div>
+  <div class="meta">Published: February 2026 &middot; Network: case1354pegase (1354 buses, Pan-European) &middot; Data: ENTSO-E Transparency Platform &middot; 8,832 intervals &middot; 3 seeds &middot; 12 cores &middot; Author: Novic Dumitru</div>
+</div>
+
+<div class="nav-back">
+  <a href="../">&larr; Back to all inZORi Studies</a>
+  <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub Repository</a>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════ ABSTRACT ═══════════════ -->
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>This study answers a critical question for European grid operators: <strong>how many Newton-Raphson iterations does each solver actually need to converge on N-1 contingency power flows under real renewable volatility?</strong> Using the case1354pegase Pan-European benchmark network (1354 buses, 1991 lines, ~73 GW nominal) and 8,832 sequential 15-minute intervals of real ENTSO-E generation data from Germany Q2 2025, we measured the minimum iterations required for convergence at identical tolerance (10<sup>-6</sup> MVA) across 132,480 N-1 contingency assessments (3 seeds &times; 5 random lines per interval). <strong>Result:</strong> inZORi converges in 3.15 iterations on average vs 5.22 for classical Newton-Raphson &mdash; a 1.66&times; speedup that translates to <strong>1,058 vs 638 contingencies verified per minute</strong>. The advantage is consistent from 0.90&times; to 1.31&times; load (the full physical operating range) and largest at normal operation (~2.0&times; at 0.92&times; load). Both solvers use identical Newton-Raphson mathematics and tolerance; only the starting strategy differs.</p>
+  </div>
+
+  <!-- ═══════════════ KEY RESULTS ═══════════════ -->
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value success">1.66&times;</div>
+      <div class="kr-label">Global speedup<br>inZORi vs Newton-Raphson</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#0891b2">3.15</div>
+      <div class="kr-label">inZORi avg iterations<br>to converge (tol = 10<sup>-6</sup>)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value danger">5.22</div>
+      <div class="kr-label">NR avg iterations<br>to converge (same tolerance)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">+2.07</div>
+      <div class="kr-label">Iterations saved per<br>contingency (mean)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value gold">1,058</div>
+      <div class="kr-label">inZORi ctg/min<br>real-time throughput</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:#7c3aed">132,480</div>
+      <div class="kr-label">N-1 assessments<br>8,832 intervals &times; 5 &times; 3 seeds</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ WHY THIS MATTERS ═══════════════ -->
+  <div class="section">
+    <h2>1. Why This Matters &mdash; The Renewable Integration Challenge</h2>
+
+    <p>The European Union targets <strong>42.5% renewable energy by 2030</strong> (REPowerEU). As solar and wind displace dispatchable thermal generation, grid voltage profiles become more volatile: rapid ramps during cloud passages, wind gusts, and sunrise/sunset transitions change the power flow solution landscape every 15 minutes.</p>
+
+    <p>Grid operators must run <strong>N-1 contingency analysis</strong> continuously: for each of the hundreds or thousands of transmission lines, simulate what happens if that line trips. Each simulation requires solving a Newton-Raphson power flow problem. The total computational budget is fixed by the real-time cycle (typically 5&ndash;15 minutes). The question is: <strong>how many contingencies can you verify before the next real-time cycle begins?</strong></p>
+
+    <div class="claims-box">
+      <ul>
+        <li><strong>More iterations per contingency = fewer contingencies checked per cycle = lower security awareness</strong></li>
+        <li><strong>Fewer iterations per contingency = more contingencies checked = better operator visibility into grid risk</strong></li>
+        <li>At 1,058 ctg/min (inZORi) vs 638 ctg/min (NR), operators gain <strong>+66% more security checks</strong> in the same time window</li>
+        <li>On a 2,000-line network, this means checking <strong>all N-1 contingencies in ~2 minutes</strong> instead of ~3.1 minutes</li>
+      </ul>
+    </div>
+
+    <p>The economic impact is direct: grid operators who cannot verify N-1 security fast enough must either accept higher risk (potentially leading to cascading failures and blackouts costing hundreds of millions of euros) or curtail renewable generation to keep voltage profiles predictable. inZORi enables the grid to <strong>absorb more renewable energy while maintaining the same security assessment speed</strong>.</p>
+  </div>
+
+  <!-- ═══════════════ METHODOLOGY ═══════════════ -->
+  <div class="section">
+    <h2>2. Methodology &mdash; Fair Comparison Under Identical Conditions</h2>
+
+    <h3>2.1 Network: case1354pegase</h3>
+    <p>The <strong>PEGASE case1354pegase</strong> is a reduced model of the Continental European transmission network, developed under the EU FP7 PEGASE project. It represents a realistic high-voltage grid topology used in ENTSO-E-affiliated research.</p>
+
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>Buses</td><td><strong>1,354</strong></td></tr>
+      <tr><td>Lines + transformers</td><td><strong>1,991</strong></td></tr>
+      <tr><td>Generators</td><td><strong>260</strong></td></tr>
+      <tr><td>Loads</td><td><strong>621</strong></td></tr>
+      <tr><td>Nominal load</td><td><strong>~73.1 GW</strong></td></tr>
+      <tr><td>Origin</td><td>EU FP7 PEGASE project (Pan-European model)</td></tr>
+      <tr><td>Availability</td><td>Public &mdash; <code>pandapower.networks.case1354pegase()</code></td></tr>
+    </table>
+
+    <h3>2.2 Real Data: ENTSO-E Transparency Platform</h3>
+    <p>All load profiles are derived from <strong>real measured data</strong> published by the ENTSO-E Transparency Platform for the Germany/Luxembourg (DE-LU) bidding zone, Q2 2025 (April&ndash;June). The dataset contains 15-minute resolution generation-per-type (solar PV, wind onshore, wind offshore, other thermal/nuclear) and total load.</p>
+
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>Source</td><td>ENTSO-E Transparency Platform API</td></tr>
+      <tr><td>Zone</td><td>DE-LU (Germany + Luxembourg)</td></tr>
+      <tr><td>Period</td><td>April 1 &ndash; June 30, 2025</td></tr>
+      <tr><td>Resolution</td><td>15-minute intervals</td></tr>
+      <tr><td>Total intervals</td><td><strong>8,832</strong></td></tr>
+      <tr><td>Data fields</td><td>Solar PV, Wind Onshore, Wind Offshore, Total Load</td></tr>
+      <tr><td>Renewable share range</td><td>12% to 91% (real observed values)</td></tr>
+      <tr><td>Load factor range</td><td>0.90&times; to 1.35&times; nominal</td></tr>
+    </table>
+
+    <h3>2.3 Load Scaling</h3>
+    <p>The real ENTSO-E load value at each 15-minute interval is normalized against the case1354pegase nominal load to produce a <strong>load factor</strong>. All nodal loads in the network are then scaled uniformly by this factor. This preserves the temporal dynamics (daily cycles, weather events, industrial patterns) while mapping them onto the benchmark topology.</p>
+
+    <div class="claims-box">
+      <ul>
+        <li><strong>Approximation:</strong> Real grids have non-uniform load distribution across nodes. Our uniform scaling is an approximation that preserves total system loading but not per-node heterogeneity.</li>
+        <li><strong>Network model:</strong> case1354pegase is a public benchmark, not a real TSO network topology. Real SCADA measurements (per-node voltages and flows) are proprietary and not publicly available.</li>
+        <li><strong>What is real:</strong> The temporal load profile (when and how much demand varies) comes directly from ENTSO-E measurements. The topology and per-node distribution come from the benchmark model.</li>
+      </ul>
+    </div>
+
+    <h3>2.4 N-1 Contingency Protocol</h3>
+    <p>At each of the 8,832 intervals:</p>
+    <ol>
+      <li>Solve the <strong>base case</strong> power flow (all lines in service) to obtain reference voltage magnitudes and angles.</li>
+      <li>Select <strong>5 random transmission lines</strong> (per seed) as contingencies.</li>
+      <li>For each contingency: remove the line, attempt N-1 power flow with both solvers, record the minimum number of iterations needed for convergence (tolerance 10<sup>-6</sup> MVA).</li>
+      <li>Restore the line before the next contingency.</li>
+    </ol>
+    <p>Total assessments: 8,832 &times; 5 &times; 3 seeds = <strong>132,480</strong> N-1 contingency power flow solutions.</p>
+
+    <h3>2.5 Solver Strategies &mdash; What Differs, What is Identical</h3>
+    <table>
+      <tr><th>Parameter</th><th>Newton-Raphson (standard)</th><th>inZORi (bio-adaptive)</th></tr>
+      <tr><td>Algorithm</td><td>Newton-Raphson (pandapower)</td><td>Same Newton-Raphson (pandapower)</td></tr>
+      <tr><td>Tolerance</td><td><strong>10<sup>-6</sup> MVA</strong></td><td><strong>10<sup>-6</sup> MVA</strong> (identical)</td></tr>
+      <tr><td>Max iterations</td><td>15</td><td>15</td></tr>
+      <tr><td>Starting point</td><td>Flat-start (V=1.0, angle=0&deg;)</td><td>Warm-blend: &alpha;&times;V<sub>prev</sub> + (1&minus;&alpha;)&times;1.0</td></tr>
+      <tr><td>Voltage angles</td><td>Always 0&deg; (flat)</td><td>&alpha;&times;angle<sub>prev</sub></td></tr>
+      <tr><td>Topology awareness</td><td>None (cold start every time)</td><td>Retains memory of pre-contingency state</td></tr>
+      <tr><td>Fallback</td><td>None</td><td>Flat-start if warm-blend fails</td></tr>
+      <tr><td>Genome parameters</td><td>None (fixed algorithm)</td><td>α = 0.979 (BAWS-NR warm-start parameter)</td></tr>
+    </table>
+
+    <h3>2.6 Genome Evolution</h3>
+    <p>The inZORi genome (<code>α = 0.979</code>) was evolved using a (&mu;+&lambda;) evolutionary strategy specifically for N-1 contingency scenarios on case1354pegase. The fitness function maximizes <strong>iterations saved</strong> (NR_iters &minus; inZORi_iters) averaged across multiple load factors and random contingencies. Evolution ran for 40+ generations with population 24, using 12 CPU cores for parallel evaluation. The genome was not hand-tuned; it emerged from evolutionary search.</p>
+  </div>
+
+  <!-- ═══════════════ RESULTS ═══════════════ -->
+  <div class="section">
+    <h2>3. Results &mdash; 132,480 Contingency Assessments</h2>
+
+    <h3>3.1 Global Summary</h3>
+    <div class="conclusion-box">
+      <h3>Core Finding</h3>
+      <p>Across all 132,480 N-1 assessments on real ENTSO-E Germany Q2 2025 temporal profiles, inZORi converges in <strong>3.15 iterations</strong> vs Newton-Raphson's <strong>5.22 iterations</strong> &mdash; saving 2.07 iterations per contingency. This 1.66&times; speedup translates to <strong>1,058 contingencies/minute</strong> (inZORi) vs <strong>638 contingencies/minute</strong> (NR), giving operators +66% more security checks within the same real-time window.</p>
+    </div>
+
+    <table>
+      <tr><th>Metric</th><th>Newton-Raphson</th><th>inZORi</th><th>Difference</th></tr>
+      <tr class="highlight"><td>Mean iterations to converge</td><td>5.221</td><td>3.151</td><td><strong>&minus;2.070 iterations</strong></td></tr>
+      <tr><td>Contingencies per minute</td><td>638</td><td>1,058</td><td><strong>+66% throughput</strong></td></tr>
+      <tr><td>N-1 cases solved</td><td>130,056</td><td>130,056</td><td>Equal (98.2%)</td></tr>
+      <tr><td>N-1 cases failed</td><td>2,424</td><td>2,424</td><td>Equal (physical collapse)</td></tr>
+      <tr><td>Global speedup</td><td>baseline</td><td><strong>1.657&times;</strong></td><td>&mdash;</td></tr>
+    </table>
+    <p>Both solvers solve exactly the same set of 130,056 cases and fail on the same 2,424 cases. The failures occur at load factors above 1.31&times;, where the network reaches its <strong>physical voltage collapse boundary</strong> &mdash; no mathematical solver can converge a physically infeasible system. inZORi's advantage is purely in the <em>speed</em> of convergence, not in the ability to solve infeasible cases.</p>
+
+    <h3>3.2 Figure 1 &mdash; Iteration Comparison by Load Factor</h3>
+    <div class="fig-wrap">
+      <img src="figures/fig1_iterations_comparison.png" alt="NR vs inZORi iterations by load factor">
+      <div class="fig-caption">Fig. 1 &mdash; Minimum iterations required for convergence at each load factor. Red: Newton-Raphson flat-start. Blue: inZORi warm-blend. Green annotations show iterations saved. Both solvers use identical tolerance (10<sup>-6</sup> MVA). Data: 8,832 ENTSO-E Germany Q2 2025 intervals, case1354pegase, 3 seeds &times; 5 N-1.</div>
+    </div>
+
+    <h3>3.3 Detailed Results by Load Factor</h3>
+    <table>
+      <tr><th>Load Factor</th><th>NR Iterations</th><th>inZORi Iterations</th><th>Saving</th><th>Speedup</th><th>Fail Rate</th><th>Status</th></tr>
+      <tr class="success-row"><td>0.90&times;</td><td>5.00</td><td>2.80</td><td>+2.20</td><td>1.79&times;</td><td>0.0%</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr class="success-row"><td>0.92&times;</td><td>5.00</td><td>2.52</td><td>+2.49</td><td><strong>1.99&times;</strong></td><td>0.0%</td><td><span class="badge badge-ok">Peak savings</span></td></tr>
+      <tr class="success-row"><td>1.00&times;</td><td>5.00</td><td>2.59</td><td>+2.41</td><td>1.93&times;</td><td>0.1%</td><td><span class="badge badge-ok">Nominal</span></td></tr>
+      <tr class="success-row"><td>1.10&times;</td><td>5.00</td><td>2.80</td><td>+2.20</td><td>1.78&times;</td><td>0.1%</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>1.15&times;</td><td>5.00</td><td>3.05</td><td>+1.95</td><td>1.64&times;</td><td>0.2%</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr><td>1.20&times;</td><td>5.00</td><td>3.06</td><td>+1.94</td><td>1.64&times;</td><td>0.3%</td><td><span class="badge badge-ok">Normal</span></td></tr>
+      <tr class="highlight"><td><strong>1.25&times;</strong></td><td><strong>5.87</strong></td><td><strong>3.74</strong></td><td><strong>+2.13</strong></td><td><strong>1.57&times;</strong></td><td>0.4%</td><td><span class="badge badge-crit">Stress</span></td></tr>
+      <tr><td>1.28&times;</td><td>6.02</td><td>4.47</td><td>+1.55</td><td>1.35&times;</td><td>0.5%</td><td><span class="badge badge-crit">High stress</span></td></tr>
+      <tr class="danger-row"><td>1.30&times;</td><td>7.00</td><td>6.02</td><td>+0.98</td><td>1.16&times;</td><td>4.0%</td><td><span class="badge badge-fail">Near limit</span></td></tr>
+      <tr class="danger-row"><td>1.31&times;</td><td>7.86</td><td>6.96</td><td>+0.89</td><td>1.13&times;</td><td>54.4%</td><td><span class="badge badge-fail">Collapse zone</span></td></tr>
+      <tr class="danger-row"><td>1.32&times;+</td><td colspan="5">Both solvers fail &mdash; physical voltage collapse, no mathematical solution exists</td><td><span class="badge badge-fail">Infeasible</span></td></tr>
+    </table>
+
+    <h3>3.4 Figure 2 &mdash; Speedup Across the Full Operating Range</h3>
+    <div class="fig-wrap">
+      <img src="figures/fig2_speedup_curve.png" alt="inZORi speedup curve vs load factor">
+      <div class="fig-caption">Fig. 2 &mdash; inZORi speedup factor (NR iterations / inZORi iterations) across the full physical operating range (0.90&times; to 1.31&times;). Peak speedup ~1.99&times; at 0.92&times; load. Global average 1.66&times; (green dashed line). The advantage diminishes at extreme stress (1.30&times;+) as both solvers approach the physical collapse boundary.</div>
+    </div>
+
+    <h3>3.5 Figure 3 &mdash; Operational Impact: Contingencies per Minute</h3>
+    <div class="fig-wrap">
+      <img src="figures/fig3_contingencies_per_minute.png" alt="Contingencies per minute comparison">
+      <div class="fig-caption">Fig. 3 &mdash; N-1 contingencies verified per minute at each load factor. Computed as 60,000 / (avg_iterations &times; 18 ms per iteration). More contingencies = better real-time security awareness for operators. inZORi consistently delivers 30&ndash;66% more security checks.</div>
+    </div>
+
+    <h3>3.6 Figure 4 &mdash; Iteration Savings and Failure Behavior</h3>
+    <div class="fig-wrap">
+      <img src="figures/fig4_savings_and_failures.png" alt="Savings and failure rates">
+      <div class="fig-caption">Fig. 4 &mdash; Left: iterations saved (NR &minus; inZORi) across load factors, peaking at +2.49 at 0.92&times;. Right: failure rate at extreme load (&gt;1.25&times;), showing both solvers fail identically beyond the physical collapse boundary (~1.31&times;). Average saving: +2.07 iterations (gold dashed line).</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ PHYSICAL INTERPRETATION ═══════════════ -->
+  <div class="section">
+    <h2>4. Physical Interpretation</h2>
+
+    <h3>4.1 Why Does inZORi Need Fewer Iterations?</h3>
+    <p>Newton-Raphson is an iterative method. Its convergence speed depends critically on the <strong>quality of the initial guess</strong>. Classical NR uses a "flat start" (all voltages = 1.0 pu, all angles = 0&deg;) which is the worst possible initial guess when the system is under stress. Each iteration refines the solution, but starting far from the true answer means more iterations are needed.</p>
+
+    <p>inZORi's warm-blend strategy provides an initial guess that is <strong>already 97.9% of the way to the previous converged solution</strong>. For N-1 contingencies (where only one line is removed), the true post-contingency solution is typically close to the pre-contingency state. The warm-start captures this proximity, reducing the iterative distance to converge.</p>
+
+    <div class="highlight-box">
+      <h3>The Quantitative Insight</h3>
+      <p>At normal load (0.90&times;&ndash;1.10&times;), NR consistently needs <strong>5 iterations</strong> from flat-start. inZORi needs only <strong>2.5&ndash;2.8 iterations</strong> from warm-blend &mdash; nearly halving the computational cost. At high stress (1.25&times;+), NR needs 6&ndash;8 iterations while inZORi needs 4&ndash;7 &mdash; still saving 1&ndash;2 iterations even in the hardest feasible cases.</p>
+    </div>
+
+    <h3>4.2 Physical Collapse Boundary</h3>
+    <p>Above 1.31&times; load, <strong>both solvers fail equally</strong> (54%&ndash;100% failure rate). This is not a solver limitation &mdash; it is a physical property of the network. At extreme load, the power flow equations have no solution (voltage collapse). No mathematical algorithm, regardless of its starting strategy, can converge a system where no feasible operating point exists.</p>
+
+    <p>This is an important scientific finding: <strong>inZORi improves algorithmic efficiency within the feasible operating region but cannot extend the physical limits of the power system.</strong> Grid reinforcement, energy storage, or demand response are needed to extend the physical boundary &mdash; inZORi accelerates the solver within whatever boundary exists.</p>
+
+    <h3>4.3 What This Means for Renewable Integration</h3>
+    <p>During the ENTSO-E Germany Q2 2025 period, renewable share ranged from 12% to 91%. High renewable moments correspond to lower net load (high solar/wind output displaces thermal generation), while low renewable moments correspond to higher thermal loading. The temporal volatility &mdash; transitions between these states every 15 minutes &mdash; is what makes N-1 security assessment computationally challenging.</p>
+    <p>inZORi's advantage is consistent across <strong>all renewable share levels</strong> because its memory-based warm-start tracks the system state regardless of the generation mix. Whether the grid is running on 20% or 80% renewables, the previous voltage solution remains a good predictor of the next one.</p>
+  </div>
+
+  <!-- ═══════════════ WHAT INZORI IS AND IS NOT ═══════════════ -->
+  <div class="section">
+    <h2>5. What inZORi Is &mdash; and What It Is Not</h2>
+
+    <div class="claims-box">
+      <ul>
+        <li><strong>inZORi IS</strong> a bio-adaptive wrapper around Newton-Raphson that uses biological memory (warm-start voltage estimates from previous converged states) to reduce the number of iterations needed for convergence.</li>
+        <li><strong>inZORi IS</strong> a real-time operational tool &mdash; the warm-blend computation takes microseconds, adding negligible overhead to the power flow calculation itself.</li>
+        <li><strong>inZORi IS</strong> validated on 132,480 N-1 contingency assessments using real ENTSO-E temporal profiles on a Pan-European benchmark network.</li>
+        <li><strong>inZORi IS NOT</strong> a replacement for physical grid reinforcement, energy storage, or demand response &mdash; it is a software improvement to an existing computational tool.</li>
+        <li><strong>inZORi IS NOT</strong> tested on real operational SCADA systems &mdash; all experiments use pandapower simulation with public benchmark networks.</li>
+        <li><strong>inZORi IS NOT</strong> effective beyond the physical collapse boundary (&gt;1.31&times; on case1354pegase) &mdash; it cannot solve physically infeasible power systems.</li>
+        <li><strong>inZORi DOES</strong> provide the largest benefit precisely in the scenarios where grid operators need speed most: routine N-1 security scans during volatile renewable output.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ECONOMIC IMPACT ═══════════════ -->
+  <div class="section">
+    <h2>6. Economic and Operational Impact</h2>
+
+    <div class="two-col">
+      <div>
+        <h3>Without inZORi</h3>
+        <table>
+          <tr><td>N-1 throughput</td><td><strong>638</strong> ctg/min</td></tr>
+          <tr><td>Full N-1 scan (2,000 lines)</td><td>~3.1 minutes</td></tr>
+          <tr><td>Scans per 15-min cycle</td><td>~4.8 scans</td></tr>
+          <tr><td>Operator confidence</td><td>Standard</td></tr>
+        </table>
+      </div>
+      <div>
+        <h3>With inZORi</h3>
+        <table>
+          <tr><td>N-1 throughput</td><td><strong>1,058</strong> ctg/min</td></tr>
+          <tr><td>Full N-1 scan (2,000 lines)</td><td>~1.9 minutes</td></tr>
+          <tr><td>Scans per 15-min cycle</td><td>~7.9 scans</td></tr>
+          <tr><td>Operator confidence</td><td>+66% improved</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <p>On a 2,000-line transmission network, inZORi saves <strong>~1.2 minutes per full N-1 scan</strong>. Over a 15-minute real-time cycle, this allows <strong>3 additional complete security assessments</strong>. In the context of the 2006 European blackout (estimated cost: &gt;&euro;1 billion), better situational awareness during the critical minutes before cascade could have changed the outcome.</p>
+
+    <p>The deployment cost is minimal: inZORi requires only a software update to the existing EMS power flow engine, with no hardware changes. The genome evolution can be performed offline (once per network topology change), and the runtime overhead of the warm-blend computation is &lt;1 microsecond per contingency.</p>
+  </div>
+
+  <!-- ═══════════════ REPRODUCIBILITY ═══════════════ -->
+  <div class="section">
+    <h2>7. Reproducibility</h2>
+    <div class="repro-box">
+      <p><strong>All code, data, and results are publicly available:</strong></p>
+      <ul>
+        <li><strong>Study script:</strong> <code>problems/inzori_re/entsoe_iter_v4.py</code></li>
+        <li><strong>Genome evolution:</strong> <code>problems/inzori_re/evolve_iter_saver.py</code></li>
+        <li><strong>Best genome:</strong> <code>problems/inzori_re/results/iter_saver_genome.json</code> (<code>α = 0.979</code>)</li>
+        <li><strong>ENTSO-E data cache:</strong> <code>problems/inzori_re/results/entsoe_de_q2_2025.json</code></li>
+        <li><strong>Raw results:</strong> <code>problems/inzori_re/results/entsoe_iter_study.json</code></li>
+        <li><strong>Network:</strong> <code>pandapower.networks.case1354pegase()</code> (public, no download needed)</li>
+        <li><strong>Solver:</strong> pandapower 2.13+ with numba acceleration</li>
+      </ul>
+      <div class="code-block">
+# Reproduce the full study:
+cd inzori/
+
+# 1. Evolve genome (optional — pre-evolved genome provided)
+python3 problems/inzori_re/evolve_iter_saver.py
+
+# 2. Run iteration study (8,832 intervals, 3 seeds, 12 cores)
+python3 problems/inzori_re/entsoe_iter_v4.py
+# Expected: ~3,454s (58 min) on 12 cores
+# Key result: NR=5.22 iter, inZORi=3.15 iter, speedup=1.66×
+
+# 3. Network
+python3 -c "import pandapower.networks as pn; net = pn.case1354pegase(); print(f'{len(net.bus)} buses, {len(net.line)} lines')"
+# Output: 1354 buses, 1991 lines
+      </div>
+      <p>Random seeds are fixed (42, 7, 137) for full reproducibility. All intervals are included, including those where both solvers fail (physical collapse at &gt;1.31&times; load).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DATA TRANSPARENCY ═══════════════ -->
+  <div class="section">
+    <h2>8. Data Sources and Transparency</h2>
+    <table>
+      <tr><th>Data Component</th><th>Source</th><th>Type</th><th>Availability</th></tr>
+      <tr><td>Load temporal profile</td><td>ENTSO-E Transparency Platform</td><td><strong>Real measured data</strong></td><td>Public API</td></tr>
+      <tr><td>Renewable generation mix</td><td>ENTSO-E Transparency Platform</td><td><strong>Real measured data</strong></td><td>Public API</td></tr>
+      <tr><td>Network topology</td><td>case1354pegase (EU PEGASE project)</td><td>Benchmark model</td><td>Public (pandapower)</td></tr>
+      <tr><td>Per-node load distribution</td><td>case1354pegase nominal values + uniform scaling</td><td>Approximation</td><td>Public (pandapower)</td></tr>
+      <tr><td>Per-node voltages (SCADA)</td><td>Not used (proprietary, not publicly available)</td><td>Not available</td><td>TSO restricted</td></tr>
+    </table>
+
+    <p><strong>Transparency note:</strong> The temporal dynamics (when load rises, when renewables peak, how fast transitions occur) are real. The spatial distribution (which buses carry which loads) comes from the benchmark model. A fully realistic validation would require SCADA data from a real TSO, which is not publicly available for security reasons. Our results represent the best achievable validation using public data and standard benchmark networks.</p>
+  </div>
+
+  <!-- ═══════════════ LIMITATIONS ═══════════════ -->
+  <div class="section">
+    <h2>9. Limitations and Future Work</h2>
+    <div class="claims-box">
+      <ul>
+        <li><strong>Benchmark network only:</strong> case1354pegase is an academic approximation of the European grid, not the real TSO network topology.</li>
+        <li><strong>Uniform load scaling:</strong> All nodes scale equally, which does not capture per-region load heterogeneity.</li>
+        <li><strong>Single network:</strong> Results are demonstrated on one network topology. Validation on case2869pegase (2869 buses) and other topologies is planned.</li>
+        <li><strong>No voltage/thermal limits:</strong> We measure mathematical convergence (residual &lt; tolerance), not physical constraint satisfaction (voltage limits, thermal ratings).</li>
+        <li><strong>Static genome:</strong> The genome (α = 0.979) was evolved for case1354pegase and may require re-evolution for different networks.</li>
+        <li><strong>Timing estimate:</strong> The "contingencies per minute" metric uses an estimated 18ms per iteration (typical for ~1,400-bus networks on modern hardware). Actual timing depends on the deployment platform.</li>
+      </ul>
+    </div>
+
+    <h3>Future Directions</h3>
+    <ul>
+      <li>Validation on case2869pegase (2869 buses, ~2&times; larger)</li>
+      <li>N-2 contingency analysis (two simultaneous line outages) on Pan-European scale</li>
+      <li>Integration with commercial EMS platforms for field testing</li>
+      <li>LUPA (Precision Bio-Zoom) genome refinement for further iteration reduction</li>
+      <li>Transfer learning: can genomes evolved on one network transfer to another?</li>
+      <li>Real SCADA validation with TSO partner (subject to data access agreements)</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════ CONCLUSION ═══════════════ -->
+  <div class="section">
+    <h2>10. Conclusion</h2>
+
+    <div class="conclusion-box">
+      <h3>Summary of Findings</h3>
+      <p><strong>Research question:</strong> Can a bio-adaptive warm-start strategy reduce the number of Newton-Raphson iterations needed for N-1 contingency power flow convergence under real renewable volatility?</p>
+      <p style="margin-top:0.75rem"><strong>Answer: Yes.</strong> inZORi reduces the average iteration count from 5.22 to 3.15 (&minus;2.07 iterations, &minus;40%) across 132,480 N-1 contingency assessments on a 1,354-bus Pan-European network using real ENTSO-E Germany Q2 2025 data. The speedup is 1.66&times;, translating to 1,058 vs 638 contingencies verified per minute.</p>
+      <p style="margin-top:0.75rem"><strong>Practical implication:</strong> Grid operators can perform 66% more N-1 security checks within the same real-time window, improving situational awareness during periods of high renewable penetration without any hardware investment. This directly supports the EU's renewable integration targets by maintaining grid security assessment speed as the generation mix becomes more volatile.</p>
+      <p style="margin-top:0.75rem"><strong>The finding is robust:</strong> consistent across 3 independent random seeds, all 8,832 real ENTSO-E intervals, and the full physical operating range (0.90&times; to 1.31&times; load). Both solvers use identical mathematics and tolerance; only the starting strategy differs.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════ RESOURCES ═══════════════ -->
+  <div class="section">
+    <h2>11. Resources</h2>
+    <table>
+      <tr><th>Resource</th><th>Link</th></tr>
+      <tr><td>Raw results JSON</td><td><a href="../../results/entsoe_iter_study.json">entsoe_iter_study.json</a></td></tr>
+      <tr><td>GitHub Repository</td><td><a href="https://github.com/dumitrunovic-svg/inZORi">github.com/dumitrunovic-svg/inZORi</a></td></tr>
+      <tr><td>ENTSO-E Transparency Platform</td><td><a href="https://transparency.entsoe.eu/">transparency.entsoe.eu</a></td></tr>
+      <tr><td>pandapower (solver)</td><td><a href="https://pandapower.readthedocs.io/">pandapower.readthedocs.io</a></td></tr>
+      <tr><td>case1354pegase documentation</td><td><a href="https://pandapower.readthedocs.io/en/latest/networks/power_system_test_cases.html">pandapower test cases</a></td></tr>
+      <tr><td>Related: PF-Delta Phase 1&ndash;6</td><td><a href="../pfdelta_phase1_118/index.html">Phase 1</a> · <a href="../pfdelta_phase2_real/index.html">Phase 2</a> · <a href="../pfdelta_phase3_n2/index.html">Phase 3</a> · <a href="../pfdelta_phase4_real/index.html">Phase 4</a> · <a href="../pfdelta_phase5_entsoe/index.html">Phase 5</a> · <a href="../pfdelta_phase6_capacity/index.html">Phase 6</a></td></tr>
+      <tr><td>Related: BAWS-NR Universal (warm-start theory)</td><td><a href="https://doi.org/10.5281/zenodo.18816838">10.5281/zenodo.18816838</a></td></tr>
+      <tr><td>PDF (Zenodo preprint)</td><td><a href="inZORi_RE_Study_N1_Security_Zenodo.pdf">inZORi_RE_Study_N1_Security_Zenodo.pdf</a></td></tr>
+      <tr><td>Zenodo publication</td><td><a href="https://doi.org/10.5281/zenodo.18807539">10.5281/zenodo.18807539</a></td></tr>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><strong>inZORi Research</strong> &mdash; Accelerating Real-Time N-1 Grid Security Under Renewable Volatility &middot; February 2026</p>
+  <p style="margin-top:0.5rem">Network: case1354pegase (EU PEGASE project) &middot; Data: ENTSO-E Transparency Platform, DE-LU zone, Q2 2025 &middot; Solver: pandapower</p>
+  <p style="margin-top:0.5rem">Author: Novic Dumitru (Independent Researcher, Republic of Moldova) &middot; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a></p>
+</div>
+
+</body>
+</html>

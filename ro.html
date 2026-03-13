@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi – Broșură de prezentare</title>
+<meta name="description" content="inZORi: ce este, cum funcționează, cum se deosebește de alte sisteme, unde se încadrează. Motor universal pentru evoluție emergentă.">
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --gold:#c9a227; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.65; }
+  .header { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; padding:3rem 2rem 2.5rem; }
+  .header .badge { display:inline-block; background:rgba(255,215,0,0.22); border:1px solid rgba(255,215,0,0.55); border-radius:20px; padding:0.28rem 1.1rem; font-size:0.82rem; margin-bottom:1rem; letter-spacing:0.07em; color:#FFD700; font-weight:700; text-transform:uppercase; }
+  .header h1 { font-size:3rem; font-weight:800; margin-bottom:0.6rem; letter-spacing:-0.03em; }
+  .header .subtitle { font-size:1.05rem; opacity:0.88; max-width:680px; margin-bottom:1.2rem; line-height:1.55; }
+  .header .meta { font-size:0.82rem; opacity:0.65; }
+  .nav-bar { background:#1a3a5c; padding:0.55rem 2rem; display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+  .nav-lang { display:flex; gap:0.25rem; }
+  .nav-lang a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-lang a:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .nav-lang a.active { background:rgba(255,255,255,0.18); color:#fff; font-weight:600; }
+  .nav-tests { color:#FFD700; text-decoration:none; font-size:0.84rem; font-weight:700; padding:0.28rem 1rem; border:1px solid rgba(255,215,0,0.45); border-radius:14px; transition:background 0.2s; }
+  .nav-tests:hover { background:rgba(255,215,0,0.12); }
+  .container { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  p { margin-bottom:0.8rem; }
+  ul, ol { padding-left:1.5rem; margin-bottom:0.8rem; }
+  li { margin-bottom:0.35rem; font-size:0.93rem; }
+  .key-messages { background:linear-gradient(135deg,#fffde7,#fff9c4); border-left:4px solid var(--gold); border-radius:8px; padding:1.3rem 1.6rem; margin-bottom:2.5rem; }
+  .key-messages ul { padding-left:1.3rem; }
+  .key-messages li { font-size:0.95rem; margin-bottom:0.55rem; }
+  .key-messages li:last-child { margin-bottom:0; }
+  .table-wrap { overflow-x:auto; margin:1rem 0; }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; min-width:580px; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  @media(max-width:700px){ .two-col{grid-template-columns:1fr;} .header h1{font-size:2.2rem;} }
+  .tests-card { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; border-radius:14px; padding:2rem 2.5rem; margin:2rem 0; }
+  .tests-card h2 { font-size:1.2rem; margin-bottom:0.6rem; border:none; color:#fff; padding:0; }
+  .tests-card p { opacity:0.85; font-size:0.95rem; margin-bottom:1.2rem; }
+  .tests-btn { display:inline-block; background:#FFD700; color:#1a3a5c; font-weight:700; text-decoration:none; padding:0.6rem 1.8rem; border-radius:20px; font-size:0.95rem; transition:opacity 0.2s; }
+  .tests-btn:hover { opacity:0.88; }
+  .quote-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.3rem 1.6rem; margin:2rem 0; font-style:italic; font-size:1.08rem; color:var(--dark); }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); text-decoration:none; }
+  .footer p+p { margin-top:0.4rem; }
+  code { background:#f3f4f6; padding:1px 5px; border-radius:3px; font-size:0.88em; }
+  .note { font-size:0.87rem; color:#666; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Inteligență Emergentă &middot; Viață Artificială Persistentă</div>
+  <h1>inZORi</h1>
+  <div class="subtitle">Un motor de viață artificială persistentă care <strong>evoluează comportamente în loc să le programeze</strong>. Organisme autonome, strategii emergente — fără funcții de recompensă explicite.</div>
+  <div class="meta">De la primul test public: 14 februarie 2026 &nbsp;&middot;&nbsp; Cercetare independentă &nbsp;&middot;&nbsp; Regatul Unit</div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-lang">
+    <a href="index.html">English</a>
+    <a href="de.html">Deutsch</a>
+    <a href="fr.html">Français</a>
+    <a href="ro.html" class="active">Română</a>
+  </div>
+  <a href="tests.html" class="nav-tests">Teste de cercetare &rarr;</a>
+</div>
+
+<div class="container">
+
+  <div class="key-messages">
+    <ul>
+      <li><strong>inZORi nu programează comportamente – le evoluează.</strong> Strategiile complexe apar din reguli simple și selecție, nu din cod explicit.</li>
+      <li><strong>inZORi nu simulează evoluția – o implementează.</strong> Același motor pe domenii foarte diferite: roboți, semnale astronomice, proteine, populații sociale.</li>
+      <li><strong>inZORi e altfel, nu neapărat „mai bun".</strong> E pentru probleme fără soluție fixă, mediu în schimbare, obiective implicite (supraviețuire, persistență).</li>
+    </ul>
+  </div>
+
+  <div class="section" id="what-is">
+    <h2>1. Ce este inZORi</h2>
+    <p><strong>inZORi</strong> este un motor de <strong>viață artificială persistentă</strong> care evoluează comportamente, nu le programează. Pleacă de la reguli simple și genome expresive; sistemul descoperă singur strategii adaptive complexe, asemănător evoluției naturale, dar accelerat.</p>
+    <ul>
+      <li><strong>Motor:</strong> populații de organisme cu genome care se exprimă diferit în funcție de context (scenă, task, mediu).</li>
+      <li><strong>Selecție:</strong> fitness-ul apare din interacțiuni (supraviețuire, resurse, mediu), nu din formule de recompensă predefinite.</li>
+      <li><strong>Memorie evolutivă (opțional):</strong> organisme care învață din experiență și transmit informații prin genome sau memory.</li>
+    </ul>
+    <p>Rezultat: comportament <strong>emergent</strong> – nimeni nu a codat strategia; ea a apărut din presiunea de a rămâne viabil.</p>
+  </div>
+
+  <div class="section" id="how-it-works">
+    <h2>2. Cum funcționează</h2>
+    <ol>
+      <li><strong>Task:</strong> un fișier de configurare (JSON) descrie scenariul: scene (mediu), parametri de populație, evaluatorul.</li>
+      <li><strong>Populație:</strong> organisme cu genome (vectori de parametri). Dimensiuni tipice: de la zeci până la mii de indivizi.</li>
+      <li><strong>Scenă / mediu:</strong> fiecare organism trăiește în același mediu (grid, spațiu de semnale, lume socială etc.); mediu poate fi dinamic (faze, sezoane, drift).</li>
+      <li><strong>Evaluator:</strong> modul specific domeniului măsoară supraviețuirea, resursele, comportamentul – <strong>fără</strong> funcție de recompensă explicită; fitness-ul <strong>emerge</strong> din interacțiuni.</li>
+      <li><strong>Selecție și evoluție:</strong> cei mai viabili se reproduc; populația evoluează peste generații. Fără convergență forțată – diversitatea rămâne relevantă.</li>
+      <li><strong>Rezultat:</strong> strategii adaptive, pattern-uri reutilizabile sau ranking/prioritizare – toate <strong>descoperite</strong>, nu programate.</li>
+    </ol>
+    <p class="note">Detalii tehnice: solver unificat în <code>zor_task_solver</code>, evaluatoare per domeniu în <code>problems/&lt;nume&gt;/</code>.</p>
+  </div>
+
+  <div class="section" id="comparison">
+    <h2>3. Cu ce se deosebește de alte sisteme</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Aspect</th><th>Alte sisteme (optimizare clasică, RL, ML supervizat)</th><th>inZORi</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Obiectiv</strong></td><td>Funcție de recompensă / loss explicită</td><td>Supraviețuire și persistență; fitness emergent</td></tr>
+          <tr><td><strong>Convergență</strong></td><td>Către un optim sau policy fix</td><td>Fără convergență impusă; populația rămâne diversă, se adaptează continuu</td></tr>
+          <tr><td><strong>Mediu în schimbare</strong></td><td>Retraining, fine-tuning, resimulare</td><td>Adaptare în timp real; memorie și selecție continuă</td></tr>
+          <tr><td><strong>Explicabilitate</strong></td><td>Adesea black-box</td><td>Parametri, genome, selecție – auditabile și interpretabile</td></tr>
+          <tr><td><strong>Domenii</strong></td><td>Un task = un pipeline, de obicei</td><td>Același motor evolutiv pe maze, proteine, roboți, semnale TESS, populații sociale</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>inZORi nu e „mai bun" în sensul de a bate SOTA pe un benchmark fix – e <strong>altfel</strong>: pentru probleme fără soluție fixă, unde mediu și obiective se schimbă, și unde vrei comportament <strong>emergent</strong> (nu programat).</p>
+  </div>
+
+  <div class="section" id="fit">
+    <h2>4. La ce e bun inZORi — și la ce nu</h2>
+    <div class="two-col">
+      <div>
+        <h3>&#10003; Puncte forte</h3>
+        <ul>
+          <li><strong>Medii dinamice:</strong> hazarduri, resurse, zgomot de senzori care se schimbă – strategii fără retraining.</li>
+          <li><strong>Obiective implicite:</strong> supraviețuire, persistență, „rămâne viabil" – fără recompensă explicită.</li>
+          <li><strong>Versatilitate:</strong> același engine pe domenii foarte diferite.</li>
+          <li><strong>Transparență:</strong> parametri, genome, selecție – auditabile.</li>
+          <li><strong>Validare biologică / socială:</strong> pattern-uri din natură sau societăți apar emergent din reguli simple.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>&#10007; Limitări</h3>
+        <ul>
+          <li><strong>Task-uri cu răspuns unic corect</strong> (ex: clasificare imagini cu etichete fixe).</li>
+          <li><strong>Inferență one-shot</strong> – inZORi e pentru evoluție/adaptare, nu lookups rapide.</li>
+          <li><strong>Latency foarte mică obligatorie</strong> – evoluția necesită pași și populații.</li>
+          <li><strong>Benchmarks clasice</strong> – pentru scenarii unde „cel mai bun" se schimbă în timp.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sectors">
+    <h2>5. Sectoare și utilitate</h2>
+    <ul>
+      <li><strong>Optimizare industrială / procese:</strong> procese care evoluează spre eficiență în condiții care se schimbă.</li>
+      <li><strong>Descoperire de medicamente / molecule:</strong> simulări de interacțiuni moleculă–proteină în spații de parametri.</li>
+      <li><strong>Modelare socială / economică:</strong> comportamente emergente în populații (fertilitate vs. IQ, tradiții, resurse).</li>
+      <li><strong>Robotică adaptivă:</strong> roboți care învață strategii în medii necunoscute sau în schimbare (fără retraining).</li>
+      <li><strong>Analiză de risc și scenarii:</strong> evoluții pentru decizii strategice în condiții incerte.</li>
+      <li><strong>Prioritizare și explorare:</strong> ranking semnale (ex. TESS), explorare spații fără etichete.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="tech">
+    <h2>6. Tehnologie (nivel broșură, fără detalii proprietare)</h2>
+    <ul>
+      <li><strong>Genome expresiv:</strong> genele se manifestă diferit în funcție de context (scenă, mediu).</li>
+      <li><strong>Selecție naturală:</strong> fitness-ul emerge din interacțiuni, nu din formule predefinite.</li>
+      <li><strong>Memorie evolutivă:</strong> organisme care învață din experiență și pot transmite informații.</li>
+      <li><strong>Scalabilitate:</strong> de la 40 la 2000+ organisme; paralelizare pe multi-CPU.</li>
+    </ul>
+  </div>
+
+  <div class="tests-card" id="tests">
+    <h2>Teste de cercetare &amp; Validare empirică</h2>
+    <p>Zeci de teste pe 12+ domenii — de la rețele electrice și semnale astronomice la robotică, proteine și populații sociale. Toate rezultatele publicate cu date brute, scripturi reproductibile și DOI-uri.</p>
+    <a href="tests.html" class="tests-btn">Vezi toate testele de cercetare &rarr;</a>
+  </div>
+
+  <div class="section" id="stage">
+    <h2>7. La ce etapă este inZORi</h2>
+    <ul>
+      <li><strong>Stadiu:</strong> sistem finisat, production-ready pentru scenarii definite. Zeci de teste rulate pe multiple domenii.</li>
+      <li><strong>Scale atestate:</strong> 40→2000+ organisme, 600–800 pași per run, 20 seeds × 500 „ani" (IQ), ~13k semnale TESS, grid 100×100, 5 faze (robotică), 3 sezoane × cicluri (tradiții), drift static/slow/medium/chaotic (SDC).</li>
+      <li><strong>Ce există:</strong> solver unificat (<code>zor_task_solver</code>), task-uri JSON, evaluatoare pe domeniu, demo HTML/PDF, date reale pentru toate testele publicate.</li>
+      <li><strong>Documentație:</strong> această pagină este sursa canonică.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>8. Contact</h2>
+    <p>Pentru feedback, sugestii sau întrebări de colaborare:</p>
+    <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com" style="color:var(--primary);">dumitru.novic@gmail.com</a></p>
+    <p class="note">Oricine — cercetători, parteneri, investitori, echipe tehnice — poate folosi sau adapta acest conținut pentru site-uri, prezentări sau articole fără a pierde mesajul central.</p>
+  </div>
+
+  <div class="quote-box">„inZORi nu simulează evoluția – o implementează."</div>
+
+</div>
+
+<div class="footer">
+  <p>inZORi &mdash; Inteligență Emergentă &middot; Univers Evolutiv Autonom</p>
+  <p>De la primul test public: 14 februarie 2026 &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. Toate drepturile rezervate.</p>
+</div>
+
+</body>
+</html>

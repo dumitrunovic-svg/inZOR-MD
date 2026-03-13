@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi — Emergent Intelligence · Persistent Artificial Life Engine</title>
+<meta name="description" content="inZORi: engine for persistent artificial life that evolves behaviors instead of programming them. Autonomous organisms, emergent strategies, multiple domains.">
+<style>
+  :root {
+    --primary: #1a7dc4;
+    --success: #27ae60;
+    --warning: #e67e22;
+    --gold: #c9a227;
+    --dark: #2c3e50;
+    --light-bg: #f8f9fa;
+    --border: #dee2e6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fff; color: var(--dark); line-height: 1.65; }
+
+  /* ── HEADER ── */
+  .header { background: linear-gradient(135deg, #1a3a5c 0%, #1a7dc4 100%); color: #fff; padding: 3rem 2rem 2.5rem; }
+  .header .badge { display: inline-block; background: rgba(255,215,0,0.22); border: 1px solid rgba(255,215,0,0.55); border-radius: 20px; padding: 0.28rem 1.1rem; font-size: 0.82rem; margin-bottom: 1rem; letter-spacing: 0.07em; color: #FFD700; font-weight: 700; text-transform: uppercase; }
+  .header h1 { font-size: 3rem; font-weight: 800; margin-bottom: 0.6rem; letter-spacing: -0.03em; }
+  .header .subtitle { font-size: 1.1rem; opacity: 0.88; max-width: 680px; margin-bottom: 1.2rem; line-height: 1.55; }
+  .header .meta { font-size: 0.82rem; opacity: 0.65; }
+
+  /* ── NAV BAR ── */
+  .nav-bar { background: #1a3a5c; padding: 0.55rem 2rem; display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+  .nav-lang { display: flex; gap: 0.25rem; }
+  .nav-lang a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.82rem; padding: 0.2rem 0.7rem; border-radius: 12px; transition: all 0.2s; }
+  .nav-lang a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .nav-lang a.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 600; }
+  .nav-tests { color: #FFD700; text-decoration: none; font-size: 0.84rem; font-weight: 700; padding: 0.28rem 1rem; border: 1px solid rgba(255,215,0,0.45); border-radius: 14px; transition: background 0.2s; }
+  .nav-tests:hover { background: rgba(255,215,0,0.12); }
+
+  /* ── CONTAINER ── */
+  .container { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+  /* ── KPI CARDS ── */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
+  .kpi-card { background: var(--light-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.2rem; text-align: center; }
+  .kpi-value { font-size: 1.9rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+  .kpi-value.gold { color: var(--gold); }
+  .kpi-value.green { color: var(--success); }
+  .kpi-label { font-size: 0.82rem; color: #666; margin-top: 0.35rem; }
+
+  /* ── KEY MESSAGES ── */
+  .key-messages { background: linear-gradient(135deg, #fffde7, #fff9c4); border-left: 4px solid var(--gold); border-radius: 8px; padding: 1.3rem 1.6rem; margin-bottom: 2.5rem; }
+  .key-messages ul { padding-left: 1.3rem; }
+  .key-messages li { font-size: 0.95rem; margin-bottom: 0.55rem; }
+  .key-messages li:last-child { margin-bottom: 0; }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 2.5rem; }
+  .section h2 { font-size: 1.2rem; font-weight: 700; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 0.4rem; margin-bottom: 1.2rem; }
+  .section h3 { font-size: 1rem; font-weight: 600; margin: 1.2rem 0 0.6rem; color: #34495e; }
+  p { margin-bottom: 0.8rem; }
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.8rem; }
+  li { margin-bottom: 0.35rem; font-size: 0.93rem; }
+
+  /* ── TWO COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } .header h1 { font-size: 2.2rem; } }
+
+  /* ── TABLE ── */
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 580px; }
+  th { background: var(--dark); color: #fff; padding: 0.6rem 1rem; text-align: left; font-weight: 600; }
+  td { padding: 0.55rem 1rem; border-bottom: 1px solid var(--border); }
+  tr:nth-child(even) td { background: var(--light-bg); }
+
+  /* ── TESTS CARD ── */
+  .tests-card { background: linear-gradient(135deg, #1a3a5c 0%, #1a7dc4 100%); color: #fff; border-radius: 14px; padding: 2rem 2.5rem; margin: 2rem 0; }
+  .tests-card h2 { font-size: 1.3rem; margin-bottom: 0.6rem; border: none; color: #fff; padding: 0; }
+  .tests-card p { opacity: 0.85; font-size: 0.95rem; margin-bottom: 1.4rem; }
+  .tests-btn { display: inline-block; background: #FFD700; color: #1a3a5c; font-weight: 700; text-decoration: none; padding: 0.6rem 1.8rem; border-radius: 20px; font-size: 0.95rem; transition: opacity 0.2s; }
+  .tests-btn:hover { opacity: 0.88; }
+  .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.7rem; margin-top: 1.6rem; }
+  .chip { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 8px; padding: 0.65rem 1rem; font-size: 0.85rem; }
+  .chip strong { display: block; font-size: 0.9rem; margin-bottom: 0.15rem; }
+
+  /* ── QUOTE ── */
+  .quote-box { background: linear-gradient(135deg, #eaf4fb, #ddeeff); border-left: 4px solid var(--primary); border-radius: 8px; padding: 1.3rem 1.6rem; margin: 2rem 0; font-style: italic; font-size: 1.08rem; color: var(--dark); }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--dark); color: rgba(255,255,255,0.6); padding: 2rem; text-align: center; font-size: 0.85rem; margin-top: 3rem; }
+  .footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+  .footer a:hover { color: #fff; }
+  .footer p + p { margin-top: 0.4rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Emergent Intelligence &middot; Persistent Artificial Life</div>
+  <h1>inZORi</h1>
+  <div class="subtitle">An engine for persistent artificial life that <strong>evolves behaviors instead of programming them</strong>. Autonomous organisms, emergent strategies — no explicit reward functions.</div>
+  <div class="meta">Since first public test: 14 February 2026 &nbsp;&middot;&nbsp; Independent Research &nbsp;&middot;&nbsp; United Kingdom</div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-lang">
+    <a href="index.html" class="active">English</a>
+    <a href="de.html">Deutsch</a>
+    <a href="fr.html">Français</a>
+    <a href="ro.html">Română</a>
+  </div>
+  <a href="tests.html" class="nav-tests">Research Tests &rarr;</a>
+</div>
+
+<div class="container">
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-value gold">Emergent</div>
+      <div class="kpi-label">Behavior not programmed — arises from selection pressure</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">12+</div>
+      <div class="kpi-label">Research domains explored</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value green">40→2000+</div>
+      <div class="kpi-label">Organism population scale tested</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">Universal</div>
+      <div class="kpi-label">Same engine — any domain, any problem class</div>
+    </div>
+  </div>
+
+  <!-- KEY MESSAGES -->
+  <div class="key-messages">
+    <ul>
+      <li><strong>inZORi doesn't program behaviors — it evolves them.</strong> Complex strategies arise from simple rules and selection, not from explicit code.</li>
+      <li><strong>inZORi doesn't simulate evolution — it implements it.</strong> The same engine across robotics, astronomical signals, proteins, social populations.</li>
+      <li><strong>inZORi is different, not necessarily "better."</strong> It targets problems with no fixed solution, changing environments, and implicit objectives (survival, persistence).</li>
+    </ul>
+  </div>
+
+  <!-- 1. WHAT IS inZORi -->
+  <div class="section" id="what-is">
+    <h2>1. What is inZORi</h2>
+    <p><strong>inZORi</strong> is an engine for <strong>persistent artificial life</strong> that evolves behaviors instead of programming them. It starts from simple rules and expressive genomes; the system discovers complex adaptive strategies on its own, similar to natural evolution but accelerated.</p>
+    <ul>
+      <li><strong>Engine:</strong> populations of organisms with genomes that express differently depending on context (scene, task, environment).</li>
+      <li><strong>Selection:</strong> fitness emerges from interactions (survival, resources, environment), not from predefined reward formulas.</li>
+      <li><strong>Evolutionary memory (optional):</strong> organisms that learn from experience and pass on information via genomes or memory.</li>
+    </ul>
+    <p>Result: <strong>emergent</strong> behavior — nobody coded the strategy; it arose from the pressure to stay viable.</p>
+  </div>
+
+  <!-- 2. HOW IT WORKS -->
+  <div class="section" id="how-it-works">
+    <h2>2. How it works</h2>
+    <ol>
+      <li><strong>Task:</strong> a config file (JSON) describes the scenario: scenes (environment), population parameters, evaluator.</li>
+      <li><strong>Population:</strong> organisms with genomes (parameter vectors). Typical sizes: tens to thousands of individuals.</li>
+      <li><strong>Scene / environment:</strong> each organism lives in the same environment (grid, signal space, social world, etc.); the environment can be dynamic (phases, seasons, drift).</li>
+      <li><strong>Evaluator:</strong> a domain-specific module measures survival, resources, behavior — <strong>without</strong> an explicit reward function; fitness <strong>emerges</strong> from interactions.</li>
+      <li><strong>Selection and evolution:</strong> the most viable reproduce; the population evolves over generations. No forced convergence — diversity remains relevant.</li>
+      <li><strong>Result:</strong> adaptive strategies, reusable patterns, or ranking/prioritization — all <strong>discovered</strong>, not programmed.</li>
+    </ol>
+    <p class="note" style="font-size:0.87rem;color:#666;">Technical details: unified solver in <code style="background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:0.88em;">zor_task_solver</code>, evaluators per domain in <code style="background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:0.88em;">problems/&lt;name&gt;/</code>.</p>
+  </div>
+
+  <!-- 3. COMPARISON -->
+  <div class="section" id="comparison">
+    <h2>3. How inZORi differs from other systems</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>Other systems (classical optimization, RL, supervised ML)</th>
+            <th>inZORi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Objective</strong></td><td>Explicit reward / loss function</td><td>Survival and persistence; emergent fitness</td></tr>
+          <tr><td><strong>Convergence</strong></td><td>Toward a fixed optimum or policy</td><td>No imposed convergence; population stays diverse, adapts continuously</td></tr>
+          <tr><td><strong>Changing environment</strong></td><td>Retraining, fine-tuning, resimulation</td><td>Real-time adaptation; memory and continuous selection</td></tr>
+          <tr><td><strong>Explainability</strong></td><td>Often black-box</td><td>Parameters, genomes, selection — auditable and interpretable</td></tr>
+          <tr><td><strong>Domains</strong></td><td>Usually one task = one pipeline</td><td>Same evolutionary engine on mazes, proteins, robots, TESS signals, social populations</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>inZORi isn't "better" in the sense of beating SOTA on a fixed benchmark — it's <strong>different</strong>: for problems with no fixed solution, where environment and objectives change, and where you want <strong>emergent</strong> (not programmed) behavior.</p>
+  </div>
+
+  <!-- 4. FIT / LIMITS -->
+  <div class="section" id="fit">
+    <h2>4. Where inZORi fits — and where it doesn't</h2>
+    <div class="two-col">
+      <div>
+        <h3>&#10003; Strong at</h3>
+        <ul>
+          <li><strong>Dynamic environments:</strong> hazards, resources, sensor noise that change over time — strategies evolve without retraining.</li>
+          <li><strong>Implicit objectives:</strong> survival, persistence, "staying viable" — without defining an explicit reward.</li>
+          <li><strong>Versatility:</strong> same engine across navigation, folding, signal prioritization, social behavior.</li>
+          <li><strong>Transparency:</strong> parameters, genomes, selection — auditable; you can see why patterns emerged.</li>
+          <li><strong>Biological / social validation:</strong> patterns from nature or societies emerge from simple rules.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>&#10007; Not the right fit for</h3>
+        <ul>
+          <li><strong>Tasks with a single correct answer</strong> (e.g. image classification with fixed labels) — RL/supervised are a better fit.</li>
+          <li><strong>One-shot inference</strong> — inZORi is for evolution/adaptation, not fast lookups.</li>
+          <li><strong>Strict low-latency requirements</strong> — evolution needs steps and populations.</li>
+          <li><strong>"Who's best" on classic benchmarks</strong> — for scenarios where "best" is ill-defined or changes over time.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SECTORS -->
+  <div class="section" id="sectors">
+    <h2>5. Sectors and use cases</h2>
+    <ul>
+      <li><strong>Industrial / process optimization:</strong> processes that evolve toward efficiency under changing conditions.</li>
+      <li><strong>Drug / molecule discovery:</strong> simulating molecule–protein interactions in parameter spaces.</li>
+      <li><strong>Social / economic modeling:</strong> emergent behaviors in populations (fertility vs. IQ, traditions, resources).</li>
+      <li><strong>Adaptive robotics:</strong> robots that learn strategies in unknown or changing environments (without retraining).</li>
+      <li><strong>Risk and scenario analysis:</strong> evolutionary scenarios for strategic decisions under uncertainty.</li>
+      <li><strong>Prioritization and exploration:</strong> ranking signals (e.g. TESS), exploring spaces without labels (clarity, stability, low noise).</li>
+    </ul>
+  </div>
+
+  <!-- 6. TECHNOLOGY -->
+  <div class="section" id="tech">
+    <h2>6. Technology (brochure level, no proprietary detail)</h2>
+    <ul>
+      <li><strong>Expressive genome:</strong> genes express differently depending on context (scene, environment).</li>
+      <li><strong>Natural selection:</strong> fitness emerges from interactions, not predefined formulas.</li>
+      <li><strong>Evolutionary memory:</strong> organisms learn from experience and can pass on information.</li>
+      <li><strong>Scalability:</strong> from 40 to 2000+ organisms; parallelization on multi-CPU.</li>
+    </ul>
+  </div>
+
+  <!-- TESTS HIGHLIGHT CARD -->
+  <div class="tests-card" id="tests">
+    <h2>Research Tests &amp; Empirical Validation</h2>
+    <p>Dozens of tests across 12+ domains — from power grids and astronomical signals to robotics, proteins, and social populations. All results are published with raw data, reproducible scripts, and DOIs.</p>
+    <a href="tests.html" class="tests-btn">View all research tests &rarr;</a>
+    <div class="chips">
+      <div class="chip"><strong>Power Flow PF&#916; (6 phases)</strong>Streaming grid robustness · 118-bus to ENTSO-E real data</div>
+      <div class="chip"><strong>BAWS-NR Universal</strong>1.59&times; speedup · 6 domains · 142,056 converged solves</div>
+      <div class="chip"><strong>TESS Astronomical Signals</strong>~13,000 signals ranked by quality — no supervised training</div>
+      <div class="chip"><strong>Adaptive Robotics</strong>Survival on 100&times;100 grid · 5 phases · no retraining</div>
+      <div class="chip"><strong>IQ &amp; Fertility (Social)</strong>Emergent social patterns · 20 seeds &times; 500 years</div>
+      <div class="chip"><strong>Slow Drift Continuity</strong>Robust behavior across static / slow / chaotic drift regimes</div>
+    </div>
+  </div>
+
+  <!-- 7. CURRENT STAGE -->
+  <div class="section" id="stage">
+    <h2>7. Current stage</h2>
+    <ul>
+      <li><strong>Status:</strong> system finished, production-ready for defined scenarios. Dozens of tests run across multiple domains.</li>
+      <li><strong>Proven scale:</strong> 40→2000+ organisms, 600–800 steps per run, 20 seeds &times; 500 "years" (IQ), ~13k TESS signals, 100&times;100 grid, 5 phases (robotics), 3 seasons &times; cycles (traditions), static/slow/medium/chaotic drift (SDC).</li>
+      <li><strong>What exists:</strong> unified solver (<code style="background:#f3f4f6;padding:1px 5px;border-radius:3px;font-size:0.88em;">zor_task_solver</code>), JSON tasks, domain evaluators, HTML/PDF demos, raw data for all published tests.</li>
+      <li><strong>Documentation:</strong> this page is the canonical source; per-problem READMEs and published studies align with it.</li>
+    </ul>
+  </div>
+
+  <!-- 8. CONTACT -->
+  <div class="section" id="contact">
+    <h2>8. Contact</h2>
+    <p>For feedback, suggestions, or collaboration questions:</p>
+    <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com" style="color:var(--primary);">dumitru.novic@gmail.com</a></p>
+    <p style="font-size:0.87rem;color:#666;">Anyone — researchers, partners, investors, technical teams — can use or adapt this content for websites, slide decks, or articles without losing the core message.</p>
+  </div>
+
+  <div class="quote-box">
+    "inZORi doesn't simulate evolution — it implements it."
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>inZORi &mdash; Emergent Intelligence &middot; Autonomous Evolutionary Universe</p>
+  <p>Since first public test: 14 February 2026 &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. All rights reserved.</p>
+</div>
+
+</body>
+</html>
