@@ -1,13 +1,22 @@
-# Nu adăuga niciodată cod sursă în acest repo — doar web (HTML/CSS/JS/imagini/JSON date)
+# Nu adăuga niciodată cod sursă — doar web (HTML/CSS/imagini/PDF/JSON rezultate)
 *.py
 *.pyc
 *.sh
 __pycache__/
 .venv/
 
-# Nu adăuga task-uri sau outputuri din solver
+# Foldere de cod/runs locale — nu apartin site-ului
+problems/
+runs/
+scripts/
+memory/
+zor_task_solver/
+
+# Task-uri solver
 task_*.json
 *_runs/
-runs/*/logs/
-problems/**/logs/
-problems/**/out/
+
+# Backup-uri
+*.bak
+*.backup
+*.__bak__*
