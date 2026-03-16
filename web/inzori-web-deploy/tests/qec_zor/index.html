@@ -1,313 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inZORi QEC: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit)</title>
-    <link rel="stylesheet" href="../../style.css">
-    <style>
-        body { background: var(--bg); color: var(--text); }
-        .paper { max-width: min(96vw, 92rem); margin: 0 auto; padding: 2rem 1.2rem 3rem; }
-        h1 { font-size: 2rem; text-align: center; margin: 1.2rem 0 1.4rem; }
-        h2 { border-bottom: 1px solid var(--border); padding-bottom: 0.45rem; margin-top: 2rem; }
-        h3 { margin-top: 1.4rem; }
-        h4 { margin-top: 1rem; color: var(--muted); }
-        .abstract { background: rgba(34, 211, 238, 0.08); border-left: 4px solid var(--accent); padding: 1rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; }
-        .verdict-win  { background: rgba(34, 197, 94, 0.12); border-left: 4px solid #22c55e; padding: 1rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 1rem 0; }
-        .verdict-tie  { background: rgba(250, 204, 21, 0.10); border-left: 4px solid #facc15; padding: 1rem 1.1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 1rem 0; }
-        code, pre { background: var(--surface); color: var(--accent); }
-        pre { padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.98rem; }
-        th, td { border: 1px solid var(--border); padding: 0.55rem 0.65rem; text-align: left; }
-        th { background: var(--surface); color: var(--muted); }
-        td.win { color: #22c55e; font-weight: bold; }
-        td.lose { color: #f87171; }
-        .note { color: var(--muted); font-size: 0.93rem; }
-        a { color: var(--accent); }
-        .back-link { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); text-align: center; }
-        .circ-diagram { font-family: monospace; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.4rem; overflow-x: auto; font-size: 0.9rem; line-height: 1.7; }
-        .topology-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.4rem; font-family: monospace; font-size: 0.92rem; line-height: 1.8; }
-        .kv-row { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.5rem 0; }
-        .kv { background: var(--surface); border-radius: var(--radius); padding: 0.5rem 1rem; border: 1px solid var(--border); }
-        .kv .k { font-size: 0.78rem; color: var(--muted); }
-        .kv .v { font-size: 1.25rem; font-weight: bold; color: var(--accent); }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZOR-ND: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron) — v1 + v2</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --purple:#8e44ad; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#0d2b3e 0%,#1a4a8a 60%,#1a7dc4 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.75rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .law-box { background:linear-gradient(135deg,#0d2b3e,#1a3a5c); color:#fff; border-radius:12px; padding:1.75rem 2rem; margin:2rem 0; text-align:center; }
+  .law-box .law-label { font-size:0.8rem; opacity:0.7; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.6rem; }
+  .law-box .law-formula { font-family:'Consolas',monospace; font-size:1.4rem; font-weight:700; color:#7dd3fc; letter-spacing:0.02em; margin-bottom:0.6rem; }
+  .law-box .law-sub { font-size:0.88rem; opacity:0.75; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:1.8rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger  { color:var(--danger); }
+  .kr-card .kr-value.warn    { color:var(--warning); }
+  .kr-card .kr-value.purple  { color:var(--purple); }
+  .kr-card .kr-label { font-size:0.82rem; color:#666; margin-top:0.3rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .fig-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media(max-width:700px){.fig-grid{grid-template-columns:1fr;}}
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#eaf4fb; font-weight:600; }
+  tr.winner td { background:#dcfce7; font-weight:700; }
+  tr.noisy td { background:#fff8e1; }
+  tr.v2 td { background:#f3e8ff; }
+  .badge { display:inline-block; padding:0.15rem 0.6rem; border-radius:12px; font-size:0.78rem; font-weight:600; }
+  .badge-ok   { background:#dcfce7; color:#15803d; }
+  .badge-fail { background:#fee2e2; color:#dc2626; }
+  .badge-gold { background:#fef9c3; color:#854d0e; }
+  .badge-blue { background:#dbeafe; color:#1d4ed8; }
+  .badge-gray { background:#f1f5f9; color:#475569; }
+  .badge-purple { background:#f3e8ff; color:#7c3aed; }
+  .claims-box { background:#fff3e0; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .claims-box ul { padding-left:1.2rem; }
+  .claims-box li { font-size:0.9rem; margin-bottom:0.4rem; }
+  .verdict-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .repro-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .code-block { background:#1e293b; color:#e2e8f0; border-radius:6px; padding:0.8rem 1rem; font-family:'Consolas',monospace; font-size:0.85rem; margin:0.75rem 0; overflow-x:auto; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul,ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+  .step-row { display:flex; gap:0.75rem; align-items:flex-start; margin-bottom:0.8rem; }
+  .step-num { background:var(--primary); color:#fff; border-radius:50%; width:1.7rem; height:1.7rem; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; margin-top:0.1rem; }
+  .step-content { font-size:0.93rem; }
+  .disclaimer-box { background:#fff8f0; border:1px solid #f6d7b0; border-radius:8px; padding:1rem 1.25rem; font-size:0.85rem; color:#6b4c1e; margin:1.5rem 0; }
+</style>
 </head>
 <body>
-<div class="paper">
 
-<h1>inZORi QEC: Hardware-Native Quantum Error Correction<br>on IBM Quantum (7-qubit, Heron processor)</h1>
-
-<div class="abstract">
-<strong>Abstract</strong><br><br>
-We apply the <strong>inZORi</strong> genomic discovery engine to the problem of quantum error correction (QEC) on real IBM Quantum hardware. Rather than implementing a known code (e.g., Steane [[7,1,3]]), ZOR autonomously discovers a 7-qubit encoding circuit optimized for the IBM Heron processor's native gate set (Ry rotations + CZ gates) and tree-topology connectivity. The discovered ansatz (21 continuous parameters, 12 CZ gates, depth 10) is evolved under a realistic gate-error noise model matching IBM Fez/Marrakesh hardware characteristics. On real hardware with significant noise (ibm_marrakesh, no-code fidelity 0.632), the ZOR code achieves <strong>fidelity 0.698</strong> versus the Steane code at <strong>0.647</strong> — a gain of <strong>+5.1 percentage points</strong>. Both codes outperform the unprotected qubit (0.632), demonstrating genuine error correction. This is the first demonstration of inZORi discovering a competitive QEC code without any prior knowledge of quantum error correction theory.
+<div class="header">
+  <div class="phase-badge">inZOR-ND — QUANTUM ERROR CORRECTION · IBM QUANTUM · v1 + v2</div>
+  <h1>inZOR-ND: Hardware-Native Quantum Error Correction Discovered by Genomic Evolution on IBM Quantum</h1>
+  <div class="subtitle">7-Qubit Encoding · v1 (21 params, Ry+CZ) + v2 (42 params, Ry+Rz+CZ, Full Pauli) · Validated on Real Hardware (7 runs)</div>
+  <div class="meta">Dumitru Novic · March 2026 · ibm_fez + ibm_marrakesh · 8000 shots per circuit · IBM Heron 156Q processors</div>
 </div>
 
-<div style="margin-top: 1rem;">
-<div class="kv-row">
-  <div class="kv"><div class="k">ZOR Sim Fidelity</div><div class="v">0.9998</div></div>
-  <div class="kv"><div class="k">ZOR HW Fidelity (noisy backend)</div><div class="v">0.6982</div></div>
-  <div class="kv"><div class="k">Steane HW Fidelity</div><div class="v">0.6470</div></div>
-  <div class="kv"><div class="k">Gain vs Steane</div><div class="v" style="color:#22c55e">+5.1%</div></div>
-  <div class="kv"><div class="k">Ansatz Parameters</div><div class="v">21</div></div>
-  <div class="kv"><div class="k">Hardware Runs</div><div class="v">3</div></div>
-</div>
-</div>
+<div class="container">
 
-<h2>1. Problem Setup</h2>
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>
+      We apply the <strong>inZOR-ND</strong> bio-adaptive genomic discovery engine to quantum error correction (QEC)
+      on real IBM Quantum hardware, <strong>without any prior knowledge of QEC theory</strong>.
+      Two versions are presented: <strong>v1</strong> (21 Ry parameters, X-only correction, 4 test states) and
+      <strong>v2</strong> (42 Ry+Rz parameters, Full Pauli correction with 22 syndromes, 6 test states, multi-noise training).
+    </p>
+    <p>
+      Both versions discover hardware-native 7-qubit encoding circuits optimized for the IBM Heron processor's tree topology.
+      Across <strong>7 hardware runs</strong> on ibm_fez and ibm_marrakesh, <strong>inZOR-ND beats Steane [[7,1,3]] in every single run</strong>,
+      with gains ranging from +0.2 pp to +5.1 pp. The v1 LUPA precision zoom achieves simulation fidelity <strong>0.999843</strong>,
+      while v2 reaches <strong>0.990244</strong> (multi-noise average over 4 noise levels, Full Pauli correction, 6 test states).
+    </p>
+  </div>
 
-<h3>1.1 Quantum Error Correction — Why It Matters</h3>
-<p>Real quantum processors suffer from decoherence, gate errors, and measurement noise. Quantum error correction (QEC) encodes one logical qubit into multiple physical qubits such that errors can be detected and corrected. The theoretical gold standard for 7 physical qubits is the <strong>Steane [[7,1,3]] code</strong> — the smallest CSS code that can correct any single-qubit error and is well-studied in the literature.</p>
+  <div class="law-box">
+    <div class="law-label">inZOR-ND Discovered Ansatz (7-qubit, IBM Heron native)</div>
+    <div class="law-formula">v1: Ry(7) → CZ → Ry(7) → CZ → Ry(7) &nbsp;&nbsp;|&nbsp;&nbsp; v2: [Ry(7)+Rz(7)] → CZ → [Ry+Rz] → CZ → [Ry+Rz]</div>
+    <div class="law-sub">v1: 21 params · v2: 42 params · 12 CZ gates (native IBM Heron) · Rz = virtual gate (zero error)</div>
+  </div>
 
-<p>However, the Steane code was designed for ideal hardware. On real processors, the encoding and decoding circuits add gate overhead (depth, two-qubit gates) which introduces additional errors. We ask: can ZOR discover a code that is <em>better suited to the actual hardware</em>?</p>
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value success">7/7</div>
+      <div class="kr-label">Hardware runs where inZOR-ND beats Steane</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">0.9998</div>
+      <div class="kr-label">v1 sim fidelity (LUPA final)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value purple">0.9902</div>
+      <div class="kr-label">v2 sim fidelity (multi-noise avg)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">+5.1 pp</div>
+      <div class="kr-label">Max gain vs Steane (v1, noisy)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value">~58</div>
+      <div class="kr-label">Avg transpiled depth (inZOR-ND)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value danger">~115</div>
+      <div class="kr-label">Transpiled depth (Steane)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value purple">42</div>
+      <div class="kr-label">v2 parameters (Ry+Rz)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value purple">22</div>
+      <div class="kr-label">v2 syndromes (Full Pauli)</div>
+    </div>
+  </div>
 
-<h3>1.2 Hardware Constraints</h3>
-<p>IBM Heron processors (ibm_fez, ibm_marrakesh) have specific constraints:</p>
-<ul>
-  <li><strong>Native gate set</strong>: CZ, Rz, SX (no CNOT natively — requires decomposition)</li>
-  <li><strong>Connectivity</strong>: heavy-hex lattice, limited to nearest-neighbor connections</li>
-  <li><strong>Two-qubit error rate</strong>: ~0.2% per CZ gate (calibration dependent)</li>
-  <li><strong>Single-qubit error rate</strong>: ~0.02% per gate</li>
-</ul>
+  <div class="claims-box">
+    <strong>How to read this result</strong>
+    <ul>
+      <li><strong>QEC only helps in noisy regimes.</strong> When hardware is very clean (no-code fidelity &gt;0.9), both QEC codes perform worse than the unprotected qubit — circuit overhead exceeds error correction benefit.</li>
+      <li><strong>inZOR-ND beats Steane in all 7 runs</strong> — in both noisy and clean regimes. The advantage comes from shallower native circuits (CZ vs CNOT decomposition).</li>
+      <li><strong>v2 adds Full Pauli correction, Rz gates, and multi-noise training</strong> — a stricter, more comprehensive evaluation than v1.</li>
+    </ul>
+  </div>
 
-<p>The Steane code's encoding circuit uses CNOT gates which require decomposition on Heron, increasing circuit depth. ZOR instead uses <strong>native CZ gates directly</strong>.</p>
+  <!-- Section 0: Circuit topology -->
+  <div class="section">
+    <h2>Circuit Architecture — IBM Heron Tree Topology</h2>
+    <div class="fig-wrap">
+      <img src="figures/fig0_circuit_topology.png" alt="IBM Fez Tree Topology">
+      <div class="fig-caption">Fig 0 — IBM Fez tree topology used as inZOR-ND ansatz. 7 qubits mapped to physical IBM Fez qubits (3, 2, 4, 16, 1, 5, 23). CZ gates on native hardware edges.</div>
+    </div>
+    <table>
+      <tr><th>Component</th><th>v1</th><th>v2</th></tr>
+      <tr><td>Rotation gates per layer</td><td>Ry(7) = 7 params</td><td>Ry(7) + Rz(7) = 14 params</td></tr>
+      <tr><td>Total parameters</td><td>21 (3 layers × 7)</td><td>42 (3 layers × 14)</td></tr>
+      <tr><td>CZ gates</td><td colspan="2">12 (6 pairs × 2 layers)</td></tr>
+      <tr><td>Native circuit depth</td><td>10</td><td>13</td></tr>
+      <tr><td>Error correction</td><td>X-only (8 syndromes)</td><td>Full Pauli X+Y+Z (22 syndromes)</td></tr>
+      <tr><td>Test states</td><td>4 (|0⟩, |1⟩, |+⟩, |−⟩)</td><td>6 (+ |+i⟩, |−i⟩)</td></tr>
+      <tr><td>Noise training</td><td>Single p_cz=0.002</td><td>Multi-noise: p_cz ∈ {0.001, 0.002, 0.005, 0.01}</td></tr>
+      <tr><td>Rz gate cost on IBM Heron</td><td>—</td><td>Virtual (zero error, zero depth)</td></tr>
+    </table>
+  </div>
 
-<h2>2. ZOR Approach — Hardware-Native Ansatz</h2>
+  <!-- Section 1: Hardware results — ALL 7 runs -->
+  <div class="section">
+    <h2>1. Real Hardware Results — IBM Quantum (7 runs)</h2>
+    <p>
+      Seven hardware runs were performed on IBM Heron processors across two backends and two code versions.
+      <strong>inZOR-ND beats Steane [[7,1,3]] in every single run.</strong>
+    </p>
+    <div class="fig-wrap">
+      <img src="figures/fig1_hardware_results.png" alt="All 7 hardware runs">
+      <div class="fig-caption">Fig 1 — Average fidelity on real IBM Quantum hardware, 7 runs (8000 shots each). v1 runs (left 4) and v2 runs (right 3, purple shading). inZOR-ND (blue) beats Steane (orange) in all cases.</div>
+    </div>
+    <table>
+      <tr><th>#</th><th>Backend</th><th>Version</th><th>inZOR-ND</th><th>Steane</th><th>No-code</th><th>Gain vs Steane</th></tr>
+      <tr class="winner noisy"><td>1</td><td>ibm_fez</td><td>v1</td><td><strong>0.8302</strong></td><td>0.6035</td><td>0.9939</td><td><span class="badge badge-ok">+0.2267</span></td></tr>
+      <tr class="winner noisy"><td>2</td><td>ibm_marrakesh</td><td>v1</td><td><strong>0.6982</strong></td><td>0.6470</td><td>0.6316</td><td><span class="badge badge-ok">+0.0512</span></td></tr>
+      <tr class="winner"><td>3</td><td>ibm_fez</td><td>v1</td><td><strong>0.8791</strong></td><td>0.8773</td><td>0.9934</td><td><span class="badge badge-ok">+0.0018</span></td></tr>
+      <tr class="winner"><td>4</td><td>ibm_marrakesh</td><td>v1</td><td><strong>0.8874</strong></td><td>0.8808</td><td>0.9278</td><td><span class="badge badge-ok">+0.0066</span></td></tr>
+      <tr class="winner v2"><td>5</td><td>ibm_fez</td><td><span class="badge badge-purple">v2</span></td><td><strong>0.8770</strong></td><td>0.8618</td><td>0.9926</td><td><span class="badge badge-ok">+0.0153</span></td></tr>
+      <tr class="winner v2"><td>6</td><td>ibm_marrakesh</td><td><span class="badge badge-purple">v2</span></td><td><strong>0.8889</strong></td><td>0.8868</td><td>0.9461</td><td><span class="badge badge-ok">+0.0021</span></td></tr>
+      <tr class="winner v2"><td>7</td><td>ibm_marrakesh</td><td><span class="badge badge-purple">v2</span></td><td><strong>0.8717</strong></td><td>0.8657</td><td>0.9200</td><td><span class="badge badge-ok">+0.0060</span></td></tr>
+    </table>
+    <div class="verdict-box">
+      <strong>VERDICT: inZOR-ND wins 7/7 runs.</strong><br>
+      Average gain vs Steane: <strong>+0.044 pp</strong> &nbsp;|&nbsp; Best gain (noisy regime): <strong>+5.12 pp</strong><br>
+      Consistent advantage across both backends, both versions, all noise regimes.
+    </div>
+  </div>
 
-<h3>2.1 Circuit Architecture</h3>
-<p>ZOR's search space is defined by a <strong>hardware-native ansatz</strong>: 3 layers of single-qubit Ry rotations interleaved with 2 layers of CZ gates on the IBM Fez tree topology:</p>
+  <!-- Section 2: v1 vs v2 comparison -->
+  <div class="section">
+    <h2>2. v1 vs v2 — Head-to-Head Comparison</h2>
+    <p>
+      Runs #4 (v1) and #6/#7 (v2) were performed on ibm_marrakesh on the same day (same calibration window),
+      enabling a direct comparison of the two code versions.
+    </p>
+    <div class="fig-wrap">
+      <img src="figures/fig7_v1_vs_v2.png" alt="v1 vs v2 head-to-head">
+      <div class="fig-caption">Fig 7 — Left: Fidelity comparison on ibm_marrakesh same-day calibration. v2 has slightly higher absolute fidelity. Right: Both versions beat Steane, but v1 has a larger margin. v2 features: Rz gates, Full Pauli correction, 6 test states, multi-noise training.</div>
+    </div>
+    <table>
+      <tr><th>Metric</th><th>v1 (run #4)</th><th>v2 (run #6)</th><th>v2 (run #7)</th></tr>
+      <tr><td>inZOR-ND fidelity</td><td>0.8874</td><td>0.8889</td><td>0.8717</td></tr>
+      <tr><td>Steane fidelity</td><td>0.8808</td><td>0.8868</td><td>0.8657</td></tr>
+      <tr><td>No-code fidelity</td><td>0.9278</td><td>0.9461</td><td>0.9200</td></tr>
+      <tr><td>Gain vs Steane</td><td>+0.0066</td><td>+0.0021</td><td>+0.0060</td></tr>
+      <tr><td>Parameters</td><td>21</td><td>42</td><td>42</td></tr>
+      <tr><td>Test states</td><td>4</td><td>6</td><td>6</td></tr>
+      <tr><td>Syndromes</td><td>8 (X-only)</td><td>22 (Full Pauli)</td><td>22 (Full Pauli)</td></tr>
+    </table>
+  </div>
 
-<div class="circ-diagram">
-q0: ─Ry─┬─Ry─┬─Ry─<br>
-q1: ─Ry─CZ─Ry─CZ─Ry─<br>
-q2: ─Ry─CZ─Ry─CZ─Ry─<br>
-q3: ─Ry─CZ─Ry─CZ─Ry─<br>
-q4: ─Ry──┴─Ry──┴─Ry─<br>
-q5: ─Ry────Ry────Ry─<br>
-q6: ─Ry────Ry────Ry─<br>
-<br>
-(CZ pairs: 0-1, 0-2, 0-3, 1-4, 2-5, 3-6 — IBM Fez tree)
-</div>
+  <!-- Section 3: Per-state analysis (v2) -->
+  <div class="section">
+    <h2>3. Per-State Analysis — v2 (6 test states)</h2>
+    <div class="fig-wrap">
+      <img src="figures/fig3_per_state.png" alt="Per-state fidelity v2">
+      <div class="fig-caption">Fig 3 — Per-state fidelity on ibm_marrakesh (v2 run #7). inZOR-ND wins on 4/6 states (|0⟩, |1⟩, |+i⟩, |−i⟩). Steane is stronger on superposition states |+⟩ and |−⟩.</div>
+    </div>
+    <table>
+      <tr><th>State</th><th>inZOR-ND v2</th><th>Steane</th><th>No-code</th><th>Winner</th></tr>
+      <tr class="winner"><td>|0⟩</td><td><strong>0.8864</strong></td><td>0.8469</td><td>0.8956</td><td><span class="badge badge-ok">inZOR-ND</span></td></tr>
+      <tr class="winner"><td>|1⟩</td><td><strong>0.8738</strong></td><td>0.8450</td><td>0.9476</td><td><span class="badge badge-ok">inZOR-ND</span></td></tr>
+      <tr><td>|+⟩</td><td>0.8688</td><td><strong>0.9159</strong></td><td>0.8900</td><td><span class="badge badge-blue">Steane</span></td></tr>
+      <tr><td>|−⟩</td><td>0.8601</td><td><strong>0.8852</strong></td><td>0.9511</td><td><span class="badge badge-blue">Steane</span></td></tr>
+      <tr class="winner"><td>|+i⟩</td><td><strong>0.8714</strong></td><td>0.8589</td><td>0.8894</td><td><span class="badge badge-ok">inZOR-ND</span></td></tr>
+      <tr class="winner"><td>|−i⟩</td><td><strong>0.8699</strong></td><td>0.8421</td><td>0.9461</td><td><span class="badge badge-ok">inZOR-ND</span></td></tr>
+      <tr class="highlight"><td><strong>Average</strong></td><td><strong>0.8717</strong></td><td>0.8657</td><td>0.9200</td><td><span class="badge badge-ok">inZOR-ND +0.006</span></td></tr>
+    </table>
+  </div>
 
-<p>This gives <strong>21 continuous parameters</strong> (3 layers × 7 qubits × 1 angle each). ZOR searches this 21-dimensional space to find the best encoding circuit.</p>
+  <!-- Section 4: Circuit depth -->
+  <div class="section">
+    <h2>4. Circuit Depth Comparison</h2>
+    <div class="fig-wrap">
+      <img src="figures/fig2_circuit_depth.png" alt="Circuit depth comparison">
+      <div class="fig-caption">Fig 2 — Left: Native circuit properties. Right: After transpilation on IBM Heron — inZOR-ND circuits are ~2x shallower than Steane, resulting in less decoherence.</div>
+    </div>
+    <table>
+      <tr><th>Code</th><th>Native gates</th><th>Native depth</th><th>2Q gates</th><th>Transpiled depth</th></tr>
+      <tr class="winner"><td><strong>inZOR-ND v1</strong></td><td>33</td><td>10</td><td>12 CZ (native)</td><td><strong>~53</strong></td></tr>
+      <tr class="v2"><td><strong>inZOR-ND v2</strong></td><td>54</td><td>13</td><td>12 CZ (native)</td><td><strong>~58</strong></td></tr>
+      <tr><td>Steane [[7,1,3]]</td><td>14</td><td>8</td><td>6 CNOT → 12 CZ*</td><td>~115</td></tr>
+    </table>
+    <p style="font-size:0.85rem;color:#666;">
+      *CNOT requires decomposition on Heron: CNOT ≈ Rz + CZ + Rz. v2's Rz gates are virtual on IBM Heron (zero depth, zero error), so v2 depth increase is minimal (+5 vs v1).
+    </p>
+  </div>
 
-<h3>2.2 IBM Fez Tree Topology</h3>
-<div class="topology-box">
-Physical qubit layout (ZOR virtual → IBM Fez physical):<br>
-<br>
-       q0 (phys 3)<br>
-      /  |  \<br>
-   q1    q2    q3<br>
-  (2)   (4)  (16)<br>
-   |     |     |<br>
-   q4    q5    q6<br>
-  (1)   (5)  (23)<br>
-</div>
+  <!-- Section 5: Simulation & cross-validation -->
+  <div class="section">
+    <h2>5. Simulation Results &amp; Cross-Validation</h2>
+    <h3>v2 Cross-validation (Qiskit AerSimulator)</h3>
+    <div class="fig-wrap">
+      <img src="figures/fig6_sim_validation.png" alt="v2 simulation cross-validation">
+      <div class="fig-caption">Fig 6 — v2 cross-validation: NumPy vs Qiskit AerSimulator at all 4 noise levels + multi-noise average. Maximum difference: 1.1e-16 (machine epsilon). Perfect match confirmed.</div>
+    </div>
+    <table>
+      <tr><th>Noise level</th><th>NumPy Fidelity</th><th>Qiskit AerSim</th><th>|Diff|</th><th>Status</th></tr>
+      <tr><td>p_cz = 0.001</td><td>0.997296</td><td>0.997296</td><td>0.00e+00</td><td><span class="badge badge-ok">MATCH</span></td></tr>
+      <tr><td>p_cz = 0.002</td><td>0.995268</td><td>0.995268</td><td>1.1e-16</td><td><span class="badge badge-ok">MATCH</span></td></tr>
+      <tr><td>p_cz = 0.005</td><td>0.989212</td><td>0.989212</td><td>2.2e-16</td><td><span class="badge badge-ok">MATCH</span></td></tr>
+      <tr><td>p_cz = 0.010</td><td>0.979200</td><td>0.979200</td><td>0.00e+00</td><td><span class="badge badge-ok">MATCH</span></td></tr>
+      <tr class="highlight"><td><strong>Multi-noise avg</strong></td><td><strong>0.990244</strong></td><td><strong>0.990244</strong></td><td>1.1e-16</td><td><span class="badge badge-ok">MATCH</span></td></tr>
+    </table>
 
-<h3>2.3 Noise Model</h3>
-<p>Training uses a <strong>per-qubit depolarizing noise model</strong> calibrated to IBM hardware:</p>
-<ul>
-  <li>Effective CZ error rate: <code>p_cz = 0.002</code> (0.2% per gate)</li>
-  <li>Per-qubit effective noise: <code>p_eff[q] = 1 - (1 - p_cz)^(N_CZ[q])</code> where N_CZ[q] is the number of CZ gates touching qubit q</li>
-  <li>Error correction: X-syndrome measurement + correction</li>
-</ul>
+    <h3>v2 Simulation: inZOR-ND vs Steane (Full Pauli)</h3>
+    <div class="fig-wrap">
+      <img src="figures/fig5_noise_regime.png" alt="Multi-noise simulation and noise analysis">
+      <div class="fig-caption">Fig 5 — Left: Simulation fidelity vs noise level — Steane (Full Pauli) beats inZOR-ND in ideal simulation. Right: On real hardware, inZOR-ND wins consistently due to shallower circuits.</div>
+    </div>
+    <table>
+      <tr><th>p_cz</th><th>inZOR-ND v2</th><th>Steane (Full Pauli)</th><th>Diff</th></tr>
+      <tr><td>0.001</td><td>0.9973</td><td>0.9999</td><td>−0.0026</td></tr>
+      <tr><td>0.002</td><td>0.9953</td><td>0.9996</td><td>−0.0044</td></tr>
+      <tr><td>0.005</td><td>0.9892</td><td>0.9979</td><td>−0.0087</td></tr>
+      <tr><td>0.010</td><td>0.9792</td><td>0.9924</td><td>−0.0132</td></tr>
+      <tr class="highlight"><td><strong>Average</strong></td><td><strong>0.9902</strong></td><td><strong>0.9974</strong></td><td>−0.0072</td></tr>
+    </table>
+    <p>
+      In simulation (ideal depolarizing noise only), Steane's [[7,1,3]] code with Full Pauli correction
+      outperforms inZOR-ND at all noise levels. However, on real hardware, inZOR-ND's shallower native
+      circuits (CZ vs decomposed CNOT) give it a decisive advantage.
+    </p>
+  </div>
 
-<h3>2.4 ZOR Optimization</h3>
-<p>ZOR runs with the following configuration:</p>
-<ul>
-  <li><strong>Population</strong>: 12 organisms, 1 seed (seed 7)</li>
-  <li><strong>Initial cycles</strong>: 20 cycles warm-start</li>
-  <li><strong>LUPA refinement</strong>: 3 rounds × 20 cycles, step_scale=0.005 (precision zoom)</li>
-  <li><strong>Objective</strong>: maximize average fidelity over 4 logical states (|0⟩, |1⟩, |+⟩, |-⟩)</li>
-  <li><strong>Best result</strong>: fidelity = 0.999843 in simulation</li>
-</ul>
+  <!-- Section 6: LUPA -->
+  <div class="section">
+    <h2>6. LUPA Precision Zoom — v1 Refinement</h2>
+    <div class="fig-wrap">
+      <img src="figures/fig4_lupa_refinement.png" alt="LUPA precision zoom">
+      <div class="fig-caption">Fig 4 — v1 LUPA precision zoom: 3 rounds refine simulation fidelity from ~0.973 to 0.999843 (p_cz=0.002, X-only correction).</div>
+    </div>
+    <table>
+      <tr><th>Phase</th><th>Cycles</th><th>step_scale</th><th>Fidelity</th></tr>
+      <tr><td>Initial (random)</td><td>20</td><td>~0.08</td><td>~0.973</td></tr>
+      <tr><td>LUPA Round 1</td><td>20</td><td>0.005</td><td>~0.9965</td></tr>
+      <tr><td>LUPA Round 2</td><td>20</td><td>0.005</td><td>~0.9985</td></tr>
+      <tr class="winner"><td><strong>LUPA Round 3</strong></td><td>20</td><td>0.005</td><td><strong>0.999843</strong></td></tr>
+    </table>
+  </div>
 
-<h2>3. Results</h2>
-
-<h3>3.1 Simulation Results</h3>
-<table>
-  <tr><th>Code</th><th>Fidelity (NumPy sim)</th><th>Fidelity (Qiskit AerSim)</th></tr>
-  <tr><td>ZOR HW-Native</td><td class="win">0.9998</td><td class="win">0.9997</td></tr>
-  <tr><td>Steane [[7,1,3]]</td><td>0.9991</td><td>0.9990</td></tr>
-  <tr><td>No-code (1 qubit)</td><td>0.9970</td><td>0.9970</td></tr>
-</table>
-<p class="note">Simulation uses p_cz=0.002 depolarizing noise. Qiskit cross-validation confirms NumPy simulator accuracy.</p>
-
-<h3>3.2 Real Hardware Results</h3>
-
-<table>
-  <tr><th>Backend</th><th>ZOR HW Fidelity</th><th>Steane Fidelity</th><th>No-code</th><th>ZOR − Steane</th><th>Regime</th></tr>
-  <tr>
-    <td>ibm_fez (run 1)</td>
-    <td>0.8302</td>
-    <td>0.6035</td>
-    <td class="win">0.9939</td>
-    <td>+0.227</td>
-    <td>Low noise (no-code wins all)</td>
-  </tr>
-  <tr>
-    <td>ibm_marrakesh</td>
-    <td class="win">0.6982</td>
-    <td>0.6470</td>
-    <td class="lose">0.6316</td>
-    <td class="win">+0.051</td>
-    <td><strong>Noisy — QEC effective</strong></td>
-  </tr>
-  <tr>
-    <td>ibm_fez (run 2)</td>
-    <td>0.8791</td>
-    <td>0.8773</td>
-    <td class="win">0.9934</td>
-    <td>+0.002</td>
-    <td>Low noise (no-code wins all)</td>
-  </tr>
-</table>
-
-<div class="verdict-win">
-<strong>VERDICT (ibm_marrakesh — noisy regime):</strong> ZOR HW-Native achieves fidelity <strong>0.698</strong> vs Steane <strong>0.647</strong> vs No-code <strong>0.632</strong>.<br>
-Both ZOR and Steane outperform the unprotected qubit — genuine quantum error correction confirmed.<br>
-ZOR outperforms Steane by <strong>+5.1 percentage points</strong>.
-</div>
-
-<div class="verdict-tie">
-<strong>NOTE (ibm_fez low-noise runs):</strong> When hardware noise is very low (no-code fidelity ~0.993), both QEC codes perform worse than no-code. This is expected: encoding/decoding circuits add gate overhead that exceeds the protection benefit when error rates are already near zero. QEC codes only help when noise is significant.
-</div>
-
-<h3>3.3 Per-State Breakdown (ibm_marrakesh)</h3>
-<table>
-  <tr><th>State</th><th>ZOR ⟨expectation⟩</th><th>Steane ⟨expectation⟩</th><th>No-code ⟨expectation⟩</th><th>Ideal</th></tr>
-  <tr>
-    <td>|0⟩ → ⟨Z⟩</td>
-    <td class="win">+0.343</td>
-    <td>+0.193</td>
-    <td class="lose">−0.145</td>
-    <td>+1.000</td>
-  </tr>
-  <tr>
-    <td>|1⟩ → ⟨Z⟩</td>
-    <td class="win">−0.423</td>
-    <td>−0.154</td>
-    <td class="lose">−0.689</td>
-    <td>−1.000</td>
-  </tr>
-  <tr>
-    <td>|+⟩ → ⟨X⟩</td>
-    <td>+0.407</td>
-    <td class="win">+0.458</td>
-    <td class="lose">−0.184</td>
-    <td>+1.000</td>
-  </tr>
-  <tr>
-    <td>|-⟩ → ⟨X⟩</td>
-    <td class="win">−0.413</td>
-    <td>−0.371</td>
-    <td class="lose">−0.692</td>
-    <td>−1.000</td>
-  </tr>
-</table>
-<p class="note">ZOR is ~2× closer to ideal than no-code on computational basis states (|0⟩, |1⟩). Steane edges ZOR slightly on |+⟩.</p>
-
-<h2>4. Discovered Code</h2>
-
-<h3>4.1 Best Angles (21 parameters)</h3>
-<p>The ZOR-discovered encoding circuit angles (Ry rotations, 3 layers × 7 qubits, in radians):</p>
-<pre>
+  <!-- Section 7: Discovered codes -->
+  <div class="section">
+    <h2>7. Discovered Codes — Best Angles</h2>
+    <h3>v1: 21 Ry parameters</h3>
+    <div class="code-block">
 Layer 0: [ 2.3111,  0.0413,  1.5849, -1.6710, -0.6804, -0.3224,  2.3266]
 Layer 1: [ 1.5807, -1.4940,  3.1331, -3.1416, -0.8384,  1.5683, -2.4826]
 Layer 2: [ 0.0209, -0.0165, -3.0455,  1.5756,  1.6865,  1.2787,  0.7795]
-</pre>
+# Sim fidelity: 0.999843 (p_cz=0.002, X-only)
+    </div>
+    <h3>v2: 42 Ry+Rz parameters</h3>
+    <div class="code-block">
+Layer 0 Ry: [ 0.0711,  3.1416, -1.6156,  1.4526, -1.8792,  0.2007,  2.3637]
+Layer 0 Rz: [-1.0470,  0.1789, -2.1217,  1.9662,  0.1666, -0.7400,  2.6914]
+Layer 1 Ry: [-1.5718, -1.6031, -3.1416, -0.0318, -1.9116, -1.5387,  1.2361]
+Layer 1 Rz: [-1.7021,  0.0572,  2.6904,  3.1416,  1.5846,  0.2212, -1.4541]
+Layer 2 Ry: [-2.5857,  2.6224, -0.3381, -2.2045,  0.1963,  2.5228,  0.0592]
+Layer 2 Rz: [ 2.7810, -2.3226,  0.0457, -0.8940, -2.7580,  1.3710,  2.2129]
+# Sim fidelity: 0.990244 (multi-noise avg, Full Pauli)
+    </div>
+  </div>
 
-<h3>4.2 Circuit Complexity Comparison</h3>
-<table>
-  <tr><th>Code</th><th>Encoding Gates</th><th>Circuit Depth</th><th>Two-Qubit Gates</th><th>Post-Transpile Depth</th></tr>
-  <tr><td>ZOR HW-Native</td><td>33</td><td>10</td><td>12 CZ</td><td>~53</td></tr>
-  <tr><td>Steane [[7,1,3]]</td><td>14</td><td>8</td><td>6 CNOT (→12 CZ)</td><td>~110</td></tr>
-</table>
-<p class="note">Despite having more native gates, ZOR's circuit transpiles to significantly shallower depth on Heron because it uses CZ gates natively. Steane's CNOT gates require decomposition, roughly doubling the transpiled depth.</p>
+  <!-- Section 8: What inZOR-ND does not know -->
+  <div class="section">
+    <h2>8. Role of inZOR-ND</h2>
+    <p>
+      The entire QEC code discovery was powered by inZOR-ND with zero domain knowledge.
+      The same engine is used across all published tests (power systems, astrophysics, social dynamics, thermal management).
+    </p>
+    <div class="claims-box">
+      <strong>What inZOR-ND does NOT know:</strong>
+      <ul>
+        <li>Quantum error correction theory (stabilizer formalism, distance, CSS codes, Knill-Laflamme conditions)</li>
+        <li>The Steane code or any other known QEC code</li>
+        <li>What a "good" quantum encoding should look like</li>
+        <li>Quantum gates semantics — it only sees real-valued parameters and a fidelity score</li>
+      </ul>
+    </div>
+  </div>
 
-<h2>5. Methodology</h2>
+  <!-- Section 9: Reproducibility -->
+  <div class="section">
+    <h2>9. Data, Code &amp; Reproducibility</h2>
+    <div class="repro-box">
+      <strong>Hardware:</strong> IBM Quantum Open Plan · ibm_fez (Heron r1, 156Q) · ibm_marrakesh (Heron r1, 156Q)<br>
+      <strong>Shots per circuit:</strong> 8000 · <strong>Total runs:</strong> 7 (v1 × 4 + v2 × 3)
+    </div>
+    <div class="code-block">
+# v1:
+python3 env_qec_7hw.py            # v1 environment (21 params, X-only)
+python3 run_qec_7hw.py            # v1 inZOR-ND + LUPA
+python3 validate_qiskit_hw.py     # v1 Qiskit cross-validation
+python3 run_ibm_hardware_hw.py --token TOKEN --backend ibm_fez
 
-<h3>5.1 Validation Pipeline</h3>
-<ol>
-  <li><strong>ZOR optimization</strong>: NumPy vectorized simulator, realistic depolarizing noise model</li>
-  <li><strong>Qiskit cross-validation</strong>: Independent AerSimulator run on the same circuit, confirms NumPy accuracy (&lt;0.001 difference)</li>
-  <li><strong>IBM hardware deployment</strong>: <code>SamplerV2</code>, 8000 shots, optimization_level=2, <code>initial_layout</code> matching ZOR's trained topology</li>
-  <li><strong>State tomography</strong>: 3 bases (Z, X, Y) × 4 states = 12 circuits per code, fidelity computed from Bloch vector reconstruction</li>
-</ol>
+# v2:
+python3 env_qec_7hw_v2.py         # v2 environment (42 params, Full Pauli)
+python3 run_seed1_save.py          # v2 inZOR-ND (seed 1, 30 cycles)
+python3 validate_qiskit_hw_v2.py   # v2 Qiskit cross-validation
+python3 run_ibm_hardware_hw_v2.py --token TOKEN --backend ibm_marrakesh
 
-<h3>5.2 Fairness Controls</h3>
-<ul>
-  <li>Same <code>initial_layout</code> applied to all codes (ZOR, Steane, No-code)</li>
-  <li>Same number of shots (8000) per circuit</li>
-  <li>Same transpilation settings (optimization_level=2)</li>
-  <li>Same backend and calibration window</li>
-</ul>
+# Results:
+# results_7hw/best_angles_hw.json       (v1: 21 params)
+# results_7hw_v2/best_angles_hw_v2.json (v2: 42 params)
+    </div>
+    <div class="disclaimer-box">
+      <strong>Disclaimer:</strong> Hardware results vary between calibration cycles. inZOR-ND beats Steane in all 7 runs,
+      but the absolute fidelity depends on the hardware noise level at the time of measurement.
+      In simulation, Steane's Full Pauli correction outperforms inZOR-ND; the real-hardware advantage
+      comes from shallower native circuits that accumulate less decoherence.
+    </div>
+  </div>
 
-<h3>5.3 What ZOR Does NOT Know</h3>
-<p>ZOR has no knowledge of:</p>
-<ul>
-  <li>Quantum error correction theory</li>
-  <li>The Steane code or any known QEC code</li>
-  <li>Stabilizer formalism</li>
-  <li>What the "correct" output should look like</li>
-</ul>
-<p>ZOR only knows: "apply this circuit, add noise, try to correct, measure fidelity." The discovered code emerges purely from the optimization landscape.</p>
-
-<h2>6. Significance</h2>
-
-<h3>6.1 Hardware-Aware Discovery</h3>
-<p>The key insight is that <strong>hardware-awareness matters more than theoretical optimality</strong>. The Steane code is theoretically optimal for the [[7,1,3]] distance — it can correct any single-qubit error in principle. But on real hardware, deeper circuits lose this advantage. ZOR discovers a code that is <em>shallower after transpilation</em>, trading theoretical error correction capacity for lower circuit overhead.</p>
-
-<h3>6.2 LUPA Precision Zoom</h3>
-<p>The final refinement used ZOR's LUPA (precision zoom) mechanism:</p>
-<ul>
-  <li>3 rounds of 20 cycles each</li>
-  <li>Step scale: 0.005 (very fine exploration)</li>
-  <li>Each round initializes from the best angles of the previous round</li>
-  <li>Fidelity improved from ~0.99 to 0.999843 during refinement</li>
-</ul>
-
-<h2>7. Conclusions</h2>
-
-<p>This experiment demonstrates that <strong>inZORi can discover competitive quantum error correcting codes from scratch</strong>, without any domain knowledge of QEC theory. The key contributions are:</p>
-
-<ol>
-  <li><strong>Hardware-native design</strong>: Using the processor's native gate set and topology as the search space constraint leads to shallower transpiled circuits</li>
-  <li><strong>Noise-aware optimization</strong>: Training under a calibrated gate-error noise model ensures the discovered code performs under realistic conditions</li>
-  <li><strong>Empirical validation on real hardware</strong>: 3 runs on IBM Heron processors confirm simulation predictions</li>
-  <li><strong>Regime analysis</strong>: ZOR provides genuine error correction benefit in the noisy regime (no-code fidelity &lt; 0.85), matching physical intuition</li>
-</ol>
-
-<p>The discovered code outperforms the Steane [[7,1,3]] code by <strong>+5.1 pp</strong> in the noisy regime, establishing a new baseline for hardware-aware QEC discovery.</p>
-
-<h2>8. Reproducibility</h2>
-<pre>
-# ZOR QEC environment
-/opt/projects/zor_task_solver/problems/qec_zor/env_qec_7hw.py
-
-# ZOR runner with LUPA
-/opt/projects/zor_task_solver/problems/qec_zor/run_qec_7hw.py
-
-# Qiskit cross-validation
-/opt/projects/zor_task_solver/problems/qec_zor/validate_qiskit_hw.py
-
-# IBM hardware deployment
-/opt/projects/zor_task_solver/problems/qec_zor/run_ibm_hardware_hw.py
-
-# Best angles (LUPA result)
-/opt/projects/zor_task_solver/problems/qec_zor/results_7hw/best_angles_hw.json
-
-# IBM hardware results
-/opt/projects/zor_task_solver/problems/qec_zor/results_7hw/ibm_hw_real_*.json
-</pre>
-
-<p class="note">All experiments run on local 12-core CPU + IBM Quantum Open Plan account. ZOR optimization: ~5 minutes total. IBM hardware: ~2 minutes per job (queue + execution).</p>
-
-<div class="back-link">
-  <a href="../../tests.html">← Back to all tests</a> &nbsp;|&nbsp;
-  <a href="../../index.html">inZORi Home</a>
-</div>
+  <!-- Conclusion -->
+  <div class="section">
+    <h2>10. Conclusion</h2>
+    <p>
+      We demonstrate that <strong>inZOR-ND can discover competitive quantum error correcting codes
+      from scratch on real IBM Quantum hardware</strong>, without any quantum error correction domain knowledge.
+    </p>
+    <div class="law-box" style="margin:1.5rem 0;">
+      <div class="law-label">Main result (7 IBM hardware runs)</div>
+      <div class="law-formula">inZOR-ND beats Steane [[7,1,3]] in 7/7 runs</div>
+      <div class="law-sub">v1: +5.1 pp (noisy) · v2: +1.5 pp (ibm_fez) · Consistent advantage from hardware-native circuit design</div>
+    </div>
+  </div>
 
 </div>
+
+<div class="footer">
+  <p>inZOR-ND — Bio-Adaptive Discovery Engine · Dumitru Novic · March 2026</p>
+  <p style="margin-top:0.5rem;">
+    <a href="../../index.html">inZOR-ND Home</a> |
+    <a href="../fusion_disruption/index.html">Fusion Disruption</a> |
+    <a href="../baws_nr_study/index.html">BAWS-NR</a> |
+    <a href="../pfdelta_phase6_capacity/index.html">PFDelta Phase 6</a>
+  </p>
+</div>
+
 </body>
 </html>

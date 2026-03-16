@@ -1,0 +1,23 @@
+{
+  "id": "qec_zor",
+  "title": "inZORi QEC: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit)",
+  "date": "2026-03-16",
+  "category": "Quantum Computing",
+  "tags": ["quantum", "error correction", "IBM Quantum", "hardware-native", "7-qubit", "Steane code"],
+  "summary": "ZOR discovers a hardware-native 7-qubit quantum error correcting code optimized for IBM Heron processor topology (Ry+CZ tree ansatz). On IBM Marrakesh with real noise, ZOR achieves fidelity 0.698 vs Steane [[7,1,3]] at 0.647 — outperforming the textbook code by +5.1%.",
+  "metrics": {
+    "zor_sim_fidelity": 0.999843,
+    "steane_sim_fidelity": 0.9991,
+    "zor_hw_fidelity_marrakesh": 0.6982,
+    "steane_hw_fidelity_marrakesh": 0.6470,
+    "gain_vs_steane_hw": 0.0512,
+    "n_physical_qubits": 7,
+    "n_logical_qubits": 1,
+    "ansatz_params": 21,
+    "cz_gates_encoding": 12,
+    "circuit_depth": 10,
+    "hardware_runs": 3,
+    "backends_tested": ["ibm_fez", "ibm_marrakesh"]
+  },
+  "verdict": "ZOR HW-NATIVE OUTPERFORMS STEANE ON REAL HARDWARE (noisy regime)"
+}

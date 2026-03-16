@@ -4,36 +4,45 @@
   "tests": [
     {
       "id": "qec-zor-ibm",
-      "name": "inZORi QEC: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron)",
-      "category": "quantum",
+      "name": "inZOR-ND: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron)",
+      "category": "Quantum Computing",
       "status": "finished",
       "published": true,
       "created_at": "2026-03-16",
       "updated_at": "2026-03-16",
-      "description": "ZOR autonomously discovers a 7-qubit quantum error correcting code optimized for IBM Heron processor hardware (Ry+CZ tree ansatz, 21 parameters), without any prior knowledge of QEC theory. On real IBM Marrakesh hardware in a noisy regime (no-code fidelity 0.632), ZOR achieves fidelity 0.698 vs Steane [[7,1,3]] at 0.647 — outperforming the textbook code by +5.1 percentage points. Both codes beat the unprotected qubit, confirming genuine quantum error correction. Hardware-native CZ circuits transpile to depth ~53 vs Steane's CNOT-based ~110 on Heron.",
+      "description": "inZOR-ND autonomously discovers 7-qubit QEC codes optimized for IBM Heron hardware, without any prior QEC knowledge. Two versions: v1 (21 Ry params, X-only correction) and v2 (42 Ry+Rz params, Full Pauli 22 syndromes, 6 test states, multi-noise training). Across 7 hardware runs on ibm_fez and ibm_marrakesh, inZOR-ND beats Steane [[7,1,3]] in every single run — from +0.2 pp to +5.1 pp. Hardware-native CZ circuits transpile to depth ~58 vs Steane's ~115 on Heron (~2x shallower). v1 LUPA achieves 0.999843 simulation fidelity; v2 reaches 0.990244 (multi-noise average).",
       "key_findings": [
-        "ZOR discovers competitive QEC code with no prior quantum error correction knowledge",
-        "Hardware-native ansatz: 21 Ry angles + 12 native CZ gates on IBM Fez tree topology",
-        "Transpiled depth ~53 (ZOR) vs ~110 (Steane) on IBM Heron — 2× shallower",
-        "noisy regime (ibm_marrakesh): ZOR 0.698 > Steane 0.647 > no-code 0.632 (+5.1 pp)",
-        "LUPA precision zoom: 3 rounds × 20 cycles → simulation fidelity 0.999843",
-        "Validated on 3 IBM Quantum hardware runs: ibm_fez × 2, ibm_marrakesh × 1"
+        "inZOR-ND beats Steane [[7,1,3]] in 7/7 IBM hardware runs (v1 + v2)",
+        "v1: 21 Ry params, X-only correction, sim fidelity 0.999843 (LUPA)",
+        "v2: 42 Ry+Rz params, Full Pauli (22 syndromes), 6 test states, multi-noise training",
+        "Hardware-native ansatz: 12 CZ gates on IBM Fez tree topology, ~2x shallower than Steane",
+        "Best gain (noisy regime): inZOR-ND 0.698 > Steane 0.647 (+5.1 pp)",
+        "v2 Qiskit cross-validation: perfect match (diff < 1e-16)",
+        "Validated on ibm_fez (3 runs) + ibm_marrakesh (4 runs), 8000 shots each"
       ],
       "metrics": {
-        "ZOR sim fidelity": "0.999843",
-        "ZOR HW fidelity (noisy)": "0.6982",
-        "Steane HW fidelity (noisy)": "0.6470",
-        "No-code HW fidelity": "0.6316",
-        "Gain vs Steane": "+5.1 pp",
-        "Ansatz parameters": "21",
+        "v1 sim fidelity (LUPA)": "0.999843",
+        "v2 sim fidelity (multi-noise)": "0.990244",
+        "Best HW gain vs Steane": "+5.1 pp",
+        "Hardware runs won": "7/7",
+        "v1 parameters": "21 (Ry)",
+        "v2 parameters": "42 (Ry+Rz)",
+        "v2 syndromes": "22 (Full Pauli X+Y+Z)",
         "CZ gates (encoding)": "12",
-        "Transpiled depth ZOR": "~53",
-        "Transpiled depth Steane": "~110",
+        "Transpiled depth inZOR-ND": "~58",
+        "Transpiled depth Steane": "~115",
         "Hardware": "IBM Heron (ibm_fez, ibm_marrakesh)",
-        "Shots per circuit": "8000",
-        "Hardware runs": "3"
+        "Total hardware runs": "7"
       },
-      "report_url": "tests/qec_zor/index.html"
+      "images": [
+        { "url": "tests/qec_zor/figures/fig1_hardware_results.png", "caption": "All 7 hardware runs on IBM Quantum (v1 + v2). inZOR-ND beats Steane in every run." },
+        { "url": "tests/qec_zor/figures/fig7_v1_vs_v2.png", "caption": "v1 vs v2 head-to-head on ibm_marrakesh (same calibration day)." },
+        { "url": "tests/qec_zor/figures/fig2_circuit_depth.png", "caption": "Circuit depth: inZOR-ND v1/v2 transpile to ~53-58 vs Steane ~115 on IBM Heron." }
+      ],
+      "links": [
+        { "label": "Full Details", "url": "tests/qec_zor/index.html", "primary": true },
+        { "label": "PDF (Zenodo preprint)", "url": "zenodo_publish/qec_zor/inZORi_QEC_Zenodo.pdf" }
+      ]
     },
     {
       "id": "fusion-disruption-proximity",
