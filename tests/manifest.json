@@ -1,1257 +1,1290 @@
 {
- "version": "1",
- "updated_at": "2026-03-13",
- "tests": [
-  {
-   "id": "fusion-disruption-proximity",
-   "name": "inZOR-ND: Machine-Agnostic Disruption Proximity Law from Plasma Current Dynamics",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-03-06",
-   "updated_at": "2026-03-06",
-   "description": "A compact empirical indicator η for disruption proximity in tokamak plasmas, derived solely from plasma current (Ip) dynamics using the inZOR-ND bio-adaptive discovery engine. The 3-term candidate law η ≈ −kurtosis + 0.80·rate_ratio + 0.65·cv_ratio encodes a universal structural nucleus (kurtosis) and two instability components. Validated cross-machine on MAST (674 D / 3647 N), C-Mod (414 D / 13 N), and HL-2A (296 D / 600 N) without machine-specific retraining.",
-   "key_findings": [
-    "3-term law: η ≈ −kurtosis + 0.80·rate_ratio + 0.65·cv_ratio — derived from Ip only, no retraining",
-    "min(sep) = 1.071 cross-machine (C-Mod is hardest: 414 D / 13 N, sep still > 1)",
-    "Global ROC-AUC = 0.982, Global PR-AUC = 0.945",
-    "LOMO PASS: all 3 folds (MAST, C-Mod, HL-2A each left out) — formula generalises",
-    "Bootstrap CI₉₅ min(sep) = [0.373, 1.211] > 0 — robust to shot-level resampling",
-    "Sensitivity ±20%: min(sep) ∈ [0.858, 1.254] — insensitive to coefficient variation",
-    "η(t) rises systematically toward disruption on all 3 machines — disruption clock property",
-    "Ablation confirms: 1-term < 2-term < 3-term in min(sep)"
-   ],
-   "metrics": {
-    "Law candidate": "η ≈ −kurtosis + 0.80·rate_ratio + 0.65·cv_ratio",
-    "min(sep)": "1.071",
-    "Global ROC-AUC": "0.982",
-    "Global PR-AUC": "0.945",
-    "LOMO folds passed": "3/3",
-    "Bootstrap CI 2.5% min(sep)": "0.373 (> 0)",
-    "Sensitivity min(sep) range": "[0.858, 1.254]",
-    "Tokamaks": "MAST, C-Mod, HL-2A",
-    "Total disruptive windows": "1,384",
-    "Total non-disruptive windows": "4,260",
-    "Discovery engine": "inZOR-ND bio-adaptive genomic search"
-   },
-   "images": [
+  "version": "1",
+  "updated_at": "2026-03-13",
+  "tests": [
     {
-     "url": "tests/fusion_disruption/figures/fig0_overview_discovery_path.png",
-     "caption": "Fig 0 — Discovery path: min(sep) staircase from 1-term to 3-term. inZOR-ND navigates the law-space."
+      "id": "qec-zor-ibm",
+      "name": "inZORi QEC: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron)",
+      "category": "quantum",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-03-16",
+      "updated_at": "2026-03-16",
+      "description": "ZOR autonomously discovers a 7-qubit quantum error correcting code optimized for IBM Heron processor hardware (Ry+CZ tree ansatz, 21 parameters), without any prior knowledge of QEC theory. On real IBM Marrakesh hardware in a noisy regime (no-code fidelity 0.632), ZOR achieves fidelity 0.698 vs Steane [[7,1,3]] at 0.647 — outperforming the textbook code by +5.1 percentage points. Both codes beat the unprotected qubit, confirming genuine quantum error correction. Hardware-native CZ circuits transpile to depth ~53 vs Steane's CNOT-based ~110 on Heron.",
+      "key_findings": [
+        "ZOR discovers competitive QEC code with no prior quantum error correction knowledge",
+        "Hardware-native ansatz: 21 Ry angles + 12 native CZ gates on IBM Fez tree topology",
+        "Transpiled depth ~53 (ZOR) vs ~110 (Steane) on IBM Heron — 2× shallower",
+        "Noisy regime (ibm_marrakesh): ZOR 0.698 > Steane 0.647 > no-code 0.632 (+5.1 pp)",
+        "LUPA precision zoom: 3 rounds × 20 cycles → simulation fidelity 0.999843",
+        "Validated on 3 IBM Quantum hardware runs: ibm_fez × 2, ibm_marrakesh × 1"
+      ],
+      "metrics": {
+        "ZOR sim fidelity": "0.999843",
+        "ZOR HW fidelity (noisy)": "0.6982",
+        "Steane HW fidelity (noisy)": "0.6470",
+        "No-code HW fidelity": "0.6316",
+        "Gain vs Steane": "+5.1 pp",
+        "Ansatz parameters": "21",
+        "CZ gates (encoding)": "12",
+        "Transpiled depth ZOR": "~53",
+        "Transpiled depth Steane": "~110",
+        "Hardware": "IBM Heron (ibm_fez, ibm_marrakesh)",
+        "Shots per circuit": "8000",
+        "Hardware runs": "3"
+      },
+      "report_url": "tests/qec_zor/index.html"
     },
     {
-     "url": "tests/fusion_disruption/figures/fig1_ablation_comparison.png",
-     "caption": "Fig 1 — Baseline / Ablation: 1-term < 2-term < 3-term in cross-machine robustness."
+      "id": "fusion-disruption-proximity",
+      "name": "inZOR-ND: Machine-Agnostic Disruption Proximity Law from Plasma Current Dynamics",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-03-06",
+      "updated_at": "2026-03-06",
+      "description": "A compact empirical indicator η for disruption proximity in tokamak plasmas, derived solely from plasma current (Ip) dynamics using the inZOR-ND bio-adaptive discovery engine. The 3-term candidate law η ≈ −kurtosis + 0.80·rate_ratio + 0.65·cv_ratio encodes a universal structural nucleus (kurtosis) and two instability components. Validated cross-machine on MAST (674 D / 3647 N), C-Mod (414 D / 13 N), and HL-2A (296 D / 600 N) without machine-specific retraining.",
+      "key_findings": [
+        "3-term law: η ≈ −kurtosis + 0.80·rate_ratio + 0.65·cv_ratio — derived from Ip only, no retraining",
+        "min(sep) = 1.071 cross-machine (C-Mod is hardest: 414 D / 13 N, sep still > 1)",
+        "Global ROC-AUC = 0.982, Global PR-AUC = 0.945",
+        "LOMO PASS: all 3 folds (MAST, C-Mod, HL-2A each left out) — formula generalises",
+        "Bootstrap CI₉₅ min(sep) = [0.373, 1.211] > 0 — robust to shot-level resampling",
+        "Sensitivity ±20%: min(sep) ∈ [0.858, 1.254] — insensitive to coefficient variation",
+        "η(t) rises systematically toward disruption on all 3 machines — disruption clock property",
+        "Ablation confirms: 1-term < 2-term < 3-term in min(sep)"
+      ],
+      "metrics": {
+        "Law candidate": "η ≈ −kurtosis + 0.80·rate_ratio + 0.65·cv_ratio",
+        "min(sep)": "1.071",
+        "Global ROC-AUC": "0.982",
+        "Global PR-AUC": "0.945",
+        "LOMO folds passed": "3/3",
+        "Bootstrap CI 2.5% min(sep)": "0.373 (> 0)",
+        "Sensitivity min(sep) range": "[0.858, 1.254]",
+        "Tokamaks": "MAST, C-Mod, HL-2A",
+        "Total disruptive windows": "1,384",
+        "Total non-disruptive windows": "4,260",
+        "Discovery engine": "inZOR-ND bio-adaptive genomic search"
+      },
+      "images": [
+        {
+          "url": "tests/fusion_disruption/figures/fig0_overview_discovery_path.png",
+          "caption": "Fig 0 — Discovery path: min(sep) staircase from 1-term to 3-term. inZOR-ND navigates the law-space."
+        },
+        {
+          "url": "tests/fusion_disruption/figures/fig1_ablation_comparison.png",
+          "caption": "Fig 1 — Baseline / Ablation: 1-term < 2-term < 3-term in cross-machine robustness."
+        },
+        {
+          "url": "tests/fusion_disruption/figures/fig2_lomo.png",
+          "caption": "Fig 2 — LOMO: sep and ROC-AUC for each left-out machine. All 3 folds PASS."
+        },
+        {
+          "url": "tests/fusion_disruption/figures/fig3_temporal_eta.png",
+          "caption": "Fig 3 — Temporal trajectory η(t): systematic rise toward disruption on all 3 machines."
+        },
+        {
+          "url": "tests/fusion_disruption/figures/fig4_structural_per_machine.png",
+          "caption": "Fig 4 — Per-machine structural analysis: kurtosis common nucleus; rate_ratio dominant on MAST, cv_ratio on C-Mod."
+        },
+        {
+          "url": "tests/fusion_disruption/figures/fig5_robustness_sensitivity.png",
+          "caption": "Fig 5 — Robustness (bootstrap 300 replicas) and sensitivity (±20% coefficients, 300 replicas)."
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/fusion_disruption/index.html",
+          "primary": true
+        },
+        {
+          "url": "results/fusion_disruption_ablation.json",
+          "label": "Ablation JSON"
+        },
+        {
+          "url": "results/fusion_disruption_lomo.json",
+          "label": "LOMO JSON"
+        },
+        {
+          "url": "results/fusion_disruption_robustness.json",
+          "label": "Robustness JSON"
+        },
+        {
+          "label": "PDF (Zenodo preprint)",
+          "url": "tests/fusion_disruption/inZOR-ND_Fusion_Disruption_Proximity_Zenodo.pdf"
+        },
+        {
+          "label": "Zenodo (DOI)",
+          "url": "https://doi.org/10.5281/zenodo.18916249"
+        }
+      ],
+      "domain": "Plasma Physics / Fusion Disruption",
+      "short_description": "inZOR-ND discovers a 3-term machine-agnostic disruption proximity law from Ip dynamics alone. Validated on MAST, C-Mod, HL-2A with LOMO, bootstrap, and sensitivity analysis.",
+      "doi": "10.5281/zenodo.18916249",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18916249"
     },
     {
-     "url": "tests/fusion_disruption/figures/fig2_lomo.png",
-     "caption": "Fig 2 — LOMO: sep and ROC-AUC for each left-out machine. All 3 folds PASS."
+      "id": "baws-nr-universal",
+      "name": "BAWS-NR: Universal 1.59× Speedup for Newton-Raphson Across 6 Scientific Domains",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-27",
+      "updated_at": "2026-02-27",
+      "description": "Bio-Adaptive Warm-Start Newton-Raphson (BAWS-NR) with α=0.979, validated across 6 independent domains: power systems (1354-bus PEGASE, 130K solves), celestial mechanics (Kepler), thermodynamics (Van der Waals), robotics (inverse kinematics), finance (Black-Scholes), and 2D nonlinear thermal conduction (900 unknowns, 10K solves). Includes formal convergence proof and no-harm guarantee. Total: 142,056 converged NR solves.",
+      "key_findings": [
+        "Universal speedup: 1.59× mean across 6 domains (range 1.26×–2.13×)",
+        "Convergence proof: BAWS-NR never worsens convergence when δ < D",
+        "Dimensionality independent: works for 1D, 900D, and 1354D systems",
+        "New 2D thermal conduction test: 10,000 solves, 1.73× speedup, all solutions identical",
+        "Zero overhead: warm-start computation O(n), negligible vs J⁻¹F",
+        "No domain-specific tuning: α=0.979 works out-of-the-box everywhere",
+        "142,056 total converged NR solves — 100% convergence preservation"
+      ],
+      "metrics": {
+        "Mean speedup": "1.59×",
+        "Domains validated": "6",
+        "Total NR solves": "142,056",
+        "Alpha parameter": "0.979",
+        "Convergence rate": "100%",
+        "Thermal 2D speedup": "1.73×",
+        "Power Flow speedup": "1.66×",
+        "Kepler speedup": "2.13×"
+      },
+      "images": [
+        {
+          "url": "tests/baws_nr_study/figures/fig4_cross_domain.png",
+          "caption": "Fig 1 — Cross-domain validation: α=0.979 provides consistent speedup across 6 independent scientific domains"
+        },
+        {
+          "url": "tests/baws_nr_study/figures/fig1_iterations_by_beta.png",
+          "caption": "Fig 2 — 2D Thermal Conduction: iteration comparison by nonlinearity parameter β"
+        },
+        {
+          "url": "tests/baws_nr_study/figures/fig2_iteration_trace.png",
+          "caption": "Fig 3 — Iteration trace: BAWS-NR consistently requires fewer iterations per timestep"
+        },
+        {
+          "url": "tests/baws_nr_study/figures/fig3_iteration_histogram.png",
+          "caption": "Fig 4 — Iteration distribution: NR peaks at 5–6, BAWS-NR peaks at 3"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/baws_nr_study/index.html",
+          "primary": true
+        },
+        {
+          "url": "tests/baws_nr_study/index.html",
+          "label": "Full Results Page"
+        },
+        {
+          "url": "results/thermal_baws_results.json",
+          "label": "Raw JSON Results (Thermal 2D)"
+        },
+        {
+          "label": "Zenodo (DOI)",
+          "url": "https://doi.org/10.5281/zenodo.18816838"
+        }
+      ],
+      "doi": "10.5281/zenodo.18816838",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18816838"
     },
     {
-     "url": "tests/fusion_disruption/figures/fig3_temporal_eta.png",
-     "caption": "Fig 3 — Temporal trajectory η(t): systematic rise toward disruption on all 3 machines."
+      "id": "re-study-n1-security",
+      "name": "inZORi: 1.66× Faster Real-Time N-1 Grid Security Under Renewable Volatility",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-27",
+      "updated_at": "2026-02-27",
+      "doi": "10.5281/zenodo.18807539",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18807539",
+      "description": "Quantifies how inZORi's bio-adaptive warm-start reduces Newton-Raphson iterations for N-1 contingency power flow convergence. 132,480 N-1 assessments on case1354pegase (1354 buses) using real ENTSO-E Germany Q2 2025 data (8,832 intervals). Identical tolerance (1e-6 MVA). inZORi converges in 3.15 iterations vs NR 5.22 — a 1.66× speedup translating to 1,058 vs 638 contingencies/min.",
+      "key_findings": [
+        "Global speedup: 1.66× (inZORi 3.15 iter vs NR 5.22 iter, identical 1e-6 tolerance)",
+        "Throughput: 1,058 vs 638 contingencies/min — +66% more N-1 security checks",
+        "Peak speedup 1.99× at 0.92× load (normal operation)",
+        "Both solvers solve exactly the same 130,056 cases; fail on same 2,424 (physical collapse >1.31×)",
+        "Advantage consistent from 0.90× to 1.31× load — full physical operating range",
+        "132,480 N-1 assessments: 8,832 ENTSO-E intervals × 5 lines × 3 seeds"
+      ],
+      "metrics": {
+        "inZORi mean iterations": "3.151",
+        "NR mean iterations": "5.221",
+        "Iterations saved": "+2.07 per contingency",
+        "Speedup": "1.66×",
+        "inZORi ctg/min": "1,058",
+        "NR ctg/min": "638",
+        "N-1 assessments": "132,480",
+        "Network": "case1354pegase (1354 buses, 1991 lines)",
+        "Data": "ENTSO-E DE-LU Q2 2025, 8,832 intervals",
+        "Seeds": "3 (42, 7, 137)"
+      },
+      "images": [
+        {
+          "url": "tests/re_study/figures/fig1_iterations_comparison.png",
+          "caption": "Fig 1 — NR vs inZORi: minimum iterations to converge by load factor"
+        },
+        {
+          "url": "tests/re_study/figures/fig2_speedup_curve.png",
+          "caption": "Fig 2 — Speedup curve across full operating range (0.90×–1.31×)"
+        },
+        {
+          "url": "tests/re_study/figures/fig3_contingencies_per_minute.png",
+          "caption": "Fig 3 — Operational impact: N-1 contingencies verified per minute"
+        },
+        {
+          "url": "tests/re_study/figures/fig4_savings_and_failures.png",
+          "caption": "Fig 4 — Iteration savings and failure behavior at physical limits"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/re_study/index.html",
+          "primary": true
+        },
+        {
+          "url": "tests/re_study/index.html",
+          "label": "Full Results Page"
+        },
+        {
+          "url": "results/entsoe_iter_study.json",
+          "label": "Raw JSON Results"
+        },
+        {
+          "url": "tests/re_study/inZORi_RE_Study_N1_Security_Zenodo.pdf",
+          "label": "PDF (Zenodo preprint)"
+        }
+      ]
     },
     {
-     "url": "tests/fusion_disruption/figures/fig4_structural_per_machine.png",
-     "caption": "Fig 4 — Per-machine structural analysis: kurtosis common nucleus; rate_ratio dominant on MAST, cv_ratio on C-Mod."
+      "id": "pfdelta-phase6-capacity",
+      "name": "PFΔ Phase 6 ★ FINAL — Capacity Boundary on case1354pegase (1354-bus Pan-European)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-25",
+      "updated_at": "2026-02-27",
+      "doi": "10.5281/zenodo.18806643",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18806643",
+      "description": "Final chapter of the inZORi research program. Discovers the precise critical load threshold on the case1354pegase Pan-European network (1354 buses, ~73 GW nominal). Systematic sweep from 1.18× to 1.30× nominal across 3 seeds. At exactly 1.25×, Newton-Raphson collapses to 0% S3 convergence on ALL 3 seeds while inZORi FrozenElite maintains 99.9% — a +99.9pp advantage. Includes full journey conclusions across all 6 phases.",
+      "key_findings": [
+        "Sharp critical threshold at 1.25× nominal (~91.4 GW): NR=0%, inZORi=99.9% — reproducible on 3 seeds",
+        "inZORi extends operable load range by ~5.5%: from 1.22× (both work) to 1.27× (inZORi only)",
+        "Below 1.22×: all methods equivalent (~100%) — inZORi adds no overhead in normal conditions",
+        "Above 1.30×: all methods fail — inZORi cannot solve physically infeasible systems",
+        "11× larger network than Phases 1–5 (1354 vs 118 buses) — advantage holds at scale",
+        "54 jobs completed in 290s on 12 cores — production-ready computational efficiency"
+      ],
+      "metrics": {
+        "inZORi at 1.25× (critical)": "99.9% ±0.1",
+        "NR at 1.25× (critical)": "0.0% ±0.0",
+        "Advantage at critical point": "+99.9pp (∞× factor)",
+        "Critical threshold": "1.25× nominal = ~91.4 GW",
+        "Network": "case1354pegase (1354 buses, 1991 lines)",
+        "Seeds": "3 (fully reproducible)",
+        "Total jobs": "54 (6 scales × 3 variants × 3 seeds)",
+        "Wall time": "290 seconds on 12 cores"
+      },
+      "images": [
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig1_capacity_curve.png",
+          "caption": "Fig 1 — inZORi vs NR Capacity Curve: S3 convergence rate vs load scale (1.18×–1.30×). Sharp NR collapse at 1.25×."
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig2_reproducibility.png",
+          "caption": "Fig 2 — Reproducibility at 1.25×: NR=0% on all 3 seeds, inZORi=99.8–100% on all 3 seeds."
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig3_heatmap.png",
+          "caption": "Fig 3 — Full results heatmap: convergence across all 6 load levels × 3 variants. Sharp transition visible."
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/figures/fig4_journey.png",
+          "caption": "Fig 4 — Complete inZORi journey: all 6 phases from 118-bus synthetic to 1354-bus capacity boundary."
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase6_capacity/index.html",
+          "primary": true
+        },
+        {
+          "url": "tests/pfdelta_phase6_capacity/index.html",
+          "label": "Full Results Page"
+        },
+        {
+          "url": "results/capacity_full_results.json",
+          "label": "Raw JSON Results"
+        }
+      ]
     },
     {
-     "url": "tests/fusion_disruption/figures/fig5_robustness_sensitivity.png",
-     "caption": "Fig 5 — Robustness (bootstrap 300 replicas) and sensitivity (±20% coefficients, 300 replicas)."
+      "id": "pfdelta-phase5-entsoe",
+      "name": "PFΔ Phase 5 — ENTSO-E Real Load: Romania, Germany, France (2024)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-23",
+      "updated_at": "2026-02-27",
+      "doi": "10.5281/zenodo.18806567",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18806567",
+      "description": "First validation of inZORi FrozenElite on live ENTSO-E Transparency Platform data (2024). Three grids tested: Romania (thermal/hydro), Germany (renewables-heavy), France (nuclear-dominant). 4 variants × 4 seeds × 3 countries = 48 jobs on 12 cores. FrozenElite achieves 75–92% S3 convergence vs 4.5–15% for NR standard — a 6× to 17× improvement on real European consumption data.",
+      "key_findings": [
+        "FrozenElite 75.3% vs NR 4.5% on Romania ENTSO-E 2024 (×16.7 advantage)",
+        "FrozenElite 82.5% vs NR 11.4% on Germany ENTSO-E 2024 (×7.2 advantage)",
+        "FrozenElite 91.7% vs NR 15.1% on France ENTSO-E 2024 (×6.1 advantage)",
+        "Grid structure explains performance: nuclear-stable FR > renewables DE > thermal RO",
+        "Adaptive selector ≈ best static genome (G01) on real data — G01 generalizes well",
+        "Real ENTSO-E profiles less extreme than synthetic — validates under realistic conditions"
+      ],
+      "metrics": {
+        "RO — FrozenElite S3": "75.3%",
+        "RO — NR Standard S3": "4.5%",
+        "DE — FrozenElite S3": "82.5%",
+        "DE — NR Standard S3": "11.4%",
+        "FR — FrozenElite S3": "91.7%",
+        "FR — NR Standard S3": "15.1%",
+        "Max advantage factor": "×16.7 (RO)",
+        "Total jobs": "48 (3 countries × 4 variants × 4 seeds)",
+        "Data source": "ENTSO-E API 2024 — 8,760 h/country"
+      },
+      "images": [
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig1_s3_convergence.png",
+          "caption": "Fig 1 — S3 Convergence Rate: FrozenElite vs G01 vs NR vs Synthetic across RO/DE/FR (ENTSO-E 2024)"
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig2_fe_advantage.png",
+          "caption": "Fig 2 — Absolute advantage (pp) and multiplicative factor: FrozenElite vs NR on real ENTSO-E data"
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig3_recovery_times.png",
+          "caption": "Fig 3 — Average recovery steps after N-1/N-2/N-4 contingencies: FrozenElite recovers 2–6× faster"
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/figures/fig4_phase_progression.png",
+          "caption": "Fig 4 — Research progression Phase 1→5: advantage gap widens as test conditions become more realistic"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase5_entsoe/index.html",
+          "primary": true
+        },
+        {
+          "url": "tests/pfdelta_phase5_entsoe/index.html",
+          "label": "📄 Full Report (HTML)"
+        },
+        {
+          "url": "results/real_vs_baseline.json",
+          "label": "📊 Raw Results (JSON)"
+        },
+        {
+          "url": "zenodo_publish/phase5/inZORi_PFDelta_Phase5_Zenodo.pdf",
+          "label": "📥 PDF Zenodo"
+        }
+      ]
+    },
+    {
+      "id": "pfdelta-phase4-real",
+      "name": "PFΔ Phase 4 — Real Load Profiles UA/DE/FR + Historical Blackouts",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-21",
+      "updated_at": "2026-02-21",
+      "description": "inZORi FrozenElite validated on real OPSD load profiles (Ukraine, Germany, France) and three historical blackout events: Balkans 2006, Ukraine Cyberattack 2015, Moldova 31 Jan 2026. 5 seeds × 4 variants × 3 countries. CI95 non-overlapping advantage confirmed.",
+      "key_findings": [
+        "FrozenElite +3.64% over NR on Ukraine real profile (CI95 non-overlapping)",
+        "FrozenElite +3.69% over NR on Germany real profile",
+        "FrozenElite +3.31% over NR on France real profile",
+        "Balkans 2006 (N-2): 90.7% convergence vs 88.8% NR during event",
+        "Moldova 31 Jan 2026 (N-1 Isaccea-Vulcanesti): 22.5% vs 21.4% NR",
+        "Advantage consistent across post-Soviet, renewables-heavy, and nuclear-dominant grids"
+      ],
+      "metrics": {
+        "countries": [
+          "UA",
+          "DE",
+          "FR"
+        ],
+        "seeds": 5,
+        "steps": 50000,
+        "variants": 4,
+        "total_runs": 60,
+        "ua_advantage": "+3.64%",
+        "de_advantage": "+3.69%",
+        "fr_advantage": "+3.31%",
+        "blackout_scenarios": 3,
+        "runtime_min": 65.2
+      },
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase4_real/index.html",
+          "primary": true
+        },
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase4_real/"
+        }
+      ],
+      "images": [
+        {
+          "filename": "fig1_s3_convergence_countries.png",
+          "caption": "S3 convergence per country with CI95",
+          "url": "tests/pfdelta_phase4_real/figures/fig1_s3_convergence_countries.png"
+        },
+        {
+          "filename": "fig3_blackout_scenarios.png",
+          "caption": "Blackout scenario replay results",
+          "url": "tests/pfdelta_phase4_real/figures/fig3_blackout_scenarios.png"
+        }
+      ],
+      "domain": "Power Systems / Real Data Validation",
+      "short_description": "inZORi FrozenElite on real European load profiles (UA/DE/FR) + 3 historical blackouts. +3.3–3.7% advantage over NR, CI95 confirmed.",
+      "doi": "10.5281/zenodo.18735099"
+    },
+    {
+      "id": "pfdelta-phase3-n2",
+      "name": "PFΔ Phase 3 — N-2 Contingency Robustness (IEEE 118-bus)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-02-21",
+      "updated_at": "2026-02-21",
+      "description": "inZORi Frozen Elite with N-2 specialists: simultaneous outage of 2 lines. +16.14 pp vs Baseline A, 2.8× faster N-2 recovery. LUPA-refined genome (85.20%). 20 seeds × 50k steps, N-1+N-2 in S3.",
+      "key_findings": [
+        "inZORi N-2: 71.16% S3 conv. (CI95 [70.9, 71.4])",
+        "Baseline A: 55.02% | Baseline B: 55.35%",
+        "N-2 recovery: 1.45 steps (inZORi) vs 4.12 steps (Baseline A) — 2.8× faster",
+        "N-1 recovery ≈ N-2 recovery (1.49 vs 1.45 steps) — specialists neutralize N-2",
+        "LUPA refined genome: 0.8444 (evo) → 0.8520 (+0.76pp)",
+        "15-gen evolution + LUPA + 8-genome Frozen Elite pool"
+      ],
+      "metrics": {
+        "s3_convergence_inzori": "71.16%",
+        "s3_convergence_baseline_a": "55.02%",
+        "improvement_pp": "+16.14",
+        "n2_recovery_inzori": "1.45 steps",
+        "n2_recovery_baseline": "4.12 steps",
+        "recovery_advantage": "2.8x",
+        "seeds": 20,
+        "steps": 50000,
+        "genome_fitness_lupa": "85.20%"
+      },
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase3_n2/index.html",
+          "primary": true
+        },
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase3_n2/"
+        }
+      ],
+      "images": [
+        {
+          "filename": "fig1_s3_convergence_n2.png",
+          "caption": "S3 convergence N-1+N-2",
+          "url": "tests/pfdelta_phase3_n2/figures/fig1_s3_convergence_n2.png"
+        },
+        {
+          "filename": "fig2_recovery_n1_n2.png",
+          "caption": "N-1 vs N-2 recovery speed",
+          "url": "tests/pfdelta_phase3_n2/figures/fig2_recovery_n1_n2.png"
+        }
+      ],
+      "domain": "Power Systems / Grid Stability",
+      "short_description": "N-2 contingency (2 simultaneous line outages): inZORi +16pp, 2.8× faster recovery, LUPA-refined genome.",
+      "doi": "10.5281/zenodo.18735120"
+    },
+    {
+      "id": "scenario-1-dynamic-worlds",
+      "name": "Scenario 1: Adaptation to dynamic environment",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-14",
+      "description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B). Energy-conservation strategies emerge without explicit training.",
+      "key_findings": [
+        "World A: Food bottom-left, danger top-right",
+        "World B: Food top-right, danger bottom-left",
+        "Population survives 4 world transitions over 600 steps",
+        "Survival rate: ~99%",
+        "Energy stabilizes through emergent conservation strategies"
+      ],
+      "metrics": {
+        "steps": 600,
+        "transitions": 4,
+        "survival_rate": "99%",
+        "initial_population": 40,
+        "final_population": "~200"
+      },
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario1_dynamic/index.html",
+          "primary": true
+        }
+      ],
+      "images": [
+        {
+          "filename": "scenario1_population_evolution_v2.png",
+          "caption": "Population evolution in alternating worlds (A ↔ B) showing survival and adaptation over 600 steps",
+          "url": "demo_images/scenario1_population_evolution_v2.png"
+        }
+      ],
+      "domain": "Artificial life",
+      "short_description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B)",
+      "created_at": "2026-02-10"
+    },
+    {
+      "id": "scenario-2-social-iq",
+      "name": "Scenario 2: Emergence of social behavior (IQ & Fertility)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-14",
+      "description": "Population with IQ-encoded genomes. Higher-IQ individuals start reproduction later (education delay) and incur higher opportunity cost per child. No explicit fertility rules.",
+      "key_findings": [
+        "Top 20 high-IQ pairs: 57 children",
+        "Bottom 20 low-IQ pairs: 69 children",
+        "Difference: -17.4%",
+        "Effect strongest at extremes (~16-18% gap)",
+        "Small biases (timing + opportunity cost) accumulate over time"
+      ],
+      "metrics": {
+        "total_births": 122731,
+        "top20_avg_iq": 134.0,
+        "bottom20_avg_iq": 91.5,
+        "top20_births": 57,
+        "bottom20_births": 69,
+        "difference_pct": -17.4
+      },
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario2_social_iq/index.html",
+          "primary": true
+        }
+      ],
+      "images": [
+        {
+          "filename": "scenario2_children_count_v2.png",
+          "caption": "Children count comparison: high IQ vs low IQ pairs showing -17.4% difference due to delayed reproduction",
+          "url": "demo_images/scenario2_children_count_v2.png"
+        }
+      ],
+      "domain": "Social dynamics",
+      "short_description": "Population with IQ-encoded genomes",
+      "created_at": "2026-02-11"
+    },
+    {
+      "id": "scenario-4-tess",
+      "name": "Scenario 3: inZORi prioritization for TESS",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-14",
+      "description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine. Ranking is built from regularity, stability, SNR, scatter, transit count, duration and depth, without explicit manual weighting formulas.",
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario3_tess/index.html",
+          "primary": true
+        },
+        {
+          "label": "Class distribution",
+          "url": "demo_images/scenario4_tess_class_distribution.png"
+        },
+        {
+          "label": "Top-10 rank chart",
+          "url": "demo_images/scenario4_tess_top10_ranksum.png"
+        },
+        {
+          "label": "Candidates report JSON",
+          "url": "tests/tess/candidates_report.json"
+        },
+        {
+          "label": "Candidates report MD",
+          "url": "tests/tess/candidates_report.md"
+        }
+      ],
+      "key_findings": [
+        "13,000 signals analyzed in this published snapshot",
+        "294 clean transit candidates flagged for follow-up",
+        "Top candidate consensus rank_sum = 7 across 4 ranking variants",
+        "Strong separation between clean transit vs variable/artifact classes",
+        "Output includes ranked lists and anomaly classes for downstream review"
+      ],
+      "metrics": {
+        "signals_analyzed": 13000,
+        "clean_transit_candidates": 294,
+        "uncertain": 12191,
+        "variable_or_artifact": 513,
+        "eclipsing_binary": 1,
+        "weak_signal": 1,
+        "ranking_variants": 4,
+        "best_rank_sum": 7
+      },
+      "images": [
+        {
+          "filename": "scenario4_tess_class_distribution.png",
+          "caption": "Class distribution for prioritized TESS signals.",
+          "url": "demo_images/scenario4_tess_class_distribution.png"
+        },
+        {
+          "filename": "scenario4_tess_top10_ranksum.png",
+          "caption": "Top-10 consensus candidates ranked by rank_sum.",
+          "url": "demo_images/scenario4_tess_top10_ranksum.png"
+        }
+      ],
+      "domain": "Astronomy (TESS)",
+      "short_description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine",
+      "created_at": "2026-02-12"
+    },
+    {
+      "id": "scenario-5-robotics",
+      "name": "Scenario 4: Adaptive robotics - navigation in changing environment",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-14",
+      "description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise. No map, no global reward—only survival pressure.",
+      "key_findings": [
+        "Mean fitness (harsh_dynamic): 137.53",
+        "Best seed (702): 139.27",
+        "Max population: 1200",
+        "Adaptation score: 0.744 (balanced across phases)",
+        "Survival stabilizes around 550-560 steps",
+        "Phase 3 shows maximal pressure from hazard barriers"
+      ],
+      "metrics": {
+        "grid_size": "100×100",
+        "total_steps": 800,
+        "phases": 5,
+        "mean_fitness": 137.53,
+        "best_seed": 702,
+        "best_fitness": 139.27,
+        "max_population": 1200,
+        "adaptation_score": 0.744
+      },
+      "images": [
+        {
+          "filename": "best_trajectory.png",
+          "caption": "Phase-colored trajectory showing robot's path on grid",
+          "url": "demo_images/best_trajectory.png"
+        },
+        {
+          "filename": "fitness_evolution.png",
+          "caption": "Fitness across successive evaluations with survival duration",
+          "url": "demo_images/fitness_evolution.png"
+        },
+        {
+          "filename": "phase_survival.png",
+          "caption": "Average survival steps by phase with adaptation score distribution",
+          "url": "demo_images/phase_survival.png"
+        },
+        {
+          "filename": "hazard_resource_balance.png",
+          "caption": "Hazard hits vs resources collected; greener = higher fitness",
+          "url": "demo_images/hazard_resource_balance.png"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario4_robotics/index.html",
+          "primary": true
+        },
+        {
+          "label": "Trajectory",
+          "url": "demo_images/best_trajectory.png"
+        },
+        {
+          "label": "Fitness",
+          "url": "demo_images/fitness_evolution.png"
+        },
+        {
+          "label": "Survival",
+          "url": "demo_images/phase_survival.png"
+        },
+        {
+          "label": "Balance",
+          "url": "demo_images/hazard_resource_balance.png"
+        }
+      ],
+      "domain": "Robotics",
+      "short_description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise",
+      "created_at": "2026-02-13"
+    },
+    {
+      "id": "scenario-6-sdc",
+      "name": "Scenario 5: SDC_v1 - What inZORi preserves when world drifts slowly",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-14",
+      "description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift. 2D environment with drifting food/danger zones (Gaussian fields). No optimization, no RL, no policy updates.",
+      "key_findings": [
+        "Continuity (static): 0.98",
+        "Continuity (drift_slow): 0.97",
+        "Continuity (drift_medium): 0.73",
+        "Continuity (drift_chaotic): 0.59",
+        "inZORi preserves behavior when change is predictable",
+        "Graceful degradation under unpredictable drift"
+      ],
+      "metrics": {
+        "continuity_static": 0.98,
+        "continuity_drift_slow": 0.97,
+        "continuity_drift_medium": 0.73,
+        "continuity_drift_chaotic": 0.59
+      },
+      "images": [
+        {
+          "filename": "continuity_score_over_time.png",
+          "caption": "Continuity remains high under static/slow drift, drops under medium, collapses under chaotic",
+          "url": "demo_images/continuity_score_over_time.png"
+        },
+        {
+          "filename": "drift_tracking_distance.png",
+          "caption": "How well population tracks moving food/danger zones",
+          "url": "demo_images/drift_tracking_distance.png"
+        },
+        {
+          "filename": "tradition_reappearance_timeline.png",
+          "caption": "When behavioral signatures reappear over time under drift",
+          "url": "demo_images/tradition_reappearance_timeline.png"
+        },
+        {
+          "filename": "static_vs_chaotic.png",
+          "caption": "Contrast between stable behavior and collapse",
+          "url": "demo_images/static_vs_chaotic.png"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/scenario5_sdc/index.html",
+          "primary": true
+        },
+        {
+          "label": "Continuity",
+          "url": "demo_images/continuity_score_over_time.png"
+        },
+        {
+          "label": "Tracking",
+          "url": "demo_images/drift_tracking_distance.png"
+        },
+        {
+          "label": "Tradition",
+          "url": "demo_images/tradition_reappearance_timeline.png"
+        },
+        {
+          "label": "Comparison",
+          "url": "demo_images/static_vs_chaotic.png"
+        }
+      ],
+      "domain": "Artificial life",
+      "short_description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift",
+      "created_at": "2026-02-13"
+    },
+    {
+      "id": "social-density-effect",
+      "name": "inZORi Social Density Effect",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-15",
+      "description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organisms). Measures collective behaviors, spatial distribution, mortality, energy stability, and identifies critical density thresholds. 24 seeds per density, 800 steps.",
+      "key_findings": [
+        "Mortality rate increases significantly with density (LOW: 0.18%, MEDIUM: 0.24%, HIGH: 0.34%)",
+        "Mean distance increases: LOW: 37.6 → HIGH: 42.8 (organisms spread out more at high density)",
+        "Clustering decreases: LOW: 3.71 → HIGH: 2.86 (less spatial cohesion at high density)",
+        "Genome diversity decreases slightly: LOW: 0.222 → HIGH: 0.211",
+        "Energy mean remains stable across densities (~4.0-4.4)",
+        "Statistical significance: mortality (p<0.0001), distance (p=0.0002), clustering (p=0.003), diversity (p<0.0001)",
+        "Critical threshold observed between medium and high density regimes"
+      ],
+      "metrics": {
+        "seeds": 24,
+        "steps_per_run": 800,
+        "densities": {
+          "low": {
+            "population_initial": 20,
+            "population_final_mean": 386.5,
+            "mortality_rate_mean": 0.001811,
+            "mortality_rate_ci": "[0.00173, 0.00189]",
+            "mean_distance": 37.63,
+            "mean_distance_ci": "[35.54, 39.73]",
+            "clustering": 3.71,
+            "clustering_ci": "[3.28, 4.13]",
+            "genome_diversity": 0.222,
+            "genome_diversity_ci": "[0.219, 0.224]",
+            "energy_mean": 3.95
+          },
+          "medium": {
+            "population_initial": 60,
+            "population_final_mean": 387.3,
+            "mortality_rate_mean": 0.002368,
+            "mortality_rate_ci": "[0.00227, 0.00246]",
+            "mean_distance": 42.15,
+            "mean_distance_ci": "[40.28, 44.01]",
+            "clustering": 3.11,
+            "clustering_ci": "[2.76, 3.45]",
+            "genome_diversity": 0.221,
+            "genome_diversity_ci": "[0.219, 0.222]",
+            "energy_mean": 4.08
+          },
+          "high": {
+            "population_initial": 140,
+            "population_final_mean": 391.7,
+            "mortality_rate_mean": 0.003379,
+            "mortality_rate_ci": "[0.00325, 0.00351]",
+            "mean_distance": 42.8,
+            "mean_distance_ci": "[41.10, 44.50]",
+            "clustering": 2.86,
+            "clustering_ci": "[2.51, 3.21]",
+            "genome_diversity": 0.211,
+            "genome_diversity_ci": "[0.210, 0.212]",
+            "energy_mean": 4.39
+          }
+        },
+        "statistical_tests": {
+          "mortality_low_vs_high": {
+            "t_statistic": -20.5,
+            "df": 38.16,
+            "p_value": "< 0.0001"
+          },
+          "distance_low_vs_high": {
+            "t_statistic": -3.76,
+            "df": 44.11,
+            "p_value": 0.000172
+          },
+          "clustering_low_vs_high": {
+            "t_statistic": 3.02,
+            "df": 44.28,
+            "p_value": 0.002522
+          },
+          "diversity_low_vs_high": {
+            "t_statistic": 7.37,
+            "df": 35.49,
+            "p_value": "< 0.0001"
+          }
+        }
+      },
+      "images": [
+        {
+          "filename": "metrics_by_density.png",
+          "caption": "Aggregated metrics comparison across low/medium/high density regimes",
+          "url": "tests/social_density/metrics_by_density.png"
+        },
+        {
+          "filename": "population_series_low.png",
+          "caption": "Population dynamics over 800 steps for LOW density (initial: 20)",
+          "url": "tests/social_density/population_series_low.png"
+        },
+        {
+          "filename": "population_series_medium.png",
+          "caption": "Population dynamics over 800 steps for MEDIUM density (initial: 60)",
+          "url": "tests/social_density/population_series_medium.png"
+        },
+        {
+          "filename": "population_series_high.png",
+          "caption": "Population dynamics over 800 steps for HIGH density (initial: 140)",
+          "url": "tests/social_density/population_series_high.png"
+        }
+      ],
+      "animations": [
+        {
+          "filename": "density_low.gif",
+          "caption": "Real-time visualization: LOW density regime (20 initial organisms)",
+          "url": "tests/social_density/density_low.gif"
+        },
+        {
+          "filename": "density_medium.gif",
+          "caption": "Real-time visualization: MEDIUM density regime (60 initial organisms)",
+          "url": "tests/social_density/density_medium.gif"
+        },
+        {
+          "filename": "density_high.gif",
+          "caption": "Real-time visualization: HIGH density regime (140 initial organisms)",
+          "url": "tests/social_density/density_high.gif"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/social_density_effect/index.html",
+          "primary": true
+        },
+        {
+          "label": "Summary JSON",
+          "url": "tests/social_density/summary.json"
+        },
+        {
+          "label": "Metrics plot",
+          "url": "tests/social_density/metrics_by_density.png"
+        },
+        {
+          "label": "Population LOW",
+          "url": "tests/social_density/population_series_low.png"
+        },
+        {
+          "label": "Population MEDIUM",
+          "url": "tests/social_density/population_series_medium.png"
+        },
+        {
+          "label": "Population HIGH",
+          "url": "tests/social_density/population_series_high.png"
+        },
+        {
+          "label": "GIF LOW",
+          "url": "tests/social_density/density_low.gif"
+        },
+        {
+          "label": "GIF MEDIUM",
+          "url": "tests/social_density/density_medium.gif"
+        },
+        {
+          "label": "GIF HIGH",
+          "url": "tests/social_density/density_high.gif"
+        }
+      ],
+      "domain": "Social dynamics",
+      "short_description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organi…",
+      "created_at": "2026-02-14"
+    },
+    {
+      "id": "zor-refract-20seeds",
+      "name": "inZORi-REFRACT (20 seeds)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-15",
+      "description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds.",
+      "key_findings": [
+        "Strong angle separation control vs refract (p≈0.0).",
+        "Cost efficiency improves under strong contrast (refract_vs_strong p<0.001).",
+        "High target reach rates remain stable across conditions (~0.94–0.95).",
+        "Natural local energetic sensing only; no explicit Snell law or RL.",
+        "20-seed run improves robustness over pilot."
+      ],
+      "metrics": {
+        "seeds": 20,
+        "latest_eval": 10,
+        "pass_flags": {
+          "angles_diff_vs_control": true,
+          "cheaper_than_direct": true,
+          "effect_grows_with_contrast": false,
+          "seed_robustness": true,
+          "pass_all": false
+        },
+        "condition_means": {
+          "control_uniform": {
+            "hit_rate": 0.9414,
+            "time_to_target": 542.51,
+            "cost_vs_direct": 0.0271,
+            "angle_out_deg": 25.727
+          },
+          "refract": {
+            "hit_rate": 0.9507,
+            "time_to_target": 520.64,
+            "cost_vs_direct": 0.0298,
+            "angle_out_deg": 10.681
+          },
+          "contrast_strong": {
+            "hit_rate": 0.9455,
+            "time_to_target": 523.52,
+            "cost_vs_direct": 0.0199,
+            "angle_out_deg": 10.73
+          }
+        }
+      },
+      "images": [
+        {
+          "filename": "angle_in_vs_out.png",
+          "caption": "Incident vs refracted crossing angles (scatter + trend line).",
+          "url": "tests/refract/angle_in_vs_out.png"
+        },
+        {
+          "filename": "cost_path_ratio_by_condition.png",
+          "caption": "Cost-integrated path / geometric length by condition.",
+          "url": "tests/refract/cost_path_ratio_by_condition.png"
+        },
+        {
+          "filename": "time_to_target_by_condition.png",
+          "caption": "Time-to-target comparison across conditions.",
+          "url": "tests/refract/time_to_target_by_condition.png"
+        },
+        {
+          "filename": "cost_vs_direct_ratio.png",
+          "caption": "Cost to target versus direct baseline.",
+          "url": "tests/refract/cost_vs_direct_ratio.png"
+        }
+      ],
+      "animations": [
+        {
+          "filename": "refract_control_uniform.gif",
+          "caption": "Control uniform medium (baseline).",
+          "url": "tests/refract/refract_control_uniform.gif"
+        },
+        {
+          "filename": "refract_refract.gif",
+          "caption": "Refract condition (Fast/Slow contrast).",
+          "url": "tests/refract/refract_refract.gif"
+        },
+        {
+          "filename": "refract_contrast_strong.gif",
+          "caption": "Strong contrast condition.",
+          "url": "tests/refract/refract_contrast_strong.gif"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/refract_20seeds/index.html",
+          "primary": true
+        },
+        {
+          "label": "Summary JSON",
+          "url": "tests/refract/summary.json"
+        },
+        {
+          "label": "Angle plot",
+          "url": "tests/refract/angle_in_vs_out.png"
+        },
+        {
+          "label": "Cost/path ratio",
+          "url": "tests/refract/cost_path_ratio_by_condition.png"
+        },
+        {
+          "label": "Time-to-target",
+          "url": "tests/refract/time_to_target_by_condition.png"
+        },
+        {
+          "label": "Cost vs direct",
+          "url": "tests/refract/cost_vs_direct_ratio.png"
+        },
+        {
+          "label": "GIF control",
+          "url": "tests/refract/refract_control_uniform.gif"
+        },
+        {
+          "label": "GIF refract",
+          "url": "tests/refract/refract_refract.gif"
+        },
+        {
+          "label": "GIF strong",
+          "url": "tests/refract/refract_contrast_strong.gif"
+        }
+      ],
+      "domain": "Physics (optics)",
+      "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds.",
+      "created_at": "2026-02-15"
+    },
+    {
+      "id": "pfdelta-phase2-real",
+      "name": "PFΔ Phase 2 — Real AC Power Flow (118-bus + N-1)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-20",
+      "description": "Full real AC Power Flow (pandapower) on IEEE 118-bus at 1.75× load (near-collapse). inZORi Frozen Elite achieves +16.8 pp convergence vs baselines and ~4× faster N-1 recovery. 20 seeds × 50k steps. Follows Phase 1 (surrogate), replacing it with real grid physics.",
+      "key_findings": [
+        "inZORi Frozen Elite S3 conv.: 69.63% (CI95 [69.33, 69.92])",
+        "Baseline A: 52.08% | Baseline B: 52.84%",
+        "Improvement vs Baseline B: +16.8 pp (CI95 non-overlap ✓)",
+        "N-1 recovery: 1.64 steps (inZORi) vs 6.80 steps (Baseline A) — ~4× faster",
+        "Genome selection: O(1) cost, no online evolution at inference",
+        "Consistent advantage across all 20 seeds"
+      ],
+      "metrics": {
+        "network": "IEEE 118-bus (pandapower)",
+        "load_scale": "1.75× nominal",
+        "nr_max": 5,
+        "n1_interval_s3": "300 steps",
+        "seeds": 20,
+        "steps": 50000,
+        "s3_conv_inzori": "69.63%",
+        "s3_conv_baseline_a": "52.08%",
+        "s3_conv_baseline_b": "52.84%",
+        "improvement_vs_b": "+16.8 pp",
+        "recovery_inzori": "1.64 steps",
+        "recovery_baseline": "~6.7 steps"
+      },
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase2_real/index.html",
+          "primary": true
+        },
+        {
+          "label": "Zenodo (DOI)",
+          "url": "https://doi.org/10.5281/zenodo.18717007"
+        },
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase2_real/index.html"
+        },
+        {
+          "label": "Phase 1 (Surrogate) →",
+          "url": "tests/pfdelta_phase1_118/index.html"
+        },
+        {
+          "label": "S3 Convergence Chart",
+          "url": "tests/pfdelta_phase2_real/figures/fig1_s3_convergence_comparison.png"
+        },
+        {
+          "label": "N-1 Recovery Chart",
+          "url": "tests/pfdelta_phase2_real/figures/fig2_recovery_time_n1.png"
+        },
+        {
+          "label": "Phase 1 on Zenodo",
+          "url": "https://doi.org/10.5281/zenodo.18716837"
+        }
+      ],
+      "domain": "Power systems (Real AC PF)",
+      "short_description": "Full real AC Power Flow on IEEE 118-bus at near-collapse load (1.75×). inZORi Frozen Elite vs static baselines under N-1 shocks.",
+      "images": [
+        {
+          "filename": "fig1_s3_convergence_comparison.png",
+          "url": "tests/pfdelta_phase2_real/figures/fig1_s3_convergence_comparison.png",
+          "caption": "S3 convergence rate comparison with CI95 error bars: inZORi 69.6% vs Baseline ~52%. +16.8 pp advantage confirmed."
+        },
+        {
+          "filename": "fig2_recovery_time_n1.png",
+          "url": "tests/pfdelta_phase2_real/figures/fig2_recovery_time_n1.png",
+          "caption": "Steps to first convergence after N-1 line restoration. inZORi: 1.64 steps vs ~6.7 baseline (~4× faster)."
+        },
+        {
+          "filename": "fig3_full_dashboard.png",
+          "url": "tests/pfdelta_phase2_real/figures/fig3_full_dashboard.png",
+          "caption": "Three-metric dashboard: S3 convergence, NR iterations, recovery steps."
+        },
+        {
+          "filename": "fig4_phase1_vs_phase2_evolution.png",
+          "url": "tests/pfdelta_phase2_real/figures/fig4_phase1_vs_phase2_evolution.png",
+          "caption": "Research evolution from Phase 1 surrogate to Phase 2 real AC PF."
+        }
+      ],
+      "created_at": "2026-02-20",
+      "doi": "10.5281/zenodo.18717007",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18717007"
+    },
+    {
+      "id": "pfdelta-phase1-118",
+      "name": "PFΔ Phase 1 (118 + N-1)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "updated_at": "2026-02-20",
+      "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. inZORi achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1. Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus nonlinear surrogate. See Phase 2 for real AC PF results.",
+      "key_findings": [
+        "inZORi S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
+        "Frozen-Top16-K1: 100% S3 convergence, 443.7 converged steps/sec",
+        "Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster)",
+        "World-level PF architecture: 40-50× speedup",
+        "Fairness A/B validation, 30 seeds FULL, 20 seeds Frozen-Elites"
+      ],
+      "metrics": {
+        "network": "118-bus",
+        "seeds_full": 30,
+        "s3_conv_zor": "99.1%",
+        "s3_conv_baseline_b": "83.9%",
+        "s3_conv_frozen": "100.0%",
+        "topology_recovery_zor": "1.82 steps",
+        "conv_steps_per_sec": "443.7"
+      },
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase1_118/index.html",
+          "primary": true
+        },
+        {
+          "label": "Zenodo (DOI)",
+          "url": "https://doi.org/10.5281/zenodo.18716837"
+        },
+        {
+          "label": "Full Details",
+          "url": "tests/pfdelta_phase1_118/index.html"
+        },
+        {
+          "label": "Core comparison chart",
+          "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png"
+        },
+        {
+          "label": "Phase 2 (Real AC PF) →",
+          "url": "tests/pfdelta_phase2_real/index.html"
+        },
+        {
+          "label": "Phase 2 on Zenodo →",
+          "url": "https://doi.org/10.5281/zenodo.18717007"
+        }
+      ],
+      "domain": "Power systems (PFΔ)",
+      "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events",
+      "images": [
+        {
+          "filename": "core_comparison_baselineA_baselineB_inZORi_frozen.png",
+          "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png",
+          "caption": "Baseline A vs Baseline B vs inZORi vs Frozen-Top16-K1 from published real metrics (Table A1/A2)."
+        },
+        {
+          "filename": "convergence_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/convergence_over_time.png",
+          "caption": "Convergence over time for the selected runtime strategy (stable at 1.0 across steps)."
+        },
+        {
+          "filename": "iterations_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/iterations_over_time.png",
+          "caption": "NR iterations over time (compute usage and near-budget behavior)."
+        },
+        {
+          "filename": "pbl_over_time.png",
+          "url": "tests/pfdelta_phase1_118/figures/pbl_over_time.png",
+          "caption": "Power Balance Limit (PBL) over time (mean/p95 dynamics)."
+        },
+        {
+          "filename": "shock_events_timeline.png",
+          "url": "tests/pfdelta_phase1_118/figures/shock_events_timeline.png",
+          "caption": "Shock/N-1 event timeline (stress schedule and recovery windows)."
+        },
+        {
+          "filename": "fitness_progression_across_evals.png",
+          "url": "tests/pfdelta_phase1_118/figures/fitness_progression_across_evals.png",
+          "caption": "Fitness progression across evaluations (mean ± CI95)."
+        },
+        {
+          "filename": "seasonal_convergence_by_eval.png",
+          "url": "tests/pfdelta_phase1_118/figures/seasonal_convergence_by_eval.png",
+          "caption": "Seasonal convergence by evaluation for the selected runtime strategy (near-perfect in S0-S3)."
+        },
+        {
+          "filename": "seed_convergence_distribution_eval4.png",
+          "url": "tests/pfdelta_phase1_118/figures/seed_convergence_distribution_eval4.png",
+          "caption": "Per-seed convergence distribution at eval 4 (all 20 seeds at 1.0)."
+        },
+        {
+          "filename": "recovery_time_distribution_eval4.png",
+          "url": "tests/pfdelta_phase1_118/figures/recovery_time_distribution_eval4.png",
+          "caption": "Recovery-time distribution at eval 4 (all recorded events recover in 1 step)."
+        }
+      ],
+      "created_at": "2026-02-17",
+      "doi": "10.5281/zenodo.18716837",
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18716837"
     }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/fusion_disruption/index.html",
-     "primary": true
-    },
-    {
-     "url": "results/fusion_disruption_ablation.json",
-     "label": "Ablation JSON"
-    },
-    {
-     "url": "results/fusion_disruption_lomo.json",
-     "label": "LOMO JSON"
-    },
-    {
-     "url": "results/fusion_disruption_robustness.json",
-     "label": "Robustness JSON"
-    },
-    {
-     "label": "PDF (Zenodo preprint)",
-     "url": "tests/fusion_disruption/inZOR-ND_Fusion_Disruption_Proximity_Zenodo.pdf"
-    },
-    {
-     "label": "Zenodo (DOI)",
-     "url": "https://doi.org/10.5281/zenodo.18916249"
-    }
-   ],
-   "domain": "Plasma Physics / Fusion Disruption",
-   "short_description": "inZOR-ND discovers a 3-term machine-agnostic disruption proximity law from Ip dynamics alone. Validated on MAST, C-Mod, HL-2A with LOMO, bootstrap, and sensitivity analysis.",
-   "doi": "10.5281/zenodo.18916249",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18916249"
-  },
-  {
-   "id": "baws-nr-universal",
-   "name": "BAWS-NR: Universal 1.59× Speedup for Newton-Raphson Across 6 Scientific Domains",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-02-27",
-   "updated_at": "2026-02-27",
-   "description": "Bio-Adaptive Warm-Start Newton-Raphson (BAWS-NR) with α=0.979, validated across 6 independent domains: power systems (1354-bus PEGASE, 130K solves), celestial mechanics (Kepler), thermodynamics (Van der Waals), robotics (inverse kinematics), finance (Black-Scholes), and 2D nonlinear thermal conduction (900 unknowns, 10K solves). Includes formal convergence proof and no-harm guarantee. Total: 142,056 converged NR solves.",
-   "key_findings": [
-    "Universal speedup: 1.59× mean across 6 domains (range 1.26×–2.13×)",
-    "Convergence proof: BAWS-NR never worsens convergence when δ < D",
-    "Dimensionality independent: works for 1D, 900D, and 1354D systems",
-    "New 2D thermal conduction test: 10,000 solves, 1.73× speedup, all solutions identical",
-    "Zero overhead: warm-start computation O(n), negligible vs J⁻¹F",
-    "No domain-specific tuning: α=0.979 works out-of-the-box everywhere",
-    "142,056 total converged NR solves — 100% convergence preservation"
-   ],
-   "metrics": {
-    "Mean speedup": "1.59×",
-    "Domains validated": "6",
-    "Total NR solves": "142,056",
-    "Alpha parameter": "0.979",
-    "Convergence rate": "100%",
-    "Thermal 2D speedup": "1.73×",
-    "Power Flow speedup": "1.66×",
-    "Kepler speedup": "2.13×"
-   },
-   "images": [
-    {
-     "url": "tests/baws_nr_study/figures/fig4_cross_domain.png",
-     "caption": "Fig 1 — Cross-domain validation: α=0.979 provides consistent speedup across 6 independent scientific domains"
-    },
-    {
-     "url": "tests/baws_nr_study/figures/fig1_iterations_by_beta.png",
-     "caption": "Fig 2 — 2D Thermal Conduction: iteration comparison by nonlinearity parameter β"
-    },
-    {
-     "url": "tests/baws_nr_study/figures/fig2_iteration_trace.png",
-     "caption": "Fig 3 — Iteration trace: BAWS-NR consistently requires fewer iterations per timestep"
-    },
-    {
-     "url": "tests/baws_nr_study/figures/fig3_iteration_histogram.png",
-     "caption": "Fig 4 — Iteration distribution: NR peaks at 5–6, BAWS-NR peaks at 3"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/baws_nr_study/index.html",
-     "primary": true
-    },
-    {
-     "url": "tests/baws_nr_study/index.html",
-     "label": "Full Results Page"
-    },
-    {
-     "url": "results/thermal_baws_results.json",
-     "label": "Raw JSON Results (Thermal 2D)"
-    },
-    {
-     "label": "Zenodo (DOI)",
-     "url": "https://doi.org/10.5281/zenodo.18816838"
-    }
-   ],
-   "doi": "10.5281/zenodo.18816838",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18816838"
-  },
-  {
-   "id": "re-study-n1-security",
-   "name": "inZORi: 1.66× Faster Real-Time N-1 Grid Security Under Renewable Volatility",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-02-27",
-   "updated_at": "2026-02-27",
-   "doi": "10.5281/zenodo.18807539",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18807539",
-   "description": "Quantifies how inZORi's bio-adaptive warm-start reduces Newton-Raphson iterations for N-1 contingency power flow convergence. 132,480 N-1 assessments on case1354pegase (1354 buses) using real ENTSO-E Germany Q2 2025 data (8,832 intervals). Identical tolerance (1e-6 MVA). inZORi converges in 3.15 iterations vs NR 5.22 — a 1.66× speedup translating to 1,058 vs 638 contingencies/min.",
-   "key_findings": [
-    "Global speedup: 1.66× (inZORi 3.15 iter vs NR 5.22 iter, identical 1e-6 tolerance)",
-    "Throughput: 1,058 vs 638 contingencies/min — +66% more N-1 security checks",
-    "Peak speedup 1.99× at 0.92× load (normal operation)",
-    "Both solvers solve exactly the same 130,056 cases; fail on same 2,424 (physical collapse >1.31×)",
-    "Advantage consistent from 0.90× to 1.31× load — full physical operating range",
-    "132,480 N-1 assessments: 8,832 ENTSO-E intervals × 5 lines × 3 seeds"
-   ],
-   "metrics": {
-    "inZORi mean iterations": "3.151",
-    "NR mean iterations": "5.221",
-    "Iterations saved": "+2.07 per contingency",
-    "Speedup": "1.66×",
-    "inZORi ctg/min": "1,058",
-    "NR ctg/min": "638",
-    "N-1 assessments": "132,480",
-    "Network": "case1354pegase (1354 buses, 1991 lines)",
-    "Data": "ENTSO-E DE-LU Q2 2025, 8,832 intervals",
-    "Seeds": "3 (42, 7, 137)"
-   },
-   "images": [
-    {
-     "url": "tests/re_study/figures/fig1_iterations_comparison.png",
-     "caption": "Fig 1 — NR vs inZORi: minimum iterations to converge by load factor"
-    },
-    {
-     "url": "tests/re_study/figures/fig2_speedup_curve.png",
-     "caption": "Fig 2 — Speedup curve across full operating range (0.90×–1.31×)"
-    },
-    {
-     "url": "tests/re_study/figures/fig3_contingencies_per_minute.png",
-     "caption": "Fig 3 — Operational impact: N-1 contingencies verified per minute"
-    },
-    {
-     "url": "tests/re_study/figures/fig4_savings_and_failures.png",
-     "caption": "Fig 4 — Iteration savings and failure behavior at physical limits"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/re_study/index.html",
-     "primary": true
-    },
-    {
-     "url": "tests/re_study/index.html",
-     "label": "Full Results Page"
-    },
-    {
-     "url": "results/entsoe_iter_study.json",
-     "label": "Raw JSON Results"
-    },
-    {
-     "url": "tests/re_study/inZORi_RE_Study_N1_Security_Zenodo.pdf",
-     "label": "PDF (Zenodo preprint)"
-    }
-   ]
-  },
-  {
-   "id": "pfdelta-phase6-capacity",
-   "name": "PFΔ Phase 6 ★ FINAL — Capacity Boundary on case1354pegase (1354-bus Pan-European)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-02-25",
-   "updated_at": "2026-02-27",
-   "doi": "10.5281/zenodo.18806643",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18806643",
-   "description": "Final chapter of the inZORi research program. Discovers the precise critical load threshold on the case1354pegase Pan-European network (1354 buses, ~73 GW nominal). Systematic sweep from 1.18× to 1.30× nominal across 3 seeds. At exactly 1.25×, Newton-Raphson collapses to 0% S3 convergence on ALL 3 seeds while inZORi FrozenElite maintains 99.9% — a +99.9pp advantage. Includes full journey conclusions across all 6 phases.",
-   "key_findings": [
-    "Sharp critical threshold at 1.25× nominal (~91.4 GW): NR=0%, inZORi=99.9% — reproducible on 3 seeds",
-    "inZORi extends operable load range by ~5.5%: from 1.22× (both work) to 1.27× (inZORi only)",
-    "Below 1.22×: all methods equivalent (~100%) — inZORi adds no overhead in normal conditions",
-    "Above 1.30×: all methods fail — inZORi cannot solve physically infeasible systems",
-    "11× larger network than Phases 1–5 (1354 vs 118 buses) — advantage holds at scale",
-    "54 jobs completed in 290s on 12 cores — production-ready computational efficiency"
-   ],
-   "metrics": {
-    "inZORi at 1.25× (critical)": "99.9% ±0.1",
-    "NR at 1.25× (critical)": "0.0% ±0.0",
-    "Advantage at critical point": "+99.9pp (∞× factor)",
-    "Critical threshold": "1.25× nominal = ~91.4 GW",
-    "Network": "case1354pegase (1354 buses, 1991 lines)",
-    "Seeds": "3 (fully reproducible)",
-    "Total jobs": "54 (6 scales × 3 variants × 3 seeds)",
-    "Wall time": "290 seconds on 12 cores"
-   },
-   "images": [
-    {
-     "url": "tests/pfdelta_phase6_capacity/figures/fig1_capacity_curve.png",
-     "caption": "Fig 1 — inZORi vs NR Capacity Curve: S3 convergence rate vs load scale (1.18×–1.30×). Sharp NR collapse at 1.25×."
-    },
-    {
-     "url": "tests/pfdelta_phase6_capacity/figures/fig2_reproducibility.png",
-     "caption": "Fig 2 — Reproducibility at 1.25×: NR=0% on all 3 seeds, inZORi=99.8–100% on all 3 seeds."
-    },
-    {
-     "url": "tests/pfdelta_phase6_capacity/figures/fig3_heatmap.png",
-     "caption": "Fig 3 — Full results heatmap: convergence across all 6 load levels × 3 variants. Sharp transition visible."
-    },
-    {
-     "url": "tests/pfdelta_phase6_capacity/figures/fig4_journey.png",
-     "caption": "Fig 4 — Complete inZORi journey: all 6 phases from 118-bus synthetic to 1354-bus capacity boundary."
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase6_capacity/index.html",
-     "primary": true
-    },
-    {
-     "url": "tests/pfdelta_phase6_capacity/index.html",
-     "label": "Full Results Page"
-    },
-    {
-     "url": "results/capacity_full_results.json",
-     "label": "Raw JSON Results"
-    }
-   ]
-  },
-  {
-   "id": "pfdelta-phase5-entsoe",
-   "name": "PFΔ Phase 5 — ENTSO-E Real Load: Romania, Germany, France (2024)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-02-23",
-   "updated_at": "2026-02-27",
-   "doi": "10.5281/zenodo.18806567",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18806567",
-   "description": "First validation of inZORi FrozenElite on live ENTSO-E Transparency Platform data (2024). Three grids tested: Romania (thermal/hydro), Germany (renewables-heavy), France (nuclear-dominant). 4 variants × 4 seeds × 3 countries = 48 jobs on 12 cores. FrozenElite achieves 75–92% S3 convergence vs 4.5–15% for NR standard — a 6× to 17× improvement on real European consumption data.",
-   "key_findings": [
-    "FrozenElite 75.3% vs NR 4.5% on Romania ENTSO-E 2024 (×16.7 advantage)",
-    "FrozenElite 82.5% vs NR 11.4% on Germany ENTSO-E 2024 (×7.2 advantage)",
-    "FrozenElite 91.7% vs NR 15.1% on France ENTSO-E 2024 (×6.1 advantage)",
-    "Grid structure explains performance: nuclear-stable FR > renewables DE > thermal RO",
-    "Adaptive selector ≈ best static genome (G01) on real data — G01 generalizes well",
-    "Real ENTSO-E profiles less extreme than synthetic — validates under realistic conditions"
-   ],
-   "metrics": {
-    "RO — FrozenElite S3": "75.3%",
-    "RO — NR Standard S3": "4.5%",
-    "DE — FrozenElite S3": "82.5%",
-    "DE — NR Standard S3": "11.4%",
-    "FR — FrozenElite S3": "91.7%",
-    "FR — NR Standard S3": "15.1%",
-    "Max advantage factor": "×16.7 (RO)",
-    "Total jobs": "48 (3 countries × 4 variants × 4 seeds)",
-    "Data source": "ENTSO-E API 2024 — 8,760 h/country"
-   },
-   "images": [
-    {
-     "url": "tests/pfdelta_phase5_entsoe/figures/fig1_s3_convergence.png",
-     "caption": "Fig 1 — S3 Convergence Rate: FrozenElite vs G01 vs NR vs Synthetic across RO/DE/FR (ENTSO-E 2024)"
-    },
-    {
-     "url": "tests/pfdelta_phase5_entsoe/figures/fig2_fe_advantage.png",
-     "caption": "Fig 2 — Absolute advantage (pp) and multiplicative factor: FrozenElite vs NR on real ENTSO-E data"
-    },
-    {
-     "url": "tests/pfdelta_phase5_entsoe/figures/fig3_recovery_times.png",
-     "caption": "Fig 3 — Average recovery steps after N-1/N-2/N-4 contingencies: FrozenElite recovers 2–6× faster"
-    },
-    {
-     "url": "tests/pfdelta_phase5_entsoe/figures/fig4_phase_progression.png",
-     "caption": "Fig 4 — Research progression Phase 1→5: advantage gap widens as test conditions become more realistic"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase5_entsoe/index.html",
-     "primary": true
-    },
-    {
-     "url": "tests/pfdelta_phase5_entsoe/index.html",
-     "label": "📄 Full Report (HTML)"
-    },
-    {
-     "url": "results/real_vs_baseline.json",
-     "label": "📊 Raw Results (JSON)"
-    },
-    {
-     "url": "zenodo_publish/phase5/inZORi_PFDelta_Phase5_Zenodo.pdf",
-     "label": "📥 PDF Zenodo"
-    }
-   ]
-  },
-  {
-   "id": "pfdelta-phase4-real",
-   "name": "PFΔ Phase 4 — Real Load Profiles UA/DE/FR + Historical Blackouts",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-02-21",
-   "updated_at": "2026-02-21",
-   "description": "inZORi FrozenElite validated on real OPSD load profiles (Ukraine, Germany, France) and three historical blackout events: Balkans 2006, Ukraine Cyberattack 2015, Moldova 31 Jan 2026. 5 seeds × 4 variants × 3 countries. CI95 non-overlapping advantage confirmed.",
-   "key_findings": [
-    "FrozenElite +3.64% over NR on Ukraine real profile (CI95 non-overlapping)",
-    "FrozenElite +3.69% over NR on Germany real profile",
-    "FrozenElite +3.31% over NR on France real profile",
-    "Balkans 2006 (N-2): 90.7% convergence vs 88.8% NR during event",
-    "Moldova 31 Jan 2026 (N-1 Isaccea-Vulcanesti): 22.5% vs 21.4% NR",
-    "Advantage consistent across post-Soviet, renewables-heavy, and nuclear-dominant grids"
-   ],
-   "metrics": {
-    "countries": [
-     "UA",
-     "DE",
-     "FR"
-    ],
-    "seeds": 5,
-    "steps": 50000,
-    "variants": 4,
-    "total_runs": 60,
-    "ua_advantage": "+3.64%",
-    "de_advantage": "+3.69%",
-    "fr_advantage": "+3.31%",
-    "blackout_scenarios": 3,
-    "runtime_min": 65.2
-   },
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase4_real/index.html",
-     "primary": true
-    },
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase4_real/"
-    }
-   ],
-   "images": [
-    {
-     "filename": "fig1_s3_convergence_countries.png",
-     "caption": "S3 convergence per country with CI95",
-     "url": "tests/pfdelta_phase4_real/figures/fig1_s3_convergence_countries.png"
-    },
-    {
-     "filename": "fig3_blackout_scenarios.png",
-     "caption": "Blackout scenario replay results",
-     "url": "tests/pfdelta_phase4_real/figures/fig3_blackout_scenarios.png"
-    }
-   ],
-   "domain": "Power Systems / Real Data Validation",
-   "short_description": "inZORi FrozenElite on real European load profiles (UA/DE/FR) + 3 historical blackouts. +3.3–3.7% advantage over NR, CI95 confirmed.",
-   "doi": "10.5281/zenodo.18735099"
-  },
-  {
-   "id": "pfdelta-phase3-n2",
-   "name": "PFΔ Phase 3 — N-2 Contingency Robustness (IEEE 118-bus)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "created_at": "2026-02-21",
-   "updated_at": "2026-02-21",
-   "description": "inZORi Frozen Elite with N-2 specialists: simultaneous outage of 2 lines. +16.14 pp vs Baseline A, 2.8× faster N-2 recovery. LUPA-refined genome (85.20%). 20 seeds × 50k steps, N-1+N-2 in S3.",
-   "key_findings": [
-    "inZORi N-2: 71.16% S3 conv. (CI95 [70.9, 71.4])",
-    "Baseline A: 55.02% | Baseline B: 55.35%",
-    "N-2 recovery: 1.45 steps (inZORi) vs 4.12 steps (Baseline A) — 2.8× faster",
-    "N-1 recovery ≈ N-2 recovery (1.49 vs 1.45 steps) — specialists neutralize N-2",
-    "LUPA refined genome: 0.8444 (evo) → 0.8520 (+0.76pp)",
-    "15-gen evolution + LUPA + 8-genome Frozen Elite pool"
-   ],
-   "metrics": {
-    "s3_convergence_inzori": "71.16%",
-    "s3_convergence_baseline_a": "55.02%",
-    "improvement_pp": "+16.14",
-    "n2_recovery_inzori": "1.45 steps",
-    "n2_recovery_baseline": "4.12 steps",
-    "recovery_advantage": "2.8x",
-    "seeds": 20,
-    "steps": 50000,
-    "genome_fitness_lupa": "85.20%"
-   },
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase3_n2/index.html",
-     "primary": true
-    },
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase3_n2/"
-    }
-   ],
-   "images": [
-    {
-     "filename": "fig1_s3_convergence_n2.png",
-     "caption": "S3 convergence N-1+N-2",
-     "url": "tests/pfdelta_phase3_n2/figures/fig1_s3_convergence_n2.png"
-    },
-    {
-     "filename": "fig2_recovery_n1_n2.png",
-     "caption": "N-1 vs N-2 recovery speed",
-     "url": "tests/pfdelta_phase3_n2/figures/fig2_recovery_n1_n2.png"
-    }
-   ],
-   "domain": "Power Systems / Grid Stability",
-   "short_description": "N-2 contingency (2 simultaneous line outages): inZORi +16pp, 2.8× faster recovery, LUPA-refined genome.",
-   "doi": "10.5281/zenodo.18735120"
-  },
-  {
-   "id": "scenario-1-dynamic-worlds",
-   "name": "Scenario 1: Adaptation to dynamic environment",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-14",
-   "description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B). Energy-conservation strategies emerge without explicit training.",
-   "key_findings": [
-    "World A: Food bottom-left, danger top-right",
-    "World B: Food top-right, danger bottom-left",
-    "Population survives 4 world transitions over 600 steps",
-    "Survival rate: ~99%",
-    "Energy stabilizes through emergent conservation strategies"
-   ],
-   "metrics": {
-    "steps": 600,
-    "transitions": 4,
-    "survival_rate": "99%",
-    "initial_population": 40,
-    "final_population": "~200"
-   },
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/scenario1_dynamic/index.html",
-     "primary": true
-    }
-   ],
-   "images": [
-    {
-     "filename": "scenario1_population_evolution_v2.png",
-     "caption": "Population evolution in alternating worlds (A ↔ B) showing survival and adaptation over 600 steps",
-     "url": "demo_images/scenario1_population_evolution_v2.png"
-    }
-   ],
-   "domain": "Artificial life",
-   "short_description": "Population of 40 organisms adapts to periodically alternating 2D environments (World A ↔ World B)",
-   "created_at": "2026-02-10"
-  },
-  {
-   "id": "scenario-2-social-iq",
-   "name": "Scenario 2: Emergence of social behavior (IQ & Fertility)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-14",
-   "description": "Population with IQ-encoded genomes. Higher-IQ individuals start reproduction later (education delay) and incur higher opportunity cost per child. No explicit fertility rules.",
-   "key_findings": [
-    "Top 20 high-IQ pairs: 57 children",
-    "Bottom 20 low-IQ pairs: 69 children",
-    "Difference: -17.4%",
-    "Effect strongest at extremes (~16-18% gap)",
-    "Small biases (timing + opportunity cost) accumulate over time"
-   ],
-   "metrics": {
-    "total_births": 122731,
-    "top20_avg_iq": 134.0,
-    "bottom20_avg_iq": 91.5,
-    "top20_births": 57,
-    "bottom20_births": 69,
-    "difference_pct": -17.4
-   },
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/scenario2_social_iq/index.html",
-     "primary": true
-    }
-   ],
-   "images": [
-    {
-     "filename": "scenario2_children_count_v2.png",
-     "caption": "Children count comparison: high IQ vs low IQ pairs showing -17.4% difference due to delayed reproduction",
-     "url": "demo_images/scenario2_children_count_v2.png"
-    }
-   ],
-   "domain": "Social dynamics",
-   "short_description": "Population with IQ-encoded genomes",
-   "created_at": "2026-02-11"
-  },
-  {
-   "id": "scenario-4-tess",
-   "name": "Scenario 3: inZORi prioritization for TESS",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-14",
-   "description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine. Ranking is built from regularity, stability, SNR, scatter, transit count, duration and depth, without explicit manual weighting formulas.",
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/scenario3_tess/index.html",
-     "primary": true
-    },
-    {
-     "label": "Class distribution",
-     "url": "demo_images/scenario4_tess_class_distribution.png"
-    },
-    {
-     "label": "Top-10 rank chart",
-     "url": "demo_images/scenario4_tess_top10_ranksum.png"
-    },
-    {
-     "label": "Candidates report JSON",
-     "url": "tests/tess/candidates_report.json"
-    },
-    {
-     "label": "Candidates report MD",
-     "url": "tests/tess/candidates_report.md"
-    }
-   ],
-   "key_findings": [
-    "13,000 signals analyzed in this published snapshot",
-    "294 clean transit candidates flagged for follow-up",
-    "Top candidate consensus rank_sum = 7 across 4 ranking variants",
-    "Strong separation between clean transit vs variable/artifact classes",
-    "Output includes ranked lists and anomaly classes for downstream review"
-   ],
-   "metrics": {
-    "signals_analyzed": 13000,
-    "clean_transit_candidates": 294,
-    "uncertain": 12191,
-    "variable_or_artifact": 513,
-    "eclipsing_binary": 1,
-    "weak_signal": 1,
-    "ranking_variants": 4,
-    "best_rank_sum": 7
-   },
-   "images": [
-    {
-     "filename": "scenario4_tess_class_distribution.png",
-     "caption": "Class distribution for prioritized TESS signals.",
-     "url": "demo_images/scenario4_tess_class_distribution.png"
-    },
-    {
-     "filename": "scenario4_tess_top10_ranksum.png",
-     "caption": "Top-10 consensus candidates ranked by rank_sum.",
-     "url": "demo_images/scenario4_tess_top10_ranksum.png"
-    }
-   ],
-   "domain": "Astronomy (TESS)",
-   "short_description": "Multi-criteria prioritization of TESS light-curve signals using the same inZORi engine",
-   "created_at": "2026-02-12"
-  },
-  {
-   "id": "scenario-5-robotics",
-   "name": "Scenario 4: Adaptive robotics - navigation in changing environment",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-14",
-   "description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise. No map, no global reward—only survival pressure.",
-   "key_findings": [
-    "Mean fitness (harsh_dynamic): 137.53",
-    "Best seed (702): 139.27",
-    "Max population: 1200",
-    "Adaptation score: 0.744 (balanced across phases)",
-    "Survival stabilizes around 550-560 steps",
-    "Phase 3 shows maximal pressure from hazard barriers"
-   ],
-   "metrics": {
-    "grid_size": "100×100",
-    "total_steps": 800,
-    "phases": 5,
-    "mean_fitness": 137.53,
-    "best_seed": 702,
-    "best_fitness": 139.27,
-    "max_population": 1200,
-    "adaptation_score": 0.744
-   },
-   "images": [
-    {
-     "filename": "best_trajectory.png",
-     "caption": "Phase-colored trajectory showing robot's path on grid",
-     "url": "demo_images/best_trajectory.png"
-    },
-    {
-     "filename": "fitness_evolution.png",
-     "caption": "Fitness across successive evaluations with survival duration",
-     "url": "demo_images/fitness_evolution.png"
-    },
-    {
-     "filename": "phase_survival.png",
-     "caption": "Average survival steps by phase with adaptation score distribution",
-     "url": "demo_images/phase_survival.png"
-    },
-    {
-     "filename": "hazard_resource_balance.png",
-     "caption": "Hazard hits vs resources collected; greener = higher fitness",
-     "url": "demo_images/hazard_resource_balance.png"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/scenario4_robotics/index.html",
-     "primary": true
-    },
-    {
-     "label": "Trajectory",
-     "url": "demo_images/best_trajectory.png"
-    },
-    {
-     "label": "Fitness",
-     "url": "demo_images/fitness_evolution.png"
-    },
-    {
-     "label": "Survival",
-     "url": "demo_images/phase_survival.png"
-    },
-    {
-     "label": "Balance",
-     "url": "demo_images/hazard_resource_balance.png"
-    }
-   ],
-   "domain": "Robotics",
-   "short_description": "Robot navigates 100×100 grid for 800 steps across 5 phases with mobile hazards, relocating resources, and variable sensor noise",
-   "created_at": "2026-02-13"
-  },
-  {
-   "id": "scenario-6-sdc",
-   "name": "Scenario 5: SDC_v1 - What inZORi preserves when world drifts slowly",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-14",
-   "description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift. 2D environment with drifting food/danger zones (Gaussian fields). No optimization, no RL, no policy updates.",
-   "key_findings": [
-    "Continuity (static): 0.98",
-    "Continuity (drift_slow): 0.97",
-    "Continuity (drift_medium): 0.73",
-    "Continuity (drift_chaotic): 0.59",
-    "inZORi preserves behavior when change is predictable",
-    "Graceful degradation under unpredictable drift"
-   ],
-   "metrics": {
-    "continuity_static": 0.98,
-    "continuity_drift_slow": 0.97,
-    "continuity_drift_medium": 0.73,
-    "continuity_drift_chaotic": 0.59
-   },
-   "images": [
-    {
-     "filename": "continuity_score_over_time.png",
-     "caption": "Continuity remains high under static/slow drift, drops under medium, collapses under chaotic",
-     "url": "demo_images/continuity_score_over_time.png"
-    },
-    {
-     "filename": "drift_tracking_distance.png",
-     "caption": "How well population tracks moving food/danger zones",
-     "url": "demo_images/drift_tracking_distance.png"
-    },
-    {
-     "filename": "tradition_reappearance_timeline.png",
-     "caption": "When behavioral signatures reappear over time under drift",
-     "url": "demo_images/tradition_reappearance_timeline.png"
-    },
-    {
-     "filename": "static_vs_chaotic.png",
-     "caption": "Contrast between stable behavior and collapse",
-     "url": "demo_images/static_vs_chaotic.png"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/scenario5_sdc/index.html",
-     "primary": true
-    },
-    {
-     "label": "Continuity",
-     "url": "demo_images/continuity_score_over_time.png"
-    },
-    {
-     "label": "Tracking",
-     "url": "demo_images/drift_tracking_distance.png"
-    },
-    {
-     "label": "Tradition",
-     "url": "demo_images/tradition_reappearance_timeline.png"
-    },
-    {
-     "label": "Comparison",
-     "url": "demo_images/static_vs_chaotic.png"
-    }
-   ],
-   "domain": "Artificial life",
-   "short_description": "Test of behavioral continuity under slow world drift vs collapse under chaotic drift",
-   "created_at": "2026-02-13"
-  },
-  {
-   "id": "social-density-effect",
-   "name": "inZORi Social Density Effect",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-15",
-   "description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organisms). Measures collective behaviors, spatial distribution, mortality, energy stability, and identifies critical density thresholds. 24 seeds per density, 800 steps.",
-   "key_findings": [
-    "Mortality rate increases significantly with density (LOW: 0.18%, MEDIUM: 0.24%, HIGH: 0.34%)",
-    "Mean distance increases: LOW: 37.6 → HIGH: 42.8 (organisms spread out more at high density)",
-    "Clustering decreases: LOW: 3.71 → HIGH: 2.86 (less spatial cohesion at high density)",
-    "Genome diversity decreases slightly: LOW: 0.222 → HIGH: 0.211",
-    "Energy mean remains stable across densities (~4.0-4.4)",
-    "Statistical significance: mortality (p<0.0001), distance (p=0.0002), clustering (p=0.003), diversity (p<0.0001)",
-    "Critical threshold observed between medium and high density regimes"
-   ],
-   "metrics": {
-    "seeds": 24,
-    "steps_per_run": 800,
-    "densities": {
-     "low": {
-      "population_initial": 20,
-      "population_final_mean": 386.5,
-      "mortality_rate_mean": 0.001811,
-      "mortality_rate_ci": "[0.00173, 0.00189]",
-      "mean_distance": 37.63,
-      "mean_distance_ci": "[35.54, 39.73]",
-      "clustering": 3.71,
-      "clustering_ci": "[3.28, 4.13]",
-      "genome_diversity": 0.222,
-      "genome_diversity_ci": "[0.219, 0.224]",
-      "energy_mean": 3.95
-     },
-     "medium": {
-      "population_initial": 60,
-      "population_final_mean": 387.3,
-      "mortality_rate_mean": 0.002368,
-      "mortality_rate_ci": "[0.00227, 0.00246]",
-      "mean_distance": 42.15,
-      "mean_distance_ci": "[40.28, 44.01]",
-      "clustering": 3.11,
-      "clustering_ci": "[2.76, 3.45]",
-      "genome_diversity": 0.221,
-      "genome_diversity_ci": "[0.219, 0.222]",
-      "energy_mean": 4.08
-     },
-     "high": {
-      "population_initial": 140,
-      "population_final_mean": 391.7,
-      "mortality_rate_mean": 0.003379,
-      "mortality_rate_ci": "[0.00325, 0.00351]",
-      "mean_distance": 42.8,
-      "mean_distance_ci": "[41.10, 44.50]",
-      "clustering": 2.86,
-      "clustering_ci": "[2.51, 3.21]",
-      "genome_diversity": 0.211,
-      "genome_diversity_ci": "[0.210, 0.212]",
-      "energy_mean": 4.39
-     }
-    },
-    "statistical_tests": {
-     "mortality_low_vs_high": {
-      "t_statistic": -20.5,
-      "df": 38.16,
-      "p_value": "< 0.0001"
-     },
-     "distance_low_vs_high": {
-      "t_statistic": -3.76,
-      "df": 44.11,
-      "p_value": 0.000172
-     },
-     "clustering_low_vs_high": {
-      "t_statistic": 3.02,
-      "df": 44.28,
-      "p_value": 0.002522
-     },
-     "diversity_low_vs_high": {
-      "t_statistic": 7.37,
-      "df": 35.49,
-      "p_value": "< 0.0001"
-     }
-    }
-   },
-   "images": [
-    {
-     "filename": "metrics_by_density.png",
-     "caption": "Aggregated metrics comparison across low/medium/high density regimes",
-     "url": "tests/social_density/metrics_by_density.png"
-    },
-    {
-     "filename": "population_series_low.png",
-     "caption": "Population dynamics over 800 steps for LOW density (initial: 20)",
-     "url": "tests/social_density/population_series_low.png"
-    },
-    {
-     "filename": "population_series_medium.png",
-     "caption": "Population dynamics over 800 steps for MEDIUM density (initial: 60)",
-     "url": "tests/social_density/population_series_medium.png"
-    },
-    {
-     "filename": "population_series_high.png",
-     "caption": "Population dynamics over 800 steps for HIGH density (initial: 140)",
-     "url": "tests/social_density/population_series_high.png"
-    }
-   ],
-   "animations": [
-    {
-     "filename": "density_low.gif",
-     "caption": "Real-time visualization: LOW density regime (20 initial organisms)",
-     "url": "tests/social_density/density_low.gif"
-    },
-    {
-     "filename": "density_medium.gif",
-     "caption": "Real-time visualization: MEDIUM density regime (60 initial organisms)",
-     "url": "tests/social_density/density_medium.gif"
-    },
-    {
-     "filename": "density_high.gif",
-     "caption": "Real-time visualization: HIGH density regime (140 initial organisms)",
-     "url": "tests/social_density/density_high.gif"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/social_density_effect/index.html",
-     "primary": true
-    },
-    {
-     "label": "Summary JSON",
-     "url": "tests/social_density/summary.json"
-    },
-    {
-     "label": "Metrics plot",
-     "url": "tests/social_density/metrics_by_density.png"
-    },
-    {
-     "label": "Population LOW",
-     "url": "tests/social_density/population_series_low.png"
-    },
-    {
-     "label": "Population MEDIUM",
-     "url": "tests/social_density/population_series_medium.png"
-    },
-    {
-     "label": "Population HIGH",
-     "url": "tests/social_density/population_series_high.png"
-    },
-    {
-     "label": "GIF LOW",
-     "url": "tests/social_density/density_low.gif"
-    },
-    {
-     "label": "GIF MEDIUM",
-     "url": "tests/social_density/density_medium.gif"
-    },
-    {
-     "label": "GIF HIGH",
-     "url": "tests/social_density/density_high.gif"
-    }
-   ],
-   "domain": "Social dynamics",
-   "short_description": "Simulation of emergent intelligence in a 2D world with autonomous organisms under varying population densities (low: 20, medium: 60, high: 140 initial organi…",
-   "created_at": "2026-02-14"
-  },
-  {
-   "id": "zor-refract-20seeds",
-   "name": "inZORi-REFRACT (20 seeds)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-15",
-   "description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds.",
-   "key_findings": [
-    "Strong angle separation control vs refract (p≈0.0).",
-    "Cost efficiency improves under strong contrast (refract_vs_strong p<0.001).",
-    "High target reach rates remain stable across conditions (~0.94–0.95).",
-    "Natural local energetic sensing only; no explicit Snell law or RL.",
-    "20-seed run improves robustness over pilot."
-   ],
-   "metrics": {
-    "seeds": 20,
-    "latest_eval": 10,
-    "pass_flags": {
-     "angles_diff_vs_control": true,
-     "cheaper_than_direct": true,
-     "effect_grows_with_contrast": false,
-     "seed_robustness": true,
-     "pass_all": false
-    },
-    "condition_means": {
-     "control_uniform": {
-      "hit_rate": 0.9414,
-      "time_to_target": 542.51,
-      "cost_vs_direct": 0.0271,
-      "angle_out_deg": 25.727
-     },
-     "refract": {
-      "hit_rate": 0.9507,
-      "time_to_target": 520.64,
-      "cost_vs_direct": 0.0298,
-      "angle_out_deg": 10.681
-     },
-     "contrast_strong": {
-      "hit_rate": 0.9455,
-      "time_to_target": 523.52,
-      "cost_vs_direct": 0.0199,
-      "angle_out_deg": 10.73
-     }
-    }
-   },
-   "images": [
-    {
-     "filename": "angle_in_vs_out.png",
-     "caption": "Incident vs refracted crossing angles (scatter + trend line).",
-     "url": "tests/refract/angle_in_vs_out.png"
-    },
-    {
-     "filename": "cost_path_ratio_by_condition.png",
-     "caption": "Cost-integrated path / geometric length by condition.",
-     "url": "tests/refract/cost_path_ratio_by_condition.png"
-    },
-    {
-     "filename": "time_to_target_by_condition.png",
-     "caption": "Time-to-target comparison across conditions.",
-     "url": "tests/refract/time_to_target_by_condition.png"
-    },
-    {
-     "filename": "cost_vs_direct_ratio.png",
-     "caption": "Cost to target versus direct baseline.",
-     "url": "tests/refract/cost_vs_direct_ratio.png"
-    }
-   ],
-   "animations": [
-    {
-     "filename": "refract_control_uniform.gif",
-     "caption": "Control uniform medium (baseline).",
-     "url": "tests/refract/refract_control_uniform.gif"
-    },
-    {
-     "filename": "refract_refract.gif",
-     "caption": "Refract condition (Fast/Slow contrast).",
-     "url": "tests/refract/refract_refract.gif"
-    },
-    {
-     "filename": "refract_contrast_strong.gif",
-     "caption": "Strong contrast condition.",
-     "url": "tests/refract/refract_contrast_strong.gif"
-    }
-   ],
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/refract_20seeds/index.html",
-     "primary": true
-    },
-    {
-     "label": "Summary JSON",
-     "url": "tests/refract/summary.json"
-    },
-    {
-     "label": "Angle plot",
-     "url": "tests/refract/angle_in_vs_out.png"
-    },
-    {
-     "label": "Cost/path ratio",
-     "url": "tests/refract/cost_path_ratio_by_condition.png"
-    },
-    {
-     "label": "Time-to-target",
-     "url": "tests/refract/time_to_target_by_condition.png"
-    },
-    {
-     "label": "Cost vs direct",
-     "url": "tests/refract/cost_vs_direct_ratio.png"
-    },
-    {
-     "label": "GIF control",
-     "url": "tests/refract/refract_control_uniform.gif"
-    },
-    {
-     "label": "GIF refract",
-     "url": "tests/refract/refract_refract.gif"
-    },
-    {
-     "label": "GIF strong",
-     "url": "tests/refract/refract_contrast_strong.gif"
-    }
-   ],
-   "domain": "Physics (optics)",
-   "short_description": "Emergent minimum-time/refraction behavior in a 2D Fast/Slow medium, run with real inZORi pipeline on 20 seeds.",
-   "created_at": "2026-02-15"
-  },
-  {
-   "id": "pfdelta-phase2-real",
-   "name": "PFΔ Phase 2 — Real AC Power Flow (118-bus + N-1)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-20",
-   "description": "Full real AC Power Flow (pandapower) on IEEE 118-bus at 1.75× load (near-collapse). inZORi Frozen Elite achieves +16.8 pp convergence vs baselines and ~4× faster N-1 recovery. 20 seeds × 50k steps. Follows Phase 1 (surrogate), replacing it with real grid physics.",
-   "key_findings": [
-    "inZORi Frozen Elite S3 conv.: 69.63% (CI95 [69.33, 69.92])",
-    "Baseline A: 52.08% | Baseline B: 52.84%",
-    "Improvement vs Baseline B: +16.8 pp (CI95 non-overlap ✓)",
-    "N-1 recovery: 1.64 steps (inZORi) vs 6.80 steps (Baseline A) — ~4× faster",
-    "Genome selection: O(1) cost, no online evolution at inference",
-    "Consistent advantage across all 20 seeds"
-   ],
-   "metrics": {
-    "network": "IEEE 118-bus (pandapower)",
-    "load_scale": "1.75× nominal",
-    "nr_max": 5,
-    "n1_interval_s3": "300 steps",
-    "seeds": 20,
-    "steps": 50000,
-    "s3_conv_inzori": "69.63%",
-    "s3_conv_baseline_a": "52.08%",
-    "s3_conv_baseline_b": "52.84%",
-    "improvement_vs_b": "+16.8 pp",
-    "recovery_inzori": "1.64 steps",
-    "recovery_baseline": "~6.7 steps"
-   },
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase2_real/index.html",
-     "primary": true
-    },
-    {
-     "label": "Zenodo (DOI)",
-     "url": "https://doi.org/10.5281/zenodo.18717007"
-    },
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase2_real/index.html"
-    },
-    {
-     "label": "Phase 1 (Surrogate) →",
-     "url": "tests/pfdelta_phase1_118/index.html"
-    },
-    {
-     "label": "S3 Convergence Chart",
-     "url": "tests/pfdelta_phase2_real/figures/fig1_s3_convergence_comparison.png"
-    },
-    {
-     "label": "N-1 Recovery Chart",
-     "url": "tests/pfdelta_phase2_real/figures/fig2_recovery_time_n1.png"
-    },
-    {
-     "label": "Phase 1 on Zenodo",
-     "url": "https://doi.org/10.5281/zenodo.18716837"
-    }
-   ],
-   "domain": "Power systems (Real AC PF)",
-   "short_description": "Full real AC Power Flow on IEEE 118-bus at near-collapse load (1.75×). inZORi Frozen Elite vs static baselines under N-1 shocks.",
-   "images": [
-    {
-     "filename": "fig1_s3_convergence_comparison.png",
-     "url": "tests/pfdelta_phase2_real/figures/fig1_s3_convergence_comparison.png",
-     "caption": "S3 convergence rate comparison with CI95 error bars: inZORi 69.6% vs Baseline ~52%. +16.8 pp advantage confirmed."
-    },
-    {
-     "filename": "fig2_recovery_time_n1.png",
-     "url": "tests/pfdelta_phase2_real/figures/fig2_recovery_time_n1.png",
-     "caption": "Steps to first convergence after N-1 line restoration. inZORi: 1.64 steps vs ~6.7 baseline (~4× faster)."
-    },
-    {
-     "filename": "fig3_full_dashboard.png",
-     "url": "tests/pfdelta_phase2_real/figures/fig3_full_dashboard.png",
-     "caption": "Three-metric dashboard: S3 convergence, NR iterations, recovery steps."
-    },
-    {
-     "filename": "fig4_phase1_vs_phase2_evolution.png",
-     "url": "tests/pfdelta_phase2_real/figures/fig4_phase1_vs_phase2_evolution.png",
-     "caption": "Research evolution from Phase 1 surrogate to Phase 2 real AC PF."
-    }
-   ],
-   "created_at": "2026-02-20",
-   "doi": "10.5281/zenodo.18717007",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18717007"
-  },
-  {
-   "id": "pfdelta-phase1-118",
-   "name": "PFΔ Phase 1 (118 + N-1)",
-   "category": "scientific",
-   "status": "finished",
-   "published": true,
-   "updated_at": "2026-02-20",
-   "description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events. inZORi achieves 99.1% S3 convergence vs Baseline B 83.9% under severe_plus stress. Frozen-elites: 100% S3 conv with K=1. Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster). Phase 1 scope: 118-bus nonlinear surrogate. See Phase 2 for real AC PF results.",
-   "key_findings": [
-    "inZORi S3 convergence: 99.1% (CI95 [98.9, 99.3]) vs Baseline B 83.9%",
-    "Frozen-Top16-K1: 100% S3 convergence, 443.7 converged steps/sec",
-    "Topology recovery: inZORi 1.82 steps vs Baseline B 12.91 steps (7× faster)",
-    "World-level PF architecture: 40-50× speedup",
-    "Fairness A/B validation, 30 seeds FULL, 20 seeds Frozen-Elites"
-   ],
-   "metrics": {
-    "network": "118-bus",
-    "seeds_full": 30,
-    "s3_conv_zor": "99.1%",
-    "s3_conv_baseline_b": "83.9%",
-    "s3_conv_frozen": "100.0%",
-    "topology_recovery_zor": "1.82 steps",
-    "conv_steps_per_sec": "443.7"
-   },
-   "links": [
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase1_118/index.html",
-     "primary": true
-    },
-    {
-     "label": "Zenodo (DOI)",
-     "url": "https://doi.org/10.5281/zenodo.18716837"
-    },
-    {
-     "label": "Full Details",
-     "url": "tests/pfdelta_phase1_118/index.html"
-    },
-    {
-     "label": "Core comparison chart",
-     "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png"
-    },
-    {
-     "label": "Phase 2 (Real AC PF) →",
-     "url": "tests/pfdelta_phase2_real/index.html"
-    },
-    {
-     "label": "Phase 2 on Zenodo →",
-     "url": "https://doi.org/10.5281/zenodo.18717007"
-    }
-   ],
-   "domain": "Power systems (PFΔ)",
-   "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events",
-   "images": [
-    {
-     "filename": "core_comparison_baselineA_baselineB_inZORi_frozen.png",
-     "url": "tests/pfdelta_phase1_118/figures/core_comparison_baselineA_baselineB_inZORi_frozen.png",
-     "caption": "Baseline A vs Baseline B vs inZORi vs Frozen-Top16-K1 from published real metrics (Table A1/A2)."
-    },
-    {
-     "filename": "convergence_over_time.png",
-     "url": "tests/pfdelta_phase1_118/figures/convergence_over_time.png",
-     "caption": "Convergence over time for the selected runtime strategy (stable at 1.0 across steps)."
-    },
-    {
-     "filename": "iterations_over_time.png",
-     "url": "tests/pfdelta_phase1_118/figures/iterations_over_time.png",
-     "caption": "NR iterations over time (compute usage and near-budget behavior)."
-    },
-    {
-     "filename": "pbl_over_time.png",
-     "url": "tests/pfdelta_phase1_118/figures/pbl_over_time.png",
-     "caption": "Power Balance Limit (PBL) over time (mean/p95 dynamics)."
-    },
-    {
-     "filename": "shock_events_timeline.png",
-     "url": "tests/pfdelta_phase1_118/figures/shock_events_timeline.png",
-     "caption": "Shock/N-1 event timeline (stress schedule and recovery windows)."
-    },
-    {
-     "filename": "fitness_progression_across_evals.png",
-     "url": "tests/pfdelta_phase1_118/figures/fitness_progression_across_evals.png",
-     "caption": "Fitness progression across evaluations (mean ± CI95)."
-    },
-    {
-     "filename": "seasonal_convergence_by_eval.png",
-     "url": "tests/pfdelta_phase1_118/figures/seasonal_convergence_by_eval.png",
-     "caption": "Seasonal convergence by evaluation for the selected runtime strategy (near-perfect in S0-S3)."
-    },
-    {
-     "filename": "seed_convergence_distribution_eval4.png",
-     "url": "tests/pfdelta_phase1_118/figures/seed_convergence_distribution_eval4.png",
-     "caption": "Per-seed convergence distribution at eval 4 (all 20 seeds at 1.0)."
-    },
-    {
-     "filename": "recovery_time_distribution_eval4.png",
-     "url": "tests/pfdelta_phase1_118/figures/recovery_time_distribution_eval4.png",
-     "caption": "Recovery-time distribution at eval 4 (all recorded events recover in 1 step)."
-    }
-   ],
-   "created_at": "2026-02-17",
-   "doi": "10.5281/zenodo.18716837",
-   "zenodo_url": "https://doi.org/10.5281/zenodo.18716837"
-  }
- ]
+  ]
 }
