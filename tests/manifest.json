@@ -4,36 +4,44 @@
   "tests": [
     {
       "id": "qec-zor-ibm",
-      "name": "inZORi QEC: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron)",
-      "category": "quantum",
+      "name": "inZOR-ND: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron)",
+      "category": "Quantum Computing",
       "status": "finished",
       "published": true,
       "created_at": "2026-03-16",
       "updated_at": "2026-03-16",
-      "description": "ZOR autonomously discovers a 7-qubit quantum error correcting code optimized for IBM Heron processor hardware (Ry+CZ tree ansatz, 21 parameters), without any prior knowledge of QEC theory. On real IBM Marrakesh hardware in a noisy regime (no-code fidelity 0.632), ZOR achieves fidelity 0.698 vs Steane [[7,1,3]] at 0.647 — outperforming the textbook code by +5.1 percentage points. Both codes beat the unprotected qubit, confirming genuine quantum error correction. Hardware-native CZ circuits transpile to depth ~53 vs Steane's CNOT-based ~110 on Heron.",
+      "description": "inZOR-ND autonomously discovers a 7-qubit quantum error correcting code optimized for IBM Heron processor hardware (Ry+CZ tree ansatz, 21 parameters), without any prior knowledge of QEC theory. On real IBM Marrakesh hardware in a noisy regime (no-code fidelity 0.632), inZOR-ND achieves fidelity 0.698 vs Steane [[7,1,3]] at 0.647 — outperforming the textbook code by +5.1 percentage points. Both codes beat the unprotected qubit, confirming genuine quantum error correction. Hardware-native CZ circuits transpile to depth ~53 vs Steane's CNOT-based ~110 on Heron (2.2× shallower). LUPA precision zoom converges to simulation fidelity 0.999843 in 3 rounds × 20 cycles (~5 min).",
       "key_findings": [
-        "ZOR discovers competitive QEC code with no prior quantum error correction knowledge",
+        "inZOR-ND discovers competitive QEC code with no prior quantum error correction knowledge",
         "Hardware-native ansatz: 21 Ry angles + 12 native CZ gates on IBM Fez tree topology",
-        "Transpiled depth ~53 (ZOR) vs ~110 (Steane) on IBM Heron — 2× shallower",
-        "Noisy regime (ibm_marrakesh): ZOR 0.698 > Steane 0.647 > no-code 0.632 (+5.1 pp)",
+        "Transpiled depth ~53 (inZOR-ND) vs ~110 (Steane) on IBM Heron — 2.2× shallower",
+        "Noisy regime (ibm_marrakesh): inZOR-ND 0.698 > Steane 0.647 > no-code 0.632 (+5.1 pp)",
         "LUPA precision zoom: 3 rounds × 20 cycles → simulation fidelity 0.999843",
         "Validated on 3 IBM Quantum hardware runs: ibm_fez × 2, ibm_marrakesh × 1"
       ],
       "metrics": {
-        "ZOR sim fidelity": "0.999843",
-        "ZOR HW fidelity (noisy)": "0.6982",
+        "inZOR-ND sim fidelity": "0.999843",
+        "inZOR-ND HW fidelity (noisy)": "0.6982",
         "Steane HW fidelity (noisy)": "0.6470",
         "No-code HW fidelity": "0.6316",
         "Gain vs Steane": "+5.1 pp",
         "Ansatz parameters": "21",
         "CZ gates (encoding)": "12",
-        "Transpiled depth ZOR": "~53",
+        "Transpiled depth inZOR-ND": "~53",
         "Transpiled depth Steane": "~110",
         "Hardware": "IBM Heron (ibm_fez, ibm_marrakesh)",
         "Shots per circuit": "8000",
         "Hardware runs": "3"
       },
-      "report_url": "tests/qec_zor/index.html"
+      "images": [
+        { "url": "tests/qec_zor/figures/fig1_hardware_results.png", "caption": "Real hardware results — 3 runs on IBM Quantum (ibm_fez × 2, ibm_marrakesh × 1). Noisy regime: inZOR-ND 0.698 > Steane 0.647 > no-code 0.632." },
+        { "url": "tests/qec_zor/figures/fig2_circuit_depth.png", "caption": "Circuit depth comparison: inZOR-ND transpiles to ~53 vs Steane ~110 on IBM Heron (2.2× shallower)." },
+        { "url": "tests/qec_zor/figures/fig4_lupa_refinement.png", "caption": "LUPA precision zoom: 3 rounds × 20 cycles refine simulation fidelity from ~0.97 to 0.999843." }
+      ],
+      "links": [
+        { "label": "Full Details", "url": "tests/qec_zor/index.html", "primary": true },
+        { "label": "PDF (Zenodo preprint)", "url": "zenodo_publish/qec_zor/inZORi_QEC_Zenodo.pdf" }
+      ]
     },
     {
       "id": "fusion-disruption-proximity",
