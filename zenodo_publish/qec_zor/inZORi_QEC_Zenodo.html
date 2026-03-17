@@ -49,9 +49,11 @@
 
 <div class="abstract-box">
 <strong>Abstract</strong>
-We apply the <em>inZOR-ND</em> bio-adaptive genomic discovery engine to quantum error correction (QEC) on real IBM Quantum hardware, without any prior knowledge of QEC theory. Two versions are presented: <strong>v1</strong> (21 Ry parameters, X-only correction with 8 syndromes, 4 test states) and <strong>v2</strong> (42 Ry+Rz parameters, Full Pauli correction with 22 syndromes, 6 test states, multi-noise training over 4 noise levels).
+We apply the <em>inZOR-ND</em> bio-adaptive genomic discovery engine to quantum error correction (QEC) on real IBM Quantum hardware, without implementing any known QEC code structure. Two versions are presented: <strong>v1</strong> (21 Ry parameters, X-only correction with 8 syndromes, 4 test states) and <strong>v2</strong> (42 Ry+Rz parameters, Full Pauli correction with 22 syndromes, 6 test states, multi-noise training over 4 noise levels).
 
-Both versions discover hardware-native 7-qubit encoding circuits optimized for the IBM Heron processor's tree topology. Across <strong>7 hardware runs</strong> on ibm_fez and ibm_marrakesh, <strong>inZOR-ND beats Steane [[7,1,3]] in every single run</strong>, with gains from +0.2 pp to +5.1 pp. The v1 LUPA precision zoom achieves simulation fidelity <strong>0.999843</strong> (p_cz=0.002), while v2 reaches <strong>0.990244</strong> (multi-noise average, Full Pauli). v2 Qiskit cross-validation confirms perfect match (diff &lt; 1e-16).
+Both versions discover hardware-native 7-qubit encoding circuits optimized for the IBM Heron processor's tree topology. Across <strong>7 hardware runs</strong> on ibm_fez and ibm_marrakesh, <strong>inZOR-ND outperforms Steane [[7,1,3]] in all observed hardware runs</strong>, with gains from +0.2 pp to +5.1 pp. The v1 LUPA precision zoom achieves simulation fidelity <strong>0.999843</strong> (p_cz=0.002), while v2 reaches <strong>0.990244</strong> (multi-noise average, Full Pauli). v2 Qiskit cross-validation confirms perfect match (diff &lt; 1e-16).
+
+The key finding is not that inZOR-ND produces a theoretically superior code — in ideal simulation, Steane's Full Pauli correction remains stronger at all tested noise levels. Rather, these results suggest that genomic search can discover hardware-native QEC encoders whose reduced transpiled cost yields consistent advantage over theoretically stronger but hardware-mismatched codes on NISQ devices.
 </div>
 
 <div class="kv-grid">
@@ -147,7 +149,7 @@ CZ pairs: (0,1), (0,2), (0,3), (1,4), (2,5), (3,6)</div>
 </table>
 
 <div class="verdict">
-<div class="verdict-title">VERDICT: inZOR-ND wins 7/7 runs on IBM Quantum hardware.</div>
+<div class="verdict-title">VERDICT: inZOR-ND outperforms Steane in all 7 observed runs.</div>
 Average gain vs Steane: +0.044 pp. Best (noisy regime): +5.12 pp.<br>
 Consistent advantage across both backends, both versions, all noise regimes.
 </div>
@@ -199,12 +201,12 @@ L2 Rz: [ 2.781, -2.323,  0.046, -0.894, -2.758,  1.371,  2.213]
 
 <h2>9. Conclusions</h2>
 
-<div class="law-box">
-<div class="law-formula">inZOR-ND beats Steane [[7,1,3]] in 7/7 IBM hardware runs</div>
-<div class="law-sub">v1: +5.1 pp (noisy) · v2: +1.5 pp (ibm_fez) · Hardware-native design outperforms theoretical optimality</div>
-</div>
+<p>These results suggest that genomic search can discover hardware-native QEC encoders competitive with known codes on NISQ devices, without implementing any known QEC code structure. The key finding is not that inZOR-ND produces a universally superior code — in ideal simulation, Steane's Full Pauli correction remains stronger at all tested noise levels. Rather, <strong>theoretical optimality is not the same as hardware optimality</strong> in NISQ practice: a shallower, hardware-native circuit accumulates less decoherence and can outperform a theoretically stronger but hardware-mismatched code on real processors.</p>
 
-<p>inZOR-ND demonstrates that a bio-adaptive engine with <strong>zero quantum domain knowledge</strong> can discover competitive QEC codes by exploiting hardware-native gate sets. The key insight: shallower native circuits accumulate less decoherence than theoretically optimal but deeper circuits.</p>
+<div class="law-box">
+<div class="law-formula">Hardware-native circuit depth &lt; theoretical depth → real hardware advantage</div>
+<div class="law-sub">Genomic search discovers hardware-adapted QEC encoders competitive with known codes on NISQ devices (7 runs, ibm_fez + ibm_marrakesh)</div>
+</div>
 
 <h2>Reproducibility</h2>
 <div class="repro">

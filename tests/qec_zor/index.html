@@ -85,13 +85,13 @@
     <h2>Abstract</h2>
     <p>
       We apply the <strong>inZOR-ND</strong> bio-adaptive genomic discovery engine to quantum error correction (QEC)
-      on real IBM Quantum hardware, <strong>without any prior knowledge of QEC theory</strong>.
+      on real IBM Quantum hardware, <strong>without implementing any known QEC code structure</strong>.
       Two versions are presented: <strong>v1</strong> (21 Ry parameters, X-only correction, 4 test states) and
       <strong>v2</strong> (42 Ry+Rz parameters, Full Pauli correction with 22 syndromes, 6 test states, multi-noise training).
     </p>
     <p>
       Both versions discover hardware-native 7-qubit encoding circuits optimized for the IBM Heron processor's tree topology.
-      Across <strong>7 hardware runs</strong> on ibm_fez and ibm_marrakesh, <strong>inZOR-ND beats Steane [[7,1,3]] in every single run</strong>,
+      Across <strong>7 hardware runs</strong> on ibm_fez and ibm_marrakesh, <strong>inZOR-ND outperforms Steane [[7,1,3]] in all observed hardware runs</strong>,
       with gains ranging from +0.2 pp to +5.1 pp. The v1 LUPA precision zoom achieves simulation fidelity <strong>0.999843</strong>,
       while v2 reaches <strong>0.990244</strong> (multi-noise average over 4 noise levels, Full Pauli correction, 6 test states).
     </p>
@@ -142,7 +142,7 @@
     <strong>How to read this result</strong>
     <ul>
       <li><strong>QEC only helps in noisy regimes.</strong> When hardware is very clean (no-code fidelity &gt;0.9), both QEC codes perform worse than the unprotected qubit — circuit overhead exceeds error correction benefit.</li>
-      <li><strong>inZOR-ND beats Steane in all 7 runs</strong> — in both noisy and clean regimes. The advantage comes from shallower native circuits (CZ vs CNOT decomposition).</li>
+      <li><strong>inZOR-ND outperforms Steane in all 7 observed runs</strong> — in both noisy and clean regimes. The advantage comes from shallower native circuits (CZ vs CNOT decomposition).</li>
       <li><strong>v2 adds Full Pauli correction, Rz gates, and multi-noise training</strong> — a stricter, more comprehensive evaluation than v1.</li>
     </ul>
   </div>
@@ -172,7 +172,7 @@
     <h2>1. Real Hardware Results — IBM Quantum (7 runs)</h2>
     <p>
       Seven hardware runs were performed on IBM Heron processors across two backends and two code versions.
-      <strong>inZOR-ND beats Steane [[7,1,3]] in every single run.</strong>
+      <strong>inZOR-ND outperforms Steane [[7,1,3]] in all observed hardware runs.</strong>
     </p>
     <div class="fig-wrap">
       <img src="figures/fig1_hardware_results.png" alt="All 7 hardware runs">
@@ -189,7 +189,7 @@
       <tr class="winner v2"><td>7</td><td>ibm_marrakesh</td><td><span class="badge badge-purple">v2</span></td><td><strong>0.8717</strong></td><td>0.8657</td><td>0.9200</td><td><span class="badge badge-ok">+0.0060</span></td></tr>
     </table>
     <div class="verdict-box">
-      <strong>VERDICT: inZOR-ND wins 7/7 runs.</strong><br>
+      <strong>VERDICT: inZOR-ND outperforms Steane in all 7 observed runs.</strong><br>
       Average gain vs Steane: <strong>+0.044 pp</strong> &nbsp;|&nbsp; Best gain (noisy regime): <strong>+5.12 pp</strong><br>
       Consistent advantage across both backends, both versions, all noise regimes.
     </div>
@@ -373,7 +373,7 @@ python3 run_ibm_hardware_hw_v2.py --token TOKEN --backend ibm_marrakesh
 # results_7hw_v2/best_angles_hw_v2.json (v2: 42 params)
     </div>
     <div class="disclaimer-box">
-      <strong>Disclaimer:</strong> Hardware results vary between calibration cycles. inZOR-ND beats Steane in all 7 runs,
+      <strong>Disclaimer:</strong> Hardware results vary between calibration cycles. inZOR-ND outperforms Steane in all 7 observed runs,
       but the absolute fidelity depends on the hardware noise level at the time of measurement.
       In simulation, Steane's Full Pauli correction outperforms inZOR-ND; the real-hardware advantage
       comes from shallower native circuits that accumulate less decoherence.
@@ -384,13 +384,17 @@ python3 run_ibm_hardware_hw_v2.py --token TOKEN --backend ibm_marrakesh
   <div class="section">
     <h2>10. Conclusion</h2>
     <p>
-      We demonstrate that <strong>inZOR-ND can discover competitive quantum error correcting codes
-      from scratch on real IBM Quantum hardware</strong>, without any quantum error correction domain knowledge.
+      These results suggest that <strong>genomic search can discover hardware-native QEC encoders competitive
+      with known codes on NISQ devices</strong>, without implementing any known QEC code structure.
+      The key finding is not that inZOR-ND produces a theoretically superior code — in ideal simulation,
+      Steane's Full Pauli correction remains stronger — but that <strong>theoretical optimality is not the same
+      as hardware optimality</strong>: a shallower, hardware-native circuit accumulates less decoherence
+      and can outperform a theoretically stronger but hardware-mismatched code on real NISQ processors.
     </p>
     <div class="law-box" style="margin:1.5rem 0;">
-      <div class="law-label">Main result (7 IBM hardware runs)</div>
-      <div class="law-formula">inZOR-ND beats Steane [[7,1,3]] in 7/7 runs</div>
-      <div class="law-sub">v1: +5.1 pp (noisy) · v2: +1.5 pp (ibm_fez) · Consistent advantage from hardware-native circuit design</div>
+      <div class="law-label">Core finding (7 IBM hardware runs)</div>
+      <div class="law-formula">Hardware-native circuit depth &lt; theoretical depth → real hardware advantage</div>
+      <div class="law-sub">Genomic search discovers hardware-adapted QEC encoders competitive with known codes on NISQ devices</div>
     </div>
   </div>
 
