@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inZORi — Tests</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+      /* Tests page additions (keep palette + type consistent) */
+      .tests-hero {
+        margin-top: 0.5rem;
+        color: var(--muted);
+        font-size: var(--text-sm);
+        max-width: 46rem;
+      }
+
+      .toolbar {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 0.75rem;
+        align-items: end;
+        margin: 1.5rem 0 1.25rem;
+        padding-bottom: 1.25rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .field label {
+        display: block;
+        font-size: 0.95rem;
+        color: var(--muted);
+        margin-bottom: 0.35rem;
+        font-weight: 600;
+      }
+
+      .field input, .field select {
+        width: 100%;
+        background: var(--surface);
+        color: var(--text);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.65rem 0.75rem;
+        font-family: var(--font-main);
+        font-size: 1rem;
+        outline: none;
+      }
+
+      .field input:focus, .field select:focus {
+        border-color: rgba(34, 211, 238, 0.55);
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.10);
+      }
+
+      .results-meta {
+        margin: 0.75rem 0 1.0rem;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      details.test {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin: 0 0 0.9rem;
+        overflow: hidden;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+      }
+
+      details.test:hover {
+        border-color: rgba(34, 211, 238, 0.55);
+      }
+
+      details.test[open] {
+        border-color: rgba(34, 211, 238, 0.65);
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.08);
+      }
+
+      summary.test__summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 1.0rem 1.1rem;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.75rem;
+        align-items: center;
+      }
+
+      summary::-webkit-details-marker { display: none; }
+
+      .test__title {
+        margin: 0;
+        font-size: 1.25rem;
+        line-height: 1.35;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .test__subtitle {
+        margin-top: 0.35rem;
+        color: var(--muted);
+        font-size: 0.98rem;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.6rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.92rem;
+        white-space: nowrap;
+        background: rgba(34, 211, 238, 0.06);
+      }
+
+      .test__meta {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .chevron {
+        color: var(--accent);
+        font-weight: 700;
+        margin-left: 0.25rem;
+      }
+
+      .test__body {
+        padding: 0 1.1rem 1.15rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .grid-media {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.75rem;
+        margin: 1.0rem 0;
+      }
+
+      
+      .media img { cursor: zoom-in; }
+
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(5, 8, 12, 0.92);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 2vh 2vw;
+      }
+      .lightbox.open { display: flex; }
+      .lightbox img {
+        max-width: 96vw;
+        max-height: 90vh;
+        width: auto;
+        height: auto;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 15px 45px rgba(0,0,0,.45);
+      }
+      .lightbox .cap {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 2vh;
+        color: var(--muted);
+        font-size: 0.95rem;
+        text-align: center;
+        max-width: 92vw;
+      }
+      .lightbox .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(34,211,238,.14);
+        color: var(--accent);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: .45rem .7rem;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .media {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        background: var(--bg);
+      }
+
+      .media img {
+        width: 100%;
+        display: block;
+      }
+
+      .media .cap {
+        padding: 0.65rem 0.75rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .links {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 0.75rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.55rem 0.8rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(34, 211, 238, 0.10);
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.98rem;
+        font-weight: 600;
+        transition: background 0.2s ease, border-color 0.2s ease;
+      }
+
+      .btn:hover {
+        background: rgba(34, 211, 238, 0.16);
+        border-color: rgba(34, 211, 238, 0.55);
+      }
+
+      .kfind {
+        margin: 1.0rem 0;
+        padding: 0.9rem 1.0rem;
+        background: rgba(34, 211, 238, 0.08);
+        border-left: 4px solid var(--accent);
+        border-radius: 0 var(--radius) var(--radius) 0;
+      }
+
+      .kfind h3 {
+        margin: 0 0 0.5rem;
+      }
+
+      .metrics {
+        margin: 1.0rem 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.6rem;
+      }
+
+      .metric {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 0.65rem 0.75rem;
+        background: rgba(19, 25, 32, 0.55);
+      }
+
+      .metric .k { color: var(--muted); font-size: 0.92rem; }
+      .metric .v { color: var(--text); font-weight: 700; font-size: 1.05rem; }
+
+      .footer-nav {
+        margin-top: 2.25rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: var(--text-sm);
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-nav a { color: var(--accent); text-decoration: none; }
+      .footer-nav a:hover { text-decoration: underline; }
+
+      @media (max-width: 860px) {
+        .toolbar { grid-template-columns: 1fr; }
+        .grid-media { grid-template-columns: 1fr; }
+        .metrics { grid-template-columns: 1fr; }
+        summary.test__summary { grid-template-columns: 1fr; }
+        .test__meta { justify-content: flex-start; }
+      }
+    </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <nav class="lang-switch" aria-label="Language">
+        <a href="index.html">Home</a>
+        <a href="tests.html" class="active">Tests</a>
+        <span style="color: var(--muted); padding: 0.35rem 0.6rem;">·</span>
+        <a href="de.html">Deutsch</a>
+        <a href="fr.html">Français</a>
+        <a href="ro.html">Română</a>
+      </nav>
+      <h1>Tests</h1>
+      <p class="tests-hero">
+        inZORi can support research across multiple domains where systems must adapt under uncertainty, changing constraints, and limited compute budgets.
+        The same engine is used as a general research framework, then specialized through scenario evaluators and transparent metrics.
+      </p>
+      
+    </div>
+  </header>
+
+  <main class="container">
+    <section aria-label="Filters and list">
+      <div class="toolbar" role="region" aria-label="Filters">
+        <div class="field">
+          <label for="q">Search</label>
+          <input id="q" type="search" placeholder="Search by title, domain, keywords…" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="domain">Domain</label>
+          <select id="domain">
+            <option value="">All domains</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="sort">Sort</label>
+          <select id="sort">
+            <option value="date_desc">Date (newest)</option>
+            <option value="date_asc">Date (oldest)</option>
+            <option value="name_asc">Name (A→Z)</option>
+            <option value="name_desc">Name (Z→A)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="resultsMeta" class="results-meta">Loading…</div>
+      <div id="testsList"></div>
+    </section>
+
+    <div class="footer-nav">
+      <div>Tip: click a title to expand/collapse. Only one test stays open for readability.</div>
+      <div><a href="index.html">← Back to Home</a></div>
+    </div>
+  </main>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <img alt="Expanded image">
+    <div class="cap"></div>
+  </div>
+
+  <script>
+    const els = {
+      q: document.getElementById('q'),
+      domain: document.getElementById('domain'),
+      sort: document.getElementById('sort'),
+      meta: document.getElementById('resultsMeta'),
+      list: document.getElementById('testsList'),
+    };
+
+    function normalize(s) {
+      return (s || '').toString().toLowerCase();
+    }
+
+    function shortDesc(test) {
+      if (test.short_description) return test.short_description;
+      const d = (test.description || '').trim();
+      if (!d) return '';
+      const first = d.split('. ')[0].trim();
+      return first.length > 160 ? (first.slice(0, 157).trim() + '…') : first;
+    }
+
+    function domainOf(test) {
+      return test.domain || test.category || 'Other';
+    }
+
+    function fmtDate(s) {
+      return s || '';
+    }
+
+    function closeOthers(openDetails) {
+      document.querySelectorAll('details.test[open]').forEach(d => {
+        if (d !== openDetails) d.removeAttribute('open');
+      });
+    }
+
+    function renderMedia(test) {
+      const blocks = [];
+
+      const images = Array.isArray(test.images) ? test.images : [];
+      const anims = Array.isArray(test.animations) ? test.animations : [];
+
+      const all = [
+        ...images.map(x => ({...x, _kind: 'image'})),
+        ...anims.map(x => ({...x, _kind: 'animation'})),
+      ];
+
+      if (!all.length) return '';
+
+      const items = all.map(m => {
+        const src = m.url || m.filename || '';
+        if (!src) return '';
+        const cap = m.caption ? `<div class="cap">${m.caption}</div>` : '';
+        return `<div class="media"><img loading="lazy" src="${src}" alt="${m.caption || ''}">${cap}</div>`;
+      }).join('');
+
+      return `<div class="grid-media">${items}</div>`;
+    }
+
+    function renderMetrics(test) {
+      const m = test.metrics || {};
+      const entries = Object.entries(m).filter(([_, v]) => typeof v !== 'object');
+      if (!entries.length) return '';
+      const items = entries.map(([k, v]) => {
+        const key = k.replaceAll('_', ' ');
+        return `<div class="metric"><div class="k">${key}</div><div class="v">${v}</div></div>`;
+      }).join('');
+      return `<div class="metrics">${items}</div>`;
+    }
+
+    function renderLinks(test) {
+      const links = Array.isArray(test.links) ? test.links : [];
+      if (!links.length) return '';
+      return `<div class="links">${
+        links.map(l => `<a class="btn" href="${l.url}">${l.label}</a>`).join('')
+      }</div>`;
+    }
+
+    function renderFindings(test) {
+      const k = Array.isArray(test.key_findings) ? test.key_findings : [];
+      if (!k.length) return '';
+      return `<div class="kfind"><h3>Key findings</h3><ul>${k.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
+    }
+
+    function renderTest(test) {
+      const domain = domainOf(test);
+      const date = fmtDate(test.updated_at);
+      const status = (test.status || '').toString();
+
+      const summary = `
+        <div>
+          <div class="test__title">${test.name || test.id}</div>
+          <div class="test__subtitle">${shortDesc(test)}</div>
+        </div>
+        <div class="test__meta">
+          <span class="pill">${domain}</span>
+          ${date ? `<span class="pill">Updated ${date}</span>` : ''}
+          ${status ? `<span class="pill">${status}</span>` : ''}
+          <span class="chevron">▾</span>
+        </div>
+      `;
+
+      const body = `
+        <div class="test__body">
+          ${test.description ? `<p>${test.description}</p>` : ''}
+          ${renderFindings(test)}
+          ${renderMetrics(test)}
+          ${renderMedia(test)}
+          ${renderLinks(test)}
+        </div>
+      `;
+
+      return `
+        <details class="test" data-domain="${domain}">
+          <summary class="test__summary">${summary}</summary>
+          ${body}
+        </details>
+      `;
+    }
+
+    function sortTests(arr, mode) {
+      const a = [...arr];
+      const byName = (x, y) => (x.name || x.id).localeCompare((y.name || y.id));
+      const byDate = (x, y) => (x.updated_at || '').localeCompare((y.updated_at || ''));
+      if (mode === 'name_asc') a.sort(byName);
+      else if (mode === 'name_desc') a.sort((x, y) => byName(y, x));
+      else if (mode === 'date_asc') a.sort(byDate);
+      else a.sort((x, y) => byDate(y, x)); // date_desc default
+      return a;
+    }
+
+    function applyFilters(allTests) {
+      const q = normalize(els.q.value);
+      const dom = els.domain.value;
+      const sorted = sortTests(allTests, els.sort.value);
+
+      const filtered = sorted.filter(t => {
+        if (dom && domainOf(t) !== dom) return false;
+        if (!q) return true;
+        const hay = [
+          t.id, t.name, t.domain, t.category, t.description,
+          ...(t.key_findings || []),
+        ].map(normalize).join(' ');
+        return hay.includes(q);
+      });
+
+      els.meta.textContent = `${filtered.length} / ${allTests.length} tests shown`;
+      els.list.innerHTML = filtered.map(renderTest).join('') || `<p class="note">No matches.</p>`;
+
+      // accordion: only one open at a time
+      els.list.querySelectorAll('details.test').forEach(d => {
+        d.addEventListener('toggle', () => {
+          if (d.open) closeOthers(d);
+        });
+      });
+    }
+
+    async function init() {
+      try {
+        const resp = await fetch('tests/manifest.json', { cache: 'no-store' });
+        const data = await resp.json();
+        const all = (data.tests || []).filter(t => t.published);
+
+        // domain options
+        const domains = Array.from(new Set(all.map(domainOf))).sort((a,b) => a.localeCompare(b));
+        domains.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          els.domain.appendChild(opt);
+        });
+
+        const rerender = () => applyFilters(all);
+        els.q.addEventListener('input', rerender);
+        els.domain.addEventListener('change', rerender);
+        els.sort.addEventListener('change', rerender);
+        rerender();
+      } catch (e) {
+        els.meta.textContent = '';
+        els.list.innerHTML = `<p class="note">Failed to load manifest: ${e.message}</p>`;
+      }
+    }
+    init();
+
+    // Lightbox for image enlargement
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = lightbox.querySelector('img');
+    const lightboxCap = lightbox.querySelector('.cap');
+
+    function openLightbox(src, cap) {
+      lightboxImg.src = src;
+      lightboxCap.textContent = cap || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightboxImg.src = '';
+    }
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('close')) closeLightbox();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
+    document.addEventListener('click', (e) => {
+      const img = e.target.closest('.media img');
+      if (!img) return;
+      const cap = img.parentElement.querySelector('.cap')?.textContent || '';
+      openLightbox(img.src, cap);
+    });
+
+  </script>
+ </body>
+ </html>
