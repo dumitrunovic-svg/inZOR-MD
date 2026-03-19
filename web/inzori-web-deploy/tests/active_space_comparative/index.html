@@ -41,6 +41,9 @@
   .warning-box { background:#fef2f2; border-left:4px solid var(--danger); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .ref-box { background:#f5f0ff; border-left:4px solid var(--purple); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
   .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
   .footer a { color:rgba(255,255,255,0.8); }
   p { margin-bottom:0.75rem; }
@@ -255,6 +258,15 @@
       correctly reflecting the increasing multi-reference character at stretched bond lengths. Mean correlation: 0.627 Eh.
     </p>
 
+    <div class="fig-wrap">
+      <img src="figures/fig1_fitness_evolution.png" alt="Fitness evolution: inZOR-ND vs Random">
+      <div class="fig-caption">
+        <strong>Figure 1.</strong> Fitness evolution comparison. Left: inZOR-ND shows 11 distinct improvements over 80 adaptive steps,
+        progressing systematically toward the optimum. Right: Random search stagnates after 112 evaluations —
+        560 additional evaluations produce no improvement.
+      </div>
+    </div>
+
     <h3>4.3 Search Dynamics</h3>
 
     <div class="insight-box">
@@ -283,6 +295,14 @@
       but learning which regions of the 36-dimensional orbital space contain viable solutions.
     </p>
 
+    <div class="fig-wrap">
+      <img src="figures/fig2_convergence_comparison.png" alt="Convergence rate and metrics comparison">
+      <div class="fig-caption">
+        <strong>Figure 2.</strong> Left: CASSCF convergence rate at all 3 geometries — inZOR-ND achieves 8× higher rate than random.
+        Right: Normalized comparison of key metrics. inZOR-ND dominates across all dimensions.
+      </div>
+    </div>
+
     <h3>4.5 Top 10 Comparison</h3>
     <table>
       <tr><th>Rank</th><th>inZOR-ND MOs</th><th>Fitness</th><th>Random MOs</th><th>Fitness</th></tr>
@@ -297,6 +317,15 @@
       Cr 3d/4s orbitals. The remaining 2–3 positions vary, creating a chemically meaningful orbital hierarchy.
       Random's top 5 show no consistent orbital pattern.
     </p>
+  </div>
+
+  <div class="fig-wrap">
+    <img src="figures/fig4_energy_per_geometry.png" alt="CASSCF energy curve per geometry">
+    <div class="fig-caption">
+      <strong>Figure 3.</strong> CASSCF dissociation curve for inZOR-ND's optimal active space MOs [18,20,22,25,28,29,33,34].
+      Correlation energy grows from 0.430 Eh (equilibrium) to 0.872 Eh (near-dissociation), correctly capturing
+      the increasing multi-reference character. The active space converges at all three geometries.
+    </div>
   </div>
 
   <!-- Analysis -->
@@ -340,6 +369,15 @@
         <li>inZOR-ND shows <strong>11 progressive improvements</strong> vs random's stagnation after 112 evaluations</li>
         <li>The advantage emerges precisely when the problem is genuinely hard (rare optimum, low convergence rate)</li>
       </ul>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fig3_research_progression.png" alt="Research progression across 3 studies">
+      <div class="fig-caption">
+        <strong>Figure 4.</strong> Research progression across three studies. Search space grows from 18,564 (N₂) to 30.26M (Cr₂),
+        while degeneracy drops from 10 optima (Study 1) to 77 (Study 2, single geometry) to just 1 (Study 3, 3 geometries).
+        The final study provides the definitive comparative validation.
+      </div>
     </div>
 
     <h3>Key Findings Across All Three Studies</h3>

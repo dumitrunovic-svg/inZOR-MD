@@ -30,6 +30,24 @@
         "Degenerate optima": "1",
         "Geometries": "3 (R=1.68, 2.0, 2.5 Å)"
       },
+      "images": [
+        {
+          "url": "tests/active_space_comparative/figures/fig1_fitness_evolution.png",
+          "caption": "Fitness evolution: inZOR-ND (11 improvements) vs Random (stagnation after 112 evals)"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig2_convergence_comparison.png",
+          "caption": "Convergence rate (8× higher for inZOR-ND) and key metrics comparison"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig3_research_progression.png",
+          "caption": "Research progression: N₂ → Cr₂ single-geom → Cr₂ 3-geom comparative"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig4_energy_per_geometry.png",
+          "caption": "CASSCF dissociation curve: correlation grows from 0.430 to 0.872 Eh"
+        }
+      ],
       "links": [
         {
           "label": "Full Report",
