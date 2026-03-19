@@ -3,6 +3,35 @@
   "updated_at": "2026-03-13",
   "tests": [
     {
+      "id": "active-space-n2",
+      "title": "inZORi Active Space: N₂ Dissociation — Bio-Adaptive CASSCF Active Space Selection (6-31G)",
+      "date": "2026-03-19",
+      "category": "Quantum Chemistry",
+      "tags": [
+        "active space",
+        "CASSCF",
+        "quantum chemistry",
+        "N2",
+        "strongly correlated",
+        "bio-inspired"
+      ],
+      "summary": "ZOR discovers the optimal CASSCF(6,6) active space for N₂ dissociation (6-31G, 3 geometries) evaluating only 2.91% of 18,564 possible spaces. Naturally reveals 10 degenerate symmetry-equivalent optima without any chemical priors.",
+      "verdict": "ZOR FINDS GLOBAL OPTIMUM WITH 2.91% COVERAGE — 10 DEGENERATE OPTIMA DISCOVERED",
+      "folder": "active_space_n2",
+      "links": {
+        "report": "tests/active_space_n2/",
+        "zenodo": ""
+      },
+      "metrics": {
+        "search_space": 18564,
+        "evaluated": 541,
+        "coverage_pct": 2.91,
+        "degenerate_optima": 10,
+        "wall_time_s": 1244,
+        "workers": 14
+      }
+    },
+    {
       "id": "qec-zor-ibm",
       "name": "inZOR-ND: Hardware-Native Quantum Error Correction on IBM Quantum (7-qubit, Heron)",
       "category": "Quantum Computing",
@@ -35,13 +64,29 @@
         "Total hardware runs": "7"
       },
       "images": [
-        { "url": "tests/qec_zor/figures/fig1_hardware_results.png", "caption": "All 7 hardware runs on IBM Quantum (v1 + v2). inZOR-ND beats Steane in every run." },
-        { "url": "tests/qec_zor/figures/fig7_v1_vs_v2.png", "caption": "v1 vs v2 head-to-head on ibm_marrakesh (same calibration day)." },
-        { "url": "tests/qec_zor/figures/fig2_circuit_depth.png", "caption": "Circuit depth: inZOR-ND v1/v2 transpile to ~53-58 vs Steane ~115 on IBM Heron." }
+        {
+          "url": "tests/qec_zor/figures/fig1_hardware_results.png",
+          "caption": "All 7 hardware runs on IBM Quantum (v1 + v2). inZOR-ND beats Steane in every run."
+        },
+        {
+          "url": "tests/qec_zor/figures/fig7_v1_vs_v2.png",
+          "caption": "v1 vs v2 head-to-head on ibm_marrakesh (same calibration day)."
+        },
+        {
+          "url": "tests/qec_zor/figures/fig2_circuit_depth.png",
+          "caption": "Circuit depth: inZOR-ND v1/v2 transpile to ~53-58 vs Steane ~115 on IBM Heron."
+        }
       ],
       "links": [
-        { "label": "Full Details", "url": "tests/qec_zor/index.html", "primary": true },
-        { "label": "PDF (Zenodo preprint)", "url": "zenodo_publish/qec_zor/inZORi_QEC_Zenodo.pdf" }
+        {
+          "label": "Full Details",
+          "url": "tests/qec_zor/index.html",
+          "primary": true
+        },
+        {
+          "label": "PDF (Zenodo preprint)",
+          "url": "zenodo_publish/qec_zor/inZORi_QEC_Zenodo.pdf"
+        }
       ]
     },
     {
