@@ -37,6 +37,9 @@
   .verdict-box { background:#f5f0ff; border-left:4px solid var(--purple); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .insight-box { background:#fef3c7; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
   .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
   .footer a { color:rgba(255,255,255,0.8); }
   p { margin-bottom:0.75rem; }
@@ -114,10 +117,28 @@
       inZOR-ND completes in <strong>51.7 minutes</strong>.
     </div>
 
+    <div class="fig-wrap">
+      <img src="figures/fig1_cr2_coverage_population.png" alt="Cr2 coverage and population">
+      <div class="fig-caption">
+        <strong>Figure 1.</strong> Left: Cache growth over 150 steps — 1,572 unique CASSCF evaluations out of 30.26 million.
+        Right: Population dynamics — near-extinction at step 14 (4 candidates surviving the hostile landscape)
+        followed by full recovery to 40 candidates with saturated fitness.
+      </div>
+    </div>
+
     <h3>2.2 Degeneracy — 10 Equivalent Optima</h3>
     <p>As with N₂, inZOR-ND discovers multiple degenerate optimal spaces — all achieving identical CASSCF energy.
       MOs 20, 22, 24, 27, 33, 35 appear in most sets (3d/4s manifold).
       The remaining 2 orbitals vary — symmetry-equivalent substitutions.</p>
+
+    <div class="fig-wrap">
+      <img src="figures/fig2_cr2_top10_degeneracy.png" alt="Cr2 top 10 degeneracy">
+      <div class="fig-caption">
+        <strong>Figure 2.</strong> Left: Top 10 active spaces — degenerate optima with identical fitness.
+        Right: Orbital frequency across top 10 solutions. MOs 20, 22, 24, 27, 33, 35 appear in most sets
+        (core 3d/4s manifold), while remaining orbitals vary.
+      </div>
+    </div>
 
     <h3>2.3 Search Dynamics</h3>
     <div class="insight-box">
