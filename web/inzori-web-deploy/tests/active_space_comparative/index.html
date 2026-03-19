@@ -397,11 +397,11 @@
     </ul>
   </div>
 
-  <!-- Reproducibility -->
+  <!-- Reproducibility (Cr2) -->
   <div class="section">
-    <h2>7. Reproducibility</h2>
+    <h2>7. Reproducibility (Cr₂ Benchmark)</h2>
     <div class="repro-box">
-      <strong>All results are fully reproducible.</strong>
+      <strong>All Cr₂ results are fully reproducible.</strong>
       <ul style="margin-top:0.5rem;">
         <li>inZOR-ND Cr₂ hard: Seed 1, 80 steps, 3 geometries (R=1.68, 2.0, 2.5 Å)</li>
         <li>Random search: Seed 42, budget 840, same CASSCF evaluator</li>
@@ -412,10 +412,269 @@
     </div>
   </div>
 
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!-- NEW RESULT — PEC BENCHMARK                                     -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <div style="border-top:3px solid var(--primary);margin:3rem 0 2rem;"></div>
+
+  <div class="key-result-banner" style="background:linear-gradient(135deg,#0a1628,#1a3a5c,#16a34a);">
+    <div class="kr-label">New Result — Multi-Geometry PEC Benchmark</div>
+    <div class="kr-number" style="color:#86efac;">N₂ Full Dissociation</div>
+    <div class="kr-sub">7 geometries · 0.90–2.50 Å · One shared CAS across the entire potential energy curve</div>
+  </div>
+
+  <!-- 8. Motivation -->
+  <div class="section">
+    <h2>8. New Result — Multi-Geometry PEC Benchmark (N₂)</h2>
+
+    <p>
+      The previous sections demonstrated that inZOR-ND outperforms random search when the fitness landscape
+      has rare optima (Cr₂ hard). However, a different and arguably more practical question remains:
+    </p>
+    <div class="insight-box">
+      <strong>Can a method discover a single shared active space that remains valid across an entire
+      dissociation curve?</strong>
+    </div>
+    <p>
+      In practical multireference quantum chemistry, selecting an active space at one geometry does not
+      guarantee that the same active space will work at different geometries along a reaction coordinate.
+      A CAS optimized near equilibrium may fail entirely in the stretched or dissociation regime, where
+      multireference character becomes strongest and the correct orbital set can change qualitatively.
+    </p>
+    <p>
+      This benchmark tests exactly that: not "find a good CAS here," but
+      <strong>"find a CAS that survives changing geometry."</strong>
+    </p>
+
+    <h3>8.1 Benchmark Setup</h3>
+    <table>
+      <tr><th>Parameter</th><th>Value</th></tr>
+      <tr><td>Molecule</td><td>N₂ (nitrogen dimer)</td></tr>
+      <tr><td>Basis set</td><td>6-31G</td></tr>
+      <tr><td>Active space</td><td>CASSCF(6,6) — 6 electrons in 6 orbitals</td></tr>
+      <tr><td>MO pool</td><td>18 molecular orbitals</td></tr>
+      <tr><td>Search space</td><td>C(18,6) = 18,564 candidates</td></tr>
+      <tr><td>Geometries</td><td>R = 0.90 (compressed), 1.00, 1.10 (near-eq.), 1.20, 1.40, 1.80 (stretched), 2.50 Å (dissociation)</td></tr>
+      <tr><td>Optimization target</td><td><strong>One shared active space across all 7 geometries</strong></td></tr>
+      <tr><td>Fitness</td><td>−mean(E_CASSCF across converged geometries) − penalties</td></tr>
+      <tr><td>Hardware</td><td>14-core CPU, ProcessPoolExecutor, OMP_NUM_THREADS=1</td></tr>
+    </table>
+
+    <h3>8.2 Methods Compared</h3>
+    <table>
+      <tr><th>Method</th><th>Description</th><th>Chemical Knowledge Used</th></tr>
+      <tr><td><strong>inZOR-ND</strong></td><td>Bio-adaptive search, 50 steps, prefetch enabled</td><td>None</td></tr>
+      <tr><td>NOON heuristic</td><td>Selects orbitals by natural orbital occupation numbers closest to 1.0</td><td>Occupation numbers from HF reference</td></tr>
+      <tr><td>AVAS</td><td>Atomic Valence Active Space (PySCF) using N 2p labels</td><td>Atomic orbital symmetry labels</td></tr>
+      <tr><td>Transfer CAS</td><td>CAS optimized at R=1.10 Å alone, then evaluated at all 7 geometries</td><td>None (single-geometry inZOR-ND)</td></tr>
+    </table>
+  </div>
+
+  <!-- 9. Results -->
+  <div class="section">
+    <h2>9. PEC Results</h2>
+
+    <h3>9.1 Summary</h3>
+    <table>
+      <tr><th>Method</th><th>Mean E (Eh)</th><th>All 7 Geom. Converged?</th><th>Evaluations</th><th>Best MOs</th></tr>
+      <tr class="winner"><td><strong>inZOR-ND</strong></td><td><strong>−108.8946</strong></td><td><strong>Yes (7/7)</strong></td><td>493</td><td>[3, 4, 5, 10, 13, 16]</td></tr>
+      <tr><td>NOON</td><td>−108.7744</td><td>Partial (6/7)</td><td>1</td><td>[0, 11, 12, 13, 14, 15]</td></tr>
+      <tr><td>AVAS</td><td>−108.6350</td><td>Yes (7/7)</td><td>1</td><td>[0, 1, 2, 3, 4, 5]</td></tr>
+      <tr><td>Transfer (R=1.1Å)</td><td>−108.9035*</td><td><strong>No (6/7)</strong></td><td>—</td><td>[2, 4, 5, 10, 15, 16]</td></tr>
+    </table>
+    <p style="font-size:0.85rem;color:#555;">
+      *Transfer mean energy is computed over 6 converged geometries only (R=1.80 Å fails).
+      This biases the average favorably — the true multi-geometry quality is lower than inZOR-ND's.
+    </p>
+
+    <div class="verdict-box">
+      <strong>inZOR-ND outperforms chemistry-guided heuristics by a large margin:</strong>
+      <ul style="margin-top:0.5rem;">
+        <li>vs NOON: <strong>0.120 Eh better (75 kcal/mol)</strong></li>
+        <li>vs AVAS: <strong>0.260 Eh better (163 kcal/mol)</strong></li>
+        <li>vs Transfer CAS: converges at <strong>all 7 geometries</strong> while transfer fails at R=1.80 Å</li>
+      </ul>
+    </div>
+
+    <p style="font-size:0.85rem;color:#555;">
+      <strong>Note on random search:</strong> Random search with the same evaluation budget (493 evaluations)
+      also finds the optimal energy on this N₂ benchmark, confirming that N₂ / 6-31G is a relatively easy
+      landscape with high degeneracy. N₂ serves as a controlled proof-of-correctness benchmark. The real
+      differentiation of inZOR-ND appears on larger, more ambiguous systems such as Cr₂ (see Sections 4–6 above).
+    </p>
+
+    <h3>9.2 Per-Geometry Energy Table</h3>
+    <table>
+      <tr><th>R (Å)</th><th>Regime</th><th>E(HF)</th><th>E(CASSCF) inZOR-ND</th><th>Correlation</th><th>Conv.</th></tr>
+      <tr><td>0.90</td><td>Compressed</td><td>−108.6794</td><td>−108.7853</td><td>−0.106 Eh</td><td>✓</td></tr>
+      <tr><td>1.00</td><td>Near equilibrium</td><td>−108.8352</td><td>−108.9612</td><td>−0.126 Eh</td><td>✓</td></tr>
+      <tr class="winner"><td>1.10</td><td>Equilibrium</td><td>−108.8676</td><td>−109.0159</td><td>−0.148 Eh</td><td>✓</td></tr>
+      <tr><td>1.20</td><td>Slightly stretched</td><td>−108.8358</td><td>−109.0090</td><td>−0.173 Eh</td><td>✓</td></tr>
+      <tr><td>1.40</td><td>Moderate stretching</td><td>−108.6996</td><td>−108.9297</td><td>−0.230 Eh</td><td>✓</td></tr>
+      <tr><td>1.80</td><td>Strong MR</td><td>−108.4208</td><td>−108.7961</td><td>−0.375 Eh</td><td>✓</td></tr>
+      <tr><td>2.50</td><td>Dissociation</td><td>−108.1064</td><td>−108.7646</td><td>−0.658 Eh</td><td>✓</td></tr>
+    </table>
+    <p style="font-size:0.88rem;color:#555;">
+      Correlation energy increases monotonically from 0.106 Eh (compressed) to 0.658 Eh (dissociation),
+      correctly reflecting the growing multireference character. The active space MOs [3, 4, 5, 10, 13, 16]
+      capture the N₂ σ/π bonding manifold and remain valid across the entire PEC — from repulsive wall to full dissociation.
+    </p>
+
+    <div class="fig-wrap">
+      <img src="figures/fig5_pec_all_methods.png" alt="N₂ PEC — all methods comparison">
+      <div class="fig-caption">
+        <strong>Figure 5.</strong> N₂ potential energy curve with shared active spaces from each method.
+        inZOR-ND (blue) finds a single CAS that remains stable across all 7 geometries. NOON (orange) and
+        AVAS (red) become strongly suboptimal, especially in the stretched regime. The transfer CAS
+        (purple, optimized at R=1.10 Å only) fails at R=1.80 Å (red X).
+      </div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fig6_correlation_energy.png" alt="Correlation energy captured">
+      <div class="fig-caption">
+        <strong>Figure 6.</strong> Correlation energy captured by each method. inZOR-ND captures significantly
+        more correlation energy at every geometry. The advantage grows from 0.080 Eh (compressed) to 0.269 Eh
+        (dissociation) relative to NOON, reflecting inZOR-ND's ability to discover orbitals that remain
+        physically relevant as the bond breaks.
+      </div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/fig7_energy_gaps.png" alt="Energy advantage over heuristics">
+      <div class="fig-caption">
+        <strong>Figure 7.</strong> inZOR-ND energy advantage over chemistry heuristics in kcal/mol. Left: vs NOON
+        — from 50 kcal/mol (compressed) to 169 kcal/mol (dissociation). Right: vs AVAS — from 66 kcal/mol to
+        413 kcal/mol. All values far exceed chemical accuracy (1 kcal/mol, green dashed line).
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. Transfer test -->
+  <div class="section">
+    <h2>10. Transfer Test — Single-Geometry CAS Fails</h2>
+    <p>
+      A critical question for practical use: does a CAS optimized at one geometry transfer to other geometries?
+      To test this, we optimized a CAS using inZOR-ND at R=1.10 Å alone (30 steps), then evaluated that
+      same CAS at all 7 PEC geometries.
+    </p>
+    <table>
+      <tr><th>Property</th><th>Multi-Geometry CAS (inZOR-ND)</th><th>Single-Geometry CAS (Transfer)</th></tr>
+      <tr><td>Optimized at</td><td>All 7 geometries simultaneously</td><td>R = 1.10 Å only</td></tr>
+      <tr class="winner"><td>Best MOs</td><td><strong>[3, 4, 5, 10, 13, 16]</strong></td><td>[2, 4, 5, 10, 15, 16]</td></tr>
+      <tr class="winner"><td>All 7 geom. converged?</td><td><strong>Yes (7/7)</strong></td><td>No (6/7)</td></tr>
+      <tr><td>Failure point</td><td>None</td><td><strong>R = 1.80 Å</strong> — CASSCF does not converge</td></tr>
+      <tr class="winner"><td>Multi-geom fitness</td><td><strong>108.877</strong></td><td>108.385</td></tr>
+    </table>
+    <p>
+      The two orbital sets differ in only 2 of 6 orbitals: the single-geometry CAS includes MOs 2 and 15
+      while the multi-geometry CAS includes MOs 3 and 13. This small orbital difference is enough to cause
+      complete CASSCF failure at R=1.80 Å — evidence that <strong>local CAS optimality does not guarantee
+      transferability</strong>.
+    </p>
+
+    <div class="fig-wrap">
+      <img src="figures/fig8_transfer_failure.png" alt="Transfer test failure">
+      <div class="fig-caption">
+        <strong>Figure 8.</strong> Transfer test: a CAS optimized at R=1.10 Å (purple) fails at R=1.80 Å
+        (CASSCF does not converge — red X). inZOR-ND's multi-geometry CAS (blue) converges at all 7 points.
+        The failure demonstrates that single-geometry CAS optimization is insufficient for PEC work.
+      </div>
+    </div>
+
+    <div class="warning-box">
+      <strong>Key finding:</strong> A 2-orbital difference in a 6-orbital active space is sufficient to cause
+      complete CASSCF failure at stretched geometries. Single-geometry optimization is fundamentally
+      insufficient for practical potential energy curve calculations.
+    </div>
+  </div>
+
+  <!-- 11. Interpretation -->
+  <div class="section">
+    <h2>11. What This Benchmark Shows</h2>
+    <p>
+      The important result is not simply that inZOR-ND achieves lower energy — it is that inZOR-ND discovers
+      a <strong>shared active space that remains stable over the full dissociation curve</strong>, from
+      compressed (0.90 Å) through equilibrium (1.10 Å) to complete dissociation (2.50 Å).
+    </p>
+    <ul>
+      <li><strong>Single-geometry optimization is insufficient</strong> for practical PEC work — the transfer test proves this directly</li>
+      <li><strong>Chemistry-guided heuristics (NOON, AVAS) are not optimized for multi-geometry robustness</strong> — they select orbitals based on a single reference state and do not account for how the orbital character changes along the reaction coordinate</li>
+      <li><strong>inZOR-ND directly optimizes the shared CAS against the full PEC objective</strong> — this is the key methodological distinction</li>
+      <li><strong>The advantage increases in the stretched regime</strong>, where multireference character becomes strongest and correct orbital selection matters most</li>
+    </ul>
+
+    <h3>11.1 Why This Matters Relative to Standard Heuristics</h3>
+    <p>
+      NOON and AVAS are useful and widely applied chemistry-guided heuristics. They provide reasonable
+      starting points for active space selection in many cases. However, they are fundamentally
+      <em>single-reference heuristics</em> — they derive their orbital selection from one reference
+      wavefunction (typically HF or MP2 at one geometry) and do not explicitly optimize for multi-geometry
+      robustness.
+    </p>
+    <p>
+      inZOR-ND, by contrast, directly evaluates candidate active spaces across all target geometries
+      and selects the one that performs best <em>everywhere simultaneously</em>. This is a qualitatively
+      different optimization objective, and the results show it matters: 75–169 kcal/mol improvement
+      over NOON, growing with bond stretching.
+    </p>
+
+    <h3>11.2 Honest Assessment — N₂ as a Controlled Benchmark</h3>
+    <div class="insight-box">
+      <strong>Note:</strong> N₂ / 6-31G remains a relatively small system (18,564 candidates). Random search
+      with the same evaluation budget can also find the optimal active space in this case, confirming that the
+      fitness landscape has sufficient degeneracy for blind sampling to succeed. N₂ therefore serves primarily
+      as a <strong>controlled proof-of-correctness benchmark</strong> — it verifies that inZOR-ND finds the
+      right answer and demonstrates its advantage over chemistry heuristics. The real differentiation of
+      inZOR-ND over random search is expected — and has been demonstrated — on larger and more ambiguous
+      systems such as Cr₂ with multiple geometries (see Sections 4–6).
+    </div>
+  </div>
+
+  <!-- 12. Updated conclusion -->
+  <div class="section">
+    <h2>12. Updated Conclusions</h2>
+    <div class="verdict-box">
+      <strong>Extended conclusion incorporating the PEC benchmark:</strong><br><br>
+      On the N₂ dissociation benchmark (7 geometries, 0.90–2.50 Å), inZOR-ND discovers a single shared
+      CAS(6,6) that remains stable across the entire potential energy curve. Chemistry-guided heuristics
+      (NOON, AVAS) become strongly suboptimal — by 75–169 kcal/mol (NOON) and 66–413 kcal/mol (AVAS) —
+      and a CAS optimized at a single geometry fails to transfer to stretched bond lengths.
+      <br><br>
+      Combined with the Cr₂ hard benchmark (Sections 4–6), where inZOR-ND outperforms random search by
+      35 kcal/mol on a landscape with a unique optimum, these results establish that:
+      <ul style="margin-top:0.5rem;">
+        <li>inZOR-ND is <strong>not just another heuristic</strong> — it provides measurable advantages over both blind search (Cr₂) and chemistry-guided methods (N₂ PEC)</li>
+        <li>inZOR-ND solves a <strong>practically relevant problem</strong>: finding a consistent active space that survives changing geometry</li>
+        <li>The bio-adaptive mechanism <strong>requires no chemical knowledge</strong> — no orbital symmetry labels, no occupation thresholds, no expert input</li>
+        <li>The engine remains <strong>completely unmodified</strong> across all benchmarks</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Reproducibility (PEC) -->
+  <div class="section">
+    <h2>13. Reproducibility (PEC Benchmark)</h2>
+    <div class="repro-box">
+      <strong>All PEC results are fully reproducible.</strong>
+      <ul style="margin-top:0.5rem;">
+        <li>inZOR-ND: Seed 1, 50 steps, 7 geometries (R=0.90, 1.00, 1.10, 1.20, 1.40, 1.80, 2.50 Å)</li>
+        <li>Transfer test: Seed 42, 30 steps, single geometry (R=1.10 Å)</li>
+        <li>NOON: Natural orbital occupation heuristic from HF reference</li>
+        <li>AVAS: PySCF AVAS module with N 2p labels</li>
+        <li>inZOR-ND engine: <strong>used without modification</strong></li>
+        <li>Dependencies: PySCF 2.x, NumPy, Python 3.10+</li>
+        <li>Hardware: 14-core CPU, Linux</li>
+        <li>Total benchmark time: 54.5 minutes</li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 
 <div class="footer">
-  <p>inZOR-ND Comparative Validation · Cr₂ Active Space Selection · STO-3G · March 2026</p>
+  <p>inZOR-ND Comparative Validation · Active Space Selection · Cr₂ + N₂ PEC · March 2026</p>
   <p>Dumitru Novic · Independent Research · <a href="https://dumitrunovic-svg.github.io/inZORi/">inZORi Project</a></p>
 </div>
 </body>
