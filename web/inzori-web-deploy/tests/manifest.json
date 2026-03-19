@@ -10,15 +10,16 @@
       "published": true,
       "created_at": "2026-03-19",
       "updated_at": "2026-03-19",
-      "description": "Controlled comparative validation of inZOR-ND against random search for automatic CASSCF(8,8) active space selection on Cr₂ with 3 simultaneous geometries (R=1.68, 2.0, 2.5 Å). The multi-geometry constraint reduces degeneracy from ~77 optima (single geometry) to exactly 1, creating a genuinely hard benchmark. inZOR-ND finds the unique optimal active space with fitness 2064.493, while random search stagnates at 2064.437 — a gap of 0.056 Hartree (35 kcal/mol). Building on two previous studies (N₂ and Cr₂ single-geometry), this is the definitive test showing inZOR-ND provides a real advantage over blind search.",
+      "description": "Comprehensive comparative validation of inZOR-ND for CASSCF active space selection. Part 1: Cr₂ hard benchmark (3 geometries, 30.26M candidates) — inZOR-ND beats random search by 35 kcal/mol. Part 2 (NEW): N₂ PEC benchmark (7 geometries, 0.90–2.50 Å) — inZOR-ND discovers a single shared CAS stable across the full dissociation curve, outperforming NOON by 75–169 kcal/mol and AVAS by 66–413 kcal/mol. A CAS optimized at a single geometry fails at R=1.80 Å, while inZOR-ND's multi-geometry CAS converges everywhere.",
       "key_findings": [
-        "inZOR-ND best fitness: 2064.493 vs Random: 2064.437 — gap of 0.056 Eh (35 kcal/mol)",
-        "inZOR-ND convergence rate: 8.8% vs Random: 1.1% — 8× higher",
-        "Only 1 degenerate optimal solution out of 30.26M candidates",
-        "11 progressive fitness improvements (inZOR-ND) vs stagnation after 112 evals (Random)",
-        "Multi-geometry constraint reduces degeneracy by >99% (from 77 → 1)",
-        "inZOR-ND discovers Cr 3d/4s manifold without chemical priors",
-        "Third study in series: N₂ → Cr₂ single-geom → Cr₂ 3-geom comparative"
+        "Cr₂ hard: inZOR-ND best fitness 2064.493 vs Random 2064.437 — gap of 35 kcal/mol",
+        "Cr₂ hard: 8× higher convergence rate (8.8% vs 1.1%), 1 unique optimum out of 30.26M",
+        "N₂ PEC: inZOR-ND finds shared CAS stable across 7 geometries (0.90–2.50 Å)",
+        "N₂ PEC: inZOR-ND outperforms NOON by 75–169 kcal/mol (grows with bond stretching)",
+        "N₂ PEC: inZOR-ND outperforms AVAS by 66–413 kcal/mol",
+        "Transfer test: single-geometry CAS fails at R=1.80 Å, multi-geometry CAS converges 7/7",
+        "No chemical knowledge used — inZOR-ND discovers correct orbital manifold from scratch",
+        "Engine completely unmodified across all benchmarks"
       ],
       "metrics": {
         "inZOR-ND best fitness": "2064.493026",
@@ -46,6 +47,14 @@
         {
           "url": "tests/active_space_comparative/figures/fig4_energy_per_geometry.png",
           "caption": "CASSCF dissociation curve: correlation grows from 0.430 to 0.872 Eh"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig5_pec_all_methods.png",
+          "caption": "N₂ PEC: shared active space comparison — inZOR-ND vs NOON vs AVAS vs Transfer"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig7_energy_gaps.png",
+          "caption": "Energy advantage over chemistry heuristics: 50–413 kcal/mol across bond lengths"
         }
       ],
       "links": [
