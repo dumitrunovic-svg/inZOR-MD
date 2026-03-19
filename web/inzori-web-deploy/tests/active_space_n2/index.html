@@ -43,6 +43,9 @@
   .verdict-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .insight-box { background:#fffbeb; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; border-radius:4px; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
   .code-block { background:#1e293b; color:#e2e8f0; border-radius:6px; padding:0.8rem 1rem; font-family:'Consolas',monospace; font-size:0.85rem; margin:0.75rem 0; overflow-x:auto; }
   .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
   .footer a { color:rgba(255,255,255,0.8); }
@@ -180,6 +183,15 @@
       correctly without being told the geometry is problematic.
     </p>
 
+    <div class="fig-wrap">
+      <img src="figures/fig1_coverage_energy.png" alt="Coverage and energy curves">
+      <div class="fig-caption">
+        <strong>Figure 1.</strong> Left: Search space coverage — inZOR-ND evaluates 78 new spaces at step 1 (prefetch batch),
+        then converges to ~3 new/step as the search exploits known regions. Right: CASSCF vs HF energy along the N₂
+        dissociation curve. Correlation energy grows from 0.148 Eh (equilibrium) to 0.464 Eh (dissociation).
+      </div>
+    </div>
+
     <h3>3.2 Degeneracy Discovery</h3>
     <p>
       A key finding is that the search dynamics naturally reveal <strong>10 degenerate optimal
@@ -201,6 +213,15 @@
       bio-adaptive dynamics.
     </p>
 
+    <div class="fig-wrap">
+      <img src="figures/fig2_degeneracy_organisms.png" alt="Degeneracy analysis">
+      <div class="fig-caption">
+        <strong>Figure 2.</strong> Left: Top 10 active spaces — all 10 achieve identical fitness (degenerate optima),
+        confirming symmetry-equivalent configurations under D∞h. Right: Brute-force verification — inZOR-ND
+        matches the global optimum.
+      </div>
+    </div>
+
     <h3>3.3 Efficiency Analysis</h3>
     <div class="verdict-box">
       <strong>inZOR-ND evaluates 2.91% of the search space and finds the global optimum.</strong><br>
@@ -214,6 +235,15 @@
       <tr class="winner"><td><strong>inZOR-ND (this work)</strong></td><td><strong>541</strong></td><td><strong>2.91%</strong></td><td><strong>✓ Global opt.</strong></td><td><strong>20.7 min</strong></td></tr>
       <tr><td>Random sampling (equiv.)</td><td>541</td><td>2.91%</td><td>Unlikely (&lt;1% prob.)</td><td>20.7 min</td></tr>
     </table>
+  </div>
+
+  <div class="fig-wrap">
+    <img src="figures/fig3_population_evolution.png" alt="Population evolution">
+    <div class="fig-caption">
+      <strong>Figure 3.</strong> Left: Population grows from 20 to 40 (maximum) over 120 steps.
+      Right: Mean fitness increases from 0.55 to 1.50 (saturated), indicating convergence
+      to the optimal fitness basin.
+    </div>
   </div>
 
   <div class="section">
