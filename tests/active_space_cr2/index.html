@@ -29,9 +29,6 @@
   .section { margin-bottom:2.5rem; }
   .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--purple); padding-bottom:0.4rem; margin-bottom:1.2rem; }
   .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
-  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
-  .fig-wrap img { max-width:100%; border-radius:4px; }
-  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
   table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
   th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
   td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
@@ -39,7 +36,6 @@
   tr.winner td { background:#f5f0ff; font-weight:700; }
   .verdict-box { background:#f5f0ff; border-left:4px solid var(--purple); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .insight-box { background:#fef3c7; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
-  .code-block { background:#1e293b; color:#e2e8f0; border-radius:6px; padding:0.8rem 1rem; font-family:'Consolas',monospace; font-size:0.85rem; margin:0.75rem 0; overflow-x:auto; }
   .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
   .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
   .footer a { color:rgba(255,255,255,0.8); }
@@ -55,7 +51,7 @@
   <div class="phase-badge">inZOR-ND — QUANTUM CHEMISTRY · Cr₂ · STRONGLY CORRELATED</div>
   <h1>inZOR-ND: Active Space Selection for Cr₂ — The Most Controversial Diatomic</h1>
   <div class="subtitle">36 MOs · CASSCF(8,8) · C(36,8) = 30,260,340 Candidates · STO-3G · 14-Core Parallel</div>
-  <div class="meta">Dumitru Novic · March 2026 · ProcessPoolExecutor × 14 workers · PySCF 2.x</div>
+  <div class="meta">Dumitru Novic · March 2026 · 14 parallel workers · PySCF 2.x</div>
 </div>
 
 <div class="container">
@@ -66,10 +62,10 @@
       Cr₂ is one of the most challenging molecules in quantum chemistry: its bond order is disputed (1 to 6),
       multi-reference character is extreme, and the optimal active space remains debated.
       Using inZOR-ND with no chemical priors, we search for the optimal CASSCF(8,8) active space
-      from <strong>C(36,8) = 30,260,340</strong> candidates. ZOR evaluates only <strong>1,572 spaces (0.0052%)</strong>
+      from <strong>C(36,8) = 30,260,340</strong> candidates. inZOR-ND evaluates only <strong>1,572 spaces (0.0052%)</strong>
       and discovers the optimal active space containing Cr 3d/4s orbitals, capturing <strong>0.559 Eh</strong>
-      of correlation energy. 10 degenerate optima are found. The population survives near-extinction
-      (4 organisms at step 14) and recovers to full capacity.
+      of correlation energy. 10 degenerate optima are found. The search survives a near-extinction
+      event (4 active candidates at step 14) and recovers to full capacity.
     </p>
   </div>
 
@@ -81,7 +77,7 @@
 
   <div class="key-results">
     <div class="kr-card"><div class="kr-value">30.3M</div><div class="kr-label">Total C(36,8)</div></div>
-    <div class="kr-card"><div class="kr-value success">1,572</div><div class="kr-label">Evaluated by ZOR</div></div>
+    <div class="kr-card"><div class="kr-value success">1,572</div><div class="kr-label">Evaluated</div></div>
     <div class="kr-card"><div class="kr-value" style="color:#c084fc">0.005%</div><div class="kr-label">Coverage</div></div>
     <div class="kr-card"><div class="kr-value" style="color:#e67e22">10</div><div class="kr-label">Degenerate optima</div></div>
     <div class="kr-card"><div class="kr-value">−0.559</div><div class="kr-label">Correlation (Eh)</div></div>
@@ -90,9 +86,9 @@
 
   <div class="section">
     <h2>1. Why Cr₂?</h2>
-    <p>The chromium dimer is notorious in computational chemistry. Its ground state has a formal sextuple bond (3dσ + 3dπ×2 + 3dδ×2 + 4sσ), but the potential energy curve is extremely shallow and difficult to reproduce. Active space selection requires expert knowledge of transition metal d-orbital ordering — knowledge that ZOR does not have.</p>
+    <p>The chromium dimer is notorious in computational chemistry. Its ground state has a formal sextuple bond (3dσ + 3dπ×2 + 3dδ×2 + 4sσ), but the potential energy curve is extremely shallow and difficult to reproduce. Active space selection requires expert knowledge of transition metal d-orbital ordering — knowledge that inZOR-ND does not have.</p>
     <table>
-      <tr><th>Molecule</th><th>Basis</th><th>n_MO</th><th>k</th><th>Search Space</th><th>ZOR Coverage</th></tr>
+      <tr><th>Molecule</th><th>Basis</th><th>n_MO</th><th>k</th><th>Search Space</th><th>Coverage</th></tr>
       <tr><td>N₂ (companion)</td><td>6-31G</td><td>18</td><td>6</td><td>18,564</td><td>2.91%</td></tr>
       <tr class="winner"><td><strong>Cr₂ (this work)</strong></td><td>STO-3G</td><td>36</td><td>8</td><td><strong>30,260,340</strong></td><td><strong>0.005%</strong></td></tr>
     </table>
@@ -113,38 +109,22 @@
     </table>
 
     <div class="verdict-box">
-      <strong>ZOR finds the Cr 3d/4s active space from 30.26 million candidates, evaluating only 0.005%.</strong>
+      <strong>inZOR-ND finds the Cr 3d/4s active space from 30.26 million candidates, evaluating only 0.005%.</strong>
       Brute-force would require ~30 million CASSCF evaluations × ~5s each = <strong>~5 years</strong> on 14 cores.
-      ZOR completes in <strong>51.7 minutes</strong>.
-    </div>
-
-    <div class="fig-wrap">
-      <img src="figures/fig1_cr2_coverage_population.png" alt="Cr2 coverage and population">
-      <div class="fig-caption">
-        <strong>Figure 1.</strong> Left: Cache growth over 150 steps — 1,572 unique CASSCF evaluations out of 30.26 million.
-        Right: Population dynamics — near-extinction at step 14 (4 organisms surviving the hostile landscape)
-        followed by full recovery to 40 organisms with saturated energy.
-      </div>
+      inZOR-ND completes in <strong>51.7 minutes</strong>.
     </div>
 
     <h3>2.2 Degeneracy — 10 Equivalent Optima</h3>
-    <p>As with N₂, ZOR discovers multiple degenerate optimal spaces — all achieving identical CASSCF energy:</p>
+    <p>As with N₂, inZOR-ND discovers multiple degenerate optimal spaces — all achieving identical CASSCF energy.
+      MOs 20, 22, 24, 27, 33, 35 appear in most sets (3d/4s manifold).
+      The remaining 2 orbitals vary — symmetry-equivalent substitutions.</p>
 
-    <div class="fig-wrap">
-      <img src="figures/fig2_cr2_top10_degeneracy.png" alt="Cr2 top 10 degeneracy">
-      <div class="fig-caption">
-        <strong>Figure 2.</strong> Top 10 active spaces — all with fitness = 2064.587189.
-        MOs 20, 22, 24, 27, 33, 35 appear in most sets (3d/4s manifold).
-        The remaining 2 orbitals vary — symmetry-equivalent substitutions.
-      </div>
-    </div>
-
-    <h3>2.3 Population Survival Story</h3>
+    <h3>2.3 Search Dynamics</h3>
     <div class="insight-box">
-      <strong>Near-extinction and recovery:</strong> At step 14, only 4 organisms survived — most died
-      because Cr₂'s hostile landscape (many non-converging CASSCF evaluations) drained their energy.
-      The survivors carried genomes tuned for this harsh environment, and by step 60 the population
-      had fully recovered to 40 organisms with energy saturated at 1.50. Natural selection at work.
+      <strong>Near-extinction and recovery:</strong> At step 14, only 4 active candidates survived — most were
+      eliminated because Cr₂'s hostile landscape (many non-converging CASSCF evaluations) exhausted their viability.
+      The surviving candidates were well-tuned for this harsh environment, and by step 60 the search
+      had fully recovered to 40 active candidates with saturated fitness. Natural selection at work.
     </div>
   </div>
 
@@ -153,26 +133,24 @@
     <table>
       <tr><th>Property</th><th>N₂ (6-31G)</th><th>Cr₂ (STO-3G)</th></tr>
       <tr><td>Search space</td><td>18,564</td><td><strong>30,260,340</strong></td></tr>
-      <tr><td>ZOR evaluated</td><td>541 (2.91%)</td><td><strong>1,572 (0.005%)</strong></td></tr>
+      <tr><td>Evaluated</td><td>541 (2.91%)</td><td><strong>1,572 (0.005%)</strong></td></tr>
       <tr><td>Correlation captured</td><td>0.464 Eh</td><td><strong>0.559 Eh</strong></td></tr>
       <tr><td>Degenerate optima</td><td>10</td><td>10</td></tr>
-      <tr><td>Population crisis</td><td>No (stable growth)</td><td><strong>Yes (4 org at step 14)</strong></td></tr>
+      <tr><td>Near-extinction event</td><td>No (stable growth)</td><td><strong>Yes (4 candidates at step 14)</strong></td></tr>
       <tr><td>Wall time (14 cores)</td><td>20.7 min</td><td>51.7 min</td></tr>
-      <tr><td>ZOR core modified</td><td>No</td><td>No</td></tr>
+      <tr><td>inZOR-ND engine modified</td><td>No</td><td>No</td></tr>
     </table>
   </div>
 
   <div class="section">
     <h2>4. Reproducibility</h2>
     <div class="repro-box">
-      <div class="code-block">cd /opt/zor
-ZOR_CR2_DIST=1.68 ZOR_CR2_NORB=8 ZOR_CR2_STEPS=150 \
-ZOR_AS_WORKERS=14 OMP_NUM_THREADS=1 \
-python3 zor_active_space/run_cr2.py</div>
+      <strong>All results are fully reproducible from scratch.</strong>
       <ul style="margin-top:0.5rem;">
         <li>Seed: 7 — fully deterministic</li>
-        <li>ZOR core: <strong>unmodified</strong></li>
+        <li>inZOR-ND engine: <strong>used without modification</strong></li>
         <li>Dependencies: PySCF 2.x, NumPy, Python 3.10+</li>
+        <li>Hardware: 14-core CPU, Linux</li>
       </ul>
     </div>
   </div>

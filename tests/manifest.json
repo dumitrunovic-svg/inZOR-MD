@@ -3,6 +3,50 @@
   "updated_at": "2026-03-19",
   "tests": [
     {
+      "id": "active-space-comparative",
+      "name": "inZOR-ND vs Random Search: Comparative Validation for CASSCF Active Space Discovery",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-03-19",
+      "updated_at": "2026-03-19",
+      "description": "Controlled comparative validation of inZOR-ND against random search for automatic CASSCF(8,8) active space selection on Cr₂ with 3 simultaneous geometries (R=1.68, 2.0, 2.5 Å). The multi-geometry constraint reduces degeneracy from ~77 optima (single geometry) to exactly 1, creating a genuinely hard benchmark. inZOR-ND finds the unique optimal active space with fitness 2064.493, while random search stagnates at 2064.437 — a gap of 0.056 Hartree (35 kcal/mol). Building on two previous studies (N₂ and Cr₂ single-geometry), this is the definitive test showing inZOR-ND provides a real advantage over blind search.",
+      "key_findings": [
+        "inZOR-ND best fitness: 2064.493 vs Random: 2064.437 — gap of 0.056 Eh (35 kcal/mol)",
+        "inZOR-ND convergence rate: 8.8% vs Random: 1.1% — 8× higher",
+        "Only 1 degenerate optimal solution out of 30.26M candidates",
+        "11 progressive fitness improvements (inZOR-ND) vs stagnation after 112 evals (Random)",
+        "Multi-geometry constraint reduces degeneracy by >99% (from 77 → 1)",
+        "inZOR-ND discovers Cr 3d/4s manifold without chemical priors",
+        "Third study in series: N₂ → Cr₂ single-geom → Cr₂ 3-geom comparative"
+      ],
+      "metrics": {
+        "inZOR-ND best fitness": "2064.493026",
+        "Random best fitness": "2064.436942",
+        "Energy gap": "0.056 Eh (35 kcal/mol)",
+        "inZOR-ND convergence rate": "8.8% (176/1998)",
+        "Random convergence rate": "1.1% (9/840)",
+        "Search space C(36,8)": "30,260,340",
+        "Degenerate optima": "1",
+        "Geometries": "3 (R=1.68, 2.0, 2.5 Å)"
+      },
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/active_space_comparative/index.html",
+          "primary": true
+        },
+        {
+          "label": "N₂ Study",
+          "url": "tests/active_space_n2/index.html"
+        },
+        {
+          "label": "Cr₂ Study",
+          "url": "tests/active_space_cr2/index.html"
+        }
+      ]
+    },
+    {
       "id": "active-space-cr2",
       "name": "inZOR-ND: Active Space Selection for Cr₂ — 30 Million Candidates, 0.005% Coverage",
       "category": "Quantum Chemistry",
@@ -10,19 +54,19 @@
       "published": true,
       "created_at": "2026-03-19",
       "updated_at": "2026-03-19",
-      "description": "ZOR tackles the chromium dimer Cr₂ — one of the most controversial molecules in quantum chemistry, with a disputed bond order and extreme multi-reference character. From a search space of C(36,8) = 30,260,340 possible CASSCF(8,8) active spaces (STO-3G basis, R=1.68 Å equilibrium), ZOR evaluates only 1,572 (0.0052%) and discovers the optimal active space containing Cr 3d/4s orbitals. 10 degenerate optima found. Population recovers from near-extinction (4 organisms) to full saturation (40, energy 1.50).",
+      "description": "inZOR-ND tackles the chromium dimer Cr₂ — one of the most controversial molecules in quantum chemistry, with a disputed bond order and extreme multi-reference character. From a search space of C(36,8) = 30,260,340 possible CASSCF(8,8) active spaces (STO-3G basis, R=1.68 Å equilibrium), inZOR-ND evaluates only 1,572 (0.0052%) and discovers the optimal active space containing Cr 3d/4s orbitals. 10 degenerate optima found. The search recovers from near-extinction to full saturation.",
       "key_findings": [
         "Search space: C(36,8) = 30,260,340 — brute-force completely infeasible",
-        "ZOR evaluates 1,572 spaces (0.0052%) — 99.995% savings",
+        "inZOR-ND evaluates 1,572 spaces (0.0052%) — 99.995% savings",
         "Optimal: MOs [8,20,21,22,24,27,33,35] — Cr 3d/4s character",
         "E(CASSCF) = −2064.595 Eh vs E(HF) = −2064.036 Eh → ΔE = −0.559 Eh",
         "10 degenerate optima (identical fitness) — symmetry equivalence discovered",
-        "Population near-extinction at step 14 (4 organisms) → full recovery to 40",
-        "Wall time: 51.7 min on 14 cores — ZOR core completely unmodified"
+        "Near-extinction at step 14 → full recovery to 40 active candidates",
+        "Wall time: 51.7 min on 14 cores — inZOR-ND engine completely unmodified"
       ],
       "metrics": {
         "Search space C(36,8)": "30,260,340",
-        "Evaluated by ZOR": "1,572 (0.0052%)",
+        "Evaluated": "1,572 (0.0052%)",
         "Savings vs brute-force": "99.995%",
         "Degenerate optima": "10",
         "E(CASSCF)": "−2064.595 Eh",
@@ -56,19 +100,19 @@
       "published": true,
       "created_at": "2026-03-19",
       "updated_at": "2026-03-19",
-      "description": "ZOR discovers the optimal CASSCF(6,6) active space for N₂ dissociation across 3 geometries (R=1.1, 1.5, 2.0 Å) using a 6-31G basis, evaluating only 2.91% of the 18,564 possible active spaces (C(18,6)). Without any chemical priors, orbital symmetry labels, or occupation-number thresholds, ZOR's population naturally discovers 10 degenerate symmetry-equivalent optima under N₂'s D∞h point group. Correlation energy captured: 0.148–0.464 Eh across the dissociation curve.",
+      "description": "inZOR-ND discovers the optimal CASSCF(6,6) active space for N₂ dissociation across 3 geometries (R=1.1, 1.5, 2.0 Å) using a 6-31G basis, evaluating only 2.91% of the 18,564 possible active spaces (C(18,6)). Without any chemical priors, orbital symmetry labels, or occupation-number thresholds, the bio-adaptive search naturally discovers 10 degenerate symmetry-equivalent optima under N₂'s D∞h point group. Correlation energy captured: 0.148–0.464 Eh across the dissociation curve.",
       "key_findings": [
         "Optimal CASSCF(6,6) found: MOs [2,4,5,7,11,15] — σ/π/π*/σ* manifold",
         "Only 541 of 18,564 spaces evaluated (2.91%) — 97.1% savings vs brute-force",
         "10 degenerate optima discovered — symmetry-equivalent under D∞h",
         "Convergent at all 3 geometries: E(CASSCF) = −109.016 / −108.886 / −108.773 Eh",
         "Correlation energy grows 3× at dissociation (0.148 → 0.464 Eh) — correct physics",
-        "Population: 40 organisms, energy saturated at 1.50 — healthy convergence",
-        "ZOR core (organism.py, population.py) used completely unmodified"
+        "Healthy convergence — search saturated to optimal fitness",
+        "inZOR-ND engine used completely unmodified"
       ],
       "metrics": {
         "Search space C(18,6)": "18,564",
-        "Evaluated by ZOR": "541 (2.91%)",
+        "Evaluated": "541 (2.91%)",
         "Savings vs brute-force": "97.1%",
         "Degenerate optima": "10",
         "Best E(CASSCF) R=1.1Å": "−109.016 Eh",
