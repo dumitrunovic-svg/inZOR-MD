@@ -4,77 +4,51 @@
   "tests": [
     {
       "id": "active-space-comparative",
-      "name": "inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection — 6 Benchmarks",
+      "name": "inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection — 5 Benchmarks",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-03-19",
       "updated_at": "2026-03-21",
-      "description": "Comprehensive validation of inZOR-ND for CASSCF/SA-CASSCF active space selection across 6 benchmarks on 5 molecular systems: Cr₂ (transition metal, 3 geometries), N₂ (full PEC, 7 geometries), butadiene (torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 states), and benzene (CAS(8,8), 5.7 billion candidates). inZOR-ND matches or outperforms NOON-MP2 and AVAS on every benchmark, with advantages from 5.5 to 29 kcal/mol. Largest result: benzene CAS(8,8)/6-31G — 29 kcal/mol better than both heuristics, exploring only 562 of 5.7 billion candidates (0.00001% coverage).",
+      "description": "Comprehensive validation of inZOR-ND for CASSCF/SA-CASSCF active space selection across 5 benchmarks on 5 molecular systems: Cr₂ (transition metal, 3 geometries), N₂ (full PEC, 7 geometries), butadiene (torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 states), and benzene (CAS(8,8), 5.7 billion candidates). inZOR-ND matches or outperforms NOON-MP2 and AVAS on every benchmark, with advantages from 5.5 to 29 kcal/mol.",
       "key_findings": [
-        "6/6 benchmarks: inZOR-ND matches or outperforms NOON-MP2 and AVAS",
+        "5/5 benchmarks: inZOR-ND matches or outperforms NOON-MP2 and AVAS",
         "Benzene CAS(8,8): 29 kcal/mol advantage, 562 evals out of 5.7 billion (0.00001%)",
-        "Cr₂ hard vs Random: 35 kcal/mol gap, 8× higher convergence rate",
-        "Cr₂ hard vs NOON/AVAS: 7.9 kcal/mol advantage with corrected baselines",
+        "Cr₂ hard (3 geometries): 7.9 kcal/mol advantage over NOON-MP2/AVAS",
         "N₂ PEC (7 geometries): 76 kcal/mol vs NOON, shared CAS stable across full dissociation",
         "Butadiene torsion (7 angles): 5.5 kcal/mol vs NOON, all 3 seeds win",
         "SA-CASSCF CH₂O (3 states): matches NOON-MP2; AVAS fails entirely",
         "Engine completely unmodified across all benchmarks — no chemical knowledge required"
       ],
       "metrics": {
-        "Benchmarks won": "6/6",
+        "Benchmarks won": "5/5",
         "Largest search space": "5.7×10⁹ (benzene)",
-        "Best advantage": "29 kcal/mol (benzene vs NOON/AVAS)",
+        "Best advantage": "29 kcal/mol (benzene)",
         "Molecular systems": "5 (Cr₂, N₂, butadiene, CH₂O, benzene)",
         "Problem types": "Ground state, multi-geometry, SA-CASSCF",
         "Engine modifications": "0",
-        "Smallest advantage": "≈0 (CH₂O SA-CASSCF — matches NOON)",
-        "Baseline methods": "NOON-MP2, AVAS, Random Search"
+        "Baseline methods": "NOON-MP2, AVAS"
       },
       "images": [
         {
-          "url": "tests/active_space_comparative/figures/fig1_fitness_evolution.png",
-          "caption": "Fitness evolution: inZOR-ND (11 improvements) vs Random (stagnation after 112 evals)"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig2_convergence_comparison.png",
-          "caption": "Convergence rate (8× higher for inZOR-ND) and key metrics comparison"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig3_research_progression.png",
-          "caption": "Research progression: N₂ → Cr₂ single-geom → Cr₂ 3-geom comparative"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig4_energy_per_geometry.png",
-          "caption": "CASSCF dissociation curve: correlation grows from 0.430 to 0.872 Eh"
+          "url": "tests/active_space_comparative/figures/fig9_cr2_baselines.png",
+          "caption": "Cr₂ per-geometry comparison: inZOR-ND vs NOON-MP2/AVAS"
         },
         {
           "url": "tests/active_space_comparative/figures/fig5_pec_all_methods.png",
-          "caption": "N₂ PEC: shared active space comparison — inZOR-ND vs NOON vs AVAS vs Transfer"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig7_energy_gaps.png",
-          "caption": "Energy advantage over chemistry heuristics: 50–413 kcal/mol across bond lengths"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig9_cr2_baselines.png",
-          "caption": "Cr₂ per-geometry comparison: inZOR-ND vs NOON-MP2/AVAS (corrected baselines)"
+          "caption": "N₂ PEC: shared active space comparison"
         },
         {
           "url": "tests/active_space_comparative/figures/fig10_butadiene_pec.png",
-          "caption": "Butadiene torsion PEC: inZOR-ND vs NOON-MP2 vs AVAS (7 angles)"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig11_sa_casscf_ch2o.png",
-          "caption": "SA-CASSCF CH₂O: state energies comparison (3 states) — AVAS fails"
+          "caption": "Butadiene torsion PEC"
         },
         {
           "url": "tests/active_space_comparative/figures/fig12_benzene_cas88.png",
-          "caption": "Benzene CAS(8,8): convergence history and final method comparison"
+          "caption": "Benzene CAS(8,8): convergence and comparison"
         },
         {
           "url": "tests/active_space_comparative/figures/fig13_summary_all_benchmarks.png",
-          "caption": "Summary: inZOR-ND advantage across all 6 benchmarks (kcal/mol)"
+          "caption": "Summary: inZOR-ND advantage across all 5 benchmarks"
         }
       ],
       "links": [
@@ -90,6 +64,22 @@
         {
           "label": "Cr₂ Study",
           "url": "tests/active_space_cr2/index.html"
+        },
+        {
+          "label": "Cr₂ Hard (Benchmark 1)",
+          "url": "tests/active_space_comparative/index.html#benchmark-1"
+        },
+        {
+          "label": "Butadiene (Benchmark 3)",
+          "url": "tests/active_space_comparative/index.html#benchmark-3"
+        },
+        {
+          "label": "CH₂O SA-CASSCF (Benchmark 4)",
+          "url": "tests/active_space_comparative/index.html#benchmark-4"
+        },
+        {
+          "label": "Benzene CAS(8,8) (Benchmark 5)",
+          "url": "tests/active_space_comparative/index.html#benchmark-5"
         }
       ]
     },
