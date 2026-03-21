@@ -1,4 +1,4 @@
-# Zenodo Upload — inZOR-ND vs Random Search: Comparative Validation
+# Zenodo Upload — inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection
 
 ## Files
 ```
@@ -14,7 +14,7 @@ Publication → Preprint
 
 **Title:**
 ```
-inZOR-ND vs Random Search: Comparative Validation for CASSCF Active Space Discovery on Cr₂ with Multiple Geometries
+inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection — 6 Benchmarks on 5 Molecular Systems
 ```
 
 **Authors:**
@@ -26,40 +26,49 @@ Novic, Dumitru
 
 **Description / Abstract:**
 ```
-We present a controlled comparative validation of the inZOR-ND bio-adaptive
-discovery engine against random search for automatic CASSCF(8,8) active space
-selection. Building on two previous studies — N₂ dissociation (6-31G,
-C(18,6) = 18,564 candidates) and Cr₂ single-geometry (STO-3G,
-C(36,8) = 30.26M candidates) — we design a harder benchmark: Cr₂ with
-3 simultaneous geometries (R = 1.68, 2.0, 2.5 Å), requiring the active
-space to converge at all bond lengths.
+We present a comprehensive validation of the inZOR-ND bio-adaptive discovery
+engine for automatic CASSCF and SA-CASSCF active space selection across
+6 increasingly challenging benchmarks on 5 molecular systems: Cr₂ (transition
+metal, 3 geometries), N₂ (full dissociation PEC, 7 geometries), 1,3-butadiene
+(torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 excited states), and
+benzene (large-scale CAS(8,8), 5.7 billion candidates).
 
-The multi-geometry constraint reduces the convergence rate from ~100%
-(single geometry) to only 8.8%, and eliminates solution degeneracy:
-from ~77 degenerate optima (single geometry) to exactly 1.
+inZOR-ND is compared against corrected implementations of NOON-MP2 (natural
+orbital occupation numbers from MP2 density matrix) and AVAS (atomic valence
+active space), as well as random search on Cr₂.
 
-Under these conditions, inZOR-ND finds the unique optimal active space
-with fitness 2064.493, while random search stagnates at 2064.437 — a gap
-of 0.056 Hartree (35 kcal/mol), far beyond chemical accuracy (1 kcal/mol).
+Key results across all benchmarks:
+  - inZOR-ND matches or outperforms standard heuristics on all 6 benchmarks
+  - Largest advantage: benzene CAS(8,8)/6-31G — 29 kcal/mol better than
+    both NOON-MP2 and AVAS, exploring only 562 out of 5.7 billion candidates
+    (0.00001% coverage)
+  - Cr₂ hard (3 geometries): 35 kcal/mol vs random search; 7.9 kcal/mol
+    vs NOON-MP2/AVAS
+  - N₂ PEC (7 geometries): 76 kcal/mol vs NOON; shared CAS converges at
+    all bond lengths from 0.90 to 2.50 Å
+  - Butadiene torsion (7 angles): 5.5 kcal/mol vs NOON-MP2; non-contiguous
+    orbital selection captures π-conjugation across all torsion angles
+  - SA-CASSCF formaldehyde (3 states): matches NOON-MP2; AVAS fails entirely
+  - The inZOR-ND engine is used completely unmodified across all benchmarks
+  - No chemical knowledge is required — no orbital symmetry labels,
+    occupation thresholds, or expert input
 
-Key results:
-  - inZOR-ND best fitness: 2064.493 vs Random: 2064.437
-  - Energy gap: 0.056 Eh = 35 kcal/mol (35× chemical accuracy)
-  - inZOR-ND convergence rate: 8.8% vs Random: 1.1% (8× higher)
-  - Only 1 degenerate optimal solution out of 30.26M candidates
-  - 11 progressive fitness improvements (inZOR-ND) vs stagnation (Random)
-  - inZOR-ND engine: unmodified
-  - Third study in series: N₂ → Cr₂ → Cr₂ comparative
+The study establishes that inZOR-ND provides a genuine advantage for active
+space selection on hard problems (large search spaces, multi-geometry
+constraints, transition metals), while matching heuristics on easy problems.
+The scientific contribution is methodological: quantitative evidence that
+standard heuristics can be significantly suboptimal, and a practical black-box
+optimizer for automated CASSCF workflows.
 ```
 
 **Publication date:**
 ```
-2026-03-19
+2026-03-21
 ```
 
 **Version:**
 ```
-1.0.0
+2.0.0
 ```
 
 ## License
@@ -69,10 +78,11 @@ Creative Commons Attribution 4.0 International (CC BY 4.0)
 
 ## Keywords
 ```
-active space selection, CASSCF, quantum chemistry, strongly correlated electrons,
-chromium dimer, Cr2, multi-reference methods, bio-inspired optimization,
-inZOR-ND, combinatorial optimization, comparative validation, random search,
-PySCF, transition metal chemistry, multi-geometry optimization
+active space selection, CASSCF, SA-CASSCF, quantum chemistry, strongly correlated electrons,
+chromium dimer, nitrogen dimer, benzene, butadiene, formaldehyde, multi-reference methods,
+bio-inspired optimization, inZOR-ND, combinatorial optimization, comparative validation,
+NOON, AVAS, PySCF, transition metal chemistry, multi-geometry optimization,
+potential energy curve, excited states, state-averaged CASSCF, large active space
 ```
 
 ## Related identifiers
@@ -84,10 +94,10 @@ Resource type: Software
 Type: Is related to
 Identifier: https://dumitrunovic-svg.github.io/inZORi/tests/active_space_n2/
 Resource type: Publication / Preprint
-Description: Study 1 — N₂ active space selection (6-31G, global optimum verified)
+Description: Earlier study — N₂ active space selection (6-31G, global optimum verified)
 
 Type: Is related to
 Identifier: https://dumitrunovic-svg.github.io/inZORi/tests/active_space_cr2/
 Resource type: Publication / Preprint
-Description: Study 2 — Cr₂ active space selection (STO-3G, single geometry)
+Description: Earlier study — Cr₂ active space selection (STO-3G, single geometry)
 ```
