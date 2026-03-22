@@ -13,12 +13,12 @@
       "description": "Comprehensive validation of inZOR-ND for CASSCF/SA-CASSCF active space selection across 8 benchmarks on 6 molecular systems: N₂ PEC with 3 basis sets (6-31G, cc-pVDZ, cc-pVTZ), Cr₂ (transition metal, 3 geometries), butadiene (torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 states), benzene (CAS(8,8), 5.7 billion candidates), and ethylene (SA-CASSCF, S0/S1, 4 torsion angles). inZOR-ND wins all 8 benchmarks (3.7–430 kcal/mol advantage). NOON-MP2 or AVAS fail on 4 out of 8 systems. Corrected NOON-MP2 uses diagonal 1-RDM method.",
       "key_findings": [
         "8/8 benchmarks: inZOR-ND wins or is the only method that works",
-        "NOON-MP2 or AVAS fail to converge on 4/8 benchmarks (CH₂O, benzene, ethylene AVAS)",
+        "NOON-MP2 or AVAS did not converge on 4/8 benchmarks (CH₂O, benzene, ethylene AVAS)",
         "N₂ PEC: consistent advantage across 3 basis sets (5.8–42.8 kcal/mol)",
         "Cr₂ (3 geometries): −20 kcal/mol advantage over corrected NOON-MP2",
         "Butadiene torsion (7 angles): −3.7 kcal/mol vs NOON",
-        "CH₂O SA-CASSCF: corrected NOON and AVAS both fail; inZOR-ND is only working method",
-        "Benzene CAS(8,8): corrected NOON and AVAS both fail; 562 evals out of 5.7 billion",
+        "CH₂O SA-CASSCF: corrected NOON and AVAS did not converge; inZOR-ND is only converging method",
+        "Benzene CAS(8,8): corrected NOON and AVAS did not converge; 562 evals out of 5.7 billion",
         "Ethylene SA-CASSCF (S0/S1): −430 kcal/mol vs NOON; AVAS not applicable (truncation)",
         "Engine completely unmodified across all 8 benchmarks — no chemical knowledge required"
       ],
@@ -29,7 +29,7 @@
         "Molecular systems": "6 (N₂, Cr₂, butadiene, CH₂O, benzene, ethylene)",
         "Basis sets": "6-31G, cc-pVDZ, cc-pVTZ, STO-3G",
         "Problem types": "Ground state, multi-geometry PEC, SA-CASSCF",
-        "NOON/AVAS failures": "4/8 benchmarks",
+        "Baselines did not converge": "4/8 benchmarks",
         "Engine modifications": "0",
         "Baseline methods": "NOON-MP2 (corrected diagonal 1-RDM), AVAS"
       },

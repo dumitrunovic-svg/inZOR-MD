@@ -114,8 +114,9 @@
   </p>
   <p>
     inZOR-ND discovers active spaces with <strong>lower CASSCF energies</strong> than standard
-    heuristics (NOON-MP2, AVAS) on every benchmark. On 4 out of 8 systems, NOON-MP2 or AVAS
-    <strong>fail to converge</strong> entirely, while inZOR-ND succeeds. The method provides
+    heuristics (NOON-MP2, AVAS) on every benchmark. On 4 out of 8 systems, the orbital sets
+    selected by NOON-MP2 or AVAS <strong>did not lead to CASSCF convergence</strong> under the
+    tested protocol, while inZOR-ND succeeded in all cases. The method provides
     <strong>consistent results over the potential energy curve (PEC)</strong> &mdash; a single shared
     active space that remains valid across multiple geometries.
   </p>
@@ -123,16 +124,16 @@
 
 <!-- ═══════════════════ KEY RESULT BANNER ═══════════════════ -->
 <div class="key-result-banner">
-  <div class="kr-label">inZOR-ND wins on all 8 benchmarks &mdash; NOON/AVAS fail on 4</div>
+  <div class="kr-label">inZOR-ND produces the best result on all 8 benchmarks</div>
   <div class="kr-number">8 / 8</div>
-  <div class="kr-sub">Advantages from 3.7 to 430 kcal/mol where baselines converge &middot; Only method that works on all systems</div>
+  <div class="kr-sub">Advantages from 3.7 to 430 kcal/mol where baselines converge &middot; Only method that converged on all systems</div>
 </div>
 
 <div class="key-results">
   <div class="kr-card"><div class="kr-value success">8/8</div><div class="kr-label">Benchmarks won</div></div>
   <div class="kr-card"><div class="kr-value">5.7&times;10&#8313;</div><div class="kr-label">Largest search space</div></div>
   <div class="kr-card"><div class="kr-value">430</div><div class="kr-label">kcal/mol best advantage</div></div>
-  <div class="kr-card"><div class="kr-value danger">4/8</div><div class="kr-label">NOON/AVAS failures</div></div>
+  <div class="kr-card"><div class="kr-value danger">4/8</div><div class="kr-label">Baselines did not converge</div></div>
   <div class="kr-card"><div class="kr-value">6</div><div class="kr-label">Molecular systems</div></div>
   <div class="kr-card"><div class="kr-value success">0</div><div class="kr-label">Engine modifications</div></div>
 </div>
@@ -147,11 +148,11 @@
 <tr class="winner"><td>3</td><td>N&#8322; PEC / cc-pVTZ (7 geom.)</td><td>(6,6)</td><td>6.7&times;10&#8311;</td><td>&minus;108.925</td><td>&minus;108.916</td><td>&minus;108.873</td><td>&minus;5.8 kcal/mol</td></tr>
 <tr class="winner"><td>4</td><td>Cr&#8322; (3 geom.)</td><td>(8,8)</td><td>30.26M</td><td>&minus;2064.570</td><td>&minus;2064.538</td><td>&minus;2064.504</td><td>&minus;20.0 kcal/mol</td></tr>
 <tr class="winner"><td>5</td><td>Butadiene torsion (7 angles)</td><td>(4,4)</td><td>194,580</td><td>&minus;153.827</td><td>&minus;153.821</td><td>&minus;153.803</td><td>&minus;3.7 kcal/mol</td></tr>
-<tr class="winner"><td>6</td><td>CH&#8322;O SA-CASSCF (3 states)</td><td>(4,4)</td><td>7,315</td><td>&minus;113.761</td><td>FAIL</td><td>FAIL</td><td>Only method that works</td></tr>
-<tr class="winner"><td>7</td><td>Benzene CAS(8,8)</td><td>(8,8)</td><td>5.74&times;10&#8313;</td><td>&minus;230.718</td><td>FAIL</td><td>FAIL</td><td>Only method that works</td></tr>
+<tr class="winner"><td>6</td><td>CH&#8322;O SA-CASSCF (3 states)</td><td>(4,4)</td><td>7,315</td><td>&minus;113.761</td><td>N/C</td><td>N/C</td><td>Only method that converged</td></tr>
+<tr class="winner"><td>7</td><td>Benzene CAS(8,8)</td><td>(8,8)</td><td>5.74&times;10&#8313;</td><td>&minus;230.718</td><td>N/C</td><td>N/C</td><td>Only method that converged</td></tr>
 <tr class="winner"><td>8</td><td>Ethylene SA-CASSCF (4 angles)</td><td>(4,4)</td><td>194,580</td><td>&minus;77.237</td><td>&minus;76.552</td><td>N/A</td><td>&minus;430 kcal/mol</td></tr>
 </table>
-<p style="font-size:0.85rem;color:#666;">&Delta; = inZOR-ND advantage (lower energy = better). NOON-MP2 uses corrected diagonal 1-RDM method. AVAS uses PySCF AVAS module. "FAIL" = CASSCF does not converge with the selected orbitals. "N/A" = method not applicable (AVAS truncation limitation).</p>
+<p style="font-size:0.85rem;color:#666;">&Delta; = inZOR-ND advantage (lower energy = better). NOON-MP2 uses corrected diagonal 1-RDM method. AVAS uses PySCF <code>mcscf.avas</code> module. "N/C" = CASSCF did not converge with the selected orbital set under the tested protocol. "N/A" = method not applicable (AVAS truncation limitation for this CAS size).</p>
 </div>
 
 <!-- ═══════════════════ RESEARCH PROGRESSION ═══════════════════ -->
@@ -162,8 +163,8 @@
   <div class="tl-card active"><div class="tl-step">Benchmark 1&ndash;3</div><div class="tl-title">N&#8322; PEC</div><div class="tl-detail">3 basis sets &middot; 7 geom.<br>5.8&ndash;42.8 kcal/mol</div></div>
   <div class="tl-card active"><div class="tl-step">Benchmark 4</div><div class="tl-title">Cr&#8322; Hard</div><div class="tl-detail">3 geom. &middot; CAS(8,8)<br>20 kcal/mol advantage</div></div>
   <div class="tl-card active"><div class="tl-step">Benchmark 5</div><div class="tl-title">Butadiene</div><div class="tl-detail">7 torsion angles<br>3.7 kcal/mol</div></div>
-  <div class="tl-card active"><div class="tl-step">Benchmark 6</div><div class="tl-title">CH&#8322;O SA-CASSCF</div><div class="tl-detail">3 excited states<br>NOON/AVAS fail</div></div>
-  <div class="tl-card active"><div class="tl-step">Benchmark 7</div><div class="tl-title">Benzene CAS(8,8)</div><div class="tl-detail">5.7&times;10&#8313; candidates<br>NOON/AVAS fail</div></div>
+  <div class="tl-card active"><div class="tl-step">Benchmark 6</div><div class="tl-title">CH&#8322;O SA-CASSCF</div><div class="tl-detail">3 excited states<br>Baselines did not converge</div></div>
+  <div class="tl-card active"><div class="tl-step">Benchmark 7</div><div class="tl-title">Benzene CAS(8,8)</div><div class="tl-detail">5.7&times;10&#8313; candidates<br>Baselines did not converge</div></div>
   <div class="tl-card active"><div class="tl-step">Benchmark 8</div><div class="tl-title">Ethylene SA-CASSCF</div><div class="tl-detail">cc-pVDZ &middot; S0/S1<br>430 kcal/mol</div></div>
 </div>
 </div>
@@ -389,15 +390,15 @@ across all torsion angles. NOON-MP2 selects near-HOMO orbitals that are suboptim
 <table>
 <tr><th>Method</th><th>E<sub>avg</sub> (3 states, Eh)</th><th>E(S&#8320;)</th><th>E(S&#8321;)</th><th>E(S&#8322;)</th><th>Conv.</th></tr>
 <tr class="winner"><td><strong>inZOR-ND</strong></td><td><strong>&minus;113.761</strong></td><td>&minus;113.862</td><td>&minus;113.719</td><td>&minus;113.703</td><td>Yes</td></tr>
-<tr class="loser"><td>NOON-MP2</td><td colspan="4">FAIL &mdash; corrected NOON MOs [5,6,7,8] do not converge SA-CASSCF</td><td>No</td></tr>
-<tr class="loser"><td>AVAS</td><td colspan="4">FAIL &mdash; AVAS MOs [3,4,5,6] do not converge SA-CASSCF</td><td>No</td></tr>
+<tr class="loser"><td>NOON-MP2</td><td colspan="4">N/C &mdash; MOs [5,6,7,8] did not converge SA-CASSCF under this protocol</td><td>No</td></tr>
+<tr class="loser"><td>AVAS</td><td colspan="4">N/C &mdash; MOs [3,4,5,6] did not converge SA-CASSCF under this protocol</td><td>No</td></tr>
 </table>
 
 <div class="warning-box">
-<strong>Critical result:</strong> With correctly implemented NOON-MP2 (diagonal 1-RDM method), the selected orbitals [5,6,7,8]
-<strong>fail to converge</strong> SA-CASSCF entirely. Similarly, AVAS fails. inZOR-ND is the <strong>only method</strong> that successfully
-discovers a working active space for this excited-state problem. This highlights a fundamental limitation of single-reference
-heuristics for multi-state problems.
+<strong>Observation:</strong> With correctly implemented NOON-MP2 (diagonal 1-RDM method), the selected orbitals [5,6,7,8]
+<strong>did not converge</strong> SA-CASSCF under the tested protocol. Similarly, the AVAS-selected orbital set did not converge.
+inZOR-ND is the <strong>only method</strong> that successfully discovers a converging active space for this excited-state problem.
+This suggests that single-reference heuristics may select chemically poor orbital sets for multi-state problems in this setup.
 </div>
 </div>
 
@@ -413,8 +414,8 @@ heuristics for multi-state problems.
 <table>
 <tr><th>Method</th><th>E(CASSCF) (Eh)</th><th>MOs</th><th>Conv.</th><th>Evals</th></tr>
 <tr class="winner"><td><strong>inZOR-ND</strong></td><td><strong>&minus;230.71820094</strong></td><td>[3, 6, 17, 20, 22, 35, 43, 45]</td><td>Yes</td><td>562</td></tr>
-<tr class="loser"><td>NOON-MP2</td><td>FAIL</td><td>[13, 16, 17, 18, 19, 20, 21, 22]</td><td>No</td><td>1</td></tr>
-<tr class="loser"><td>AVAS</td><td>FAIL</td><td>[18, 19, 20, 21, 22, 23]</td><td>No</td><td>1</td></tr>
+<tr class="loser"><td>NOON-MP2</td><td>N/C</td><td>[13, 16, 17, 18, 19, 20, 21, 22]</td><td>No</td><td>1</td></tr>
+<tr class="loser"><td>AVAS</td><td>N/C</td><td>[18, 19, 20, 21, 22, 23]</td><td>No</td><td>1</td></tr>
 </table>
 
 <div class="key-results" style="grid-template-columns:repeat(3,1fr);">
@@ -424,8 +425,9 @@ heuristics for multi-state problems.
 </div>
 
 <div class="warning-box">
-<strong>Critical result:</strong> With correctly implemented NOON-MP2, the selected MOs [13,16,17,18,19,20,21,22]
-<strong>fail to converge</strong> CASSCF. AVAS also fails. inZOR-ND is the <strong>only method</strong> that produces a valid result
+<strong>Observation:</strong> With correctly implemented NOON-MP2, the selected MOs [13,16,17,18,19,20,21,22]
+<strong>did not converge</strong> CASSCF under the tested protocol. The AVAS-selected set also did not converge.
+inZOR-ND is the <strong>only method</strong> that produces a valid result
 on this 5.7-billion-candidate search space, discovering a non-contiguous orbital set [3,6,17,20,22,35,43,45]
 by evaluating only <strong>562 candidates</strong> (0.00001% coverage).
 </div>
@@ -490,7 +492,7 @@ correct photochemistry physics. AVAS cannot be applied due to truncation limitat
   <span><span class="dot" style="background:#2563eb;"></span> inZOR-ND</span>
   <span><span class="dot" style="background:#e67e22;"></span> NOON-MP2</span>
   <span><span class="dot" style="background:#8e44ad;"></span> AVAS</span>
-  <span><span class="dot" style="background:repeating-linear-gradient(45deg,#fee2e2,#fee2e2 2px,#fca5a5 2px,#fca5a5 4px);border:1px solid #e74c3c;"></span> FAIL</span>
+  <span><span class="dot" style="background:repeating-linear-gradient(45deg,#fee2e2,#fee2e2 2px,#fca5a5 2px,#fca5a5 4px);border:1px solid #e74c3c;"></span> N/C or N/A</span>
 </div>
 <div class="bar-chart">
   <div class="bar-group">
@@ -520,28 +522,28 @@ correct photochemistry physics. AVAS cannot be applied due to truncation limitat
   </div>
   <div class="bar-group">
     <div class="bar-val">-113.76</div>
-    <div class="bars"><div class="bar zor" style="height:150px;"></div><div class="bar fail" style="height:35px;" title="NOON FAIL"></div><div class="bar fail" style="height:35px;" title="AVAS FAIL"></div></div>
+    <div class="bars"><div class="bar zor" style="height:150px;"></div><div class="bar fail" style="height:35px;" title="NOON: did not converge"></div><div class="bar fail" style="height:35px;" title="AVAS: did not converge"></div></div>
     <div class="bar-label">CH&#8322;O<br>SA-CAS</div>
   </div>
   <div class="bar-group">
     <div class="bar-val">-230.72</div>
-    <div class="bars"><div class="bar zor" style="height:160px;"></div><div class="bar fail" style="height:35px;" title="NOON FAIL"></div><div class="bar fail" style="height:35px;" title="AVAS FAIL"></div></div>
+    <div class="bars"><div class="bar zor" style="height:160px;"></div><div class="bar fail" style="height:35px;" title="NOON: did not converge"></div><div class="bar fail" style="height:35px;" title="AVAS: did not converge"></div></div>
     <div class="bar-label">Benzene<br>CAS(8,8)</div>
   </div>
   <div class="bar-group">
     <div class="bar-val">-77.24</div>
-    <div class="bars"><div class="bar zor" style="height:170px;"></div><div class="bar noon" style="height:65px;"></div><div class="bar fail" style="height:35px;" title="AVAS N/A"></div></div>
+    <div class="bars"><div class="bar zor" style="height:170px;"></div><div class="bar noon" style="height:65px;"></div><div class="bar fail" style="height:35px;" title="AVAS: not applicable (truncation)"></div></div>
     <div class="bar-label">Ethylene<br>SA-CAS</div>
   </div>
 </div>
-<div class="fig-caption"><strong>Figure 2.</strong> Mean CASSCF energy comparison across all 8 benchmarks. Taller bars = lower (better) energy. Striped bars = method failed or not applicable. inZOR-ND is the only method that succeeds on all 8 systems.</div>
+<div class="fig-caption"><strong>Figure 2.</strong> Mean CASSCF energy comparison across all 8 benchmarks. Taller bars = lower (better) energy. Striped bars = method did not converge (N/C) or not applicable (N/A). inZOR-ND is the only method that converged on all 8 systems.</div>
 </div>
 
 <h3>8.1 When to Use inZOR-ND</h3>
 <table>
 <tr><th>Scenario</th><th>Recommendation</th><th>Evidence</th></tr>
 <tr><td>Multi-geometry PEC / reaction path</td><td><strong>Use inZOR-ND</strong></td><td>N&#8322;, Cr&#8322;, butadiene, ethylene: 3.7&ndash;430 kcal/mol</td></tr>
-<tr><td>Excited states (SA-CASSCF)</td><td><strong>Use inZOR-ND</strong></td><td>CH&#8322;O, ethylene: baselines fail entirely</td></tr>
+<tr><td>Excited states (SA-CASSCF)</td><td><strong>Use inZOR-ND</strong></td><td>CH&#8322;O, ethylene: baselines did not converge</td></tr>
 <tr><td>Large MO pool (&gt;50 orbitals)</td><td><strong>Use inZOR-ND</strong></td><td>Benzene: only working method on 5.7B space</td></tr>
 <tr><td>Transition metals / strong correlation</td><td><strong>Use inZOR-ND</strong></td><td>Cr&#8322;: 20 kcal/mol advantage</td></tr>
 </table>
@@ -549,7 +551,7 @@ correct photochemistry physics. AVAS cannot be applied due to truncation limitat
 <h3>8.2 Scientific Contribution</h3>
 <ul>
   <li>A <strong>black-box optimizer</strong> for the combinatorial problem of orbital selection &mdash; no chemical knowledge required</li>
-  <li><strong>Quantitative evidence</strong> that standard heuristics (NOON-MP2, AVAS) can be significantly suboptimal or fail entirely</li>
+  <li><strong>Quantitative evidence</strong> that standard heuristics (NOON-MP2, AVAS) can be significantly suboptimal or select non-converging orbital sets</li>
   <li><strong>PEC consistency</strong>: a single shared active space that remains valid across multiple geometries</li>
   <li><strong>Robust across problem types</strong>: ground state, multi-geometry, SA-CASSCF, from 7,315 to 5.7 billion candidates</li>
   <li><strong>Engine completely unmodified</strong> across all 8 benchmarks &mdash; only the fitness function changes</li>
