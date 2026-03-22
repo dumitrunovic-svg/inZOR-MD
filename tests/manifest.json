@@ -1,56 +1,38 @@
 {
   "version": "1",
-  "updated_at": "2026-03-19",
+  "updated_at": "2026-03-22",
   "tests": [
     {
       "id": "active-space-comparative",
-      "name": "inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection — 5 Benchmarks",
+      "name": "inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection — 8 Benchmarks",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-03-19",
-      "updated_at": "2026-03-21",
-      "description": "Comprehensive validation of inZOR-ND for CASSCF/SA-CASSCF active space selection across 5 benchmarks on 5 molecular systems: Cr₂ (transition metal, 3 geometries), N₂ (full PEC, 7 geometries), butadiene (torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 states), and benzene (CAS(8,8), 5.7 billion candidates). inZOR-ND matches or outperforms NOON-MP2 and AVAS on every benchmark, with advantages from 5.5 to 29 kcal/mol.",
+      "updated_at": "2026-03-22",
+      "description": "Comprehensive validation of inZOR-ND for CASSCF/SA-CASSCF active space selection across 8 benchmarks on 6 molecular systems: N₂ PEC with 3 basis sets (6-31G, cc-pVDZ, cc-pVTZ), Cr₂ (transition metal, 3 geometries), butadiene (torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 states), benzene (CAS(8,8), 5.7 billion candidates), and ethylene (SA-CASSCF, S0/S1, 4 torsion angles). inZOR-ND wins all 8 benchmarks (3.7–430 kcal/mol advantage). NOON-MP2 or AVAS fail on 4 out of 8 systems. Corrected NOON-MP2 uses diagonal 1-RDM method.",
       "key_findings": [
-        "5/5 benchmarks: inZOR-ND matches or outperforms NOON-MP2 and AVAS",
-        "Benzene CAS(8,8): 29 kcal/mol advantage, 562 evals out of 5.7 billion (0.00001%)",
-        "Cr₂ hard (3 geometries): 7.9 kcal/mol advantage over NOON-MP2/AVAS",
-        "N₂ PEC (7 geometries): 76 kcal/mol vs NOON, shared CAS stable across full dissociation",
-        "Butadiene torsion (7 angles): 5.5 kcal/mol vs NOON, all 3 seeds win",
-        "SA-CASSCF CH₂O (3 states): matches NOON-MP2; AVAS fails entirely",
-        "Engine completely unmodified across all benchmarks — no chemical knowledge required"
+        "8/8 benchmarks: inZOR-ND wins or is the only method that works",
+        "NOON-MP2 or AVAS fail to converge on 4/8 benchmarks (CH₂O, benzene, ethylene AVAS)",
+        "N₂ PEC: consistent advantage across 3 basis sets (5.8–42.8 kcal/mol)",
+        "Cr₂ (3 geometries): −20 kcal/mol advantage over corrected NOON-MP2",
+        "Butadiene torsion (7 angles): −3.7 kcal/mol vs NOON",
+        "CH₂O SA-CASSCF: corrected NOON and AVAS both fail; inZOR-ND is only working method",
+        "Benzene CAS(8,8): corrected NOON and AVAS both fail; 562 evals out of 5.7 billion",
+        "Ethylene SA-CASSCF (S0/S1): −430 kcal/mol vs NOON; AVAS not applicable (truncation)",
+        "Engine completely unmodified across all 8 benchmarks — no chemical knowledge required"
       ],
       "metrics": {
-        "Benchmarks won": "5/5",
+        "Benchmarks won": "8/8",
         "Largest search space": "5.7×10⁹ (benzene)",
-        "Best advantage": "29 kcal/mol (benzene)",
-        "Molecular systems": "5 (Cr₂, N₂, butadiene, CH₂O, benzene)",
-        "Problem types": "Ground state, multi-geometry, SA-CASSCF",
+        "Best advantage": "430 kcal/mol (ethylene SA-CASSCF)",
+        "Molecular systems": "6 (N₂, Cr₂, butadiene, CH₂O, benzene, ethylene)",
+        "Basis sets": "6-31G, cc-pVDZ, cc-pVTZ, STO-3G",
+        "Problem types": "Ground state, multi-geometry PEC, SA-CASSCF",
+        "NOON/AVAS failures": "4/8 benchmarks",
         "Engine modifications": "0",
-        "Baseline methods": "NOON-MP2, AVAS"
+        "Baseline methods": "NOON-MP2 (corrected diagonal 1-RDM), AVAS"
       },
-      "images": [
-        {
-          "url": "tests/active_space_comparative/figures/fig9_cr2_baselines.png",
-          "caption": "Cr₂ per-geometry comparison: inZOR-ND vs NOON-MP2/AVAS"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig5_pec_all_methods.png",
-          "caption": "N₂ PEC: shared active space comparison"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig10_butadiene_pec.png",
-          "caption": "Butadiene torsion PEC"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig12_benzene_cas88.png",
-          "caption": "Benzene CAS(8,8): convergence and comparison"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig13_summary_all_benchmarks.png",
-          "caption": "Summary: inZOR-ND advantage across all 5 benchmarks"
-        }
-      ],
       "links": [
         {
           "label": "Full Report",
@@ -64,22 +46,6 @@
         {
           "label": "Cr₂ Study",
           "url": "tests/active_space_cr2/index.html"
-        },
-        {
-          "label": "Cr₂ Hard (Benchmark 1)",
-          "url": "tests/active_space_comparative/index.html#benchmark-1"
-        },
-        {
-          "label": "Butadiene (Benchmark 3)",
-          "url": "tests/active_space_comparative/index.html#benchmark-3"
-        },
-        {
-          "label": "CH₂O SA-CASSCF (Benchmark 4)",
-          "url": "tests/active_space_comparative/index.html#benchmark-4"
-        },
-        {
-          "label": "Benzene CAS(8,8) (Benchmark 5)",
-          "url": "tests/active_space_comparative/index.html#benchmark-5"
         }
       ]
     },
