@@ -33,6 +33,24 @@
         "Engine modifications": "0",
         "Baseline methods": "NOON-MP2 (corrected diagonal 1-RDM), AVAS"
       },
+      "images": [
+        {
+          "url": "tests/active_space_comparative/figures/fig5_pec_all_methods.png",
+          "caption": "N₂ PEC: inZOR-ND vs NOON-MP2/AVAS shared active space comparison"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig9_cr2_baselines.png",
+          "caption": "Cr₂ per-geometry comparison: inZOR-ND vs NOON-MP2/AVAS"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig10_butadiene_pec.png",
+          "caption": "Butadiene torsion PEC across 7 angles"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig13_summary_all_benchmarks.png",
+          "caption": "Summary: inZOR-ND advantage across all benchmarks"
+        }
+      ],
       "links": [
         {
           "label": "Full Report",
