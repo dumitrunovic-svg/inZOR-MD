@@ -16,10 +16,9 @@ fi
 echo "Synced $SRC → $DST (tests/ + tests.html)"
 
 # GitHub Actions deploys the whole repo; /tests.html loads ./tests/manifest.json at repo root.
-# Mirror chapter bundles there whenever you add pages under brochure/tests/.
-for d in qc_gaps_active_space_chapter zor_h2_sa_gap zor_ethylene_quasidegen; do
+for d in qc_gaps_h2_ethylene_unified; do
   if [[ -d "$SRC/tests/$d" ]]; then
     rsync -a "$SRC/tests/$d/" "$ROOT/tests/$d/"
   fi
 done
-echo "Mirrored chapter bundles → $ROOT/tests/ (for Pages root)"
+echo "Mirrored unified QC report → $ROOT/tests/ (for Pages root)"

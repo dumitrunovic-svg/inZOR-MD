@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC gaps: H₂ diagnostic &amp; ethylene (ZOR) — unified report</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --purple:#8e44ad; --teal:#0d9488; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.65; }
+  .header { background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#2563eb 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.55rem; font-weight:700; margin-bottom:0.5rem; max-width:920px; }
+  .header .subtitle { font-size:1rem; opacity:0.88; margin-bottom:0.75rem; max-width:820px; }
+  .header .meta { font-size:0.82rem; opacity:0.72; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:1.75rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem; margin:1.5rem 0 2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.1rem; text-align:center; }
+  .kr-card .kr-value { font-size:1.45rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-value.danger { color:var(--danger); }
+  .kr-card .kr-label { font-size:0.8rem; color:#666; margin-top:0.35rem; }
+  .section { margin-bottom:2.6rem; scroll-margin-top:1rem; }
+  .section h2 { font-size:1.22rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.45rem; margin-bottom:1rem; }
+  .section h3 { font-size:1.02rem; font-weight:600; margin:1.15rem 0 0.55rem; color:#34495e; }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin:1rem 0; }
+  @media (max-width:720px) { .compare-grid { grid-template-columns:1fr; } }
+  .compare-card { border:1px solid var(--border); border-radius:10px; padding:1rem 1.15rem; background:var(--light-bg); }
+  .compare-card h4 { font-size:0.95rem; color:var(--primary); margin-bottom:0.5rem; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; max-height:460px; width:auto; height:auto; border-radius:4px; display:block; margin:0 auto; object-fit:contain; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .insight-box { background:#fffbeb; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .verdict-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .warning-box { background:#fef2f2; border-left:4px solid var(--danger); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .ref-box { background:#f5f0ff; border-left:4px solid var(--purple); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul, ol { padding-left:1.35rem; margin:0.65rem 0 0.85rem; }
+  li { margin-bottom:0.35rem; font-size:0.93rem; }
+  code { background:#f3f4f6; padding:1pt 5pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+  .toc { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; margin-bottom:2rem; font-size:0.92rem; }
+  .toc strong { display:block; margin-bottom:0.5rem; color:var(--dark); }
+  .toc a { color:var(--primary); text-decoration:none; }
+  .toc a:hover { text-decoration:underline; }
+  .toc li { margin-bottom:0.4rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="phase-badge">Quantum chemistry · Unified chapter</div>
+  <h1>QC gaps: why they matter, H₂ as a minimal diagnostic, ethylene in ZOR, and the inZOR-ND benchmarks</h1>
+  <p class="subtitle">One report for the work thread on <strong>electronic gaps</strong> near quasi-degeneracy: what we built, which program does what, and how the pieces connect. Updated 2026-04-03.</p>
+  <p class="meta">Single page · raw H₂ data on this path · figures from ZOR validation exports</p>
+</div>
+
+<div class="container">
+
+  <nav class="toc" aria-label="On this page">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#why">Why this work</a></li>
+      <li><a href="#engines">Two engines: inZOR-ND vs ZOR</a></li>
+      <li><a href="#h2">H₂ stretch — SA-CASSCF(2,2) gap scan</a></li>
+      <li><a href="#ethylene">Ethylene quasi-degeneracy — ZOR scene</a></li>
+      <li><a href="#bridge">Bridge to inZOR-ND active-space suite</a></li>
+      <li><a href="#repro">Reproducibility &amp; PDF</a></li>
+    </ol>
+  </nav>
+
+  <div class="abstract-box" id="why">
+    <h2>What problem we address</h2>
+    <p>Near <strong>quasi-degeneracy</strong> (avoided crossings, stretched bonds, twisted π systems), <strong>multi-reference</strong> methods depend critically on the <strong>active space</strong>. A poor choice does not only shift total energies: it can distort <strong>excitation gaps</strong> and state orderings long before a full potential-energy surface is computed. This chapter documents two complementary lines of work:</p>
+    <ul>
+      <li><strong>Minimal diagnostic (H₂):</strong> a seven-point H–H scan comparing SA-CASSCF(2,2) <strong>HOMO–LUMO gaps</strong> when orbitals are chosen by <strong>inZOR-ND</strong> versus a <strong>NOON</strong>-style rule. The goal is a <em>cheap, interpretable</em> signal: does the gap curve behave physically along the scan?</li>
+      <li><strong>Exploratory system (ethylene):</strong> in the open-source <strong>ZOR</strong> world, a dedicated scene (<code>scene_ethylene_quasidegen</code>) feeds <strong>SA-CASSCF(2,2)</strong> gap-related observables back into an <strong>evolving population</strong> (2D/3D, multiple seeds, score variants). The goal is not to replace benchmark solvers but to study <strong>adaptive exploration</strong> under the same chemical stress (near-degeneracy) that motivates strict QC validation elsewhere.</li>
+    </ul>
+    <p>Large-scale <strong>inZOR-ND</strong> results for automatic CAS selection (N₂, Cr₂, eight-benchmark comparative, including ethylene SA-CASSCF) remain the <strong>authoritative discrete-search validation</strong>. This page makes the <strong>scope boundary</strong> explicit so readers never confuse ZOR runs with inZOR-ND search logs.</p>
+  </div>
+
+  <div class="section" id="engines">
+    <h2>Two engines: what each one does here</h2>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <h4>inZOR-ND</h4>
+        <p>Bio-adaptive <strong>discrete search</strong> over candidate active spaces (orbital index sets). Used for the <strong>H₂ gap table</strong> (fixed protocol per method) and for all <strong>published CAS benchmarks</strong> linked below.</p>
+        <p><strong>Why it appears in an H₂ “gap” note:</strong> same orbital-choice question as in large molecules, but in the smallest system where the gap trace is easy to read.</p>
+      </div>
+      <div class="compare-card">
+        <h4>ZOR</h4>
+        <p>2D/3D <strong>artificial-life</strong> environment: genomes propose moves; a <strong>quantum-chemistry probe</strong> (here SA-CASSCF(2,2)) scores proposals. Used for <strong>ethylene quasi-degeneracy</strong> exploration and validation batches (<code>legacy</code> / <code>local_coherent</code> / <code>dwell_coherent</code>, optional ND).</p>
+        <p><strong>Why ethylene:</strong> richer geometry than H₂ while still highlighting <strong>gap-driven</strong> fitness near problematic electronic regimes.</p>
+      </div>
+    </div>
+    <div class="insight-box">
+      <strong>Claim hygiene.</strong> Do not cite ZOR population logs as inZOR-ND benchmark outcomes, or vice versa. The <em>scientific motif</em> (gaps under quasi-degeneracy) is shared; the <em>algorithms and fitness landscapes</em> are not.
+    </div>
+  </div>
+
+  <div class="section" id="h2">
+    <h2>H₂ bond stretch — SA-CASSCF(2,2) HOMO–LUMO gap</h2>
+    <h3>Why H₂</h3>
+    <p>Two electrons, minimal active space: the scan isolates <strong>orbital-choice effects</strong> on a single gap observable without conflating with conformational degrees of freedom. If a heuristic mis-picks the active pair at an intermediate bond length, the gap can <strong>fail basic monotonicity</strong> even when energies might still look plausible at isolated points.</p>
+    <h3>Setup</h3>
+    <p><strong>Basis:</strong> cc-pVDZ. <strong>Scan:</strong> seven H–H distances from 0.7 Å to 2.5 Å. <strong>Methods compared:</strong> active MO indices from <strong>inZOR-ND</strong> vs <strong>NOON</strong> (see <a href="h2_stretch_results.json"><code>h2_stretch_results.json</code></a> for exact index lists and flags).</p>
+
+    <div class="key-results">
+      <div class="kr-card">
+        <div class="kr-value success">7</div>
+        <div class="kr-label">Geometries</div>
+      </div>
+      <div class="kr-card">
+        <div class="kr-value success">Yes</div>
+        <div class="kr-label">inZOR gap monotone</div>
+      </div>
+      <div class="kr-card">
+        <div class="kr-value danger">No</div>
+        <div class="kr-label">NOON gap monotone</div>
+      </div>
+      <div class="kr-card">
+        <div class="kr-value">cc-pVDZ</div>
+        <div class="kr-label">Basis</div>
+      </div>
+    </div>
+
+    <h3>Gap table (eV)</h3>
+    <table>
+      <thead>
+        <tr><th>R (Å)</th><th>inZOR gap (eV)</th><th>NOON gap (eV)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>0.7</td><td>10.743743</td><td>10.743759</td></tr>
+        <tr><td>0.9</td><td>7.974340</td><td>7.974299</td></tr>
+        <tr><td>1.1</td><td>5.677354</td><td>5.677354</td></tr>
+        <tr><td>1.3</td><td>3.887806</td><td>3.887805</td></tr>
+        <tr><td>1.6</td><td>2.049057</td><td>2.049044</td></tr>
+        <tr><td>2.0</td><td>0.764453</td><td><strong>18.143451</strong></td></tr>
+        <tr><td>2.5</td><td>0.188814</td><td>0.188821</td></tr>
+      </tbody>
+    </table>
+    <div class="warning-box">
+      <strong>NOON at R = 2.0 Å.</strong> The gap explodes to ~18.14 eV in this snapshot while neighbouring points are ~2 eV — <code>monotonic: false</code> in JSON. That is exactly the kind of <strong>early pathology</strong> a gap diagnostic is meant to catch before trusting longer PECs or dynamics on the same orbital logic.
+    </div>
+    <div class="verdict-box">
+      <strong>Interpretation.</strong> For this documented run, inZOR-ND’s selected pair yields a <strong>smoothly decaying</strong> gap across dissociation; the NOON-tracked pair does not. This does not by itself prove global correctness on all systems; it <strong>motivates</strong> the larger inZOR-ND benchmark programme where energies and multi-geometry stability are scored directly.
+    </div>
+  </div>
+
+  <div class="section" id="ethylene">
+    <h2>Ethylene quasi-degeneracy — ZOR scene</h2>
+    <h3>What we built and why</h3>
+    <p>Ethylene near torsional quasi-degeneracy is a classic setting where <strong>single-reference pictures weaken</strong> and SA-CASSCF(2,2) is a minimal multi-reference anchor. In ZOR we attach that computation to an <strong>evolving population</strong> so we can ask: under local sensing only (no hand-written policy), does selection pressure in a 2D/3D world still <strong>track chemically meaningful gap structure</strong> when we change scoring rules or dimensionality?</p>
+    <h3>Protocol (engineering summary)</h3>
+    <ul>
+      <li><strong>Scene path (ZOR repo):</strong> <code>zor_scenes/scene_ethylene_quasidegen/</code> — logs, validation scripts, batch outputs as committed there.</li>
+      <li><strong>Electronic model:</strong> SA-CASSCF(2,2); gap-style observables (e.g. S₀–S₁) feed fitness.</li>
+      <li><strong>Validation:</strong> multiple seeds, controls, local grids; <strong>3D</strong> extensions when <code>ZOR_ETHYLENE_ND</code> / ND output folders are enabled.</li>
+      <li><strong>Score variants:</strong> <code>legacy</code>, <code>local_coherent</code>, <code>dwell_coherent</code> — to stress-test whether conclusions depend on a particular temporal-smoothing or locality heuristic in the score.</li>
+    </ul>
+
+    <div class="fig-wrap">
+      <img src="figures/ethylene_s0s1_gap.png" alt="Ethylene S0 S1 gap">
+      <p class="fig-caption">Exported S₀–S₁ gap visual for the ethylene active-space / quasi-degeneracy study (ZOR workspace).</p>
+    </div>
+    <div class="fig-wrap">
+      <img src="figures/vladimir_final_comparison.png" alt="Validation comparison across variants">
+      <p class="fig-caption">Validation-style comparison across batches or score variants (export from the ethylene validation thread).</p>
+    </div>
+    <div class="fig-wrap">
+      <img src="figures/vladimir_answer.png" alt="Detailed metrics panel">
+      <p class="fig-caption">Companion panel: metrics / reference answer for the same validation workflow.</p>
+    </div>
+  </div>
+
+  <div class="section" id="bridge">
+    <h2>Bridge to the inZOR-ND active-space suite</h2>
+    <p>The <strong>comparative eight-benchmark</strong> report includes <strong>ethylene SA-CASSCF</strong> alongside N₂, Cr₂, butadiene, CH₂O, benzene, etc. That is the right place for <strong>discrete-search</strong> head-to-head against NOON-MP2 / AVAS with published energy gaps and advantages.</p>
+    <p>This unified page adds: (i) a <strong>minimal H₂ gap sanity check</strong> for orbital heuristics, and (ii) a <strong>ZOR-side exploration narrative</strong> for the same chemical theme. Together they explain <strong>motivation and tooling</strong>; the comparative HTML remains the citation target for large-scale CAS discovery claims.</p>
+    <div class="ref-box">
+      <strong>Continue reading</strong>
+      <ul style="margin-top:0.5rem;">
+        <li><a href="../active_space_comparative/index.html">inZOR-ND — comparative (8 benchmarks)</a></li>
+        <li><a href="../active_space_n2/index.html">N₂ dedicated study</a></li>
+        <li><a href="../active_space_cr2/index.html">Cr₂ dedicated study</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="repro-box" id="repro">
+    <h3 style="margin-top:0;">Reproducibility &amp; PDF</h3>
+    <p><strong>H₂:</strong> regenerate from the driver that produced <a href="h2_stretch_results.json"><code>h2_stretch_results.json</code></a> (PySCF / SA-CASSCF stack; pin versions for any formal preprint).</p>
+    <p><strong>Ethylene (ZOR):</strong> reproduce from the ZOR repository — scene assets, <code>zor_active_space/</code> exports, and validation logs under <code>zor_scenes/scene_ethylene_quasidegen/</code>.</p>
+    <p><strong>PDF:</strong> this HTML is structured as the web companion; a future PDF can lift sections 1:1 with DOI / commit SHA in the front matter.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><a href="../../tests.html">← Tests catalogue</a> · inZORi / inZOR-ND research artefacts</p>
+</div>
+</body>
+</html>
