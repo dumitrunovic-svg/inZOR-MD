@@ -28,6 +28,8 @@ If missing, copy from your validation exports into that `figures/` folder.
 
 ## Build (local PDF)
 
+**Option A — pdfLaTeX + BibTeX** (TeX Live / MiKTeX):
+
 ```bash
 cd /opt/projects/zor_task_solver/papers_arxiv/qc_gaps_h2_ethylene_arxiv
 pdflatex main.tex
@@ -36,7 +38,16 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-Output: `main.pdf`.
+**Option B — Tectonic** (single command, downloads TeX packages on first run):
+
+```bash
+cd /opt/projects/zor_task_solver/papers_arxiv/qc_gaps_h2_ethylene_arxiv
+tectonic main.tex
+```
+
+Output: **`main.pdf`** (arXiv-style PDF: embedded fonts, standard article class, natbib + `unsrtnat`).
+
+The committed **`main.pdf`** in this folder is the reference build for submission previews.
 
 ## arXiv submission (typical)
 
