@@ -42,8 +42,9 @@
   <ul class="bullets">
     <li><strong>Discovery speed</strong> is evaluated using a threshold of <strong>gap &lt; 10 meV</strong> (first-hit probe index; engine vs uniform control in the table below).</li>
     <li><strong>Cluster analysis</strong> is performed on <strong>all points with gap &lt; 0.01 eV</strong> (pooled across seeds for DBSCAN and figures) — several quasi-degenerate basins, not a single global funnel.</li>
+    <li><strong>What is shown:</strong> <strong>not</strong> “one correct region found” — rather, <strong>multiple</strong> quasi-degenerate basins in geometry space, with discovery speed and Top-<em>K</em> emphasis that <strong>depend on seed</strong>.</li>
     <li><strong>Cross-seed:</strong> several low-gap regions recur, but <strong>dominance varies by seed</strong> (e.g. Top-<em>K</em>=50 weight in sector B ≈ 0.42 for seed 42, ≈ 0.08 for 137, ≈ 0.30 for 2011).</li>
-    <li><strong>Determinism:</strong> fixed seed + fixed protocol → byte-identical <code>probes.jsonl</code> on rerun (see reproducibility section).</li>
+    <li><strong>Determinism (same seed):</strong> fixed seed + fixed protocol → byte-identical <code>probes.jsonl</code> on rerun — <strong>not</strong> a claim that different seeds or different trajectories coincide (see reproducibility).</li>
   </ul>
 </div>
 
@@ -62,6 +63,14 @@
       </tbody>
     </table>
     <p class="note">Score variant <code>legacy</code>. Main tables: regional batch <code>validation_regional_3seeds_20260403_155239</code>. Additional full regional run (seed 42 only): <code>validation_20260403_211825_legacy_nd3_regional_s42</code> — its <code>zor_seed_42/probes.jsonl</code> is <strong>byte-identical</strong> to seed 42 in the 3-seed batch (<code>cmp</code> exit 0).</p>
+  </div>
+
+  <div class="section">
+    <h2>What this demonstrates</h2>
+    <div class="box">
+      <p style="margin-bottom:0.65rem;">The evidence here is <strong>not</strong> that inZOR-ND identifies a single privileged “right” region in internal coordinates. It <strong>is</strong> that, in 3D, the run visits and ranks <strong>several</strong> separated low-gap regions (clusters, sector weights, pooled scatter) — i.e. <strong>multi-basin quasi-degeneracy</strong>, not funnel collapse to one geometry.</p>
+      <p style="margin:0;"><strong>Best gap</strong> (smallest S₀–S₁ seen in a run) is one scalar summary per seed. <strong>Landscape structure</strong> — where probes pile up, how many DBSCAN basins appear, whether the argmin sits in a supported patch — is a separate object: you need both, but the global minimum <em>alone</em> does not describe the geometry-space organisation this page is about.</p>
+    </div>
   </div>
 
   <div class="section">
@@ -143,7 +152,7 @@
   <div class="section">
     <h2>Interpretation</h2>
     <div class="box">
-      <strong>Several regions recur across seeds, but their dominance varies by seed.</strong> The exploration does not collapse to a single minimum: multiple quasi-degenerate regions appear in the pooled low-gap set. Recurrence is structured multi-basin behaviour, not uniform repetition across seeds (see Top-<em>K</em> sector weights in the main table and regional summary).
+      <strong>Several regions recur across seeds, but their dominance varies by seed.</strong> The exploration does not collapse to a single minimum: multiple quasi-degenerate regions appear in the pooled low-gap set. Recurrence is structured multi-basin behaviour, not uniform repetition across seeds (see Top-<em>K</em> sector weights in the main table and regional summary). The main scientific point is this <strong>regional layout</strong> of the gap in geometry space — not only how low the best gap happens to be on a given seed.
     </div>
   </div>
 
@@ -160,6 +169,7 @@
 
   <div class="section">
     <h2>Reproducibility &amp; cluster stability (latest technical step)</h2>
+    <p class="note" style="margin-bottom:0.65rem; padding:0.55rem 0.65rem; background:#fff8e6; border-left:3px solid #c9a227; border-radius:0 4px 4px 0;"><strong>If you skim only one line:</strong> this section shows <strong>determinism when the seed and protocol are fixed</strong> (rerun → same <code>probes.jsonl</code>). It is <strong>not</strong> evidence that the algorithm would match itself across <em>different</em> seeds or across two independent trajectories that actually diverge at the file level.</p>
     <div class="box caveat" style="margin-bottom:0.75rem;">
       <strong>Reproducibility is demonstrated for identical runs</strong> (same seed and protocol), which produce <strong>identical probe trajectories</strong> and <strong>identical clusters</strong>.<br><br>
       <strong>This does not imply stability</strong> across independent runs that generate <em>different</em> probe trajectories. The <strong>HIGH</strong> verdicts in the table apply only when <code>cmp</code> on <code>probes.jsonl</code> is identical (byte-for-byte).
@@ -192,7 +202,10 @@
   <div class="section">
     <h2>Conclusion</h2>
     <div class="box">
-      inZOR-ND in this 3D setting reveals a <strong>structured family</strong> of quasi-degenerate configurations rather than collapse to a single optimal geometry.
+      <p style="margin-bottom:0.65rem;">This result should <strong>not</strong> be interpreted as convergence to a single optimal geometry.</p>
+      <p style="margin-bottom:0.65rem;">Instead, the system exhibits <strong>multiple quasi-degenerate regions</strong> in geometry space. inZOR-ND exploration does <strong>not</strong> select a unique minimum, but <strong>efficiently discovers several low-gap regions</strong>, some of which recur across seeds.</p>
+      <p style="margin-bottom:0.65rem;">The global minimum alone is therefore <strong>not sufficient</strong> to describe the structure of the problem.</p>
+      <p style="margin:0;">In short: inZOR-ND in this 3D setting reveals a <strong>structured family</strong> of quasi-degenerate configurations rather than collapse to one basin.</p>
     </div>
   </div>
 
