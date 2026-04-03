@@ -1,24 +1,24 @@
 {
   "version": "1",
-  "updated_at": "2026-04-08",
+  "updated_at": "2026-04-09",
   "tests": [
     {
       "id": "zor-ethylene-3d-quasidegenerate-regions",
-      "name": "Ethylene (3D) — Quasi-Degenerate Gap Structure via ZOR",
+      "name": "Ethylene (3D) — Quasi-Degenerate Gap Structure via inZOR-ND",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-04-03",
-      "updated_at": "2026-04-08",
-      "description": "Standalone empirical test: 3D internal coordinates (torsion, r_CC, z_lift), SA-CASSCF(2,2), three ZOR seeds vs matched-budget uniform control, pooled low-gap DBSCAN clusters. Figures on the report are PNGs from logs/validation_regional_3seeds_20260403_155239 (not ad-hoc exports). Reproducibility: byte-identical seed-42 probes + cluster-stability comparator (HIGH). Listed first on Research Tests; separate from the unified QC chapter.",
+      "updated_at": "2026-04-09",
+      "description": "Standalone empirical test: 3D internal coordinates (torsion, r_CC, z_lift), SA-CASSCF(2,2), three engine seeds vs matched-budget uniform control, pooled low-gap DBSCAN clusters. Figures are PNGs from logs/validation_regional_3seeds_20260403_155239. Reproducibility: byte-identical seed-42 probes + cluster-stability comparator (HIGH; same-trace only). Listed first on Research Tests; separate from the unified QC chapter.",
       "key_findings": [
-        "Multiple quasi-degenerate regions; some recur across independent seeds",
-        "ZOR finds gap < 10 meV much earlier than uniform sampling under the same evaluation budget",
-        "Identical seed → identical probe trajectories (full determinism in this stack)",
-        "Context and motivation: “QC gaps, H₂ & ethylene (ZOR): unified report”"
+        "Multiple quasi-degenerate basins; recurrence across seeds with real per-seed heterogeneity (Top-K sector weights differ)",
+        "inZOR-ND reaches gap < 10 meV much earlier than uniform sampling on the matched budget",
+        "Identical seed + protocol → byte-identical probes (determinism); cluster HIGH compares identical traces only",
+        "Context: “QC gaps, H₂ & ethylene (inZOR-ND): unified report”"
       ],
       "metrics": {
-        "ZOR seeds": "42, 137, 2011",
+        "Run seeds": "42, 137, 2011",
         "Dimensionality": "3D",
         "Method": "SA-CASSCF(2,2)"
       },
@@ -54,38 +54,38 @@
     },
     {
       "id": "qc-gaps-h2-ethylene-unified",
-      "name": "QC gaps, H₂ & ethylene (ZOR): unified report — motivation, methods, results",
+      "name": "QC gaps, H₂ & ethylene (inZOR-ND): unified report — motivation, methods, results",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-04-02",
-      "updated_at": "2026-04-03",
-      "description": "Single long-form page for the gap-focused QC thread: why electronic gaps matter near quasi-degeneracy; a minimal H₂ SA-CASSCF(2,2) HOMO–LUMO scan (inZOR-ND vs NOON, cc-pVDZ) with JSON; the ZOR ethylene_quasidegen scene (SA-CASSCF(2,2) feedback, multi-seed validation, score variants, 2D/3D); and how this connects to the separate inZOR-ND active-space benchmarks (N₂, Cr₂, eight-benchmark comparative including ethylene). Clearly separates ZOR vs inZOR-ND.",
+      "updated_at": "2026-04-09",
+      "description": "Single long-form page for the gap-focused QC thread: why electronic gaps matter near quasi-degeneracy; a minimal H₂ SA-CASSCF(2,2) HOMO–LUMO scan (inZOR-ND discrete search vs NOON, cc-pVDZ) with JSON; the ethylene_quasidegen scene (SA-CASSCF(2,2) continuous exploration, multi-seed validation, score variants, 2D/3D); and how this connects to the inZOR-ND active-space benchmarks (N₂, Cr₂, eight-benchmark comparative including ethylene). Separates discrete-search benchmarks from continuous exploration logs.",
       "key_findings": [
         "Motivation: gaps are cheap sentinels for active-space pathology before expensive PEC or large-CAS work",
         "H₂: inZOR-ND gap monotone over 7 bond lengths; NOON selection shows a ~18 eV spike at R=2.0 Å in the saved snapshot",
-        "Ethylene (ZOR): evolutionary exploration with SA-CASSCF(2,2) signals; validation across seeds/controls/grids; legacy vs local_coherent vs dwell_coherent",
+        "Ethylene (inZOR-ND continuous mode): evolutionary exploration with SA-CASSCF(2,2) signals; validation across seeds/controls/grids; legacy vs local_coherent vs dwell_coherent",
         "Ethylene 3D regional validation is a separate Research Tests entry (not linked here)",
-        "inZOR-ND comparative remains the citation target for discrete CAS search; ZOR explores the same chemical stress in a continuous ALife setting"
+        "Discrete-search comparative remains the citation target for CAS benchmarks; continuous mode explores the same chemical stress in an ALife setting"
       ],
       "metrics": {
         "H₂ scan points": "7 (0.7–2.5 Å)",
         "Basis (H₂)": "cc-pVDZ",
-        "ZOR scene": "ethylene_quasidegen",
+        "Ethylene scene": "ethylene_quasidegen",
         "SA-CASSCF": "(2,2) for H₂ table & ethylene probe"
       },
       "images": [
         {
           "url": "tests/qc_gaps_h2_ethylene_unified/figures/ethylene_s0s1_gap.png",
-          "caption": "Ethylene S₀–S₁ gap (ZOR export)"
+          "caption": "Ethylene S₀–S₁ gap (inZOR-ND export)"
         },
         {
           "url": "tests/qc_gaps_h2_ethylene_unified/figures/vladimir_final_comparison.png",
-          "caption": "Validation / variant comparison (ZOR)"
+          "caption": "Validation / variant comparison (inZOR-ND)"
         },
         {
           "url": "tests/qc_gaps_h2_ethylene_unified/figures/vladimir_answer.png",
-          "caption": "Metrics panel (ZOR validation thread)"
+          "caption": "Metrics panel (inZOR-ND validation thread)"
         }
       ],
       "links": [

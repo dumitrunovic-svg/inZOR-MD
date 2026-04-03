@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ethylene (3D) — Quasi-Degenerate Gap Structure via ZOR</title>
+<title>Ethylene (3D) — Quasi-Degenerate Gap Structure via inZOR-ND</title>
 <style>
   :root { --primary:#1a7dc4; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --success:#27ae60; }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -23,6 +23,7 @@
   .note { font-size:0.86rem; color:#555; margin-top:0.45rem; }
   .box { background:var(--light-bg); border-left:4px solid var(--primary); padding:0.75rem 1rem; margin:0.65rem 0; border-radius:0 6px 6px 0; }
   .box.ok { border-left-color:var(--success); }
+  .box.caveat { border-left-color:#e67e22; background:#fffbf5; }
   ul.tight { padding-left:1.2rem; margin:0.4rem 0; }
   ul.tight li { margin-bottom:0.28rem; }
   .footer { text-align:center; color:#666; font-size:0.82rem; margin-top:2rem; padding-top:1rem; border-top:1px solid var(--border); }
@@ -36,12 +37,13 @@
 <body>
 
 <div class="header">
-  <div class="badge">QC · Ethylene · ZOR · 3D</div>
-  <h1>Ethylene (3D) — Quasi-Degenerate Gap Structure via ZOR</h1>
+  <div class="badge">QC · Ethylene · inZOR-ND · 3D</div>
+  <h1>Ethylene (3D) — Quasi-Degenerate Gap Structure via inZOR-ND</h1>
   <ul class="bullets">
-    <li>Multiple low-gap regions detected (gap &lt; 10 meV and DBSCAN on gap &lt; 0.01 eV).</li>
-    <li>Some regions recur across independent ZOR seeds.</li>
-    <li>Deterministic behavior per seed (identical probe trajectories on rerun).</li>
+    <li><strong>Discovery speed</strong> is judged at <strong>gap &lt; 10 meV</strong> (first-hit probe index; engine vs uniform control in the table below).</li>
+    <li><strong>Pooled regional structure</strong> (figures + multi-seed DBSCAN) uses probes with <strong>gap &lt; 0.01 eV</strong> — several quasi-degenerate basins, not a single global funnel.</li>
+    <li><strong>Cross-seed:</strong> several low-gap regions recur, but <strong>dominance varies by seed</strong> (e.g. Top-<em>K</em>=50 weight in sector B ≈ 0.42 for seed 42, ≈ 0.08 for 137, ≈ 0.30 for 2011).</li>
+    <li><strong>Determinism:</strong> fixed seed + fixed protocol → byte-identical <code>probes.jsonl</code> on rerun (see reproducibility section).</li>
   </ul>
 </div>
 
@@ -74,23 +76,27 @@
         <tr><td>2011</td><td>~7.3×10<sup>−4</sup></td><td>316</td><td>B (~240–260°)</td></tr>
       </tbody>
     </table>
+    <div class="box ok" style="margin-top:0.75rem;">
+      <strong>Global best-gap is not an isolated spike.</strong> In <code>validation_regional_3seeds_summary.json</code>, <code>best_appears_isolated</code> is <strong>false</strong> for seeds 42, 137, and 2011: the minimum-gap geometry has real local support in the patch metric. The <strong>local 5×5 grid</strong> and <strong>z<sub>lift</sub> sweep</strong> figures below visualize that coherence around the best point.
+    </div>
   </div>
 
   <div class="section">
-    <h2>ZOR vs uniform random (matched budget)</h2>
+    <h2>inZOR-ND vs uniform random (matched budget)</h2>
     <table>
-      <thead><tr><th>Metric</th><th>ZOR</th><th>Random</th></tr></thead>
+      <thead><tr><th>Metric</th><th>inZOR-ND</th><th>Random</th></tr></thead>
       <tbody>
         <tr><td>Best gap</td><td>~2.0×10<sup>−4</sup> eV (best over seeds)</td><td>~5.7×10<sup>−4</sup> eV</td></tr>
         <tr><td>First &lt;10 meV</td><td>4 (fastest seed: 42)</td><td>141</td></tr>
       </tbody>
     </table>
-    <p class="note">Control: n_eval = 8768 uniform samples in [0,1]<sup>3</sup> (same mapping as ZOR 3D). ZOR finds low-gap configurations significantly earlier than uniform sampling.</p>
+    <p class="note">Control: n_eval = 8768 uniform samples in [0,1]<sup>3</sup> (same internal-coordinate mapping as this 3D engine). inZOR-ND reaches a sub-10 meV gap far earlier than uniform sampling on this budget (e.g. first hit at probe 4 vs 141 in this batch).</p>
   </div>
 
   <div class="section">
     <h2>Figures (this 3D report’s validation run)</h2>
-    <p class="note">These plots are the ones written by <code>validate_ethylene_zor.py</code> into <code>logs/validation_regional_3seeds_20260403_155239/</code> — same batch as the tables above (3 seeds, 3D regional mode). They are <strong>not</strong> generic exports from other folders.</p>
+    <p class="note">These PNGs are emitted by <code>validate_ethylene_zor.py</code> into <code>logs/validation_regional_3seeds_20260403_155239/</code> (3 seeds, 3D regional mode) — <strong>not</strong> ad-hoc graphics from unrelated folders.</p>
+    <p class="note" style="margin-top:0.35rem;"><strong>Pooled vs per-seed:</strong> the scatter, low-gap histogram, local grid, and z sweep are built from <strong>concatenated probes</strong> across seeds (same logic as regional sections H–J in the full validation write-up). <strong>Per-seed</strong> regional metrics (sector weights, first &lt;10 meV, isolation flags, etc.) live in <code>validation_regional_3seeds_summary.json</code> — summarized in the main table above, not re-plotted here line-by-line.</p>
     <figure class="figure-block">
       <img src="figures/regional_155239_scatter_torsion_rcc_gap.png" alt="Scatter: torsion vs r_CC coloured by gap" loading="lazy" width="920" height="520">
       <figcaption><strong>Scatter (torsion, r<sub>CC</sub>)</strong> coloured by S₀–S₁ gap — pooled / regional view from that validation folder.</figcaption>
@@ -117,7 +123,7 @@
       <li>Total clusters: 15</li>
       <li>Largest cluster: ~11% of non-noise points (16 / 149)</li>
       <li>Substantial clusters (rule in JSON): 6</li>
-      <li>Multi-seed clusters: 5</li>
+      <li>Multi-seed clusters: 5 (<code>multi_seed_cluster_count</code> in <code>low_gap_clusters.json</code> for this batch)</li>
     </ul>
     <table>
       <thead><tr><th>Cluster</th><th>Torsion (°)</th><th>Size</th><th>Multi-seed</th></tr></thead>
@@ -136,22 +142,26 @@
   <div class="section">
     <h2>Interpretation</h2>
     <div class="box">
-      The system does not converge to a single minimum. Multiple quasi-degenerate regions exist. Some of these regions are consistently rediscovered across independent seeds.
+      The exploration does not collapse to a single minimum. Multiple quasi-degenerate regions appear in the pooled low-gap set. <strong>Several</strong> of these show up again on different seeds, but <strong>which region dominates</strong> (e.g. Top-<em>K</em> mass in sector A vs B) <strong>varies</strong> — so “recurrence” should be read as structured multi-basin behaviour, not uniform repetition across seeds.
     </div>
   </div>
 
   <div class="section">
     <h2>Regional consistency</h2>
     <ul class="tight">
-      <li>2 of 3 seeds show higher top-K weight in sector B than in A.</li>
-      <li>All seeds: best-gap point is not isolated in the local patch metric.</li>
-      <li>Low-gap and top-K distributions differ by seed, but structured concentration persists.</li>
+      <li>2 of 3 seeds put more Top-<em>K</em> weight in sector B than A; the third seed (137) concentrates differently — real heterogeneity between runs.</li>
+      <li>Concrete Top-<em>K</em>=50 sector-B fractions from the regional summary: ≈0.42 (seed 42), ≈0.08 (seed 137), ≈0.30 (seed 2011).</li>
+      <li>All seeds: <code>best_appears_isolated: false</code> — the best-gap geometry sits in a supported local patch (see figures + JSON).</li>
+      <li>Low-gap and top-<em>K</em> distributions differ by seed, but concentration in chemically plausible torsion bands persists.</li>
     </ul>
   </div>
 
   <div class="section">
     <h2>Reproducibility &amp; cluster stability (latest technical step)</h2>
-    <p class="note" style="margin-bottom:0.55rem;"><strong>What was added in the ZOR repo:</strong> <code>low_gap_cluster_analysis.py</code> — <code>cluster_probes_jsonl(...)</code> for one <code>probes.jsonl</code> (no multi-seed aggregation). <code>compare_low_gap_cluster_stability.py</code> — compares run A vs B (<code>--dir-a</code> / <code>--dir-b</code> or explicit paths), re-clusters low-gap points with the same DBSCAN feature space (cos/sin torsion, r<sub>CC</sub>, z<sub>lift</sub>), scales on the union of low-gap points, then reports match rate, centroid distances, approximate overlap, and verdict <strong>high</strong> / moderate / low.</p>
+    <div class="box caveat" style="margin-bottom:0.75rem;">
+      <strong>Read this limit first.</strong> The <strong>HIGH</strong> verdicts below apply when two runs produce <strong>byte-identical</strong> <code>probes.jsonl</code> (deterministic re-execution, same seed, same stack). They prove <strong>reproducibility of clustering for the same trace</strong>, not yet stability between two <em>different</em> complete explorations that yield <em>different</em> probe streams. Until such a pair exists under a declared protocol, do not over-read these rows as “hazard does not matter across independent runs.”
+    </div>
+    <p class="note" style="margin-bottom:0.55rem;"><strong>Scripts</strong> (under <code>scene_ethylene_quasidegen/</code> in the source tree): <code>low_gap_cluster_analysis.py</code> — <code>cluster_probes_jsonl(...)</code> for one <code>probes.jsonl</code> (no multi-seed aggregation). <code>compare_low_gap_cluster_stability.py</code> — compares run A vs B (<code>--dir-a</code> / <code>--dir-b</code> or explicit paths), re-clusters low-gap points with the same DBSCAN feature space (cos/sin torsion, r<sub>CC</sub>, z<sub>lift</sub>), scales on the union of low-gap points, then reports match rate, centroid distances, approximate overlap, and verdict <strong>high</strong> / moderate / low.</p>
     <table>
       <thead><tr><th>Comparison (seed 42)</th><th><code>cmp</code> on <code>probes.jsonl</code></th><th>Low-gap (&lt;0.01 eV)</th><th>Clusters A/B</th><th>Matched</th><th>Mean centroid Δ (scaled)</th><th>Verdict</th></tr></thead>
       <tbody>
@@ -161,9 +171,9 @@
     </table>
     <p class="note" style="margin-top:0.5rem;">Machine-readable output for the second row is mirrored here: <code>ethylene_3d_artifacts/cluster_stability_rerun_211825_vs_155239.json</code> and <code>ethylene_3d_artifacts/CLUSTER_STABILITY_RERUN_211825_vs_155239.txt</code>.</p>
     <div class="box ok" style="margin-top:0.75rem;">
-      <strong>Cross-seed / regional structure:</strong> already supported by the multi-seed analysis and pooled clusters above.<br>
-      <strong>Same-trace reproducibility:</strong> with identical <code>probes.jsonl</code>, low-gap DBSCAN clusters match perfectly (HIGH) — good for “deterministic stack + identical protocol”.<br>
-      <strong>Not shown here:</strong> stability between two <em>different</em> complete runs that produce different traces (would need genuinely distinct <code>probes.jsonl</code> under the same declared protocol).
+      <strong>Cross-seed structure:</strong> use the pooled cluster table + per-seed metrics above (heterogeneity is expected).<br>
+      <strong>Same-trace reproducibility:</strong> identical <code>probes.jsonl</code> → identical low-gap DBSCAN clusters here (HIGH, zero centroid drift) — validates determinism + clustering code path.<br>
+      <strong>Still open:</strong> cluster stability for two <em>different</em> non-identical traces under the same protocol (needs a deliberate second full run that actually diverges at the file level).
     </div>
   </div>
 
@@ -179,7 +189,7 @@
   <div class="section">
     <h2>Conclusion</h2>
     <div class="box">
-      ZOR reveals a structured set of quasi-degenerate configurations rather than a single optimal geometry.
+      inZOR-ND in this 3D setting reveals a <strong>structured family</strong> of quasi-degenerate configurations rather than collapse to a single optimal geometry.
     </div>
   </div>
 
