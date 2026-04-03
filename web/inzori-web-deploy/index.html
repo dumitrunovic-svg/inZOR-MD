@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZOR-ND / inZORi — Cross-Domain Scientific Discovery Engine</title>
+<meta name="description" content="inZOR-ND and inZORi: an evolutionary discovery engine validated across quantum chemistry, quantum hardware, nonlinear solvers, plasma disruption, and grid stability.">
+<style>
+  :root {
+    --primary: #1a7dc4;
+    --primary-dark: #0f5b93;
+    --success: #27ae60;
+    --warning: #e67e22;
+    --gold: #c9a227;
+    --dark: #2c3e50;
+    --light-bg: #f8f9fa;
+    --border: #dee2e6;
+    --hero-dark: #0d1f34;
+    --hero-mid: #16406a;
+    --hero-accent: #2b83d6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Segoe UI", system-ui, sans-serif; background: #fff; color: var(--dark); line-height: 1.65; }
+
+  .header {
+    background:
+      radial-gradient(circle at top right, rgba(96, 165, 250, 0.24), transparent 32%),
+      linear-gradient(135deg, var(--hero-dark) 0%, var(--hero-mid) 45%, var(--hero-accent) 100%);
+    color: #fff;
+    padding: 3rem 2rem 2.6rem;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.18);
+    border: 1px solid rgba(255, 215, 0, 0.45);
+    border-radius: 20px;
+    padding: 0.28rem 1.1rem;
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.07em;
+    color: #ffd966;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(300px, 0.95fr);
+    gap: 1.5rem;
+    align-items: end;
+  }
+  .header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 0.55rem;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+  .header .subtitle {
+    font-size: 1.08rem;
+    opacity: 0.92;
+    max-width: 760px;
+    margin-bottom: 1rem;
+    line-height: 1.55;
+  }
+  .header .meta { font-size: 0.82rem; opacity: 0.7; }
+  .hero-note {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 14px;
+    padding: 1rem 1.05rem;
+    backdrop-filter: blur(4px);
+  }
+  .hero-note h3 {
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #bfdbfe;
+    margin-bottom: 0.45rem;
+  }
+  .hero-note p { font-size: 0.93rem; margin: 0; opacity: 0.92; }
+
+  .nav-bar {
+    background: #1a3a5c;
+    padding: 0.55rem 2rem;
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-lang { display: flex; gap: 0.25rem; }
+  .nav-lang a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.82rem;
+    padding: 0.2rem 0.7rem;
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+  .nav-lang a:hover { background: rgba(255,255,255,0.12); color: #fff; }
+  .nav-lang a.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 600; }
+  .nav-tests {
+    color: #ffd700;
+    text-decoration: none;
+    font-size: 0.84rem;
+    font-weight: 700;
+    padding: 0.28rem 1rem;
+    border: 1px solid rgba(255,215,0,0.45);
+    border-radius: 14px;
+    transition: background 0.2s;
+  }
+  .nav-tests:hover { background: rgba(255,215,0,0.12); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .proof-card {
+    background: linear-gradient(135deg, #f8fbff, #eef5fb);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .proof-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+  }
+  .proof-value { font-size: 2rem; font-weight: 800; color: var(--primary); line-height: 1.05; }
+  .proof-value.gold { color: var(--gold); }
+  .proof-value.green { color: var(--success); }
+  .proof-label { font-size: 0.84rem; color: #5b6470; margin-top: 0.35rem; }
+
+  .answer-band {
+    background: linear-gradient(135deg, #fffde7, #fff9c4);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.2rem;
+  }
+  .answer-band h2 {
+    font-size: 1rem;
+    margin-bottom: 0.65rem;
+    color: #775500;
+  }
+  .answer-band ul { padding-left: 1.25rem; }
+  .answer-band li { font-size: 0.95rem; margin-bottom: 0.45rem; }
+
+  .highlight-band {
+    background: linear-gradient(135deg, #0f2743, #16406a);
+    color: #fff;
+    border-radius: 14px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 2.2rem;
+    box-shadow: 0 14px 30px rgba(26, 58, 92, 0.14);
+  }
+  .highlight-band .eyebrow {
+    color: #93c5fd;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.45rem;
+  }
+  .highlight-band p {
+    margin: 0;
+    font-size: 0.97rem;
+    opacity: 0.92;
+  }
+
+  .section { margin-bottom: 2.5rem; }
+  .section h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--dark);
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 0.4rem;
+    margin-bottom: 1.2rem;
+  }
+  .section h3 { font-size: 1rem; font-weight: 600; margin: 1.2rem 0 0.6rem; color: #34495e; }
+  p { margin-bottom: 0.8rem; }
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.8rem; }
+  li { margin-bottom: 0.35rem; font-size: 0.93rem; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .three-col { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .answer-card {
+    background: var(--light-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem 1rem 0.95rem;
+  }
+  .answer-card h3 { margin-top: 0; color: var(--primary-dark); }
+  .answer-card p { font-size: 0.92rem; color: #4f5b67; }
+
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 650px; }
+  th { background: var(--dark); color: #fff; padding: 0.65rem 1rem; text-align: left; font-weight: 600; }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:nth-child(even) td { background: var(--light-bg); }
+
+  .tests-card {
+    background: linear-gradient(135deg, #1a3a5c 0%, #1a7dc4 100%);
+    color: #fff;
+    border-radius: 14px;
+    padding: 2rem 2.2rem;
+    margin: 2rem 0;
+  }
+  .tests-card h2 { font-size: 1.3rem; margin-bottom: 0.6rem; border: none; color: #fff; padding: 0; }
+  .tests-card p { opacity: 0.88; font-size: 0.95rem; margin-bottom: 1.25rem; }
+  .tests-btn {
+    display: inline-block;
+    background: #ffd700;
+    color: #1a3a5c;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 0.6rem 1.8rem;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    transition: opacity 0.2s;
+  }
+  .tests-btn:hover { opacity: 0.88; }
+  .chips {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+  }
+  .chip {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+  .chip strong { display: block; font-size: 0.92rem; margin-bottom: 0.16rem; }
+
+  .quote-box {
+    background: linear-gradient(135deg, #eaf4fb, #ddeeff);
+    border-left: 4px solid var(--primary);
+    border-radius: 8px;
+    padding: 1.3rem 1.6rem;
+    margin: 2rem 0;
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--dark);
+  }
+
+  .footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 3rem;
+  }
+  .footer a { color: rgba(255,255,255,0.8); text-decoration: none; }
+  .footer a:hover { color: #fff; }
+  .footer p + p { margin-top: 0.4rem; }
+  code { background: #f3f4f6; padding: 1px 5px; border-radius: 3px; font-size: 0.88em; }
+  .note { font-size: 0.87rem; color: #666; }
+
+  @media (max-width: 860px) {
+    .hero-grid,
+    .two-col,
+    .three-col { grid-template-columns: 1fr; }
+    .header h1 { font-size: 2.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Cross-Domain Scientific Discovery &middot; Evolutionary Engine</div>
+  <div class="hero-grid">
+    <div>
+      <h1>inZOR-ND / inZORi</h1>
+      <div class="subtitle">
+        <strong>inZOR-ND</strong> is now the strongest public face of the project: a validated engine for hard scientific discovery problems,
+        from active space selection and quantum hardware to nonlinear solvers, plasma disruption, and grid stability.
+        <strong>inZORi</strong> is the broader evolutionary engine behind these cross-domain results.
+      </div>
+      <div class="meta">20 published studies &nbsp;&middot;&nbsp; First public test: 14 February 2026 &nbsp;&middot;&nbsp; Independent Research &nbsp;&middot;&nbsp; United Kingdom</div>
+    </div>
+    <div class="hero-note">
+      <h3>What a new visitor should know</h3>
+      <p>This project is not presented as a black-box AI claim. It is a published body of cross-domain evidence showing that the same evolutionary search logic can produce strong results on scientifically hard problems.</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-lang">
+    <a href="index.html" class="active">English</a>
+    <a href="de.html">Deutsch</a>
+    <a href="fr.html">Français</a>
+    <a href="ro.html">Română</a>
+  </div>
+  <a href="tests.html" class="nav-tests">Research Tests &rarr;</a>
+</div>
+
+<div class="container">
+
+  <div class="proof-grid">
+    <div class="proof-card">
+      <div class="proof-value">20</div>
+      <div class="proof-label">published studies currently listed</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-value gold">8/8</div>
+      <div class="proof-label">benchmarks won in active space validation</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-value green">7/7</div>
+      <div class="proof-label">IBM hardware QEC runs won</div>
+    </div>
+    <div class="proof-card">
+      <div class="proof-value">1.59&times;</div>
+      <div class="proof-label">BAWS-NR speedup across 6 domains</div>
+    </div>
+  </div>
+
+  <div class="answer-band">
+    <h2>What this project is claiming</h2>
+    <ul>
+      <li><strong>It is a scientific discovery engine</strong> that has already been validated on multiple published problem classes, not just a conceptual framework.</li>
+      <li><strong>It is strongest where search spaces are hard, objectives are implicit, or standard heuristics become fragile</strong> under the same tested workflow.</li>
+      <li><strong>It is not presented as magic or universal SOTA</strong>; the claim is that the same evolutionary engine repeatedly finds useful solutions across very different domains.</li>
+    </ul>
+  </div>
+
+  <div class="highlight-band">
+    <div class="eyebrow">Current flagship message</div>
+    <p><strong>inZOR-ND</strong> now anchors the public scientific story: active space selection validated on 8 benchmarks, supported by equally strong public results in IBM quantum hardware, universal Newton-Raphson acceleration, plasma disruption law discovery, and critical-threshold grid stability.</p>
+  </div>
+
+  <div class="section" id="what-it-is-now">
+    <h2>1. What the project is today</h2>
+    <p><strong>inZORi</strong> is the general evolutionary engine. <strong>inZOR-ND</strong> is one of its strongest public scientific validations: automatic active space selection for CASSCF / SA-CASSCF, benchmarked across dissociation curves, transition-metal chemistry, excited states, and large combinatorial spaces.</p>
+    <p>More broadly, the same engine has already been used in published studies across:</p>
+    <ul>
+      <li><strong>Quantum chemistry:</strong> active space discovery, including 8/8 benchmark validation</li>
+      <li><strong>Quantum hardware:</strong> hardware-native quantum error correction on IBM devices</li>
+      <li><strong>Numerical methods:</strong> BAWS-NR warm-start acceleration across 6 independent domains</li>
+      <li><strong>Plasma physics:</strong> machine-agnostic disruption proximity law discovery</li>
+      <li><strong>Power systems:</strong> grid stability, N-1 security, and capacity-boundary studies</li>
+    </ul>
+  </div>
+
+  <div class="section" id="why-it-matters">
+    <h2>2. Why this matters</h2>
+    <div class="three-col">
+      <div class="answer-card">
+        <h3>Hard search spaces</h3>
+        <p>The strongest public results are not toy examples. They involve large combinatorial spaces, multi-geometry consistency, difficult convergence regimes, or real hardware constraints.</p>
+      </div>
+      <div class="answer-card">
+        <h3>Useful where heuristics weaken</h3>
+        <p>The engine is especially relevant where fixed heuristics, handcrafted priors, or standard solver setups become brittle under the same protocol.</p>
+      </div>
+      <div class="answer-card">
+        <h3>One engine, many domains</h3>
+        <p>The public evidence is not confined to one niche. The same underlying search logic appears in chemistry, quantum hardware, solvers, plasma physics, and energy systems.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="proof">
+    <h2>3. What has already been demonstrated publicly</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Flagship study</th>
+            <th>Published evidence</th>
+            <th>Why it is important</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>inZOR-ND active space validation</strong></td>
+            <td>8/8 benchmarks, 6 molecular systems, up to 430 kcal/mol advantage, only method converged on all systems under the tested workflow</td>
+            <td>Shows the engine can solve a hard scientific selection problem where orbital choice is usually fragile and manually tuned</td>
+          </tr>
+          <tr>
+            <td><strong>IBM hardware-native QEC</strong></td>
+            <td>7/7 IBM hardware runs won, shallower circuits than Steane on Heron hardware</td>
+            <td>Demonstrates hardware-aware discovery rather than only simulation success</td>
+          </tr>
+          <tr>
+            <td><strong>BAWS-NR universal</strong></td>
+            <td>1.59&times; mean speedup across 6 domains, 142,056 converged solves, convergence preserved</td>
+            <td>Shows the same engine can improve nonlinear numerical workflows, not only scientific ranking problems</td>
+          </tr>
+          <tr>
+            <td><strong>Fusion disruption law</strong></td>
+            <td>Cross-machine law derived from plasma current dynamics, validated on MAST, C-Mod, and HL-2A</td>
+            <td>Suggests interpretable discovery of compact scientific laws, not just black-box prediction</td>
+          </tr>
+          <tr>
+            <td><strong>PF&Delta; grid studies</strong></td>
+            <td>Critical threshold result at 99.9% vs 0% on a 1354-bus Pan-European grid benchmark</td>
+            <td>Shows relevance in operationally meaningful regimes, not just under easy conditions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="how-it-works">
+    <h2>4. How it works at brochure level</h2>
+    <p>The public explanation is intentionally simple:</p>
+    <ol>
+      <li><strong>A domain defines the environment and evaluator.</strong> The problem can be a molecule, a circuit family, a nonlinear solve, a plasma indicator, or a grid scenario.</li>
+      <li><strong>A population-based evolutionary search explores candidate solutions.</strong> Candidates are evaluated under the domain-specific protocol rather than by a one-size-fits-all reward formula.</li>
+      <li><strong>Selection pressure keeps what remains viable.</strong> Better-performing candidates survive, recombine, and continue exploring the space.</li>
+      <li><strong>The same engine can be reused across domains.</strong> What changes is the evaluator and the problem framing, not the core search idea.</li>
+    </ol>
+    <p class="note">This page deliberately stays at brochure level. It explains enough to be credible while leaving implementation details to the published studies and reproducible test pages.</p>
+  </div>
+
+  <div class="section" id="fit">
+    <h2>5. Where this engine is strongest</h2>
+    <div class="two-col">
+      <div>
+        <h3>&#10003; Strong at</h3>
+        <ul>
+          <li><strong>Combinatorial discovery problems</strong> where the useful structure is hard to write down in advance</li>
+          <li><strong>Implicit or evaluator-defined objectives</strong> where success is best measured by simulation, convergence, or physical validity</li>
+          <li><strong>Cross-domain reuse</strong> of the same search engine with different evaluators</li>
+          <li><strong>Scientific problems where fixed heuristics degrade</strong> at the hard edge of the workflow</li>
+        </ul>
+      </div>
+      <div>
+        <h3>&#10007; Not the right fit for</h3>
+        <ul>
+          <li><strong>Simple one-shot inference tasks</strong> where a direct model lookup is the real need</li>
+          <li><strong>Problems with a single trivial optimum</strong> where evolutionary search adds no value</li>
+          <li><strong>Ultra-low-latency settings</strong> where there is no room for iterative search</li>
+          <li><strong>Claims of universal superiority</strong> on every benchmark class; that is not the project message</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tests-card" id="tests">
+    <h2>Research Tests &amp; Empirical Validation</h2>
+    <p>The project currently lists <strong>20 published studies</strong>. The strongest public evidence is concentrated in flagship results that already answer the most important external questions: does it work, on what kinds of problems, and where is it better than conventional baselines?</p>
+    <a href="tests.html" class="tests-btn">View all research tests &rarr;</a>
+    <div class="chips">
+      <div class="chip"><strong>inZOR-ND Active Space</strong>8/8 benchmarks · 6 molecular systems · only method converged on all tested systems</div>
+      <div class="chip"><strong>IBM Hardware QEC</strong>7/7 hardware runs won · hardware-native circuits on Heron</div>
+      <div class="chip"><strong>BAWS-NR Universal</strong>1.59&times; speedup · 6 domains · 142,056 converged solves</div>
+      <div class="chip"><strong>Fusion Disruption Law</strong>Cross-machine discovery from plasma current dynamics alone</div>
+      <div class="chip"><strong>PF&Delta; Phase 6</strong>99.9% vs 0% at the critical threshold on a 1354-bus grid</div>
+      <div class="chip"><strong>ENTSO-E Real Load</strong>Validation on Romania, Germany, and France real consumption profiles</div>
+    </div>
+  </div>
+
+  <div class="section" id="stage">
+    <h2>6. Current stage</h2>
+    <ul>
+      <li><strong>Status:</strong> active research program with a growing published evidence base across quantum chemistry, quantum hardware, nonlinear numerics, plasma physics, and power systems.</li>
+      <li><strong>What exists:</strong> a unified solver (<code>zor_task_solver</code>), domain-specific evaluators, raw results, HTML reports, and multiple DOI-backed studies.</li>
+      <li><strong>Public positioning today:</strong> <strong>inZOR-ND</strong> is the strongest current scientific entry point, while <strong>inZORi</strong> remains the broader engine behind the cross-domain program.</li>
+      <li><strong>Documentation model:</strong> this page is the high-level overview; detailed evidence lives in the published test pages.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>7. Contact</h2>
+    <p>For feedback, collaboration, or technical questions:</p>
+    <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com" style="color:var(--primary);">dumitru.novic@gmail.com</a></p>
+    <p class="note">Researchers, technical teams, and partners can reuse or adapt this high-level presentation while keeping the published study pages as the evidence layer.</p>
+  </div>
+
+  <div class="quote-box">
+    "inZORi doesn't simulate evolution — it implements it. inZOR-ND shows what that can already do on hard scientific problems."
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>inZOR-ND / inZORi &mdash; Cross-Domain Scientific Discovery</p>
+  <p>Since first public test: 14 February 2026 &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. All rights reserved.</p>
+</div>
+
+<script data-goatcounter="https://inzornd.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

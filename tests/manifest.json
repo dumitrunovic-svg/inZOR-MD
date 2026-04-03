@@ -15,6 +15,7 @@
         "Motivation: gaps are cheap sentinels for active-space pathology before expensive PEC or large-CAS work",
         "H₂: inZOR-ND gap monotone over 7 bond lengths; NOON selection shows a ~18 eV spike at R=2.0 Å in the saved snapshot",
         "Ethylene (ZOR): evolutionary exploration with SA-CASSCF(2,2) signals; validation across seeds/controls/grids; legacy vs local_coherent vs dwell_coherent",
+        "Ethylene 3D (ZOR): dedicated short report with tables, cluster analysis, ZOR vs random, reproducibility — link “Ethylene (3D): tables + clusters + JSON”",
         "inZOR-ND comparative remains the citation target for discrete CAS search; ZOR explores the same chemical stress in a continuous ALife setting"
       ],
       "metrics": {
@@ -42,6 +43,18 @@
           "label": "Full unified report",
           "url": "tests/qc_gaps_h2_ethylene_unified/index.html",
           "primary": true
+        },
+        {
+          "label": "Ethylene (3D): tables + clusters + JSON",
+          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html"
+        },
+        {
+          "label": "Ethylene 3D — validation_report.json",
+          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_artifacts/validation_report.json"
+        },
+        {
+          "label": "Ethylene 3D — low_gap_clusters.json",
+          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_artifacts/low_gap_clusters.json"
         },
         {
           "label": "Raw H₂ JSON",

@@ -1,0 +1,1325 @@
+{
+  "seeds": [
+    42,
+    137,
+    2011
+  ],
+  "n_dims": 3,
+  "score_variant": "legacy",
+  "zor": [
+    {
+      "run_dir": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42",
+      "seed": 42,
+      "score_variant": "legacy",
+      "summary": {
+        "n_probes": 7116,
+        "unique_geometries": 9493,
+        "steps_done": 15,
+        "steps_total": 15,
+        "total_time_s": 585.5080952644348,
+        "best_gap_ev": 0.00026489130484698626,
+        "torsion_visit_histogram_15deg": {
+          "0": 297,
+          "15": 408,
+          "30": 381,
+          "45": 159,
+          "60": 145,
+          "75": 258,
+          "90": 114,
+          "105": 223,
+          "120": 243,
+          "135": 215,
+          "150": 174,
+          "165": 201,
+          "180": 171,
+          "195": 267,
+          "210": 488,
+          "225": 590,
+          "240": 524,
+          "255": 770,
+          "270": 363,
+          "285": 229,
+          "300": 348,
+          "315": 258,
+          "330": 108,
+          "345": 135,
+          "360": 47
+        },
+        "low_gap_counts_lt_1ev": {
+          "0": 51,
+          "15": 392,
+          "30": 376,
+          "45": 17,
+          "60": 126,
+          "75": 258,
+          "90": 114,
+          "105": 111,
+          "120": 55,
+          "135": 214,
+          "150": 157,
+          "165": 71,
+          "180": 3,
+          "195": 209,
+          "210": 467,
+          "225": 105,
+          "240": 468,
+          "255": 770,
+          "270": 363,
+          "285": 176,
+          "300": 86,
+          "315": 254,
+          "330": 107,
+          "345": 2
+        },
+        "best_regions_top10": [
+          {
+            "torsion_deg": 335.1698368469512,
+            "r_cc": 1.3127515280211477,
+            "z_lift": -0.06841104721830016,
+            "gap_ev": 0.008469692517700841,
+            "food": 1.095406639678782
+          },
+          {
+            "torsion_deg": 261.8117064043584,
+            "r_cc": 1.3810128689467664,
+            "z_lift": 0.011101922261739184,
+            "gap_ev": 0.009452274481743891,
+            "food": 1.095177660805451
+          },
+          {
+            "torsion_deg": 168.9290392244301,
+            "r_cc": 1.412830767764752,
+            "z_lift": 0.05518665785145993,
+            "gap_ev": 0.0016133184551380794,
+            "food": 1.0936509609554899
+          },
+          {
+            "torsion_deg": 70.43365974904555,
+            "r_cc": 1.4055491698946376,
+            "z_lift": -0.06463905261881214,
+            "gap_ev": 0.0011711484576991372,
+            "food": 1.08842425500603
+          },
+          {
+            "torsion_deg": 70.07798365764178,
+            "r_cc": 1.4055491698946376,
+            "z_lift": -0.03209107863519114,
+            "gap_ev": 0.002287376390906789,
+            "food": 1.0881850677964044
+          },
+          {
+            "torsion_deg": 33.63935097177003,
+            "r_cc": 1.4055491698946376,
+            "z_lift": -0.04828602649557858,
+            "gap_ev": 0.010064383142753973,
+            "food": 1.087290424179526
+          },
+          {
+            "torsion_deg": 147.40025997433804,
+            "r_cc": 1.412830767764752,
+            "z_lift": 0.04561831151808567,
+            "gap_ev": 0.02909478223844807,
+            "food": 1.08528854394059
+          },
+          {
+            "torsion_deg": 70.43365974904555,
+            "r_cc": 1.4078717915607755,
+            "z_lift": -0.06480976580084125,
+            "gap_ev": 0.0007775367138166042,
+            "food": 1.0845431515669408
+          },
+          {
+            "torsion_deg": 70.43365974904555,
+            "r_cc": 1.419858067752467,
+            "z_lift": -0.04828602649557858,
+            "gap_ev": 0.008270789070818421,
+            "food": 1.084408174589795
+          },
+          {
+            "torsion_deg": 261.8117064043584,
+            "r_cc": 1.3810128689467664,
+            "z_lift": 0.010866537733119835,
+            "gap_ev": 0.010278810001468923,
+            "food": 1.0843722704942818
+          }
+        ],
+        "score_variant": "legacy"
+      },
+      "best_gap_ev": 0.00026489130484698626,
+      "final_population": 29,
+      "n_probes": 7116,
+      "unique_geometries": 9493,
+      "steps_done": 15,
+      "total_time_s": 585.5080952644348,
+      "best_regions_top10": [
+        {
+          "torsion_deg": 335.1698368469512,
+          "r_cc": 1.3127515280211477,
+          "z_lift": -0.06841104721830016,
+          "gap_ev": 0.008469692517700841,
+          "food": 1.095406639678782
+        },
+        {
+          "torsion_deg": 261.8117064043584,
+          "r_cc": 1.3810128689467664,
+          "z_lift": 0.011101922261739184,
+          "gap_ev": 0.009452274481743891,
+          "food": 1.095177660805451
+        },
+        {
+          "torsion_deg": 168.9290392244301,
+          "r_cc": 1.412830767764752,
+          "z_lift": 0.05518665785145993,
+          "gap_ev": 0.0016133184551380794,
+          "food": 1.0936509609554899
+        },
+        {
+          "torsion_deg": 70.43365974904555,
+          "r_cc": 1.4055491698946376,
+          "z_lift": -0.06463905261881214,
+          "gap_ev": 0.0011711484576991372,
+          "food": 1.08842425500603
+        },
+        {
+          "torsion_deg": 70.07798365764178,
+          "r_cc": 1.4055491698946376,
+          "z_lift": -0.03209107863519114,
+          "gap_ev": 0.002287376390906789,
+          "food": 1.0881850677964044
+        },
+        {
+          "torsion_deg": 33.63935097177003,
+          "r_cc": 1.4055491698946376,
+          "z_lift": -0.04828602649557858,
+          "gap_ev": 0.010064383142753973,
+          "food": 1.087290424179526
+        },
+        {
+          "torsion_deg": 147.40025997433804,
+          "r_cc": 1.412830767764752,
+          "z_lift": 0.04561831151808567,
+          "gap_ev": 0.02909478223844807,
+          "food": 1.08528854394059
+        },
+        {
+          "torsion_deg": 70.43365974904555,
+          "r_cc": 1.4078717915607755,
+          "z_lift": -0.06480976580084125,
+          "gap_ev": 0.0007775367138166042,
+          "food": 1.0845431515669408
+        },
+        {
+          "torsion_deg": 70.43365974904555,
+          "r_cc": 1.419858067752467,
+          "z_lift": -0.04828602649557858,
+          "gap_ev": 0.008270789070818421,
+          "food": 1.084408174589795
+        },
+        {
+          "torsion_deg": 261.8117064043584,
+          "r_cc": 1.3810128689467664,
+          "z_lift": 0.010866537733119835,
+          "gap_ev": 0.010278810001468923,
+          "food": 1.0843722704942818
+        }
+      ],
+      "torsion_histogram": {
+        "0": 297,
+        "15": 408,
+        "30": 381,
+        "45": 159,
+        "60": 145,
+        "75": 258,
+        "90": 114,
+        "105": 223,
+        "120": 243,
+        "135": 215,
+        "150": 174,
+        "165": 201,
+        "180": 171,
+        "195": 267,
+        "210": 488,
+        "225": 590,
+        "240": 524,
+        "255": 770,
+        "270": 363,
+        "285": 229,
+        "300": 348,
+        "315": 258,
+        "330": 108,
+        "345": 135,
+        "360": 47
+      },
+      "probes_path": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42/probes.jsonl",
+      "low_gap_spread_50mev": {
+        "n": 557,
+        "std_deg": 88.352095449901,
+        "range_deg": 312.4561877663094
+      },
+      "zone_flags": {
+        "top10_any_torsion_sector_A": false,
+        "top10_any_torsion_sector_B": true,
+        "top10_low_gap_sector_A": false,
+        "top10_low_gap_sector_B": true,
+        "best_gap_below_5mev": true
+      },
+      "best_gap_geometry": {
+        "torsion_deg": 142.7940411578215,
+        "r_cc": 1.362052756384852,
+        "z_lift": -0.04090664299256123,
+        "gap_ev": 0.00026489130484698626
+      },
+      "best_gap_in_sector_A": false,
+      "best_gap_in_sector_B": false,
+      "best_gap_dist_to_sector_A_deg": 37.79404115782151,
+      "best_gap_dist_to_sector_B_deg": 97.20595884217849,
+      "best_gap_min_dist_AB_deg": 37.79404115782151,
+      "first_probe_index_gap_lt_10mev": 4,
+      "frac_visits_sector_A": 0.08361439010680158,
+      "frac_visits_sector_B": 0.2650365373805509
+    },
+    {
+      "run_dir": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_137",
+      "seed": 137,
+      "score_variant": "legacy",
+      "summary": {
+        "n_probes": 6594,
+        "unique_geometries": 8269,
+        "steps_done": 15,
+        "steps_total": 15,
+        "total_time_s": 488.2280983924866,
+        "best_gap_ev": 0.0002041247263981828,
+        "torsion_visit_histogram_15deg": {
+          "0": 118,
+          "15": 194,
+          "30": 505,
+          "45": 325,
+          "60": 621,
+          "75": 664,
+          "90": 289,
+          "105": 194,
+          "120": 220,
+          "135": 80,
+          "150": 201,
+          "165": 190,
+          "180": 398,
+          "195": 489,
+          "210": 434,
+          "225": 202,
+          "240": 328,
+          "255": 138,
+          "270": 397,
+          "285": 443,
+          "300": 142,
+          "315": 16,
+          "330": 5,
+          "345": 1
+        },
+        "low_gap_counts_lt_1ev": {
+          "0": 11,
+          "15": 190,
+          "30": 499,
+          "45": 74,
+          "60": 595,
+          "75": 664,
+          "90": 289,
+          "105": 154,
+          "120": 93,
+          "135": 64,
+          "150": 201,
+          "165": 149,
+          "180": 312,
+          "195": 418,
+          "210": 425,
+          "225": 92,
+          "240": 267,
+          "255": 138,
+          "270": 397,
+          "285": 423,
+          "300": 25,
+          "315": 16,
+          "330": 5
+        },
+        "best_regions_top10": [
+          {
+            "torsion_deg": 171.1037319090075,
+            "r_cc": 1.42,
+            "z_lift": 0.06288966837484194,
+            "gap_ev": 0.010384716400199693,
+            "food": 1.0942358886064212
+          },
+          {
+            "torsion_deg": 171.1037319090075,
+            "r_cc": 1.42,
+            "z_lift": 0.058436359053354765,
+            "gap_ev": 0.01740187894211045,
+            "food": 1.0908304222579035
+          },
+          {
+            "torsion_deg": 17.865862579445135,
+            "r_cc": 1.372662484105946,
+            "z_lift": 0.07060415252475992,
+            "gap_ev": 0.010986651662662264,
+            "food": 1.0903314054120317
+          },
+          {
+            "torsion_deg": 17.865862579445135,
+            "r_cc": 1.372662484105946,
+            "z_lift": 0.07075786212450706,
+            "gap_ev": 0.010683071253431741,
+            "food": 1.0893391101510352
+          },
+          {
+            "torsion_deg": 39.48939728715136,
+            "r_cc": 1.3304862247613423,
+            "z_lift": -0.03701577575593033,
+            "gap_ev": 0.0034471060817571468,
+            "food": 1.0888610095719153
+          },
+          {
+            "torsion_deg": 72.65663595210798,
+            "r_cc": 1.297333465760838,
+            "z_lift": -0.057340482251655514,
+            "gap_ev": 0.009774303374446272,
+            "food": 1.0843280960276611
+          },
+          {
+            "torsion_deg": 72.65663595210798,
+            "r_cc": 1.3058039317013947,
+            "z_lift": -0.03999037925552135,
+            "gap_ev": 0.031157301653586076,
+            "food": 1.0839411978594566
+          },
+          {
+            "torsion_deg": 72.65663595210798,
+            "r_cc": 1.298190246540393,
+            "z_lift": -0.06099730722732609,
+            "gap_ev": 0.030703154277562546,
+            "food": 1.0794823928723412
+          },
+          {
+            "torsion_deg": 17.865862579445135,
+            "r_cc": 1.372662484105946,
+            "z_lift": 0.05528378082942276,
+            "gap_ev": 0.04118382258212036,
+            "food": 1.0785991208455237
+          },
+          {
+            "torsion_deg": 110.89784658632975,
+            "r_cc": 1.3306393083375607,
+            "z_lift": 0.07959304314004623,
+            "gap_ev": 0.03716218344647785,
+            "food": 1.0785458565176613
+          }
+        ],
+        "score_variant": "legacy"
+      },
+      "best_gap_ev": 0.0002041247263981828,
+      "final_population": 29,
+      "n_probes": 6594,
+      "unique_geometries": 8269,
+      "steps_done": 15,
+      "total_time_s": 488.2280983924866,
+      "best_regions_top10": [
+        {
+          "torsion_deg": 171.1037319090075,
+          "r_cc": 1.42,
+          "z_lift": 0.06288966837484194,
+          "gap_ev": 0.010384716400199693,
+          "food": 1.0942358886064212
+        },
+        {
+          "torsion_deg": 171.1037319090075,
+          "r_cc": 1.42,
+          "z_lift": 0.058436359053354765,
+          "gap_ev": 0.01740187894211045,
+          "food": 1.0908304222579035
+        },
+        {
+          "torsion_deg": 17.865862579445135,
+          "r_cc": 1.372662484105946,
+          "z_lift": 0.07060415252475992,
+          "gap_ev": 0.010986651662662264,
+          "food": 1.0903314054120317
+        },
+        {
+          "torsion_deg": 17.865862579445135,
+          "r_cc": 1.372662484105946,
+          "z_lift": 0.07075786212450706,
+          "gap_ev": 0.010683071253431741,
+          "food": 1.0893391101510352
+        },
+        {
+          "torsion_deg": 39.48939728715136,
+          "r_cc": 1.3304862247613423,
+          "z_lift": -0.03701577575593033,
+          "gap_ev": 0.0034471060817571468,
+          "food": 1.0888610095719153
+        },
+        {
+          "torsion_deg": 72.65663595210798,
+          "r_cc": 1.297333465760838,
+          "z_lift": -0.057340482251655514,
+          "gap_ev": 0.009774303374446272,
+          "food": 1.0843280960276611
+        },
+        {
+          "torsion_deg": 72.65663595210798,
+          "r_cc": 1.3058039317013947,
+          "z_lift": -0.03999037925552135,
+          "gap_ev": 0.031157301653586076,
+          "food": 1.0839411978594566
+        },
+        {
+          "torsion_deg": 72.65663595210798,
+          "r_cc": 1.298190246540393,
+          "z_lift": -0.06099730722732609,
+          "gap_ev": 0.030703154277562546,
+          "food": 1.0794823928723412
+        },
+        {
+          "torsion_deg": 17.865862579445135,
+          "r_cc": 1.372662484105946,
+          "z_lift": 0.05528378082942276,
+          "gap_ev": 0.04118382258212036,
+          "food": 1.0785991208455237
+        },
+        {
+          "torsion_deg": 110.89784658632975,
+          "r_cc": 1.3306393083375607,
+          "z_lift": 0.07959304314004623,
+          "gap_ev": 0.03716218344647785,
+          "food": 1.0785458565176613
+        }
+      ],
+      "torsion_histogram": {
+        "0": 118,
+        "15": 194,
+        "30": 505,
+        "45": 325,
+        "60": 621,
+        "75": 664,
+        "90": 289,
+        "105": 194,
+        "120": 220,
+        "135": 80,
+        "150": 201,
+        "165": 190,
+        "180": 398,
+        "195": 489,
+        "210": 434,
+        "225": 202,
+        "240": 328,
+        "255": 138,
+        "270": 397,
+        "285": 443,
+        "300": 142,
+        "315": 16,
+        "330": 5,
+        "345": 1
+      },
+      "probes_path": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_137/probes.jsonl",
+      "low_gap_spread_50mev": {
+        "n": 577,
+        "std_deg": 75.90500368517812,
+        "range_deg": 317.6224842814048
+      },
+      "zone_flags": {
+        "top10_any_torsion_sector_A": false,
+        "top10_any_torsion_sector_B": false,
+        "top10_low_gap_sector_A": false,
+        "top10_low_gap_sector_B": false,
+        "best_gap_below_5mev": true
+      },
+      "best_gap_geometry": {
+        "torsion_deg": 73.36325698739738,
+        "r_cc": 1.3458719639656294,
+        "z_lift": 0.04574659829754756,
+        "gap_ev": 0.0002041247263981828
+      },
+      "best_gap_in_sector_A": false,
+      "best_gap_in_sector_B": false,
+      "best_gap_dist_to_sector_A_deg": 1.6367430126026221,
+      "best_gap_dist_to_sector_B_deg": 166.6367430126026,
+      "best_gap_min_dist_AB_deg": 1.6367430126026221,
+      "first_probe_index_gap_lt_10mev": 87,
+      "frac_visits_sector_A": 0.17394601152562936,
+      "frac_visits_sector_B": 0.1980588413709433
+    },
+    {
+      "run_dir": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_2011",
+      "seed": 2011,
+      "score_variant": "legacy",
+      "summary": {
+        "n_probes": 6442,
+        "unique_geometries": 8542,
+        "steps_done": 15,
+        "steps_total": 15,
+        "total_time_s": 496.48548793792725,
+        "best_gap_ev": 0.000731958354714177,
+        "torsion_visit_histogram_15deg": {
+          "0": 116,
+          "15": 199,
+          "30": 286,
+          "45": 121,
+          "60": 315,
+          "75": 300,
+          "90": 381,
+          "105": 346,
+          "120": 205,
+          "135": 109,
+          "150": 240,
+          "165": 157,
+          "180": 242,
+          "195": 253,
+          "210": 525,
+          "225": 244,
+          "240": 271,
+          "255": 383,
+          "270": 214,
+          "285": 105,
+          "300": 156,
+          "315": 303,
+          "330": 573,
+          "345": 313,
+          "360": 85
+        },
+        "low_gap_counts_lt_1ev": {
+          "0": 12,
+          "15": 162,
+          "30": 279,
+          "45": 4,
+          "60": 297,
+          "75": 300,
+          "90": 381,
+          "105": 337,
+          "120": 136,
+          "135": 109,
+          "150": 184,
+          "195": 74,
+          "210": 525,
+          "225": 80,
+          "240": 205,
+          "255": 383,
+          "270": 214,
+          "285": 95,
+          "300": 34,
+          "315": 253,
+          "330": 573,
+          "345": 313,
+          "360": 74
+        },
+        "best_regions_top10": [
+          {
+            "torsion_deg": 106.6971197462514,
+            "r_cc": 1.3094927143338373,
+            "z_lift": -0.02836320447368652,
+            "gap_ev": 0.03083431888404788,
+            "food": 0.9181502728224682
+          },
+          {
+            "torsion_deg": 155.55697021193873,
+            "r_cc": 1.3148022187796158,
+            "z_lift": 0.08,
+            "gap_ev": 0.0019789445535301586,
+            "food": 0.9143053177019008
+          },
+          {
+            "torsion_deg": 106.83919247817862,
+            "r_cc": 1.3297924562100052,
+            "z_lift": 0.021808674602224104,
+            "gap_ev": 0.02660686963576923,
+            "food": 0.9110053118435781
+          },
+          {
+            "torsion_deg": 106.43139394779541,
+            "r_cc": 1.3094927143338373,
+            "z_lift": -0.02848130482855585,
+            "gap_ev": 0.052613048805065524,
+            "food": 0.9082113488942373
+          },
+          {
+            "torsion_deg": 72.15703513961935,
+            "r_cc": 1.3036801005134067,
+            "z_lift": -0.021751603349561693,
+            "gap_ev": 0.014590599334940163,
+            "food": 0.9052455528214267
+          },
+          {
+            "torsion_deg": 278.83694423624485,
+            "r_cc": 1.42,
+            "z_lift": -0.07343653751745136,
+            "gap_ev": 0.009933716007333337,
+            "food": 0.9051690416303076
+          },
+          {
+            "torsion_deg": 106.43139394779541,
+            "r_cc": 1.3094927143338373,
+            "z_lift": -0.04871445545882067,
+            "gap_ev": 0.020443250975078806,
+            "food": 0.9049988013480742
+          },
+          {
+            "torsion_deg": 251.61425668955226,
+            "r_cc": 1.2957657587513187,
+            "z_lift": 0.020252807346807594,
+            "gap_ev": 0.0500325241219792,
+            "food": 0.9041777514527641
+          },
+          {
+            "torsion_deg": 278.83694423624485,
+            "r_cc": 1.42,
+            "z_lift": -0.08,
+            "gap_ev": 0.02303758341118087,
+            "food": 0.9037555117877845
+          },
+          {
+            "torsion_deg": 250.9444786577307,
+            "r_cc": 1.3093091990114833,
+            "z_lift": -0.02588416584850326,
+            "gap_ev": 0.05467107744197069,
+            "food": 0.902694668599718
+          }
+        ],
+        "score_variant": "legacy"
+      },
+      "best_gap_ev": 0.000731958354714177,
+      "final_population": 28,
+      "n_probes": 6442,
+      "unique_geometries": 8542,
+      "steps_done": 15,
+      "total_time_s": 496.48548793792725,
+      "best_regions_top10": [
+        {
+          "torsion_deg": 106.6971197462514,
+          "r_cc": 1.3094927143338373,
+          "z_lift": -0.02836320447368652,
+          "gap_ev": 0.03083431888404788,
+          "food": 0.9181502728224682
+        },
+        {
+          "torsion_deg": 155.55697021193873,
+          "r_cc": 1.3148022187796158,
+          "z_lift": 0.08,
+          "gap_ev": 0.0019789445535301586,
+          "food": 0.9143053177019008
+        },
+        {
+          "torsion_deg": 106.83919247817862,
+          "r_cc": 1.3297924562100052,
+          "z_lift": 0.021808674602224104,
+          "gap_ev": 0.02660686963576923,
+          "food": 0.9110053118435781
+        },
+        {
+          "torsion_deg": 106.43139394779541,
+          "r_cc": 1.3094927143338373,
+          "z_lift": -0.02848130482855585,
+          "gap_ev": 0.052613048805065524,
+          "food": 0.9082113488942373
+        },
+        {
+          "torsion_deg": 72.15703513961935,
+          "r_cc": 1.3036801005134067,
+          "z_lift": -0.021751603349561693,
+          "gap_ev": 0.014590599334940163,
+          "food": 0.9052455528214267
+        },
+        {
+          "torsion_deg": 278.83694423624485,
+          "r_cc": 1.42,
+          "z_lift": -0.07343653751745136,
+          "gap_ev": 0.009933716007333337,
+          "food": 0.9051690416303076
+        },
+        {
+          "torsion_deg": 106.43139394779541,
+          "r_cc": 1.3094927143338373,
+          "z_lift": -0.04871445545882067,
+          "gap_ev": 0.020443250975078806,
+          "food": 0.9049988013480742
+        },
+        {
+          "torsion_deg": 251.61425668955226,
+          "r_cc": 1.2957657587513187,
+          "z_lift": 0.020252807346807594,
+          "gap_ev": 0.0500325241219792,
+          "food": 0.9041777514527641
+        },
+        {
+          "torsion_deg": 278.83694423624485,
+          "r_cc": 1.42,
+          "z_lift": -0.08,
+          "gap_ev": 0.02303758341118087,
+          "food": 0.9037555117877845
+        },
+        {
+          "torsion_deg": 250.9444786577307,
+          "r_cc": 1.3093091990114833,
+          "z_lift": -0.02588416584850326,
+          "gap_ev": 0.05467107744197069,
+          "food": 0.902694668599718
+        }
+      ],
+      "torsion_histogram": {
+        "0": 116,
+        "15": 199,
+        "30": 286,
+        "45": 121,
+        "60": 315,
+        "75": 300,
+        "90": 381,
+        "105": 346,
+        "120": 205,
+        "135": 109,
+        "150": 240,
+        "165": 157,
+        "180": 242,
+        "195": 253,
+        "210": 525,
+        "225": 244,
+        "240": 271,
+        "255": 383,
+        "270": 214,
+        "285": 105,
+        "300": 156,
+        "315": 303,
+        "330": 573,
+        "345": 313,
+        "360": 85
+      },
+      "probes_path": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_2011/probes.jsonl",
+      "low_gap_spread_50mev": {
+        "n": 195,
+        "std_deg": 111.65101516278813,
+        "range_deg": 331.54250289106574
+      },
+      "zone_flags": {
+        "top10_any_torsion_sector_A": false,
+        "top10_any_torsion_sector_B": true,
+        "top10_low_gap_sector_A": false,
+        "top10_low_gap_sector_B": true,
+        "best_gap_below_5mev": true
+      },
+      "best_gap_geometry": {
+        "torsion_deg": 208.67866556229959,
+        "r_cc": 1.2839647487502492,
+        "z_lift": 0.07105849222596067,
+        "gap_ev": 0.000731958354714177
+      },
+      "best_gap_in_sector_A": false,
+      "best_gap_in_sector_B": false,
+      "best_gap_dist_to_sector_A_deg": 103.67866556229959,
+      "best_gap_dist_to_sector_B_deg": 31.321334437700415,
+      "best_gap_min_dist_AB_deg": 31.321334437700415,
+      "first_probe_index_gap_lt_10mev": 316,
+      "frac_visits_sector_A": 0.15942253958398014,
+      "frac_visits_sector_B": 0.15104004967401427
+    }
+  ],
+  "control_uniform": {
+    "n_eval": 8768,
+    "wall_time_s": 2716.821190595627,
+    "best_gap_ev": 0.0005724404710098184,
+    "mean_gap_ev": 0.8645533414278594,
+    "n_converged": 8675,
+    "first_eval_index_gap_lt_10mev": 141,
+    "first_eval_index_gap_lt_50mev": 117,
+    "visit_fraction_sector_A": 0.12703170028818445,
+    "visit_fraction_sector_B": 0.16518731988472624,
+    "among_gap_lt_50mev_fraction_in_A": 0.1906474820143885,
+    "among_gap_lt_50mev_fraction_in_B": 0.18345323741007194,
+    "n_gap_lt_50mev": 278
+  },
+  "local_coherence": {
+    "n_dims": 3,
+    "center": {
+      "torsion_deg": 73.36325698739738,
+      "r_cc": 1.3458719639656294,
+      "z_lift": 0.04574659829754756,
+      "gap_ev": 0.0002041247263981828
+    },
+    "d_tor_deg": 4.0,
+    "d_r_angstrom": 0.006,
+    "grid_torsion_deg": [
+      65.36325698739738,
+      69.36325698739738,
+      73.36325698739738,
+      77.36325698739738,
+      81.36325698739738
+    ],
+    "grid_r_cc": [
+      1.3338719639656293,
+      1.3398719639656294,
+      1.3458719639656294,
+      1.3518719639656294,
+      1.3578719639656294
+    ],
+    "gap_matrix_ev": [
+      [
+        0.6061463244568553,
+        0.6613168911420217,
+        0.7160338948853696,
+        0.7703080249814656,
+        0.8241024006114481
+      ],
+      [
+        0.2248341566128614,
+        0.28097659302670147,
+        0.3366763468719046,
+        0.39197419330403005,
+        0.44676923157269177
+      ],
+      [
+        0.11352698226157233,
+        0.056683433679303716,
+        0.0002041247263981828,
+        0.05582707231059137,
+        0.11144466777941436
+      ],
+      [
+        0.4062378932810258,
+        0.3487170250680839,
+        0.2916820738229458,
+        0.23509049188483533,
+        0.17893273485315167
+      ],
+      [
+        0.6003571679852586,
+        0.599223276493992,
+        0.5473662081932122,
+        0.4849082741467911,
+        0.4238569234975496
+      ]
+    ],
+    "min_ev": 0.0002041247263981828,
+    "max_ev": 0.8241024006114481,
+    "std_ev": 0.23123641100980505,
+    "n_nan": 0,
+    "z_lift_sweep": {
+      "z_lift_angstrom": [
+        0.009746598297547558,
+        0.021746598297547562,
+        0.03374659829754756,
+        0.04574659829754756,
+        0.057746598297547566,
+        0.06974659829754756,
+        0.08
+      ],
+      "gap_ev": [
+        0.1617204365188799,
+        0.1098906288669402,
+        0.05591115808562689,
+        0.0002041247263981828,
+        0.05849153041432784,
+        0.11888641457923345,
+        0.17219503138465247
+      ],
+      "min_ev": 0.0002041247263981828,
+      "max_ev": 0.17219503138465247,
+      "std_ev": 0.05735657210849523
+    },
+    "z_sweep_figure": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/local_gap_z_sweep.png",
+    "figure": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/local_gap_grid.png"
+  },
+  "sectors_deg": {
+    "A": [
+      75.0,
+      105.0
+    ],
+    "B": [
+      240.0,
+      285.0
+    ]
+  },
+  "budget": {
+    "zor_unique_geometries_per_seed": [
+      9493,
+      8269,
+      8542
+    ],
+    "mean_unique_geometries": 8768.0,
+    "control_n_eval": 8768,
+    "control_n_eval_rule": "round(mean(zor unique_geometries)) to nearest integer",
+    "control_rng_seed": 424242
+  },
+  "traceability": {
+    "seeds_used": [
+      42,
+      137,
+      2011
+    ],
+    "n_dims": 3,
+    "score_variant": "legacy",
+    "run_timestamp_folder_suffix": "validation_regional_3seeds_20260403_155239",
+    "run_started_utc_iso": "2026-04-03T14:52:39.320865+00:00",
+    "run_completed_utc_iso": "2026-04-03T16:04:17.792370+00:00",
+    "validation_output_directory": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239",
+    "validation_folder_basename": "validation_regional_3seeds_20260403_155239",
+    "zor_subruns": [
+      {
+        "seed": 42,
+        "run_directory": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42",
+        "probes_jsonl_for_metrics": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42/probes.jsonl"
+      },
+      {
+        "seed": 137,
+        "run_directory": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_137",
+        "probes_jsonl_for_metrics": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_137/probes.jsonl"
+      },
+      {
+        "seed": 2011,
+        "run_directory": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_2011",
+        "probes_jsonl_for_metrics": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_2011/probes.jsonl"
+      }
+    ],
+    "probes_jsonl_metrics_note": "Metricile per seed (histogram\u0103, first<10meV, best gap geometry, flags) folosesc exclusiv probes.jsonl din subrun-ul acelui seed. Agregarea pentru punctul global best-gap \u0219i grila local\u0103 concateneaz\u0103 acelea\u0219i fi\u0219iere, \u00een ordinea seed-urilor din seeds_used.",
+    "local_gap_grid_png": {
+      "generated": true,
+      "path": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/local_gap_grid.png"
+    },
+    "local_z_sweep_png": {
+      "generated": true,
+      "path": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/local_gap_z_sweep.png"
+    },
+    "outputs": {
+      "validation_report_json": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/validation_report.json",
+      "validation_summary_txt": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/VALIDATION_SUMMARY.txt",
+      "validation_regional_3seeds_summary_json": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/validation_regional_3seeds_summary.json",
+      "REGIONAL_3SEEDS_SUMMARY_txt": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/REGIONAL_3SEEDS_SUMMARY.txt"
+    },
+    "regional_validation_enabled": true,
+    "regional_figures": {
+      "torsion_low_gap_hist_png": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/torsion_low_gap_hist.png",
+      "scatter_torsion_rcc_gap_png": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/scatter_torsion_rcc_gap.png"
+    }
+  },
+  "conclusions": {
+    "full_text": "ETHYLENE ZOR \u2014 VALIDATION SUMMARY (regional 3D, 3 seeds, 3D)\n  score_variant (environment): legacy\n  n_dims (internal coordinates): 3\n\n0. METODOLOGIE \u2014 reguli explicite (buget, primul gap < 10 meV, verdict)\n\n  (1) Buget control vs. ZOR (unique_geometries)\n      \u2022 ZOR: dup\u0103 fiecare seed, se cite\u0219te c\u00e2mpul unique_geometries din summary (num\u0103rul de chei distincte \u00een cache-ul de geometrii HF+CAS al mediului).\n      \u2022 Valori pe seed: [(42, 9493), (137, 8269), (2011, 8542)]\n      \u2022 Medie aritmetic\u0103: mean = 8768.000000\n      \u2022 Buget control: n_eval = round(mean) = 8768 (rotunjire standard Python 3: halves toward even).\n      \u2022 \u00cen aceast\u0103 rulare, n_eval control = 8768 = int(round(8768.000000)).\n      \u2022 Controlul efectueaz\u0103 exact n_eval \u00eencerc\u0103ri independente uniforme \u00een [0,1]^3 (aceea\u0219i mapare normalized_to_internal ca ZOR 3D).\n\n  (2) Primul \u201egap < 10 meV\u201d \u2014 prag \u0219i indexare\n      \u2022 Prag: 10 meV = 0.01 eV. Condi\u021bie: gap_ev < 0.01 (strict).\n      \u2022 ZOR (per seed): fi\u0219ierul probes.jsonl, ordinea liniilor = ordinea \u00een probe_history.\n        Index = num\u0103rul liniei (1-based): primul r\u00e2nd pentru care gap_ev exist\u0103 \u0219i float(gap_ev) < 0.01.\n        \u00cenregistr\u0103rile f\u0103r\u0103 gap_ev nu satisfac condi\u021bia; se continu\u0103 p\u00e2n\u0103 la sf\u00e2r\u0219itul fi\u0219ierului.\n      \u2022 Control: bucl\u0103 for i in range(n_eval), i = 0 \u2026 n_eval\u22121; la fiecare pas se evalueaz\u0103 o geometrie.\n        Dac\u0103 CASSCF nu \u00eentoarce gap_ev, pasul este s\u0103rit f\u0103r\u0103 a seta indexul, dar i avanseaz\u0103.\n        Primul index raportat = i + 1 \u00een primul pas \u00een care gap_ev exist\u0103 \u0219i float(gap_ev) < 0.01 (index = num\u0103rul \u00eencerc\u0103rii, 1-based).\n      \u2022 RNG control: numpy.random.Generator(seed=424242), uniform pe [0,1) per coordonat\u0103.\n\n  (3) Verdict agregat (consisten\u021b\u0103 \u00eentre seed-uri)\n      \u2022 Se noteaz\u0103 gap_spread = max(best_gap_ev) \u2212 min(best_gap_ev) peste seed-urile cu best_gap_ev definit.\n      \u2022 n_a = num\u0103r de seed-uri unde minimul global al gap-ului pe acel seed (argmin peste toate probele) are torsiunea \u00een A = (75.0, 105.0)\u00b0.\n      \u2022 n_b = acela\u0219i criteriu pentru sectorul B = (240.0, 285.0)\u00b0 (per seed, nu un singur minim agregat peste toate seed-urile).\n      \u2022 \u00cen aceast\u0103 rulare: gap_spread = 0.000528 eV, n_a = 0, n_b = 0.\n      \u2022 Mod regional multi-seed: sec\u021biunile H\u2013J folosesc probe concatenate (best global + figuri); metrici per seed \u0219i concluzia automat\u0103 regional\u0103: validation_regional_3seeds_summary.json \u0219i REGIONAL_3SEEDS_SUMMARY.txt.\n  (3b) De ce n_a \u0219i n_b pot fi 0 f\u0103r\u0103 bug \u00een cod\n      \u2022 Minimul gap-ului CAS(2,2) \u00een e\u0219antion poate c\u0103dea oriunde pe PES; f\u00e2\u0219iile A/B sunt doar dou\u0103 ferestre \u00eenguste (~30\u00b0) l\u00e2ng\u0103 regiuni \u201etwisted\u201c plauzibile, nu o constr\u00e2ngere fizic\u0103 a argmin-ului.\n      \u2022 Un punct la 73\u00b0 poate fi chimic \u201el\u00e2ng\u0103\u201c 90\u00b0 dar \u00een afara [75,105] \u2014 atunci n_a=0 din cauza pragului, nu a unei erori.\n      \u2022 Top-10 dup\u0103 food poate avea \u00een continuare geometrii \u00een A/B (vezi flag-urile top10_*); acestea m\u0103soar\u0103 altceva dec\u00e2t \u201eunde e argmin-ul global\u201d.\n      \u2022 Distan\u021be unghiulare (extras) de la torsiunea minimului global la intervalele A/B:\n        \u2212 seed 42: t=142.79\u00b0, dist_to_A=37.79\u00b0, dist_to_B=97.21\u00b0, min(A,B)=37.79\u00b0\n        \u2212 seed 137: t=73.36\u00b0, dist_to_A=1.64\u00b0, dist_to_B=166.64\u00b0, min(A,B)=1.64\u00b0\n        \u2212 seed 2011: t=208.68\u00b0, dist_to_A=103.68\u00b0, dist_to_B=31.32\u00b0, min(A,B)=31.32\u00b0\n      \u2022 Po\u021bi l\u0103rgi sectoarele f\u0103r\u0103 a modifica codul: ZOR_ETHYLENE_SECTOR_A=70,110 ZOR_ETHYLENE_SECTOR_B=235,290 (exemplu).\n      \u2022 Reguli (\u00een ordine):\n        \u2212 Puternic: gap_spread < 0.005 \u0218I n_a \u2265 2 \u0218I n_b \u2265 2\n        \u2212 Moderat: altfel, dac\u0103 gap_spread < 0.01 \u0218I (n_a + n_b) \u2265 3\n        \u2212 Moderat: altfel, dac\u0103 gap_spread < 0.02\n        \u2212 Fragil: \u00een orice alt caz\n\nA. Robustness (3 seeds)\n  Best gaps (eV): [0.0003, 0.0002, 0.0007]  range=0.0005\n  Final population: [29, 29, 28]  mean=28.7\n  Unique geometries (mean): 8768\n  Sector A (75.0, 105.0) visit fraction: [0.084, 0.174, 0.159]\n  Sector B (240.0, 285.0) visit fraction: [0.265, 0.198, 0.151]\n  Top-10 (by food) low-gap in A/B per seed: A=[False, False, False]  B=[True, False, True]\n  Global minimum-gap geometry in sector A/B per seed: A=[False, False, False]  B=[False, False, False]\n  First probe index with gap<10 meV (per seed): [4, 87, 316]\n\nB. Consistency \u2014 verdict aplicat\n  Verdict: Moderat\n  Moderat (condi\u021bie: gap_spread < 0.02): minime \u00een acela\u0219i ordin; etichetele geometrice trebuie citite cu pruden\u021b\u0103.\n\nC. Control (uniform random, matched count)\n  n_eval=8768  best_gap=0.0005724404710098184 eV  ZOR best (min over seeds)=0.0002 eV\n  Note: with ~1k random geometries, an extremely small best_gap can still occur by chance;\n  the discriminative signal is earlier discovery and spatial concentration of visits.\n  Control first index <10 meV: 141\n  ZOR first probe <10 meV (min over seeds): 4\n  Control visit frac A/B: 0.127 / 0.165\n  ZOR mean visit frac A/B: 0.139 / 0.205\n\nD. Local coherence (5x5 in (torsion, r_CC) at z of best point; + z sweep if 3D)\n  (torsion,r) slice: gap std=0.2312 eV  min=0.0002  max=0.8241\n  Interpretation: mixed neighbors \u2014 quasi-degeneracy extends over some directions, not an isolated single grid point.\n  z_lift sweep: std=0.0574 eV  min=0.0002041247263981828  max=0.17219503138465247\n\nE. Scientific takeaway (prudent)\n  Demonstrated: emergent ZOR exploration concentrates visits and top food regions\n  near twisted ethylene geometries with elongated C=C consistent with prior CAS(2,2) probes;\n  Regional mode (multi-seed): H\u2013J = pooled probes; per-seed regional structure in validation_regional_3seeds_summary.json; compare frac_B (top-K), patch_size, first<10meV across seeds.\n  NOT demonstrated: exact conical intersection location, global PES, or state labeling\n  beyond this minimal active space; CAS(2,2) gap is a proxy, not full CI proof.\n  Ethylene in this setup is a reasonable minimal ZOR testbed for quasi-degenerate / CI-like\n  regions given cross-seed consistency (when multiple seeds) and comparison to uniform sampling.\n\nF. Concluzie final\u0103 (prudent\u0103, f\u0103r\u0103 supra-claim)\n  Mod regional 3D multi-seed: repetabilitatea structurii regionale se cite\u0219te din REGIONAL_3SEEDS_SUMMARY.txt (concluzie automat\u0103 + tabel per seed); grila local\u0103 5\u00d75 r\u0103m\u00e2ne \u00een jurul best-gap global (probe concatenate).\n  Minimele globale dup\u0103 gap se plaseaz\u0103 adesea \u00een f\u00e2\u0219ii de torsiune compatibile cu zona ~90\u00b0 \u0219i cu imaginea ~260\u00b0, ceea ce este plauzibil fizic pentru o quasi-degenerare \u00een CAS(2,2), dar nu constituie o demonstra\u021bie a unei intersec\u021bii conice complete.\n  Fa\u021b\u0103 de e\u0219antionarea uniform\u0103 cu acela\u0219i n_eval (rotunjit la media unique_geometries ZOR), diferen\u021bele utile \u021bin mai mult de concentra\u021bia vizitelor \u0219i de momentul apari\u021biei primelor gap-uri sub prag, nu de un singur num\u0103r \u201ebest gap\u201d izolat, care poate ap\u0103rea \u0219i la \u00eent\u00e2mplare la buget mare.\n  Grila local\u0103 5\u00d75 ofer\u0103 doar o verificare minimal\u0103 de coeren\u021b\u0103 \u00een jurul celui mai bun punct; nu \u00eenlocuie\u0219te o cartografiere PES \u0219i nu elimin\u0103 artefactele posibile ale spa\u021biului activ redus.\n  Rezultatele sus\u021bin folosirea etilenei \u00een aceast\u0103 scen\u0103 ca test minimal pentru comportament emergent ZOR orientat spre regiuni quasi-degenerate, cu analiz\u0103 regional\u0103 multi-seed (fi\u0219iere *_3seeds_*) pentru consisten\u021b\u0103 \u00eentre rulari, nu ca verdict chimic definitiv.\n  Orice generalizare dincolo de bugetul, baza cc-pVDZ \u0219i CAS(2,2) HOMO/LUMO folosite aici r\u0103m\u00e2ne nesupus\u0103 \u0219i necesit\u0103 experimente suplimentare.\n\nH. ANALIZ\u0102 REGIONAL\u0102 (top-K dup\u0103 gap, densitate low-gap, sectoare A/B)\n\n  Distan\u021be de la torsiunea minimului global la intervalele A(75.0, 105.0)\u00b0 / B(240.0, 285.0)\u00b0 (grade):\n    dist_to_sector_A_deg = 1.637  dist_to_sector_B_deg = 166.637  min(A,B) = 1.637\n  Top-K dup\u0103 gap (frac\u021bii \u00een A/B, medie circular\u0103 torsiune, std liniar\u0103):\n    K=10: n=10  frac_A=0.200  frac_B=0.100  mean_tor\u00b0=112.54290314032032  std_tor\u00b0=74.8980984106464\n      hist 15\u00b0 (top bins): [('30', 2), ('165', 2), ('60', 1), ('75', 1), ('90', 1)]\n    K=25: n=25  frac_A=0.080  frac_B=0.080  mean_tor\u00b0=100.46715223503972  std_tor\u00b0=92.39715854156847\n      hist 15\u00b0 (top bins): [('165', 6), ('60', 5), ('30', 4), ('270', 2), ('345', 2)]\n    K=50: n=50  frac_A=0.060  frac_B=0.100  mean_tor\u00b0=124.60214383792724  std_tor\u00b0=87.90921103289047\n      hist 15\u00b0 (top bins): [('60', 9), ('165', 6), ('105', 5), ('30', 4), ('180', 4)]\n  Densitate low-gap (toate probele cu gap sub prag):\n    gap_lt_0p005: n=97  frac_A=0.082  frac_B=0.186  frac_halo\u00b110.0\u00b0=0.237\n    gap_lt_0p01: n=242  frac_A=0.095  frac_B=0.223  frac_halo\u00b110.0\u00b0=0.215\n  Observa\u021bii (clustering / dispersie):\n    etichet\u0103 euristic\u0103 stability_label='dispersed'  concentra\u021bie top-25 \u00een A\u222aB \u2248 0.160\n\nI. COEREN\u021a\u0102 LOCAL\u0102 (patch \u00een spa\u021biul probelor vs. grila 5\u00d75 CAS)\n\n  Patch best-gap: local_patch_size=434  local_patch_gap_mean=0.24498216062382322  local_patch_gap_std=0.16081883846046485  local_patch_coherence_score=0.00016659201877279264\n  Top-10 dup\u0103 gap: mean_patch_size=135.4  mean_patch_std=0.20978362189118327\n  Grila 5\u00d75 (torsion, r_CC) la z fix: std_gap=0.2312 eV \u2014 complementar\u0103 patch-ului: grila e e\u0219antion CAS dens pe o felie 2D; patch-ul num\u0103r\u0103 vecini \u00een lista de probe ZOR.\n\nJ. INTERPRETARE EXTINS\u0102 (automat, euristic\u0103)\n\n  Minim izolat \u00een spa\u021biul probelor (euristic\u0103): False\n  Frac\u021bie A\u222aB la gap<0.01 eV: 0.318\n  Aproape de banda A/B (min dist \u226415\u00b0): True\n  \u2022 Best-gap point has multiple nearby probes in the patch metric \u2014 some regional support in (torsion,r,z) box.\n  \u2022 Top-K and/or low-gap subsets show measurable concentration in sectors A and/or B (CI-like windows).\n  \u2022 Global best torsion lies within ~15\u00b0 of sector A or B (min distance to bands).\n  Figur\u0103: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/torsion_low_gap_hist.png\n  Figur\u0103: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/scatter_torsion_rcc_gap.png\n\nG. TRASABILITATE (rulare final\u0103)\n\n  0) n_dims: 3\n  1) Seed-uri efectiv folosite: [42, 137, 2011]\n  2) Subrun-uri ZOR (path absolut):\n      seed 42: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42\n      seed 137: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_137\n      seed 2011: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_2011\n  3) Fi\u0219iere probes.jsonl folosite pentru metrici (path absolut):\n      seed 42: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42/probes.jsonl\n      seed 137: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_137/probes.jsonl\n      seed 2011: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_2011/probes.jsonl\n      Not\u0103: Metricile per seed (histogram\u0103, first<10meV, best gap geometry, flags) folosesc exclusiv probes.jsonl din subrun-ul acelui seed. Agregarea pentru punctul global best-gap \u0219i grila local\u0103 concateneaz\u0103 acelea\u0219i fi\u0219iere, \u00een ordinea seed-urilor din seeds_used.\n  4) local_gap_grid.png generat: da  |  path: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/local_gap_grid.png\n  5) Folder (validation_*): validation_regional_3seeds_20260403_155239\n      \u00cenceput rulare (UTC ISO): 2026-04-03T14:52:39.320865+00:00\n      Sf\u00e2r\u0219it rulare (UTC ISO): 2026-04-03T16:04:17.792370+00:00\n      Folder final logs/validation_* (absolut): /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239\n      validation_report.json: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/validation_report.json\n      VALIDATION_SUMMARY.txt: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/VALIDATION_SUMMARY.txt\n      validation_regional_3seeds_summary.json: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/validation_regional_3seeds_summary.json\n      REGIONAL_3SEEDS_SUMMARY.txt: /opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/REGIONAL_3SEEDS_SUMMARY.txt",
+    "verdict": "Moderat",
+    "n_a": 0,
+    "n_b": 0,
+    "gap_spread_ev": 0.0005278336283159942
+  },
+  "regional_analysis": {
+    "enabled": true,
+    "single_seed": null,
+    "multi_seed": true,
+    "seeds": [
+      42,
+      137,
+      2011
+    ],
+    "topk_list": [
+      10,
+      25,
+      50
+    ],
+    "gap_thresholds_ev": [
+      0.01,
+      0.005
+    ],
+    "dist_to_sector_A_deg": 1.6367430126026221,
+    "dist_to_sector_B_deg": 166.6367430126026,
+    "min_dist_to_AB_deg": 1.6367430126026221,
+    "topk_by_gap": {
+      "10": {
+        "k_requested": 10,
+        "n_effective": 10,
+        "torsion_histogram_15deg": {
+          "30": 2,
+          "60": 1,
+          "75": 1,
+          "90": 1,
+          "135": 1,
+          "165": 2,
+          "180": 1,
+          "270": 1
+        },
+        "frac_sector_A": 0.2,
+        "frac_sector_B": 0.1,
+        "circular_mean_torsion_deg": 112.54290314032032,
+        "torsion_std_deg": 74.8980984106464
+      },
+      "25": {
+        "k_requested": 25,
+        "n_effective": 25,
+        "torsion_histogram_15deg": {
+          "30": 4,
+          "60": 5,
+          "75": 1,
+          "90": 1,
+          "105": 1,
+          "135": 1,
+          "165": 6,
+          "180": 1,
+          "195": 1,
+          "270": 2,
+          "345": 2
+        },
+        "frac_sector_A": 0.08,
+        "frac_sector_B": 0.08,
+        "circular_mean_torsion_deg": 100.46715223503972,
+        "torsion_std_deg": 92.39715854156847
+      },
+      "50": {
+        "k_requested": 50,
+        "n_effective": 50,
+        "torsion_histogram_15deg": {
+          "15": 1,
+          "30": 4,
+          "60": 9,
+          "75": 1,
+          "90": 2,
+          "105": 5,
+          "135": 3,
+          "150": 1,
+          "165": 6,
+          "180": 4,
+          "195": 3,
+          "210": 2,
+          "255": 1,
+          "270": 4,
+          "285": 1,
+          "330": 1,
+          "345": 2
+        },
+        "frac_sector_A": 0.06,
+        "frac_sector_B": 0.1,
+        "circular_mean_torsion_deg": 124.60214383792724,
+        "torsion_std_deg": 87.90921103289047
+      }
+    },
+    "low_gap_density": {
+      "gap_lt_0p01": {
+        "threshold_ev": 0.01,
+        "n_probes": 242,
+        "frac_sector_A": 0.09504132231404959,
+        "frac_sector_B": 0.2231404958677686,
+        "frac_halo_AB_deg_margin": 0.21487603305785125,
+        "halo_margin_deg": 10.0
+      },
+      "gap_lt_0p005": {
+        "threshold_ev": 0.005,
+        "n_probes": 97,
+        "frac_sector_A": 0.08247422680412371,
+        "frac_sector_B": 0.18556701030927836,
+        "frac_halo_AB_deg_margin": 0.23711340206185566,
+        "halo_margin_deg": 10.0
+      }
+    },
+    "best_point_patch": {
+      "d_tor_deg_threshold": 8.0,
+      "d_r_angstrom_threshold": 0.012,
+      "d_z_angstrom_threshold": 0.025,
+      "local_patch_size": 434,
+      "local_patch_gap_mean": 0.24498216062382322,
+      "local_patch_gap_std": 0.16081883846046485,
+      "local_patch_coherence_score": 0.00016659201877279264
+    },
+    "top10_patch_stability": {
+      "per_point": [
+        {
+          "torsion_deg": 73.36325698739738,
+          "r_cc": 1.3458719639656294,
+          "gap_ev": 0.0002041247263981828,
+          "patch_size": 434,
+          "patch_std": 0.16081883846046485,
+          "patch_mean_gap": 0.24498216062382322,
+          "patch_coherence_score": 0.00016659201877279264
+        },
+        {
+          "torsion_deg": 94.33548649074226,
+          "r_cc": 1.3833034075282478,
+          "gap_ev": 0.00023384594057660683,
+          "patch_size": 221,
+          "patch_std": 0.16330563560078423,
+          "patch_mean_gap": 0.15219025355206095,
+          "patch_coherence_score": 0.0036999652199954315
+        },
+        {
+          "torsion_deg": 171.1037319090075,
+          "r_cc": 1.42,
+          "gap_ev": 0.00023440283344401645,
+          "patch_size": 75,
+          "patch_std": 0.20368971660440274,
+          "patch_mean_gap": 0.21196022579629126,
+          "patch_coherence_score": 0.0002255096487257495
+        },
+        {
+          "torsion_deg": 142.7940411578215,
+          "r_cc": 1.362052756384852,
+          "gap_ev": 0.00026489130484698626,
+          "patch_size": 55,
+          "patch_std": 0.24028292323710873,
+          "patch_mean_gap": 0.23006364534964643,
+          "patch_coherence_score": 7.170067598428666e-05
+        },
+        {
+          "torsion_deg": 192.5305682884683,
+          "r_cc": 1.404956550215233,
+          "gap_ev": 0.000387187742563339,
+          "patch_size": 48,
+          "patch_std": 0.11886109370571811,
+          "patch_mean_gap": 0.1010463363365788,
+          "patch_coherence_score": 0.02721252577870784
+        },
+        {
+          "torsion_deg": 86.78668874583909,
+          "r_cc": 1.3919716283544463,
+          "gap_ev": 0.00045203842348832566,
+          "patch_size": 350,
+          "patch_std": 0.14035714954639444,
+          "patch_mean_gap": 0.1197309181477098,
+          "patch_coherence_score": 0.016463916570209004
+        },
+        {
+          "torsion_deg": 171.1037319090075,
+          "r_cc": 1.42,
+          "gap_ev": 0.0004758902797982059,
+          "patch_size": 76,
+          "patch_std": 0.20330226676848434,
+          "patch_mean_gap": 0.20968506864402264,
+          "patch_coherence_score": 0.00024608001405654735
+        },
+        {
+          "torsion_deg": 33.63935097177003,
+          "r_cc": 1.4055491698946376,
+          "gap_ev": 0.0006331429869045747,
+          "patch_size": 15,
+          "patch_std": 0.3437419250155691,
+          "patch_mean_gap": 0.22817532162068563,
+          "patch_coherence_score": 1.5245016177262533e-05
+        },
+        {
+          "torsion_deg": 33.63935097177003,
+          "r_cc": 1.4055491698946376,
+          "gap_ev": 0.0007203161376799751,
+          "patch_size": 15,
+          "patch_std": 0.3437419250155691,
+          "patch_mean_gap": 0.22817532162068563,
+          "patch_coherence_score": 1.5245016177262533e-05
+        },
+        {
+          "torsion_deg": 284.1237503027328,
+          "r_cc": 1.3359444378495104,
+          "gap_ev": 0.0007241229841693323,
+          "patch_size": 65,
+          "patch_std": 0.17973474495733693,
+          "patch_mean_gap": 0.19351351169210987,
+          "patch_coherence_score": 0.0005546509734868357
+        }
+      ],
+      "mean_patch_size": 135.4,
+      "mean_patch_std": 0.20978362189118327
+    },
+    "interpretation": {
+      "best_appears_isolated": false,
+      "ab_concentration_top25": 0.16,
+      "low_gap_ab_fraction_0p01": 0.3181818181818182,
+      "near_ab_band_min_dist_le_15deg": true,
+      "stability_label": "dispersed",
+      "summary_lines_en": [
+        "Best-gap point has multiple nearby probes in the patch metric \u2014 some regional support in (torsion,r,z) box.",
+        "Top-K and/or low-gap subsets show measurable concentration in sectors A and/or B (CI-like windows).",
+        "Global best torsion lies within ~15\u00b0 of sector A or B (min distance to bands)."
+      ]
+    },
+    "patch_thresholds": {
+      "d_tor_deg": 8.0,
+      "d_r_angstrom": 0.012,
+      "d_z_angstrom": 0.025
+    },
+    "figures": {
+      "torsion_low_gap_hist_png": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/torsion_low_gap_hist.png",
+      "scatter_torsion_rcc_gap_png": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/scatter_torsion_rcc_gap.png"
+    },
+    "per_seed": [
+      {
+        "seed": 42,
+        "best_gap_ev": 0.00026489130484698626,
+        "first_index_gap_below_10mev": 4,
+        "unique_geometries": 9493,
+        "n_probes": 7116,
+        "topk_K50": {
+          "frac_sector_A": 0.08,
+          "frac_sector_B": 0.42,
+          "circular_mean_torsion_deg": 238.4348173229593,
+          "torsion_std_deg": 88.76934563661942,
+          "n_effective": 50
+        },
+        "low_gap_lt_0_01_eV": {
+          "n_probes": 92,
+          "frac_sector_A": 0.05434782608695652,
+          "frac_sector_B": 0.3695652173913043,
+          "frac_halo_AB_deg_margin": 0.18478260869565216,
+          "halo_margin_deg": 10.0
+        },
+        "best_point_patch": {
+          "local_patch_size": 55,
+          "local_patch_gap_mean": 0.23006364534964643,
+          "local_patch_gap_std": 0.24028292323710873
+        },
+        "stability_label": "partially_regional",
+        "best_appears_isolated": false
+      },
+      {
+        "seed": 137,
+        "best_gap_ev": 0.0002041247263981828,
+        "first_index_gap_below_10mev": 87,
+        "unique_geometries": 8269,
+        "n_probes": 6594,
+        "topk_K50": {
+          "frac_sector_A": 0.14,
+          "frac_sector_B": 0.08,
+          "circular_mean_torsion_deg": 126.34448855671815,
+          "torsion_std_deg": 73.28965163052368,
+          "n_effective": 50
+        },
+        "low_gap_lt_0_01_eV": {
+          "n_probes": 117,
+          "frac_sector_A": 0.15384615384615385,
+          "frac_sector_B": 0.07692307692307693,
+          "frac_halo_AB_deg_margin": 0.23076923076923078,
+          "halo_margin_deg": 10.0
+        },
+        "best_point_patch": {
+          "local_patch_size": 427,
+          "local_patch_gap_mean": 0.24677207042941862,
+          "local_patch_gap_std": 0.16151783765671104
+        },
+        "stability_label": "dispersed",
+        "best_appears_isolated": false
+      },
+      {
+        "seed": 2011,
+        "best_gap_ev": 0.000731958354714177,
+        "first_index_gap_below_10mev": 316,
+        "unique_geometries": 8542,
+        "n_probes": 6442,
+        "topk_K50": {
+          "frac_sector_A": 0.0,
+          "frac_sector_B": 0.3,
+          "circular_mean_torsion_deg": 307.5490829518661,
+          "torsion_std_deg": 107.9583718677582,
+          "n_effective": 50
+        },
+        "low_gap_lt_0_01_eV": {
+          "n_probes": 33,
+          "frac_sector_A": 0.0,
+          "frac_sector_B": 0.3333333333333333,
+          "frac_halo_AB_deg_margin": 0.24242424242424243,
+          "halo_margin_deg": 10.0
+        },
+        "best_point_patch": {
+          "local_patch_size": 106,
+          "local_patch_gap_mean": 0.5070968734482179,
+          "local_patch_gap_std": 0.2576351386252536
+        },
+        "stability_label": "partially_regional",
+        "best_appears_isolated": false
+      }
+    ],
+    "pooled_note": "Pooled regional metrics (H\u2013J) use concatenated probes in seed order; per_seed lists metrici regionale strict pe fiecare probes.jsonl."
+  }
+}

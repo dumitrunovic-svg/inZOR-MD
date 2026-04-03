@@ -1,0 +1,293 @@
+{
+  "schema": "low_gap_clusters_v1",
+  "generated_utc_iso": "2026-04-03T16:27:48.375051+00:00",
+  "validation_directory": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239",
+  "gap_threshold_ev": 0.01,
+  "dbscan": {
+    "eps_after_standard_scaler": 0.42,
+    "min_samples": 5
+  },
+  "seeds_scanned": [
+    42,
+    137,
+    2011
+  ],
+  "n_low_gap_probes": 242,
+  "n_noise": 93,
+  "clusters": [
+    {
+      "cluster_id": 1,
+      "n_points": 16,
+      "centroid_torsion_deg": 91.28928518542976,
+      "centroid_r_cc_angstrom": 1.391157175383129,
+      "centroid_z_lift_angstrom": -0.07242101540539338,
+      "gap_mean_ev": 0.005497331258575835,
+      "gap_min_ev": 0.00023384594057660683,
+      "gap_std_ev": 0.0027838227654704644,
+      "seeds_present": [
+        137
+      ],
+      "points_per_seed": {
+        "137": 16
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 3,
+      "n_points": 15,
+      "centroid_torsion_deg": 170.79563247979107,
+      "centroid_r_cc_angstrom": 1.4190441023686338,
+      "centroid_z_lift_angstrom": 0.06801820242491757,
+      "gap_mean_ev": 0.003885765288331726,
+      "gap_min_ev": 0.00023440283344401645,
+      "gap_std_ev": 0.0025657753281937766,
+      "seeds_present": [
+        42,
+        137
+      ],
+      "points_per_seed": {
+        "42": 2,
+        "137": 13
+      },
+      "multi_seed": true
+    },
+    {
+      "cluster_id": 0,
+      "n_points": 14,
+      "centroid_torsion_deg": 70.40065041821818,
+      "centroid_r_cc_angstrom": 1.4064816869564134,
+      "centroid_z_lift_angstrom": -0.06521928760111148,
+      "gap_mean_ev": 0.005087535922109005,
+      "gap_min_ev": 0.000774514349198642,
+      "gap_std_ev": 0.003173050393839646,
+      "seeds_present": [
+        42,
+        137
+      ],
+      "points_per_seed": {
+        "42": 12,
+        "137": 2
+      },
+      "multi_seed": true
+    },
+    {
+      "cluster_id": 14,
+      "n_points": 14,
+      "centroid_torsion_deg": 220.35640781242185,
+      "centroid_r_cc_angstrom": 1.302714657535041,
+      "centroid_z_lift_angstrom": 0.046850959413635054,
+      "gap_mean_ev": 0.0068170948527305365,
+      "gap_min_ev": 0.0016171427992824057,
+      "gap_std_ev": 0.002837617413015442,
+      "seeds_present": [
+        42
+      ],
+      "points_per_seed": {
+        "42": 14
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 10,
+      "n_points": 12,
+      "centroid_torsion_deg": 257.6126389797089,
+      "centroid_r_cc_angstrom": 1.3401707952238604,
+      "centroid_z_lift_angstrom": 0.04724672987218156,
+      "gap_mean_ev": 0.005167986482546952,
+      "gap_min_ev": 0.0018192786468341263,
+      "gap_std_ev": 0.0017059471226277547,
+      "seeds_present": [
+        42,
+        2011
+      ],
+      "points_per_seed": {
+        "42": 11,
+        "2011": 1
+      },
+      "multi_seed": true
+    },
+    {
+      "cluster_id": 2,
+      "n_points": 11,
+      "centroid_torsion_deg": 192.53056828846826,
+      "centroid_r_cc_angstrom": 1.4046944969316124,
+      "centroid_z_lift_angstrom": -0.07323010902495862,
+      "gap_mean_ev": 0.004501048597535049,
+      "gap_min_ev": 0.000387187742563339,
+      "gap_std_ev": 0.0025458246388742668,
+      "seeds_present": [
+        137
+      ],
+      "points_per_seed": {
+        "137": 11
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 5,
+      "n_points": 10,
+      "centroid_torsion_deg": 110.71871419049965,
+      "centroid_r_cc_angstrom": 1.3320931675254255,
+      "centroid_z_lift_angstrom": 0.06429073151140549,
+      "gap_mean_ev": 0.005716371447297597,
+      "gap_min_ev": 0.002384362081500022,
+      "gap_std_ev": 0.0024202559599493015,
+      "seeds_present": [
+        137,
+        2011
+      ],
+      "points_per_seed": {
+        "137": 9,
+        "2011": 1
+      },
+      "multi_seed": true
+    },
+    {
+      "cluster_id": 6,
+      "n_points": 9,
+      "centroid_torsion_deg": 163.78848807166688,
+      "centroid_r_cc_angstrom": 1.3855249104190697,
+      "centroid_z_lift_angstrom": 0.06210122643715767,
+      "gap_mean_ev": 0.006943195154759261,
+      "gap_min_ev": 0.004965365251919297,
+      "gap_std_ev": 0.0014864701499720902,
+      "seeds_present": [
+        137
+      ],
+      "points_per_seed": {
+        "137": 9
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 9,
+      "n_points": 9,
+      "centroid_torsion_deg": 251.5367462747745,
+      "centroid_r_cc_angstrom": 1.306019763461552,
+      "centroid_z_lift_angstrom": 0.006137233975645538,
+      "gap_mean_ev": 0.006234080299189186,
+      "gap_min_ev": 0.0038926811284988173,
+      "gap_std_ev": 0.001985757754664079,
+      "seeds_present": [
+        42,
+        2011
+      ],
+      "points_per_seed": {
+        "42": 7,
+        "2011": 2
+      },
+      "multi_seed": true
+    },
+    {
+      "cluster_id": 7,
+      "n_points": 8,
+      "centroid_torsion_deg": 73.36325698739738,
+      "centroid_r_cc_angstrom": 1.3460985086426644,
+      "centroid_z_lift_angstrom": 0.045165308009986194,
+      "gap_mean_ev": 0.00525706175555702,
+      "gap_min_ev": 0.0002041247263981828,
+      "gap_std_ev": 0.0032821385060926127,
+      "seeds_present": [
+        137
+      ],
+      "points_per_seed": {
+        "137": 8
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 11,
+      "n_points": 8,
+      "centroid_torsion_deg": 144.69100786130224,
+      "centroid_r_cc_angstrom": 1.3611148096445964,
+      "centroid_z_lift_angstrom": -0.056210711288297875,
+      "gap_mean_ev": 0.005427919873787408,
+      "gap_min_ev": 0.00026489130484698626,
+      "gap_std_ev": 0.0031343922483460726,
+      "seeds_present": [
+        42
+      ],
+      "points_per_seed": {
+        "42": 8
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 4,
+      "n_points": 7,
+      "centroid_torsion_deg": 283.11510979791666,
+      "centroid_r_cc_angstrom": 1.3875932602671253,
+      "centroid_z_lift_angstrom": -0.07150615806810567,
+      "gap_mean_ev": 0.006138511123476531,
+      "gap_min_ev": 0.0025750403807421763,
+      "gap_std_ev": 0.0022767984489595254,
+      "seeds_present": [
+        137
+      ],
+      "points_per_seed": {
+        "137": 7
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 8,
+      "n_points": 6,
+      "centroid_torsion_deg": 40.08171868496029,
+      "centroid_r_cc_angstrom": 1.323481532477358,
+      "centroid_z_lift_angstrom": 0.07617881593416818,
+      "gap_mean_ev": 0.0063415964839602,
+      "gap_min_ev": 0.001056416448530291,
+      "gap_std_ev": 0.002717189124380916,
+      "seeds_present": [
+        137
+      ],
+      "points_per_seed": {
+        "137": 6
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 12,
+      "n_points": 5,
+      "centroid_torsion_deg": 335.1698368469512,
+      "centroid_r_cc_angstrom": 1.3127515280211477,
+      "centroid_z_lift_angstrom": -0.0662230754125116,
+      "gap_mean_ev": 0.008360358840773926,
+      "gap_min_ev": 0.007602949223281551,
+      "gap_std_ev": 0.0006915578373058226,
+      "seeds_present": [
+        42
+      ],
+      "points_per_seed": {
+        "42": 5
+      },
+      "multi_seed": false
+    },
+    {
+      "cluster_id": 13,
+      "n_points": 5,
+      "centroid_torsion_deg": 281.6351855516416,
+      "centroid_r_cc_angstrom": 1.337996332411142,
+      "centroid_z_lift_angstrom": 0.06930254832635843,
+      "gap_mean_ev": 0.005817806786831721,
+      "gap_min_ev": 0.0013004103920988212,
+      "gap_std_ev": 0.003250615572526062,
+      "seeds_present": [
+        42
+      ],
+      "points_per_seed": {
+        "42": 5
+      },
+      "multi_seed": false
+    }
+  ],
+  "auto_conclusion": {
+    "label": "multiple_quasidegenerate_regions",
+    "en": "Multiple substantial low-gap clusters \u2014 several distinct quasi-degenerate basins.",
+    "ro": "Mai multe regiuni quasi-degenerate distincte \u00een spa\u021biul intern: cel pu\u021bin dou\u0103 cluster(e) substanziale (f\u0103r\u0103 a for\u021ba sectoarele A/B). Fizic plauzibil s\u0103 existe mai multe bazine de gap mic pe PES \u00een acest spa\u021biu activ.",
+    "largest_cluster_fraction_of_non_noise": 0.10738255033557047,
+    "n_substantial_clusters": 6,
+    "substantial_cluster_min_points_rule": ">=11 (max(8, 8% of non-noise))",
+    "multi_seed_cluster_count": 5
+  }
+}

@@ -189,6 +189,13 @@
     list: document.getElementById('testsList'),
   };
 
+  const PAGE_DIR = window.location.pathname.replace(/[^/]*$/, '');
+  function toAbs(u) {
+    if (!u || /^[a-z][a-z0-9+.-]*:/i.test(u)) return u;
+    const path = u.startsWith('/') ? u : PAGE_DIR + u;
+    return new URL(path, window.location.origin).href;
+  }
+
   function normalize(s) { return (s || '').toString().toLowerCase(); }
 
   function shortDesc(test) {
@@ -224,7 +231,7 @@
       const src = m.url || m.filename || '';
       if (!src) return '';
       const cap = m.caption ? `<div class="cap">${m.caption}</div>` : '';
-      return `<div class="media"><img loading="lazy" src="${src}" alt="${m.caption || ''}">${cap}</div>`;
+      return `<div class="media"><img loading="lazy" src="${toAbs(src)}" alt="${m.caption || ''}">${cap}</div>`;
     }).join('');
     return `<div class="grid-media">${items}</div>`;
   }
@@ -244,9 +251,9 @@
     if (!links.length) return '';
     const btns = links.map(l => {
       if (l.primary) {
-        return `<a class="btn-primary" href="${l.url}">&#128196; ${l.label} &rarr;</a>`;
+        return `<a class="btn-primary" href="${toAbs(l.url)}">&#128196; ${l.label} &rarr;</a>`;
       }
-      return `<a class="btn" href="${l.url}">${l.label}</a>`;
+      return `<a class="btn" href="${toAbs(l.url)}">${l.label}</a>`;
     }).join('');
     return `<div class="links">${btns}</div>`;
   }
@@ -326,7 +333,9 @@
 
   async function init() {
     try {
-      const resp = await fetch('tests/manifest.json', { cache: 'no-store' });
+      const manifestHref = toAbs('tests/manifest.json');
+      const resp = await fetch(manifestHref, { cache: 'no-store' });
+      if (!resp.ok) throw new Error(`${resp.status} ${resp.statusText} — ${manifestHref}`);
       const data = await resp.json();
       const all  = (data.tests || []).filter(t => t.published);
       const domains = Array.from(new Set(all.map(domainOf))).sort((a,b) => a.localeCompare(b));

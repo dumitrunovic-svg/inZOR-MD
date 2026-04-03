@@ -1,0 +1,15 @@
+Low-gap cluster stability (run A vs run B)
+==================================================
+probes A: logs/validation_regional_3seeds_20260403_155239/zor_seed_42/probes.jsonl
+probes B: logs/validation_20260403_182847_legacy_nd3_regional_s42/zor_seed_42/probes.jsonl
+gap < 0.01 eV | DBSCAN eps=0.42 min_samples=5
+match threshold (scaled centroid dist): 0.210000
+
+Low-gap points: A=92 B=92
+Clusters: A=7 B=7 | Matched: 7 | Match rate (vs max(nA,nB)): 1.000
+Mean / max centroid distance (matched): 0.000000 / 0.000000
+Overlap (~frac pts within match_thr of a matched centroid): A=0.359 B=0.359 mean=0.359
+
+Verdict: cluster_stability = HIGH
+
+If probes.jsonl are byte-identical (deterministic rerun), expect match_rate=1 and dist=0. True inter-run variability requires different random streams or non-deterministic workers.

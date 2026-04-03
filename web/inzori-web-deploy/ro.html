@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZOR-ND / inZORi — Motor de descoperire stiintifica cross-domain</title>
+<meta name="description" content="inZOR-ND si inZORi: motor evolutiv validat public in chimie cuantica, quantum hardware, metode numerice, fizica plasmei si sisteme energetice.">
+<style>
+  :root {
+    --primary:#1a7dc4; --primary-dark:#0f5b93; --success:#27ae60; --warning:#e67e22; --gold:#c9a227;
+    --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --hero-dark:#0d1f34; --hero-mid:#16406a; --hero-accent:#2b83d6;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Segoe UI",system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.65; }
+  .header { background:radial-gradient(circle at top right, rgba(96,165,250,0.24), transparent 32%), linear-gradient(135deg, var(--hero-dark) 0%, var(--hero-mid) 45%, var(--hero-accent) 100%); color:#fff; padding:3rem 2rem 2.6rem; }
+  .header .badge { display:inline-block; background:rgba(255,215,0,0.18); border:1px solid rgba(255,215,0,0.45); border-radius:20px; padding:0.28rem 1.1rem; font-size:0.82rem; margin-bottom:1rem; letter-spacing:0.07em; color:#ffd966; font-weight:700; text-transform:uppercase; }
+  .hero-grid { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(300px,0.95fr); gap:1.5rem; align-items:end; }
+  .header h1 { font-size:3rem; font-weight:800; margin-bottom:0.55rem; letter-spacing:-0.03em; line-height:1.05; }
+  .header .subtitle { font-size:1.08rem; opacity:0.92; max-width:760px; margin-bottom:1rem; line-height:1.55; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .hero-note { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.16); border-radius:14px; padding:1rem 1.05rem; backdrop-filter:blur(4px); }
+  .hero-note h3 { font-size:0.85rem; letter-spacing:0.06em; text-transform:uppercase; color:#bfdbfe; margin-bottom:0.45rem; }
+  .hero-note p { font-size:0.93rem; margin:0; opacity:0.92; }
+  .nav-bar { background:#1a3a5c; padding:0.55rem 2rem; display:flex; gap:0.4rem; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+  .nav-lang { display:flex; gap:0.25rem; }
+  .nav-lang a { color:rgba(255,255,255,0.6); text-decoration:none; font-size:0.82rem; padding:0.2rem 0.7rem; border-radius:12px; transition:all 0.2s; }
+  .nav-lang a:hover { background:rgba(255,255,255,0.12); color:#fff; }
+  .nav-lang a.active { background:rgba(255,255,255,0.18); color:#fff; font-weight:600; }
+  .nav-tests { color:#ffd700; text-decoration:none; font-size:0.84rem; font-weight:700; padding:0.28rem 1rem; border:1px solid rgba(255,215,0,0.45); border-radius:14px; transition:background 0.2s; }
+  .nav-tests:hover { background:rgba(255,215,0,0.12); }
+  .container { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem; }
+  .proof-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:1rem; margin-bottom:2rem; }
+  .proof-card { background:linear-gradient(135deg,#f8fbff,#eef5fb); border:1px solid var(--border); border-radius:12px; padding:1.2rem 1rem; text-align:center; box-shadow:0 8px 20px rgba(15,23,42,0.04); transition:transform 0.2s ease, box-shadow 0.2s ease; }
+  .proof-card:hover { transform:translateY(-2px); box-shadow:0 10px 24px rgba(15,23,42,0.08); }
+  .proof-value { font-size:2rem; font-weight:800; color:var(--primary); line-height:1.05; }
+  .proof-value.gold { color:var(--gold); }
+  .proof-value.green { color:var(--success); }
+  .proof-label { font-size:0.84rem; color:#5b6470; margin-top:0.35rem; }
+  .answer-band { background:linear-gradient(135deg,#fffde7,#fff9c4); border-left:4px solid var(--gold); border-radius:10px; padding:1.25rem 1.5rem; margin-bottom:2.2rem; }
+  .answer-band h2 { font-size:1rem; margin-bottom:0.65rem; color:#775500; }
+  .answer-band ul { padding-left:1.25rem; }
+  .answer-band li { font-size:0.95rem; margin-bottom:0.45rem; }
+  .highlight-band { background:linear-gradient(135deg,#0f2743,#16406a); color:#fff; border-radius:14px; padding:1.4rem 1.5rem; margin-bottom:2.2rem; box-shadow:0 14px 30px rgba(26,58,92,0.14); }
+  .highlight-band .eyebrow { color:#93c5fd; text-transform:uppercase; letter-spacing:0.08em; font-size:0.78rem; font-weight:700; margin-bottom:0.45rem; }
+  .highlight-band p { margin:0; font-size:0.97rem; opacity:0.92; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  p { margin-bottom:0.8rem; }
+  ul, ol { padding-left:1.5rem; margin-bottom:0.8rem; }
+  li { margin-bottom:0.35rem; font-size:0.93rem; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+  .three-col { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1rem; }
+  .answer-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1rem 1rem 0.95rem; }
+  .answer-card h3 { margin-top:0; color:var(--primary-dark); }
+  .answer-card p { font-size:0.92rem; color:#4f5b67; }
+  .table-wrap { overflow-x:auto; margin:1rem 0; }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; min-width:650px; }
+  th { background:var(--dark); color:#fff; padding:0.65rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.6rem 1rem; border-bottom:1px solid var(--border); vertical-align:top; }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  .tests-card { background:linear-gradient(135deg,#1a3a5c 0%,#1a7dc4 100%); color:#fff; border-radius:14px; padding:2rem 2.2rem; margin:2rem 0; }
+  .tests-card h2 { font-size:1.3rem; margin-bottom:0.6rem; border:none; color:#fff; padding:0; }
+  .tests-card p { opacity:0.88; font-size:0.95rem; margin-bottom:1.25rem; }
+  .tests-btn { display:inline-block; background:#ffd700; color:#1a3a5c; font-weight:700; text-decoration:none; padding:0.6rem 1.8rem; border-radius:20px; font-size:0.95rem; transition:opacity 0.2s; }
+  .tests-btn:hover { opacity:0.88; }
+  .chips { display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:0.7rem; margin-top:1.4rem; }
+  .chip { background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.25); border-radius:8px; padding:0.7rem 1rem; font-size:0.85rem; }
+  .chip strong { display:block; font-size:0.92rem; margin-bottom:0.16rem; }
+  .quote-box { background:linear-gradient(135deg,#eaf4fb,#ddeeff); border-left:4px solid var(--primary); border-radius:8px; padding:1.3rem 1.6rem; margin:2rem 0; font-style:italic; font-size:1.08rem; color:var(--dark); }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); text-decoration:none; }
+  .footer a:hover { color:#fff; }
+  .footer p+p { margin-top:0.4rem; }
+  code { background:#f3f4f6; padding:1px 5px; border-radius:3px; font-size:0.88em; }
+  .note { font-size:0.87rem; color:#666; }
+  @media (max-width:860px) { .hero-grid, .two-col, .three-col { grid-template-columns:1fr; } .header h1 { font-size:2.25rem; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Descoperire stiintifica cross-domain &middot; Motor evolutiv</div>
+  <div class="hero-grid">
+    <div>
+      <h1>inZOR-ND / inZORi</h1>
+      <div class="subtitle"><strong>inZOR-ND</strong> este acum cea mai puternica fata publica a proiectului: un motor validat pentru probleme stiintifice dificile, de la active space selection si quantum hardware la metode numerice, fizica plasmei si stabilitate in retele energetice. <strong>inZORi</strong> ramane motorul evolutiv mai general din spatele acestor rezultate.</div>
+      <div class="meta">20 studii publicate &nbsp;&middot;&nbsp; Primul test public: 14 februarie 2026 &nbsp;&middot;&nbsp; Cercetare independenta &nbsp;&middot;&nbsp; Regatul Unit</div>
+    </div>
+    <div class="hero-note">
+      <h3>Ce trebuie sa inteleaga un vizitator nou</h3>
+      <p>Proiectul nu este prezentat ca o promisiune vaga de AI, ci ca un corp public de rezultate care arata ca aceeasi logica de cautare evolutiva poate produce rezultate tari pe probleme stiintifice grele.</p>
+    </div>
+  </div>
+</div>
+
+<div class="nav-bar">
+  <div class="nav-lang">
+    <a href="index.html">English</a>
+    <a href="de.html">Deutsch</a>
+    <a href="fr.html">Francais</a>
+    <a href="ro.html" class="active">Romana</a>
+  </div>
+  <a href="tests.html" class="nav-tests">Teste de cercetare &rarr;</a>
+</div>
+
+<div class="container">
+  <div class="proof-grid">
+    <div class="proof-card"><div class="proof-value">20</div><div class="proof-label">studii publicate listate acum</div></div>
+    <div class="proof-card"><div class="proof-value gold">8/8</div><div class="proof-label">benchmark-uri castigate in validarea active space</div></div>
+    <div class="proof-card"><div class="proof-value green">7/7</div><div class="proof-label">rulari IBM hardware QEC castigate</div></div>
+    <div class="proof-card"><div class="proof-value">1.59&times;</div><div class="proof-label">speedup BAWS-NR in 6 domenii</div></div>
+  </div>
+
+  <div class="answer-band">
+    <h2>Ce afirma concret aceasta pagina</h2>
+    <ul>
+      <li><strong>Este un motor de descoperire stiintifica</strong> care are deja validari publice pe mai multe clase de probleme, nu doar o idee conceptuala.</li>
+      <li><strong>Este cel mai relevant acolo unde spatiul de cautare este greu, obiectivul este implicit sau euristicile clasice devin fragile</strong> in acelasi protocol de test.</li>
+      <li><strong>Nu este prezentat ca superior universal</strong>; afirmatia este ca aceeasi logica evolutiva produce repetat rezultate utile pe domenii foarte diferite.</li>
+    </ul>
+  </div>
+
+  <div class="highlight-band">
+    <div class="eyebrow">Mesajul flagship actual</div>
+    <p><strong>inZOR-ND</strong> ancoreaza acum povestea stiintifica publica: active space selection validat pe 8 benchmark-uri, sustinut de rezultate publice puternice si in IBM quantum hardware, accelerarea universala Newton-Raphson, legea de disruption in plasma si studii de stabilitate pentru retele electrice.</p>
+  </div>
+
+  <div class="section" id="what-it-is-now">
+    <h2>1. Ce este proiectul azi</h2>
+    <p><strong>inZORi</strong> este motorul evolutiv general. <strong>inZOR-ND</strong> este una dintre cele mai puternice validari stiintifice publice ale lui: selectie automata de spatii active pentru CASSCF / SA-CASSCF, testata pe curbe de disociere, chimie de metal de tranzitie, stari excitate si spatii combinatoriale mari.</p>
+    <p>Mai larg, acelasi motor a fost deja folosit in studii publicate din:</p>
+    <ul>
+      <li><strong>Chimie cuantica:</strong> active space discovery, inclusiv validare 8/8 benchmark-uri</li>
+      <li><strong>Quantum hardware:</strong> quantum error correction nativ hardware pe dispozitive IBM</li>
+      <li><strong>Metode numerice:</strong> accelerare BAWS-NR in 6 domenii independente</li>
+      <li><strong>Fizica plasmei:</strong> descoperirea unei legi machine-agnostic pentru disruption proximity</li>
+      <li><strong>Sisteme energetice:</strong> stabilitate de retea, securitate N-1 si praguri de capacitate</li>
+    </ul>
+  </div>
+
+  <div class="section" id="why-it-matters">
+    <h2>2. De ce conteaza</h2>
+    <div class="three-col">
+      <div class="answer-card"><h3>Spatii de cautare grele</h3><p>Rezultatele publice cele mai puternice nu sunt exemple-jucarie. Ele implica spatii combinatoriale mari, consistenta pe mai multe geometrii, regimuri dificile de convergenta sau constrangeri reale de hardware.</p></div>
+      <div class="answer-card"><h3>Util exact unde euristicile slabesc</h3><p>Motorul devine relevant mai ales acolo unde euristicile fixe, priors scrise manual sau setup-urile clasice de solver devin fragile in acelasi protocol de test.</p></div>
+      <div class="answer-card"><h3>Un motor, multe domenii</h3><p>Dovezile publice nu sunt limitate la o nisa. Aceeasi logica de cautare apare in chimie, quantum hardware, metode numerice, fizica plasmei si sisteme energetice.</p></div>
+    </div>
+  </div>
+
+  <div class="section" id="proof">
+    <h2>3. Ce a fost deja demonstrat public</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Studiu flagship</th><th>Dovada publicata</th><th>De ce este important</th></tr></thead>
+        <tbody>
+          <tr><td><strong>inZOR-ND active space validation</strong></td><td>8/8 benchmark-uri, 6 sisteme moleculare, avantaj pana la 430 kcal/mol, singura metoda care a convergat pe toate sistemele testate in workflow-ul folosit</td><td>Arata ca motorul poate rezolva o problema stiintifica grea, unde alegerea orbitalilor este de obicei fragila si ajustata manual</td></tr>
+          <tr><td><strong>IBM hardware-native QEC</strong></td><td>7/7 rulari IBM hardware castigate, circuite mai putin adanci decat Steane pe Heron</td><td>Arata descoperire adaptata hardware-ului real, nu doar succes in simulare</td></tr>
+          <tr><td><strong>BAWS-NR universal</strong></td><td>1.59&times; speedup mediu in 6 domenii, 142,056 rezolvari convergente, convergenta pastrata</td><td>Arata ca acelasi motor poate imbunatati fluxuri numerice neliniare, nu doar probleme de ranking sau explorare</td></tr>
+          <tr><td><strong>Legea de disruption in plasma</strong></td><td>Lege cross-machine derivata din dinamica curentului de plasma, validata pe MAST, C-Mod si HL-2A</td><td>Sugereaza descoperire de legi stiintifice compacte si interpretabile, nu doar predictie black-box</td></tr>
+          <tr><td><strong>Studii PF&Delta; de retea</strong></td><td>Rezultat critic 99.9% vs 0% pe benchmark-ul Pan-European de 1354 bus</td><td>Arata relevanta tocmai in regimul operational critic, nu doar in conditii usoare</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="how-it-works">
+    <h2>4. Cum functioneaza, la nivel de brosura</h2>
+    <p>Explicatia publica este intentionat simpla:</p>
+    <ol>
+      <li><strong>Un domeniu defineste mediul si evaluatorul.</strong> Problema poate fi o molecula, o familie de circuite, un solver neliniar, un indicator de plasma sau un scenariu de retea.</li>
+      <li><strong>O cautare evolutiva pe populatii exploreaza candidati.</strong> Candidatii sunt evaluati sub protocolul specific domeniului, nu printr-o functie universala de recompensa.</li>
+      <li><strong>Presiunea de selectie pastreaza ce ramane viabil.</strong> Candidatii mai buni supravietuiesc, se recombina si continua explorarea spatiului.</li>
+      <li><strong>Acelasi motor poate fi reutilizat intre domenii.</strong> Se schimba evaluatorul si formularea problemei, nu ideea centrala de cautare.</li>
+    </ol>
+    <p class="note">Aceasta pagina ramane deliberat la nivel de brosura. Explica suficient cat sa fie credibila, fara sa intre in mecanica interna prezentata in studiile dedicate.</p>
+  </div>
+
+  <div class="section" id="fit">
+    <h2>5. Unde este motorul cel mai puternic</h2>
+    <div class="two-col">
+      <div>
+        <h3>&#10003; Puternic la</h3>
+        <ul>
+          <li><strong>Probleme combinatoriale de descoperire</strong> unde structura utila este greu de scris dinainte</li>
+          <li><strong>Obiective implicite sau definite prin evaluator</strong> unde succesul se masoara mai bine prin simulare, convergenta sau validitate fizica</li>
+          <li><strong>Reutilizare cross-domain</strong> a aceluiasi motor cu evaluatori diferiti</li>
+          <li><strong>Probleme stiintifice unde euristicile fixe se degradeaza</strong> exact in regimul greu al workflow-ului</li>
+        </ul>
+      </div>
+      <div>
+        <h3>&#10007; Nu este alegerea potrivita pentru</h3>
+        <ul>
+          <li><strong>Task-uri simple de inferenta one-shot</strong> unde ai nevoie de lookup direct, nu de cautare</li>
+          <li><strong>Probleme cu un optim trivial si cunoscut</strong> unde cautarea evolutiva nu aduce valoare</li>
+          <li><strong>Setari cu latenta ultra-mica</strong> unde nu exista timp pentru explorare iterativa</li>
+          <li><strong>Pretentii de superioritate universala</strong> pe orice benchmark; acesta nu este mesajul proiectului</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tests-card" id="tests">
+    <h2>Teste de cercetare &amp; Validare empirica</h2>
+    <p>Proiectul listeaza acum <strong>20 studii publicate</strong>. Cele mai puternice dovezi publice sunt concentrate in rezultate flagship care raspund deja intrebarilor importante din exterior: functioneaza, pe ce fel de probleme si unde devine mai puternic decat baseline-urile conventionale.</p>
+    <a href="tests.html" class="tests-btn">Vezi toate testele &rarr;</a>
+    <div class="chips">
+      <div class="chip"><strong>inZOR-ND Active Space</strong>8/8 benchmark-uri · 6 sisteme moleculare · singura metoda care a convergat pe toate sistemele testate</div>
+      <div class="chip"><strong>IBM Hardware QEC</strong>7/7 rulari hardware castigate · circuite native pe Heron</div>
+      <div class="chip"><strong>BAWS-NR Universal</strong>1.59&times; speedup · 6 domenii · 142,056 rezolvari convergente</div>
+      <div class="chip"><strong>Lege de disruption</strong>Descoperire cross-machine doar din dinamica curentului de plasma</div>
+      <div class="chip"><strong>PF&Delta; Phase 6</strong>99.9% vs 0% la pragul critic pe o retea de 1354 bus</div>
+      <div class="chip"><strong>ENTSO-E Real Load</strong>Validare pe profiluri reale de consum din Romania, Germania si Franta</div>
+    </div>
+  </div>
+
+  <div class="section" id="stage">
+    <h2>6. Etapa actuala</h2>
+    <ul>
+      <li><strong>Status:</strong> program activ de cercetare cu baza publica de dovezi in crestere, pe chimie cuantica, quantum hardware, metode numerice, fizica plasmei si sisteme energetice.</li>
+      <li><strong>Ce exista:</strong> solver unificat (<code>zor_task_solver</code>), evaluatori pe domenii, rezultate brute, rapoarte HTML si studii cu DOI.</li>
+      <li><strong>Pozitionare publica astazi:</strong> <strong>inZOR-ND</strong> este punctul de intrare stiintific cel mai puternic, iar <strong>inZORi</strong> ramane motorul mai larg din spatele programului cross-domain.</li>
+      <li><strong>Modelul de documentatie:</strong> aceasta pagina este overview-ul; dovezile detaliate traiesc in paginile dedicate din sectiunea de teste.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="contact">
+    <h2>7. Contact</h2>
+    <p>Pentru feedback, colaborare sau intrebari tehnice:</p>
+    <p><strong>Email:</strong> <a href="mailto:dumitru.novic@gmail.com" style="color:var(--primary);">dumitru.novic@gmail.com</a></p>
+    <p class="note">Cercetatori, echipe tehnice si parteneri pot reutiliza aceasta prezentare high-level, pastrand paginile de studii publicate ca stratul principal de dovada.</p>
+  </div>
+
+  <div class="quote-box">"inZORi nu simuleaza evolutia — o implementeaza. Iar inZOR-ND arata ce poate deja face asta pe probleme stiintifice grele."</div>
+</div>
+
+<div class="footer">
+  <p>inZOR-ND / inZORi &mdash; Descoperire stiintifica cross-domain</p>
+  <p>De la primul test public: 14 februarie 2026 &nbsp;&middot;&nbsp; <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> &nbsp;&middot;&nbsp; <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></p>
+  <p>&copy; 2026 Dumitru Novic. Toate drepturile rezervate.</p>
+</div>
+
+<script data-goatcounter="https://inzornd.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

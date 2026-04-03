@@ -1,0 +1,129 @@
+{
+  "schema": "validation_regional_3seeds_summary_v1",
+  "seeds": [
+    42,
+    137,
+    2011
+  ],
+  "sectors_deg": {
+    "A": [
+      75.0,
+      105.0
+    ],
+    "B": [
+      240.0,
+      285.0
+    ]
+  },
+  "topk_for_table": 50,
+  "low_gap_threshold_ev": 0.01,
+  "per_seed": [
+    {
+      "seed": 42,
+      "best_gap_ev": 0.00026489130484698626,
+      "first_index_gap_below_10mev": 4,
+      "unique_geometries": 9493,
+      "n_probes": 7116,
+      "topk_K50": {
+        "frac_sector_A": 0.08,
+        "frac_sector_B": 0.42,
+        "circular_mean_torsion_deg": 238.4348173229593,
+        "torsion_std_deg": 88.76934563661942,
+        "n_effective": 50
+      },
+      "low_gap_lt_0_01_eV": {
+        "n_probes": 92,
+        "frac_sector_A": 0.05434782608695652,
+        "frac_sector_B": 0.3695652173913043,
+        "frac_halo_AB_deg_margin": 0.18478260869565216,
+        "halo_margin_deg": 10.0
+      },
+      "best_point_patch": {
+        "local_patch_size": 55,
+        "local_patch_gap_mean": 0.23006364534964643,
+        "local_patch_gap_std": 0.24028292323710873
+      },
+      "stability_label": "partially_regional",
+      "best_appears_isolated": false
+    },
+    {
+      "seed": 137,
+      "best_gap_ev": 0.0002041247263981828,
+      "first_index_gap_below_10mev": 87,
+      "unique_geometries": 8269,
+      "n_probes": 6594,
+      "topk_K50": {
+        "frac_sector_A": 0.14,
+        "frac_sector_B": 0.08,
+        "circular_mean_torsion_deg": 126.34448855671815,
+        "torsion_std_deg": 73.28965163052368,
+        "n_effective": 50
+      },
+      "low_gap_lt_0_01_eV": {
+        "n_probes": 117,
+        "frac_sector_A": 0.15384615384615385,
+        "frac_sector_B": 0.07692307692307693,
+        "frac_halo_AB_deg_margin": 0.23076923076923078,
+        "halo_margin_deg": 10.0
+      },
+      "best_point_patch": {
+        "local_patch_size": 427,
+        "local_patch_gap_mean": 0.24677207042941862,
+        "local_patch_gap_std": 0.16151783765671104
+      },
+      "stability_label": "dispersed",
+      "best_appears_isolated": false
+    },
+    {
+      "seed": 2011,
+      "best_gap_ev": 0.000731958354714177,
+      "first_index_gap_below_10mev": 316,
+      "unique_geometries": 8542,
+      "n_probes": 6442,
+      "topk_K50": {
+        "frac_sector_A": 0.0,
+        "frac_sector_B": 0.3,
+        "circular_mean_torsion_deg": 307.5490829518661,
+        "torsion_std_deg": 107.9583718677582,
+        "n_effective": 50
+      },
+      "low_gap_lt_0_01_eV": {
+        "n_probes": 33,
+        "frac_sector_A": 0.0,
+        "frac_sector_B": 0.3333333333333333,
+        "frac_halo_AB_deg_margin": 0.24242424242424243,
+        "halo_margin_deg": 10.0
+      },
+      "best_point_patch": {
+        "local_patch_size": 106,
+        "local_patch_gap_mean": 0.5070968734482179,
+        "local_patch_gap_std": 0.2576351386252536
+      },
+      "stability_label": "partially_regional",
+      "best_appears_isolated": false
+    }
+  ],
+  "aggregate": {
+    "n_seeds": 3,
+    "frac_B_topk50_mean": 0.26666666666666666,
+    "frac_B_topk50_std": 0.14079141387961916,
+    "frac_A_topk50_mean": 0.07333333333333335,
+    "frac_A_topk50_std": 0.05734883511361752,
+    "patch_size_mean": 196.0,
+    "patch_size_std": 164.66329281293994,
+    "patch_std_mean": 0.21981196650635781,
+    "patch_std_std": 0.041824466033439936,
+    "first_index_lt_10mev_mean": 135.66666666666666,
+    "first_index_lt_10mev_std": 131.9402221546645
+  },
+  "auto_conclusion": {
+    "label": "consistent_regional",
+    "criteria": {
+      "all_seeds_best_not_isolated": true,
+      "majority_seed_frac_B_gt_frac_A_topk50": true,
+      "count_frac_B_gt_frac_A": 2,
+      "n_seeds": 3
+    },
+    "plain_text_ro": "Regiunile quasi-degenerate (euristic regional) sunt consistente \u00eentre seed-uri: niciun seed nu arat\u0103 best-gap izolat \u00een metrica patch, \u0219i pe majoritatea seed-urilor frac\u021bia top-K \u00een sector B dep\u0103\u0219e\u0219te frac\u021bia \u00een A."
+  }
+}
