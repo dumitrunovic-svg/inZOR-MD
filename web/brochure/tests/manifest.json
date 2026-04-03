@@ -30,22 +30,6 @@
           "primary": true
         },
         {
-          "label": "validation_report.json",
-          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_artifacts/validation_report.json"
-        },
-        {
-          "label": "validation_regional_3seeds_summary.json",
-          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_artifacts/validation_regional_3seeds_summary.json"
-        },
-        {
-          "label": "low_gap_clusters.json",
-          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_artifacts/low_gap_clusters.json"
-        },
-        {
-          "label": "CLUSTER_STABILITY_REPORT.txt",
-          "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_artifacts/CLUSTER_STABILITY_REPORT.txt"
-        },
-        {
           "label": "QC gaps unified chapter (context)",
           "url": "tests/qc_gaps_h2_ethylene_unified/index.html"
         }
