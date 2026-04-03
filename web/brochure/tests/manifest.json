@@ -1,7 +1,147 @@
 {
   "version": "1",
-  "updated_at": "2026-03-19",
+  "updated_at": "2026-04-02",
   "tests": [
+    {
+      "id": "qc-gaps-active-space-chapter",
+      "name": "Chapter hub: QC gaps (H₂), ethylene (ZOR), and inZOR-ND active space",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-04-02",
+      "updated_at": "2026-04-02",
+      "description": "Single entry point for this chapter: (1) H₂ bond-stretch SA-CASSCF(2,2) HOMO–LUMO gap — inZOR-ND vs NOON (diagnostic table + JSON), (2) ethylene quasi-degeneracy in the open-source ZOR environment (2D/3D validation, score variants), (3) links to the published inZOR-ND N₂ / Cr₂ / comparative long-form reports. ZOR and inZOR-ND are distinct codebases; the hub states which artefact comes from which engine.",
+      "key_findings": [
+        "H₂: inZOR gap curve monotone across 7 bond lengths; NOON path non-monotone (spike at R=2.0 Å in the published snapshot)",
+        "Ethylene: ZOR scene ethylene_quasidegen couples evolutionary exploration to SA-CASSCF(2,2) gap-style observables with multi-seed validation",
+        "Active space: inZOR-ND Cr₂ / N₂ / comparative results remain the authoritative discrete-search benchmarks for CAS discovery",
+        "Figures for ethylene are bundled under tests/zor_ethylene_quasidegen/figures for static hosting"
+      ],
+      "metrics": {
+        "H₂ points": "7 geometries (0.7–2.5 Å)",
+        "Basis (H₂)": "cc-pVDZ",
+        "Engines": "ZOR (ethylene) · inZOR-ND (H₂ table + CAS benchmarks)"
+      },
+      "images": [
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/ethylene_s0s1_gap.png",
+          "caption": "Ethylene S₀–S₁ gap plot (ZOR active-space study export)"
+        },
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/vladimir_final_comparison.png",
+          "caption": "Ethylene validation comparison snapshot"
+        }
+      ],
+      "links": [
+        {
+          "label": "Chapter hub (HTML)",
+          "url": "tests/qc_gaps_active_space_chapter/index.html",
+          "primary": true
+        },
+        {
+          "label": "H₂ gap report",
+          "url": "tests/zor_h2_sa_gap/index.html"
+        },
+        {
+          "label": "Ethylene (ZOR)",
+          "url": "tests/zor_ethylene_quasidegen/index.html"
+        },
+        {
+          "label": "inZOR-ND comparative",
+          "url": "tests/active_space_comparative/index.html"
+        }
+      ]
+    },
+    {
+      "id": "zor-h2-sa-gap",
+      "name": "H₂ stretch: SA-CASSCF(2,2) HOMO–LUMO gap — inZOR-ND vs NOON (cc-pVDZ)",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-04-02",
+      "updated_at": "2026-04-02",
+      "description": "Seven-point H–H distance scan comparing the SA-CASSCF(2,2) HOMO–LUMO gap when active orbitals follow inZOR-ND vs a NOON-style selection. Snapshot demonstrates monotonic gap decay for inZOR-ND and a pathological jump for NOON at R=2.0 Å on this run. Includes machine-readable h2_stretch_results.json.",
+      "key_findings": [
+        "inZOR-ND: gaps decrease monotonically from 10.74 eV to 0.19 eV across the scan (monotonic: true in JSON)",
+        "NOON: non-monotone trace — 18.14 eV gap at R=2.0 Å vs ~2.05 eV at R=1.6 Å",
+        "Same basis (cc-pVDZ) and active space size; differs only in MO index choice protocol",
+        "Useful early diagnostic before full multi-point PEC or active-space benchmarks"
+      ],
+      "metrics": {
+        "Molecule": "H₂",
+        "Basis": "cc-pVDZ",
+        "Scan points": "7",
+        "inZOR monotonic": "true",
+        "NOON monotonic": "false"
+      },
+      "images": [],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/zor_h2_sa_gap/index.html",
+          "primary": true
+        },
+        {
+          "label": "Raw JSON",
+          "url": "tests/zor_h2_sa_gap/h2_stretch_results.json"
+        },
+        {
+          "label": "Chapter hub",
+          "url": "tests/qc_gaps_active_space_chapter/index.html"
+        }
+      ]
+    },
+    {
+      "id": "zor-ethylene-quasidegen",
+      "name": "ZOR: Ethylene quasi-degeneracy — SA-CASSCF(2,2) probe, 2D/3D validation",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-04-02",
+      "updated_at": "2026-04-02",
+      "description": "Documents the ZOR scene ethylene_quasidegen: evolutionary exploration with quantum-chemistry feedback (SA-CASSCF(2,2) gap-style observables), multi-seed validation, score variants (legacy, local_coherent, dwell_coherent), and ND/3D extensions as implemented in the ZOR repository. Distinct from inZOR-ND discrete active-space search; complements the H₂ gap diagnostic and inZOR-ND N₂/Cr₂ benchmarks.",
+      "key_findings": [
+        "ZOR couples population dynamics to SA-CASSCF(2,2) signals near quasi-degenerate ethylene geometries",
+        "Validation batches compare seeds, controls, and local grids; 3D ambient supported where enabled",
+        "Score variants test landscape robustness (legacy vs coherent dwell / local rules)",
+        "Figures bundled for static hosting alongside this HTML report"
+      ],
+      "metrics": {
+        "Scene": "ethylene_quasidegen",
+        "Electronic model": "SA-CASSCF(2,2)",
+        "Ambient": "2D + optional 3D (ZOR_ETHYLENE_ND)",
+        "Score variants": "legacy, local_coherent, dwell_coherent"
+      },
+      "images": [
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/ethylene_s0s1_gap.png",
+          "caption": "Ethylene S₀–S₁ gap (exported)"
+        },
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/vladimir_final_comparison.png",
+          "caption": "Validation comparison figure"
+        },
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/vladimir_answer.png",
+          "caption": "Companion metrics / answer panel"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/zor_ethylene_quasidegen/index.html",
+          "primary": true
+        },
+        {
+          "label": "Chapter hub",
+          "url": "tests/qc_gaps_active_space_chapter/index.html"
+        },
+        {
+          "label": "H₂ gap (related)",
+          "url": "tests/zor_h2_sa_gap/index.html"
+        }
+      ]
+    },
     {
       "id": "active-space-comparative",
       "name": "inZOR-ND vs Random Search: Comparative Validation for CASSCF Active Space Discovery",
@@ -62,6 +202,10 @@
           "label": "Full Report",
           "url": "tests/active_space_comparative/index.html",
           "primary": true
+        },
+        {
+          "label": "QC gaps chapter (H₂, ethylene, …)",
+          "url": "tests/qc_gaps_active_space_chapter/index.html"
         },
         {
           "label": "N₂ Study",

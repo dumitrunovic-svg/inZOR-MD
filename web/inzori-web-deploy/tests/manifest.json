@@ -1,54 +1,200 @@
 {
   "version": "1",
-  "updated_at": "2026-03-22",
+  "updated_at": "2026-04-02",
   "tests": [
     {
+      "id": "qc-gaps-active-space-chapter",
+      "name": "Chapter hub: QC gaps (H₂), ethylene (ZOR), and inZOR-ND active space",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-04-02",
+      "updated_at": "2026-04-02",
+      "description": "Single entry point for this chapter: (1) H₂ bond-stretch SA-CASSCF(2,2) HOMO–LUMO gap — inZOR-ND vs NOON (diagnostic table + JSON), (2) ethylene quasi-degeneracy in the open-source ZOR environment (2D/3D validation, score variants), (3) links to the published inZOR-ND N₂ / Cr₂ / comparative long-form reports. ZOR and inZOR-ND are distinct codebases; the hub states which artefact comes from which engine.",
+      "key_findings": [
+        "H₂: inZOR gap curve monotone across 7 bond lengths; NOON path non-monotone (spike at R=2.0 Å in the published snapshot)",
+        "Ethylene: ZOR scene ethylene_quasidegen couples evolutionary exploration to SA-CASSCF(2,2) gap-style observables with multi-seed validation",
+        "Active space: inZOR-ND Cr₂ / N₂ / comparative results remain the authoritative discrete-search benchmarks for CAS discovery",
+        "Figures for ethylene are bundled under tests/zor_ethylene_quasidegen/figures for static hosting"
+      ],
+      "metrics": {
+        "H₂ points": "7 geometries (0.7–2.5 Å)",
+        "Basis (H₂)": "cc-pVDZ",
+        "Engines": "ZOR (ethylene) · inZOR-ND (H₂ table + CAS benchmarks)"
+      },
+      "images": [
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/ethylene_s0s1_gap.png",
+          "caption": "Ethylene S₀–S₁ gap plot (ZOR active-space study export)"
+        },
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/vladimir_final_comparison.png",
+          "caption": "Ethylene validation comparison snapshot"
+        }
+      ],
+      "links": [
+        {
+          "label": "Chapter hub (HTML)",
+          "url": "tests/qc_gaps_active_space_chapter/index.html",
+          "primary": true
+        },
+        {
+          "label": "H₂ gap report",
+          "url": "tests/zor_h2_sa_gap/index.html"
+        },
+        {
+          "label": "Ethylene (ZOR)",
+          "url": "tests/zor_ethylene_quasidegen/index.html"
+        },
+        {
+          "label": "inZOR-ND comparative",
+          "url": "tests/active_space_comparative/index.html"
+        }
+      ]
+    },
+    {
+      "id": "zor-h2-sa-gap",
+      "name": "H₂ stretch: SA-CASSCF(2,2) HOMO–LUMO gap — inZOR-ND vs NOON (cc-pVDZ)",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-04-02",
+      "updated_at": "2026-04-02",
+      "description": "Seven-point H–H distance scan comparing the SA-CASSCF(2,2) HOMO–LUMO gap when active orbitals follow inZOR-ND vs a NOON-style selection. Snapshot demonstrates monotonic gap decay for inZOR-ND and a pathological jump for NOON at R=2.0 Å on this run. Includes machine-readable h2_stretch_results.json.",
+      "key_findings": [
+        "inZOR-ND: gaps decrease monotonically from 10.74 eV to 0.19 eV across the scan (monotonic: true in JSON)",
+        "NOON: non-monotone trace — 18.14 eV gap at R=2.0 Å vs ~2.05 eV at R=1.6 Å",
+        "Same basis (cc-pVDZ) and active space size; differs only in MO index choice protocol",
+        "Useful early diagnostic before full multi-point PEC or active-space benchmarks"
+      ],
+      "metrics": {
+        "Molecule": "H₂",
+        "Basis": "cc-pVDZ",
+        "Scan points": "7",
+        "inZOR monotonic": "true",
+        "NOON monotonic": "false"
+      },
+      "images": [],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/zor_h2_sa_gap/index.html",
+          "primary": true
+        },
+        {
+          "label": "Raw JSON",
+          "url": "tests/zor_h2_sa_gap/h2_stretch_results.json"
+        },
+        {
+          "label": "Chapter hub",
+          "url": "tests/qc_gaps_active_space_chapter/index.html"
+        }
+      ]
+    },
+    {
+      "id": "zor-ethylene-quasidegen",
+      "name": "ZOR: Ethylene quasi-degeneracy — SA-CASSCF(2,2) probe, 2D/3D validation",
+      "category": "Quantum Chemistry",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-04-02",
+      "updated_at": "2026-04-02",
+      "description": "Documents the ZOR scene ethylene_quasidegen: evolutionary exploration with quantum-chemistry feedback (SA-CASSCF(2,2) gap-style observables), multi-seed validation, score variants (legacy, local_coherent, dwell_coherent), and ND/3D extensions as implemented in the ZOR repository. Distinct from inZOR-ND discrete active-space search; complements the H₂ gap diagnostic and inZOR-ND N₂/Cr₂ benchmarks.",
+      "key_findings": [
+        "ZOR couples population dynamics to SA-CASSCF(2,2) signals near quasi-degenerate ethylene geometries",
+        "Validation batches compare seeds, controls, and local grids; 3D ambient supported where enabled",
+        "Score variants test landscape robustness (legacy vs coherent dwell / local rules)",
+        "Figures bundled for static hosting alongside this HTML report"
+      ],
+      "metrics": {
+        "Scene": "ethylene_quasidegen",
+        "Electronic model": "SA-CASSCF(2,2)",
+        "Ambient": "2D + optional 3D (ZOR_ETHYLENE_ND)",
+        "Score variants": "legacy, local_coherent, dwell_coherent"
+      },
+      "images": [
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/ethylene_s0s1_gap.png",
+          "caption": "Ethylene S₀–S₁ gap (exported)"
+        },
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/vladimir_final_comparison.png",
+          "caption": "Validation comparison figure"
+        },
+        {
+          "url": "tests/zor_ethylene_quasidegen/figures/vladimir_answer.png",
+          "caption": "Companion metrics / answer panel"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/zor_ethylene_quasidegen/index.html",
+          "primary": true
+        },
+        {
+          "label": "Chapter hub",
+          "url": "tests/qc_gaps_active_space_chapter/index.html"
+        },
+        {
+          "label": "H₂ gap (related)",
+          "url": "tests/zor_h2_sa_gap/index.html"
+        }
+      ]
+    },
+    {
       "id": "active-space-comparative",
-      "name": "inZOR-ND: Comprehensive Validation for Automatic CASSCF Active Space Selection — 8 Benchmarks",
+      "name": "inZOR-ND vs Random Search: Comparative Validation for CASSCF Active Space Discovery",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-03-19",
-      "updated_at": "2026-03-22",
-      "description": "Comprehensive validation of inZOR-ND for CASSCF/SA-CASSCF active space selection across 8 benchmarks on 6 molecular systems: N₂ PEC with 3 basis sets (6-31G, cc-pVDZ, cc-pVTZ), Cr₂ (transition metal, 3 geometries), butadiene (torsion PEC, 7 angles), formaldehyde (SA-CASSCF, 3 states), benzene (CAS(8,8), 5.7 billion candidates), and ethylene (SA-CASSCF, S0/S1, 4 torsion angles). inZOR-ND wins all 8 benchmarks (3.7–430 kcal/mol advantage). NOON-MP2 or AVAS fail on 4 out of 8 systems. Corrected NOON-MP2 uses diagonal 1-RDM method.",
+      "updated_at": "2026-03-19",
+      "description": "Comprehensive comparative validation of inZOR-ND for CASSCF active space selection. Part 1: Cr₂ hard benchmark (3 geometries, 30.26M candidates) — inZOR-ND beats random search by 35 kcal/mol. Part 2 (NEW): N₂ PEC benchmark (7 geometries, 0.90–2.50 Å) — inZOR-ND discovers a single shared CAS stable across the full dissociation curve, outperforming NOON by 75–169 kcal/mol and AVAS by 66–413 kcal/mol. A CAS optimized at a single geometry fails at R=1.80 Å, while inZOR-ND's multi-geometry CAS converges everywhere.",
       "key_findings": [
-        "8/8 benchmarks: inZOR-ND wins or is the only method that works",
-        "NOON-MP2 or AVAS did not converge on 4/8 benchmarks (CH₂O, benzene, ethylene AVAS)",
-        "N₂ PEC: consistent advantage across 3 basis sets (5.8–42.8 kcal/mol)",
-        "Cr₂ (3 geometries): −20 kcal/mol advantage over corrected NOON-MP2",
-        "Butadiene torsion (7 angles): −3.7 kcal/mol vs NOON",
-        "CH₂O SA-CASSCF: corrected NOON and AVAS did not converge; inZOR-ND is only converging method",
-        "Benzene CAS(8,8): corrected NOON and AVAS did not converge; 562 evals out of 5.7 billion",
-        "Ethylene SA-CASSCF (S0/S1): −430 kcal/mol vs NOON; AVAS not applicable (truncation)",
-        "Engine completely unmodified across all 8 benchmarks — no chemical knowledge required"
+        "Cr₂ hard: inZOR-ND best fitness 2064.493 vs Random 2064.437 — gap of 35 kcal/mol",
+        "Cr₂ hard: 8× higher convergence rate (8.8% vs 1.1%), 1 unique optimum out of 30.26M",
+        "N₂ PEC: inZOR-ND finds shared CAS stable across 7 geometries (0.90–2.50 Å)",
+        "N₂ PEC: inZOR-ND outperforms NOON by 75–169 kcal/mol (grows with bond stretching)",
+        "N₂ PEC: inZOR-ND outperforms AVAS by 66–413 kcal/mol",
+        "Transfer test: single-geometry CAS fails at R=1.80 Å, multi-geometry CAS converges 7/7",
+        "No chemical knowledge used — inZOR-ND discovers correct orbital manifold from scratch",
+        "Engine completely unmodified across all benchmarks"
       ],
       "metrics": {
-        "Benchmarks won": "8/8",
-        "Largest search space": "5.7×10⁹ (benzene)",
-        "Best advantage": "430 kcal/mol (ethylene SA-CASSCF)",
-        "Molecular systems": "6 (N₂, Cr₂, butadiene, CH₂O, benzene, ethylene)",
-        "Basis sets": "6-31G, cc-pVDZ, cc-pVTZ, STO-3G",
-        "Problem types": "Ground state, multi-geometry PEC, SA-CASSCF",
-        "Baselines did not converge": "4/8 benchmarks",
-        "Engine modifications": "0",
-        "Baseline methods": "NOON-MP2 (corrected diagonal 1-RDM), AVAS"
+        "inZOR-ND best fitness": "2064.493026",
+        "Random best fitness": "2064.436942",
+        "Energy gap": "0.056 Eh (35 kcal/mol)",
+        "inZOR-ND convergence rate": "8.8% (176/1998)",
+        "Random convergence rate": "1.1% (9/840)",
+        "Search space C(36,8)": "30,260,340",
+        "Degenerate optima": "1",
+        "Geometries": "3 (R=1.68, 2.0, 2.5 Å)"
       },
       "images": [
         {
+          "url": "tests/active_space_comparative/figures/fig1_fitness_evolution.png",
+          "caption": "Fitness evolution: inZOR-ND (11 improvements) vs Random (stagnation after 112 evals)"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig2_convergence_comparison.png",
+          "caption": "Convergence rate (8× higher for inZOR-ND) and key metrics comparison"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig3_research_progression.png",
+          "caption": "Research progression: N₂ → Cr₂ single-geom → Cr₂ 3-geom comparative"
+        },
+        {
+          "url": "tests/active_space_comparative/figures/fig4_energy_per_geometry.png",
+          "caption": "CASSCF dissociation curve: correlation grows from 0.430 to 0.872 Eh"
+        },
+        {
           "url": "tests/active_space_comparative/figures/fig5_pec_all_methods.png",
-          "caption": "N₂ PEC: inZOR-ND vs NOON-MP2/AVAS shared active space comparison"
+          "caption": "N₂ PEC: shared active space comparison — inZOR-ND vs NOON vs AVAS vs Transfer"
         },
         {
-          "url": "tests/active_space_comparative/figures/fig9_cr2_baselines.png",
-          "caption": "Cr₂ per-geometry comparison: inZOR-ND vs NOON-MP2/AVAS"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig10_butadiene_pec.png",
-          "caption": "Butadiene torsion PEC across 7 angles"
-        },
-        {
-          "url": "tests/active_space_comparative/figures/fig13_summary_all_benchmarks.png",
-          "caption": "Summary: inZOR-ND advantage across all benchmarks"
+          "url": "tests/active_space_comparative/figures/fig7_energy_gaps.png",
+          "caption": "Energy advantage over chemistry heuristics: 50–413 kcal/mol across bond lengths"
         }
       ],
       "links": [
@@ -56,6 +202,10 @@
           "label": "Full Report",
           "url": "tests/active_space_comparative/index.html",
           "primary": true
+        },
+        {
+          "label": "QC gaps chapter (H₂, ethylene, …)",
+          "url": "tests/qc_gaps_active_space_chapter/index.html"
         },
         {
           "label": "N₂ Study",
