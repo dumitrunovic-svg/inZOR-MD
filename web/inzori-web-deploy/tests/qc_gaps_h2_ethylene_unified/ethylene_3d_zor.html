@@ -89,23 +89,23 @@
   </div>
 
   <div class="section">
-    <h2>Key figures (ZOR validation thread)</h2>
-    <p class="note">Visual summary from the same <code>ethylene_quasidegen</code> SA-CASSCF(2,2) ZOR pipeline as the 3D tables above — not separate experiments.</p>
+    <h2>Figures (this 3D report’s validation run)</h2>
+    <p class="note">These plots are the ones written by <code>validate_ethylene_zor.py</code> into <code>logs/validation_regional_3seeds_20260403_155239/</code> — same batch as the tables above (3 seeds, 3D regional mode). They are <strong>not</strong> generic exports from other folders.</p>
     <figure class="figure-block">
-      <img src="figures/ethylene_s0s1_gap.png" alt="Ethylene S0–S1 electronic gap vs ZOR generation" loading="lazy" width="920" height="400">
-      <figcaption><strong>S₀–S₁ gap (eV)</strong> vs optimisation generation (representative export).</figcaption>
+      <img src="figures/regional_155239_scatter_torsion_rcc_gap.png" alt="Scatter: torsion vs r_CC coloured by gap" loading="lazy" width="920" height="520">
+      <figcaption><strong>Scatter (torsion, r<sub>CC</sub>)</strong> coloured by S₀–S₁ gap — pooled / regional view from that validation folder.</figcaption>
     </figure>
     <figure class="figure-block">
-      <img src="figures/vladimir_final_comparison.png" alt="Validation and score-variant comparison panels" loading="lazy" width="920" height="400">
-      <figcaption><strong>Validation / variant comparison</strong> — seeds, controls, and score variants in one view.</figcaption>
+      <img src="figures/regional_155239_torsion_low_gap_hist.png" alt="Histogram of torsion for low-gap probes" loading="lazy" width="920" height="400">
+      <figcaption><strong>Low-gap torsion histogram</strong> — concentration of quasi-degenerate probes in angle.</figcaption>
     </figure>
     <figure class="figure-block">
-      <img src="figures/vladimir_answer.png" alt="ZOR validation metrics panel" loading="lazy" width="920" height="400">
-      <figcaption><strong>Metrics panel</strong> — thread-level validation readout (ZOR).</figcaption>
+      <img src="figures/regional_155239_local_gap_grid.png" alt="Local 5x5 gap grid in torsion and r_CC" loading="lazy" width="920" height="400">
+      <figcaption><strong>Local 5×5 gap grid</strong> in (torsion, r<sub>CC</sub>) at the best point’s z<sub>lift</sub> (coherence check).</figcaption>
     </figure>
     <figure class="figure-block">
-      <img src="figures/vladimir_panel_from_json.png" alt="Panel reconstructed from validation JSON" loading="lazy" width="920" height="400">
-      <figcaption><strong>Panel from structured export</strong> — same data as JSON-backed diagnostics, rendered for quick reading.</figcaption>
+      <img src="figures/regional_155239_local_gap_z_sweep.png" alt="Gap vs z_lift sweep" loading="lazy" width="920" height="400">
+      <figcaption><strong>z<sub>lift</sub> sweep</strong> — gap profile out-of-plane around the best geometry.</figcaption>
     </figure>
   </div>
 
