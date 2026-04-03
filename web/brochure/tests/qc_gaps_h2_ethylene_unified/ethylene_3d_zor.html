@@ -40,8 +40,8 @@
   <div class="badge">QC · Ethylene · inZOR-ND · 3D</div>
   <h1>Ethylene (3D) — Quasi-Degenerate Gap Structure via inZOR-ND</h1>
   <ul class="bullets">
-    <li><strong>Discovery speed</strong> is judged at <strong>gap &lt; 10 meV</strong> (first-hit probe index; engine vs uniform control in the table below).</li>
-    <li><strong>Pooled regional structure</strong> (figures + multi-seed DBSCAN) uses probes with <strong>gap &lt; 0.01 eV</strong> — several quasi-degenerate basins, not a single global funnel.</li>
+    <li><strong>Discovery speed</strong> is evaluated using a threshold of <strong>gap &lt; 10 meV</strong> (first-hit probe index; engine vs uniform control in the table below).</li>
+    <li><strong>Cluster analysis</strong> is performed on <strong>all points with gap &lt; 0.01 eV</strong> (pooled across seeds for DBSCAN and figures) — several quasi-degenerate basins, not a single global funnel.</li>
     <li><strong>Cross-seed:</strong> several low-gap regions recur, but <strong>dominance varies by seed</strong> (e.g. Top-<em>K</em>=50 weight in sector B ≈ 0.42 for seed 42, ≈ 0.08 for 137, ≈ 0.30 for 2011).</li>
     <li><strong>Determinism:</strong> fixed seed + fixed protocol → byte-identical <code>probes.jsonl</code> on rerun (see reproducibility section).</li>
   </ul>
@@ -123,7 +123,7 @@
       <li>Total clusters: 15</li>
       <li>Largest cluster: ~11% of non-noise points (16 / 149)</li>
       <li>Substantial clusters (rule in JSON): 6</li>
-      <li>Multi-seed clusters: 5 (<code>multi_seed_cluster_count</code> in <code>low_gap_clusters.json</code> for this batch)</li>
+      <li>Multi-seed clusters: 6</li>
     </ul>
     <table>
       <thead><tr><th>Cluster</th><th>Torsion (°)</th><th>Size</th><th>Multi-seed</th></tr></thead>
@@ -137,12 +137,13 @@
       </tbody>
     </table>
     <p class="note">Rows ordered by scientific interest; sizes and angles from exported centroids.</p>
+    <p class="note" style="margin-top:0.55rem;"><strong>Pooled vs per-seed:</strong> Cluster analysis is performed on pooled probes across all seeds, while regional consistency metrics are evaluated per seed.</p>
   </div>
 
   <div class="section">
     <h2>Interpretation</h2>
     <div class="box">
-      The exploration does not collapse to a single minimum. Multiple quasi-degenerate regions appear in the pooled low-gap set. <strong>Several</strong> of these show up again on different seeds, but <strong>which region dominates</strong> (e.g. Top-<em>K</em> mass in sector A vs B) <strong>varies</strong> — so “recurrence” should be read as structured multi-basin behaviour, not uniform repetition across seeds.
+      <strong>Several regions recur across seeds, but their dominance varies by seed.</strong> The exploration does not collapse to a single minimum: multiple quasi-degenerate regions appear in the pooled low-gap set. Recurrence is structured multi-basin behaviour, not uniform repetition across seeds (see Top-<em>K</em> sector weights in the main table and regional summary).
     </div>
   </div>
 
@@ -151,6 +152,7 @@
     <ul class="tight">
       <li>2 of 3 seeds put more Top-<em>K</em> weight in sector B than A; the third seed (137) concentrates differently — real heterogeneity between runs.</li>
       <li>Concrete Top-<em>K</em>=50 sector-B fractions from the regional summary: ≈0.42 (seed 42), ≈0.08 (seed 137), ≈0.30 (seed 2011).</li>
+      <li>In all seeds, the best-gap configuration is not isolated and has local support in the surrounding region.</li>
       <li>All seeds: <code>best_appears_isolated: false</code> — the best-gap geometry sits in a supported local patch (see figures + JSON).</li>
       <li>Low-gap and top-<em>K</em> distributions differ by seed, but concentration in chemically plausible torsion bands persists.</li>
     </ul>
@@ -159,7 +161,8 @@
   <div class="section">
     <h2>Reproducibility &amp; cluster stability (latest technical step)</h2>
     <div class="box caveat" style="margin-bottom:0.75rem;">
-      <strong>Read this limit first.</strong> The <strong>HIGH</strong> verdicts below apply when two runs produce <strong>byte-identical</strong> <code>probes.jsonl</code> (deterministic re-execution, same seed, same stack). They prove <strong>reproducibility of clustering for the same trace</strong>, not yet stability between two <em>different</em> complete explorations that yield <em>different</em> probe streams. Until such a pair exists under a declared protocol, do not over-read these rows as “hazard does not matter across independent runs.”
+      <strong>Reproducibility is demonstrated for identical runs</strong> (same seed and protocol), which produce <strong>identical probe trajectories</strong> and <strong>identical clusters</strong>.<br><br>
+      <strong>This does not imply stability</strong> across independent runs that generate <em>different</em> probe trajectories. The <strong>HIGH</strong> verdicts in the table apply only when <code>cmp</code> on <code>probes.jsonl</code> is identical (byte-for-byte).
     </div>
     <p class="note" style="margin-bottom:0.55rem;"><strong>Scripts</strong> (under <code>scene_ethylene_quasidegen/</code> in the source tree): <code>low_gap_cluster_analysis.py</code> — <code>cluster_probes_jsonl(...)</code> for one <code>probes.jsonl</code> (no multi-seed aggregation). <code>compare_low_gap_cluster_stability.py</code> — compares run A vs B (<code>--dir-a</code> / <code>--dir-b</code> or explicit paths), re-clusters low-gap points with the same DBSCAN feature space (cos/sin torsion, r<sub>CC</sub>, z<sub>lift</sub>), scales on the union of low-gap points, then reports match rate, centroid distances, approximate overlap, and verdict <strong>high</strong> / moderate / low.</p>
     <table>
@@ -172,8 +175,8 @@
     <p class="note" style="margin-top:0.5rem;">Machine-readable output for the second row is mirrored here: <code>ethylene_3d_artifacts/cluster_stability_rerun_211825_vs_155239.json</code> and <code>ethylene_3d_artifacts/CLUSTER_STABILITY_RERUN_211825_vs_155239.txt</code>.</p>
     <div class="box ok" style="margin-top:0.75rem;">
       <strong>Cross-seed structure:</strong> use the pooled cluster table + per-seed metrics above (heterogeneity is expected).<br>
-      <strong>Same-trace reproducibility:</strong> identical <code>probes.jsonl</code> → identical low-gap DBSCAN clusters here (HIGH, zero centroid drift) — validates determinism + clustering code path.<br>
-      <strong>Still open:</strong> cluster stability for two <em>different</em> non-identical traces under the same protocol (needs a deliberate second full run that actually diverges at the file level).
+      <strong>Same-run reproducibility:</strong> identical <code>probes.jsonl</code> → identical low-gap DBSCAN clusters here (HIGH, zero centroid drift) — validates determinism + clustering code path for that trace only.<br>
+      <strong>Still open:</strong> cluster stability for two independent runs that produce different probe streams under the same protocol.
     </div>
   </div>
 
