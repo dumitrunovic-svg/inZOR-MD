@@ -30,4 +30,8 @@ for d in qc_gaps_h2_ethylene_unified; do
     rsync -a "$SRC/tests/$d/" "$ROOT/tests/$d/"
   fi
 done
-echo "Mirrored unified QC report → $ROOT/tests/ (for Pages root)"
+# Catalogue source of truth: brochure (keep repo-root manifest aligned for Pages _site).
+if [[ -f "$SRC/tests/manifest.json" ]]; then
+  cp -a "$SRC/tests/manifest.json" "$ROOT/tests/manifest.json"
+fi
+echo "Mirrored unified QC report + manifest → $ROOT/tests/"
