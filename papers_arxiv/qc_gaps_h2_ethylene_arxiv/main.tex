@@ -10,6 +10,7 @@
 \usepackage{parskip}
 \usepackage[dvipsnames,svgnames,table]{xcolor}
 \usepackage{hyperref}
+\usepackage{xurl}
 \hypersetup{
   colorlinks=true,
   linkcolor=MidnightBlue,
@@ -42,6 +43,7 @@ and the Discrete-Search Benchmark Boundary}}
 \maketitle
 
 \begin{abstract}
+\begin{sloppypar}
 Near \textbf{quasi-degeneracy}, multi-reference methods depend critically on the
 \textbf{active space}. Poor orbital choices can distort \textbf{excitation gaps}
 and state orderings long before a full potential-energy surface is trusted.
@@ -72,6 +74,7 @@ N$_2$) remain the citation target for CAS discovery claims~\citep{inZORNDActiveS
 All tabulated H$_2$ numbers are frozen in machine-readable JSON alongside the
 public HTML companion~\citep{inZORNDQCGaps2026}; the 3D ethylene regional study
 is published as a sibling page~\citep{inZORNDEthylene3D2026}.
+\end{sloppypar}
 \end{abstract}
 
 \section{Motivation}
@@ -183,6 +186,7 @@ technical companion~\citep{inZORNDEthylene3D2026}.
 \end{figure}
 
 \section{Relation to discrete-search benchmarks}
+\begin{sloppypar}
 The \textbf{eight-benchmark} interactive report treats ethylene SA-CASSCF within
 a \textbf{discrete-search} protocol against NOON-MP2 / AVAS-style
 baselines~\citep{inZORNDActiveSpace2026}. The present unified chapter adds (i) a
@@ -190,20 +194,23 @@ baselines~\citep{inZORNDActiveSpace2026}. The present unified chapter adds (i) a
 \textbf{continuous exploration} narrative for ethylene. Readers should cite the
 comparative suite for large-molecule CAS discovery statistics, and this note for
 gap-focused motivation, the H$_2$ table, and the exploration/validation figures.
+\end{sloppypar}
 
 \section{Reproducibility}
+\begin{sloppypar}
 \textbf{H$_2$:} regenerate from the driver that produced
 \texttt{h2\_stretch\_results.json}; pin PySCF and dependencies for bit-identical
 replication if required.
 
 \textbf{Ethylene:} scene assets, exports, and validation logs live under
-\texttt{zor\_scenes/scene\_ethylene\_quasidegen/} in the source repository
-referenced from the public HTML~\citep{inZORNDQCGaps2026}.
+\texttt{zor\_scenes/}\allowbreak\texttt{scene\_ethylene\_quasidegen/} in the
+source repository; see the public HTML companion~\citep{inZORNDQCGaps2026}.
 
 \textbf{3D regional batch:} named validation directories and JSON summaries are
-listed on the 3D page~\citep{inZORNDEthylene3D2026}; reproducibility of
+listed on the 3D page~\citep{inZORNDEthylene3D2026}. Reproducibility of
 clustering is demonstrated for \textbf{byte-identical} \texttt{probes.jsonl}
 reruns, not for independent stochastic trajectories.
+\end{sloppypar}
 
 \section{Conclusion}
 Quasi-degenerate regimes demand scrutiny of \textbf{gap observables}, not only
@@ -216,9 +223,16 @@ report. Keeping \textbf{discrete-search} and \textbf{continuous-exploration}
 claims apart preserves scientific hygiene as both lines evolve.
 
 \section*{Data and code availability}
-Interactive report (HTML): \url{https://dumitrunovic-svg.github.io/inZOR-ND/tests/qc_gaps_h2_ethylene_unified/}.\\
-Ethylene 3D technical page: \url{https://dumitrunovic-svg.github.io/inZOR-ND/tests/qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html}.\\
-Repository (tests and brochure source): \url{https://github.com/dumitrunovic-svg/inZOR-ND}.
+\begin{sloppypar}
+Interactive report (HTML):\newline
+{\small\url{https://dumitrunovic-svg.github.io/inZOR-ND/tests/qc_gaps_h2_ethylene_unified/}}
+
+Ethylene 3D technical page:\newline
+{\small\url{https://dumitrunovic-svg.github.io/inZOR-ND/tests/qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html}}
+
+Repository (tests and brochure source):\newline
+{\small\url{https://github.com/dumitrunovic-svg/inZOR-ND}}.
+\end{sloppypar}
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}
