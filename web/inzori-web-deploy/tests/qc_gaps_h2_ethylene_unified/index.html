@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QC gaps: H₂ diagnostic &amp; ethylene (ZOR) — unified report</title>
+<title>QC gaps: H₂ diagnostic &amp; ethylene (inZOR-ND) — unified report</title>
 <style>
   :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --purple:#8e44ad; --teal:#0d9488; }
   * { box-sizing:border-box; margin:0; padding:0; }
@@ -58,9 +58,9 @@
 
 <div class="header">
   <div class="phase-badge">Quantum chemistry · Unified chapter</div>
-  <h1>QC gaps: why they matter, H₂ as a minimal diagnostic, ethylene in ZOR, and the inZOR-ND benchmarks</h1>
-  <p class="subtitle">One report for the work thread on <strong>electronic gaps</strong> near quasi-degeneracy: what we built, which program does what, and how the pieces connect. Updated 2026-04-03.</p>
-  <p class="meta">Single page · raw H₂ data on this path · figures from ZOR validation exports</p>
+  <h1>QC gaps: why they matter, H₂ as a minimal diagnostic, ethylene exploration in inZOR-ND, and the discrete-search benchmarks</h1>
+  <p class="subtitle">One report for the work thread on <strong>electronic gaps</strong> near quasi-degeneracy: what we built, which mode does what, and how the pieces connect. Updated 2026-04-03.</p>
+  <p class="meta">Single page · raw H₂ data on this path · figures from inZOR-ND validation exports</p>
 </div>
 
 <div class="container">
@@ -69,9 +69,9 @@
     <strong>Contents</strong>
     <ol>
       <li><a href="#why">Why this work</a></li>
-      <li><a href="#engines">Two engines: inZOR-ND vs ZOR</a></li>
+      <li><a href="#engines">Two modes: discrete search vs continuous exploration (inZOR-ND)</a></li>
       <li><a href="#h2">H₂ stretch — SA-CASSCF(2,2) gap scan</a></li>
-      <li><a href="#ethylene">Ethylene quasi-degeneracy — ZOR scene</a></li>
+      <li><a href="#ethylene">Ethylene quasi-degeneracy — inZOR-ND scene</a></li>
       <li><a href="#bridge">Bridge to inZOR-ND active-space suite</a></li>
       <li><a href="#repro">Reproducibility &amp; PDF</a></li>
     </ol>
@@ -82,27 +82,27 @@
     <p>Near <strong>quasi-degeneracy</strong> (avoided crossings, stretched bonds, twisted π systems), <strong>multi-reference</strong> methods depend critically on the <strong>active space</strong>. A poor choice does not only shift total energies: it can distort <strong>excitation gaps</strong> and state orderings long before a full potential-energy surface is computed. This chapter documents two complementary lines of work:</p>
     <ul>
       <li><strong>Minimal diagnostic (H₂):</strong> a seven-point H–H scan comparing SA-CASSCF(2,2) <strong>HOMO–LUMO gaps</strong> when orbitals are chosen by <strong>inZOR-ND</strong> versus a <strong>NOON</strong>-style rule. The goal is a <em>cheap, interpretable</em> signal: does the gap curve behave physically along the scan?</li>
-      <li><strong>Exploratory system (ethylene):</strong> in the open-source <strong>ZOR</strong> world, a dedicated scene (<code>scene_ethylene_quasidegen</code>) feeds <strong>SA-CASSCF(2,2)</strong> gap-related observables back into an <strong>evolving population</strong> (2D/3D, multiple seeds, score variants). The goal is not to replace benchmark solvers but to study <strong>adaptive exploration</strong> under the same chemical stress (near-degeneracy) that motivates strict QC validation elsewhere.</li>
+      <li><strong>Exploratory system (ethylene):</strong> in <strong>inZOR-ND</strong>, a dedicated scene (<code>scene_ethylene_quasidegen</code>) feeds <strong>SA-CASSCF(2,2)</strong> gap-related observables back into an <strong>evolving population</strong> (2D/3D, multiple seeds, score variants). The goal is not to replace benchmark solvers but to study <strong>adaptive exploration</strong> under the same chemical stress (near-degeneracy) that motivates strict QC validation elsewhere.</li>
     </ul>
-    <p>Large-scale <strong>inZOR-ND</strong> results for automatic CAS selection (N₂, Cr₂, eight-benchmark comparative, including ethylene SA-CASSCF) remain the <strong>authoritative discrete-search validation</strong>. This page makes the <strong>scope boundary</strong> explicit so readers never confuse ZOR runs with inZOR-ND search logs.</p>
+    <p>Large-scale <strong>inZOR-ND</strong> results for automatic CAS selection (N₂, Cr₂, eight-benchmark comparative, including ethylene SA-CASSCF) remain the <strong>authoritative discrete-search validation</strong>. This page makes the <strong>scope boundary</strong> explicit so readers never confuse <strong>continuous population exploration</strong> logs with <strong>discrete orbital-set search</strong> benchmark tables — both ship under the inZOR-ND name, but the algorithms and fitness landscapes differ.</p>
   </div>
 
   <div class="section" id="engines">
-    <h2>Two engines: what each one does here</h2>
+    <h2>Two modes of inZOR-ND on this page</h2>
     <div class="compare-grid">
       <div class="compare-card">
-        <h4>inZOR-ND</h4>
+        <h4>Discrete search (benchmark track)</h4>
         <p>Bio-adaptive <strong>discrete search</strong> over candidate active spaces (orbital index sets). Used for the <strong>H₂ gap table</strong> (fixed protocol per method) and for all <strong>published CAS benchmarks</strong> linked below.</p>
         <p><strong>Why it appears in an H₂ “gap” note:</strong> same orbital-choice question as in large molecules, but in the smallest system where the gap trace is easy to read.</p>
       </div>
       <div class="compare-card">
-        <h4>ZOR</h4>
+        <h4>Continuous exploration (ethylene scene)</h4>
         <p>2D/3D <strong>artificial-life</strong> environment: genomes propose moves; a <strong>quantum-chemistry probe</strong> (here SA-CASSCF(2,2)) scores proposals. Used for <strong>ethylene quasi-degeneracy</strong> exploration and validation batches (<code>legacy</code> / <code>local_coherent</code> / <code>dwell_coherent</code>, optional ND).</p>
         <p><strong>Why ethylene:</strong> richer geometry than H₂ while still highlighting <strong>gap-driven</strong> fitness near problematic electronic regimes.</p>
       </div>
     </div>
     <div class="insight-box">
-      <strong>Claim hygiene.</strong> Do not cite ZOR population logs as inZOR-ND benchmark outcomes, or vice versa. The <em>scientific motif</em> (gaps under quasi-degeneracy) is shared; the <em>algorithms and fitness landscapes</em> are not.
+      <strong>Claim hygiene.</strong> Do not cite <strong>population exploration</strong> logs as <strong>discrete-search benchmark</strong> outcomes, or vice versa. The <em>scientific motif</em> (gaps under quasi-degeneracy) is shared; the <em>algorithms and fitness landscapes</em> are not.
     </div>
   </div>
 
@@ -156,13 +156,13 @@
   </div>
 
   <div class="section" id="ethylene">
-    <h2>Ethylene quasi-degeneracy — ZOR scene</h2>
-    <p style="font-size:0.93rem; margin-bottom:0.85rem;"><strong>Ethylene 3D (regional validation):</strong> published as its <strong>own</strong> entry at the top of the Research Tests page — <em>Ethylene (3D) — Quasi-Degenerate Gap Structure via ZOR</em>. Technical report: <a href="ethylene_3d_zor.html">ethylene_3d_zor.html</a>.</p>
+    <h2>Ethylene quasi-degeneracy — inZOR-ND scene</h2>
+    <p style="font-size:0.93rem; margin-bottom:0.85rem;"><strong>Ethylene 3D (regional validation):</strong> published as its <strong>own</strong> entry at the top of the Research Tests page — <em>Ethylene (3D) — Quasi-Degenerate Gap Structure via inZOR-ND</em>. Technical report: <a href="ethylene_3d_zor.html">ethylene_3d_zor.html</a>.</p>
     <h3>What we built and why</h3>
-    <p>Ethylene near torsional quasi-degeneracy is a classic setting where <strong>single-reference pictures weaken</strong> and SA-CASSCF(2,2) is a minimal multi-reference anchor. In ZOR we attach that computation to an <strong>evolving population</strong> so we can ask: under local sensing only (no hand-written policy), does selection pressure in a 2D/3D world still <strong>track chemically meaningful gap structure</strong> when we change scoring rules or dimensionality?</p>
+    <p>Ethylene near torsional quasi-degeneracy is a classic setting where <strong>single-reference pictures weaken</strong> and SA-CASSCF(2,2) is a minimal multi-reference anchor. In <strong>inZOR-ND</strong> we attach that computation to an <strong>evolving population</strong> so we can ask: under local sensing only (no hand-written policy), does selection pressure in a 2D/3D world still <strong>track chemically meaningful gap structure</strong> when we change scoring rules or dimensionality?</p>
     <h3>Protocol (engineering summary)</h3>
     <ul>
-      <li><strong>Scene path (ZOR repo):</strong> <code>zor_scenes/scene_ethylene_quasidegen/</code> — logs, validation scripts, batch outputs as committed there.</li>
+      <li><strong>Scene path (source tree):</strong> <code>zor_scenes/scene_ethylene_quasidegen/</code> — logs, validation scripts, batch outputs as committed there.</li>
       <li><strong>Electronic model:</strong> SA-CASSCF(2,2); gap-style observables (e.g. S₀–S₁) feed fitness.</li>
       <li><strong>Validation:</strong> multiple seeds, controls, local grids; <strong>3D</strong> extensions when <code>ZOR_ETHYLENE_ND</code> / ND output folders are enabled.</li>
       <li><strong>Score variants:</strong> <code>legacy</code>, <code>local_coherent</code>, <code>dwell_coherent</code> — to stress-test whether conclusions depend on a particular temporal-smoothing or locality heuristic in the score.</li>
@@ -170,7 +170,7 @@
 
     <div class="fig-wrap">
       <img src="figures/ethylene_s0s1_gap.png" alt="Ethylene S0 S1 gap">
-      <p class="fig-caption">Exported S₀–S₁ gap visual for the ethylene active-space / quasi-degeneracy study (ZOR workspace).</p>
+      <p class="fig-caption">Exported S₀–S₁ gap visual for the ethylene active-space / quasi-degeneracy study (inZOR-ND workspace).</p>
     </div>
     <div class="fig-wrap">
       <img src="figures/vladimir_final_comparison.png" alt="Validation comparison across variants">
@@ -185,7 +185,7 @@
   <div class="section" id="bridge">
     <h2>Bridge to the inZOR-ND active-space suite</h2>
     <p>The <strong>comparative eight-benchmark</strong> report includes <strong>ethylene SA-CASSCF</strong> alongside N₂, Cr₂, butadiene, CH₂O, benzene, etc. That is the right place for <strong>discrete-search</strong> head-to-head against NOON-MP2 / AVAS with published energy gaps and advantages.</p>
-    <p>This unified page adds: (i) a <strong>minimal H₂ gap sanity check</strong> for orbital heuristics, and (ii) a <strong>ZOR-side exploration narrative</strong> for the same chemical theme. Together they explain <strong>motivation and tooling</strong>; the comparative HTML remains the citation target for large-scale CAS discovery claims.</p>
+    <p>This unified page adds: (i) a <strong>minimal H₂ gap sanity check</strong> for orbital heuristics, and (ii) an <strong>inZOR-ND continuous-exploration narrative</strong> (ethylene scene) for the same chemical theme. Together they explain <strong>motivation and tooling</strong>; the comparative HTML remains the citation target for large-scale CAS discovery claims.</p>
     <div class="ref-box">
       <strong>Continue reading</strong>
       <ul style="margin-top:0.5rem;">
@@ -199,7 +199,7 @@
   <div class="repro-box" id="repro">
     <h3 style="margin-top:0;">Reproducibility &amp; PDF</h3>
     <p><strong>H₂:</strong> regenerate from the driver that produced <a href="h2_stretch_results.json"><code>h2_stretch_results.json</code></a> (PySCF / SA-CASSCF stack; pin versions for any formal preprint).</p>
-    <p><strong>Ethylene (ZOR):</strong> reproduce from the ZOR repository — scene assets, <code>zor_active_space/</code> exports, and validation logs under <code>zor_scenes/scene_ethylene_quasidegen/</code>.</p>
+    <p><strong>Ethylene (inZOR-ND):</strong> reproduce from the source repository — scene assets, <code>zor_active_space/</code> exports, and validation logs under <code>zor_scenes/scene_ethylene_quasidegen/</code>.</p>
     <p><strong>PDF:</strong> this HTML is structured as the web companion; a future PDF can lift sections 1:1 with DOI / commit SHA in the front matter.</p>
   </div>
 </div>
