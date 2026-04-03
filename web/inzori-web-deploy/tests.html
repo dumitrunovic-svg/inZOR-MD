@@ -328,7 +328,7 @@
     </section>
 
     <div class="footer-nav">
-      <div>Tip: click a title to expand/collapse. Only one test stays open for readability.</div>
+      <div>Tip: click a title to expand or collapse. Every test stays in the list — you can open several at once (e.g. unified QC + Ethylene 3D).</div>
       <div><a href="index.html">← Back to Home</a></div>
     </div>
   </main>
@@ -375,12 +375,6 @@
 
     function fmtDate(s) {
       return s || '';
-    }
-
-    function closeOthers(openDetails) {
-      document.querySelectorAll('details.test[open]').forEach(d => {
-        if (d !== openDetails) d.removeAttribute('open');
-      });
     }
 
     function renderMedia(test) {
@@ -495,13 +489,6 @@
 
       els.meta.textContent = `${filtered.length} / ${allTests.length} tests shown`;
       els.list.innerHTML = filtered.map(renderTest).join('') || `<p class="note">No matches.</p>`;
-
-      // accordion: only one open at a time
-      els.list.querySelectorAll('details.test').forEach(d => {
-        d.addEventListener('toggle', () => {
-          if (d.open) closeOthers(d);
-        });
-      });
     }
 
     async function init() {
