@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "updated_at": "2026-04-05",
+  "updated_at": "2026-04-06",
   "tests": [
     {
       "id": "zor-ethylene-3d-quasidegenerate-regions",
@@ -9,8 +9,8 @@
       "status": "finished",
       "published": true,
       "created_at": "2026-04-03",
-      "updated_at": "2026-04-05",
-      "description": "Standalone empirical test: 3D internal coordinates (torsion, r_CC, z_lift), SA-CASSCF(2,2), three ZOR seeds vs matched-budget uniform control, pooled low-gap DBSCAN clusters, reproducibility check. Tables + JSON artefacts. Listed first on Research Tests; separate from the unified QC chapter (motivation, H₂ diagnostic, long-form ethylene narrative).",
+      "updated_at": "2026-04-06",
+      "description": "Standalone empirical test: 3D internal coordinates (torsion, r_CC, z_lift), SA-CASSCF(2,2), three ZOR seeds vs matched-budget uniform control, pooled low-gap DBSCAN clusters, reproducibility check. Full numeric tables plus key ZOR validation figures on the report page. Listed first on Research Tests; separate from the unified QC chapter (motivation, H₂ diagnostic, long-form ethylene narrative).",
       "key_findings": [
         "Multiple quasi-degenerate regions; some recur across independent seeds",
         "ZOR finds gap < 10 meV much earlier than uniform sampling under the same evaluation budget",
@@ -22,10 +22,27 @@
         "Dimensionality": "3D",
         "Method": "SA-CASSCF(2,2)"
       },
-      "images": [],
+      "images": [
+        {
+          "url": "tests/qc_gaps_h2_ethylene_unified/figures/ethylene_s0s1_gap.png",
+          "caption": "S₀–S₁ gap vs generation (ZOR export)"
+        },
+        {
+          "url": "tests/qc_gaps_h2_ethylene_unified/figures/vladimir_final_comparison.png",
+          "caption": "Validation / variant comparison"
+        },
+        {
+          "url": "tests/qc_gaps_h2_ethylene_unified/figures/vladimir_answer.png",
+          "caption": "Metrics panel (validation thread)"
+        },
+        {
+          "url": "tests/qc_gaps_h2_ethylene_unified/figures/vladimir_panel_from_json.png",
+          "caption": "Panel from structured JSON export"
+        }
+      ],
       "links": [
         {
-          "label": "Tables + clusters + JSON (full report)",
+          "label": "Full report (tables + figures)",
           "url": "tests/qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html",
           "primary": true
         },
