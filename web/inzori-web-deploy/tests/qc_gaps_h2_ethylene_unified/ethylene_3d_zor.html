@@ -59,7 +59,7 @@
         <tr><td>Population</td><td>12 → 30</td></tr>
       </tbody>
     </table>
-    <p class="note">Score variant <code>legacy</code>. Regional validation batch: <code>validation_regional_3seeds_20260403_155239</code>.</p>
+    <p class="note">Score variant <code>legacy</code>. Main tables: regional batch <code>validation_regional_3seeds_20260403_155239</code>. Additional full regional run (seed 42 only): <code>validation_20260403_211825_legacy_nd3_regional_s42</code> — its <code>zor_seed_42/probes.jsonl</code> is <strong>byte-identical</strong> to seed 42 in the 3-seed batch (<code>cmp</code> exit 0).</p>
   </div>
 
   <div class="section">
@@ -150,9 +150,20 @@
   </div>
 
   <div class="section">
-    <h2>Reproducibility</h2>
-    <div class="box ok">
-      Running the same seed produces identical probe trajectories and identical low-gap clusters (verified: independent regional rerun of seed 42 vs reference <code>probes.jsonl</code>, byte match). This confirms full determinism of the exploration process for this stack.
+    <h2>Reproducibility &amp; cluster stability (latest technical step)</h2>
+    <p class="note" style="margin-bottom:0.55rem;"><strong>What was added in the ZOR repo:</strong> <code>low_gap_cluster_analysis.py</code> — <code>cluster_probes_jsonl(...)</code> for one <code>probes.jsonl</code> (no multi-seed aggregation). <code>compare_low_gap_cluster_stability.py</code> — compares run A vs B (<code>--dir-a</code> / <code>--dir-b</code> or explicit paths), re-clusters low-gap points with the same DBSCAN feature space (cos/sin torsion, r<sub>CC</sub>, z<sub>lift</sub>), scales on the union of low-gap points, then reports match rate, centroid distances, approximate overlap, and verdict <strong>high</strong> / moderate / low.</p>
+    <table>
+      <thead><tr><th>Comparison (seed 42)</th><th><code>cmp</code> on <code>probes.jsonl</code></th><th>Low-gap (&lt;0.01 eV)</th><th>Clusters A/B</th><th>Matched</th><th>Mean centroid Δ (scaled)</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td><code>validation_20260403_130511…_regional_s42</code> vs <code>…155239/zor_seed_42</code></td><td>identical (exit 0)</td><td>92 / 92</td><td>7 / 7</td><td>7/7</td><td>0</td><td>HIGH</td></tr>
+        <tr><td><code>…155239/zor_seed_42</code> vs <code>validation_20260403_211825…_regional_s42</code></td><td>identical (exit 0)</td><td>92 / 92</td><td>7 / 7</td><td>7/7</td><td>0</td><td>HIGH</td></tr>
+      </tbody>
+    </table>
+    <p class="note" style="margin-top:0.5rem;">Machine-readable output for the second row is mirrored here: <code>ethylene_3d_artifacts/cluster_stability_rerun_211825_vs_155239.json</code> and <code>ethylene_3d_artifacts/CLUSTER_STABILITY_RERUN_211825_vs_155239.txt</code>.</p>
+    <div class="box ok" style="margin-top:0.75rem;">
+      <strong>Cross-seed / regional structure:</strong> already supported by the multi-seed analysis and pooled clusters above.<br>
+      <strong>Same-trace reproducibility:</strong> with identical <code>probes.jsonl</code>, low-gap DBSCAN clusters match perfectly (HIGH) — good for “deterministic stack + identical protocol”.<br>
+      <strong>Not shown here:</strong> stability between two <em>different</em> complete runs that produce different traces (would need genuinely distinct <code>probes.jsonl</code> under the same declared protocol).
     </div>
   </div>
 

@@ -1,0 +1,65 @@
+{
+  "probes_a": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_regional_3seeds_20260403_155239/zor_seed_42/probes.jsonl",
+  "probes_b": "/opt/zor/zor_scenes/scene_ethylene_quasidegen/logs/validation_20260403_211825_legacy_nd3_regional_s42/zor_seed_42/probes.jsonl",
+  "gap_threshold_ev": 0.01,
+  "params": {
+    "eps_after_standard_scaler": 0.42,
+    "min_samples": 5,
+    "gap_threshold_ev": 0.01
+  },
+  "match_threshold_scaled": 0.21,
+  "n_low_gap_a": 92,
+  "n_low_gap_b": 92,
+  "n_clusters_a": 7,
+  "n_clusters_b": 7,
+  "n_noise_a": 33,
+  "n_noise_b": 33,
+  "n_matched": 7,
+  "match_rate_vs_max": 1.0,
+  "mean_centroid_dist_matched": 0.0,
+  "max_centroid_dist_matched": 0.0,
+  "overlap_approx_fraction_near_matched_centroid": {
+    "run_a": 0.358695652173913,
+    "run_b": 0.358695652173913,
+    "mean": 0.358695652173913
+  },
+  "matched_pairs": [
+    {
+      "cluster_a": 0,
+      "cluster_b": 0,
+      "centroid_dist_scaled": 0.0
+    },
+    {
+      "cluster_a": 1,
+      "cluster_b": 1,
+      "centroid_dist_scaled": 0.0
+    },
+    {
+      "cluster_a": 2,
+      "cluster_b": 2,
+      "centroid_dist_scaled": 0.0
+    },
+    {
+      "cluster_a": 3,
+      "cluster_b": 3,
+      "centroid_dist_scaled": 0.0
+    },
+    {
+      "cluster_a": 4,
+      "cluster_b": 4,
+      "centroid_dist_scaled": 0.0
+    },
+    {
+      "cluster_a": 5,
+      "cluster_b": 5,
+      "centroid_dist_scaled": 0.0
+    },
+    {
+      "cluster_a": 6,
+      "cluster_b": 6,
+      "centroid_dist_scaled": 0.0
+    }
+  ],
+  "cluster_stability": "high",
+  "note": "If probes.jsonl are byte-identical (deterministic rerun), expect match_rate=1 and dist=0. True inter-run variability requires different random streams or non-deterministic workers."
+}
