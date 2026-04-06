@@ -1,7 +1,38 @@
 {
   "version": "1",
-  "updated_at": "2026-04-09",
+  "updated_at": "2026-04-10",
   "tests": [
+    {
+      "id": "photochem-multigeom-active-space",
+      "name": "Photochemical multi-geometry active space (inZOR-ND) — planned benchmark",
+      "category": "Quantum Chemistry",
+      "status": "planned",
+      "published": true,
+      "created_at": "2026-04-10",
+      "updated_at": "2026-04-10",
+      "description": "Design study: shared small CAS/SA-CASSCF across multiple geometries along photochemical coordinates (ethylene torsion, butadiene torsion, optional fulvene). Compare inZOR-ND discrete search vs AVAS, NOON/MP2, random (matched budget). Metrics: convergence rate, mean energy, gap regularity, n_eval, Jaccard vs reference geometry, quasi-degenerate candidate clusters. Protocol and scripts: zor_active_space/photochem_multigeom/ in ZOR repo. No RL/NN/backprop; same emergent paradigm as existing benchmarks.",
+      "key_findings": [
+        "Infrastructure already exists: CASFitness(List[MolSpec]), run_butadiene_pec.py, run_ethylene_sa.py, run_pec_benchmark.py",
+        "Delivered: EXPERIMENTAL_PLAN.md, benchmark_specs.json, aggregate_metrics.py, public HTML stub",
+        "Next: extend angle grids near quasi-degenerate regions; uniform summary.json from each driver; fill results table"
+      ],
+      "metrics": {
+        "Systems phase 1": "Ethylene, butadiene (+ optional fulvene)",
+        "Baselines": "inZOR-ND, AVAS, NOON/MP2, random"
+      },
+      "images": [],
+      "links": [
+        {
+          "label": "Study page (plan + metrics)",
+          "url": "tests/photochem_multi_geom_active_space/index.html",
+          "primary": true
+        },
+        {
+          "label": "QC gaps unified (context)",
+          "url": "tests/qc_gaps_h2_ethylene_unified/index.html"
+        }
+      ]
+    },
     {
       "id": "zor-ethylene-3d-quasidegenerate-regions",
       "name": "Ethylene (3D) — Quasi-Degenerate Gap Structure via inZOR-ND",

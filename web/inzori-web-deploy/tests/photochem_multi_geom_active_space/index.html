@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photochemical multi-geometry active space — inZOR-ND (planned study)</title>
+<style>
+  :root { --primary:#1a7dc4; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --warning:#e67e22; --success:#27ae60; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; font-size:0.95rem; }
+  .header { background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#2563eb 100%); color:#fff; padding:2.2rem 1.75rem 2rem; }
+  .header .badge { display:inline-block; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:0.22rem 0.85rem; font-size:0.78rem; margin-bottom:0.65rem; letter-spacing:0.04em; }
+  .header h1 { font-size:1.42rem; font-weight:700; max-width:960px; margin-bottom:0.6rem; line-height:1.3; }
+  .header .subtitle { max-width:900px; opacity:0.9; font-size:0.98rem; }
+  .container { max-width:960px; margin:0 auto; padding:1.85rem 1.35rem 2.75rem; }
+  .section { margin-bottom:2rem; }
+  .section h2 { font-size:1.12rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.35rem; margin-bottom:0.85rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1rem 0 0.45rem; color:#34495e; }
+  table { width:100%; border-collapse:collapse; font-size:0.88rem; margin:0.75rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.5rem 0.75rem; text-align:left; }
+  td { padding:0.45rem 0.75rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  .note { font-size:0.86rem; color:#555; margin-top:0.5rem; }
+  .box { background:var(--light-bg); border-left:4px solid var(--primary); padding:0.85rem 1rem; margin:0.75rem 0; border-radius:0 6px 6px 0; }
+  .box.warn { border-left-color:var(--warning); background:#fffbf5; }
+  .box.ok { border-left-color:var(--success); background:#f4fff8; }
+  ul.tight { padding-left:1.25rem; margin:0.5rem 0; }
+  ul.tight li { margin-bottom:0.35rem; }
+  code { background:#f3f4f6; padding:1px 5px; border-radius:3px; font-size:0.88em; }
+  .footer { text-align:center; color:#666; font-size:0.82rem; margin-top:2.5rem; padding-top:1rem; border-top:1px solid var(--border); }
+  .footer a { color:var(--primary); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge">Quantum chemistry · inZOR-ND · Discrete search · Planned benchmark</div>
+  <h1>Photochemical multi-geometry active space — robust CAS across conformations</h1>
+  <p class="subtitle">Test whether <strong>inZOR-ND</strong> discovers a <strong>small, shared</strong> active space that remains valid along photochemically difficult coordinates (quasi-degeneracy / CI-like regions), compared to <strong>AVAS</strong>, <strong>NOON/MP2</strong>, and <strong>matched-budget random</strong> search. <strong>No RL / NN / backprop</strong> — same emergent population paradigm as the existing suite.</p>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <h2>Status</h2>
+    <div class="box warn">
+      <strong>Study design delivered;</strong> full numerical tables will appear here after runs complete. Experimental protocol, folder layout, and aggregation helper live in the ZOR tree: <code>zor_active_space/photochem_multigeom/</code> (see <code>EXPERIMENTAL_PLAN.md</code>, <code>benchmark_specs.json</code>).
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Central question</h2>
+    <div class="box">
+      Can <strong>inZOR-ND</strong> find an active space that is <strong>small</strong> and <strong>stable</strong> across <strong>multiple geometries</strong> in regimes where gaps collapse and single-reference / naive orbital rules often fail?
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Systems (phase 1)</h2>
+    <table>
+      <thead><tr><th>System</th><th>Coordinate</th><th>Rationale</th><th>Driver (existing)</th></tr></thead>
+      <tbody>
+        <tr><td>Ethylene</td><td>Torsion (+ optional pyramidalization later)</td><td>Classic π twist; SA-CASSCF / gap stress; extend angles near 90°</td><td><code>run_ethylene_sa.py</code></td></tr>
+        <tr><td>Butadiene</td><td>C₁–C₂–C₃–C₄ dihedral</td><td>Organic photochemistry; biradical ~90°; already 7-point PEC</td><td><code>run_butadiene_pec.py</code></td></tr>
+        <tr><td>Optional</td><td>TBD</td><td>Fulvene or similar small cyclic system</td><td><em>deferred</em></td></tr>
+      </tbody>
+    </table>
+    <p class="note">Multi-geometry evaluation uses existing <code>CASFitness(List[MolSpec])</code> — one MO pool, one mask evaluated on every geometry in the scan.</p>
+  </div>
+
+  <div class="section">
+    <h2>Methods &amp; baselines</h2>
+    <ul class="tight">
+      <li><strong>inZOR-ND</strong> — <code>Population</code> + <code>ActiveSpaceEnv</code>; discrete combinatorial search with cached CASSCF/SA-CASSCF evaluations.</li>
+      <li><strong>NOON / MP2-based</strong> — same construction as in comparative benchmarks.</li>
+      <li><strong>AVAS</strong> — PySCF AVAS subspace, fair CAS truncation as in existing scripts.</li>
+      <li><strong>Random</strong> — matched evaluation budget vs inZOR-ND (or explicit ratio in tables).</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Metrics (exact)</h2>
+    <table>
+      <thead><tr><th>Metric</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td><code>conv_rate</code></td><td>Fraction of geometries where the chosen CAS converges</td></tr>
+        <tr><td><code>mean_energy_ha</code></td><td>Mean CASSCF/SA energy over converged points</td></tr>
+        <tr><td><code>max_energy_spread_ha</code></td><td>max(E) − min(E) on the scan</td></tr>
+        <tr><td><code>gap_regularity</code></td><td>For SA runs: spread or adjacent-point variation of S₁−S₀</td></tr>
+        <tr><td><code>n_eval</code></td><td>Number of fitness evaluations (cache-aware)</td></tr>
+        <tr><td><code>search_space_size</code></td><td>Combinatorial candidate count (or filtered feasible set)</td></tr>
+        <tr><td><code>jaccard_vs_reference_geometry</code></td><td>Overlap of MO index set vs solution at a reference conformer</td></tr>
+        <tr><td><code>multi_solution_within_epsilon</code></td><td>Multiple near-degenerate candidate masks in search space</td></tr>
+      </tbody>
+    </table>
+    <p class="note">Cross-run aggregation: <code>python3 zor_active_space/photochem_multigeom/aggregate_metrics.py</code> (see repo README in that folder).</p>
+  </div>
+
+  <div class="section">
+    <h2>Results (placeholder)</h2>
+    <p>After each molecule run exports <code>summary.json</code>, paste key rows or generate figures and link them here. Comparative master table will mirror <code>active_space_comparative</code> style.</p>
+    <table>
+      <thead><tr><th>Molecule</th><th>Method</th><th>conv_rate</th><th>mean E (Ha)</th><th>n_eval</th></tr></thead>
+      <tbody>
+        <tr><td colspan="5" style="text-align:center;color:#666;font-style:italic;">Awaiting first batched runs</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Feasibility &amp; scientific value</h2>
+    <div class="box ok">
+      <strong>F feasibility:</strong> High — the engine and multi-geometry <code>CASFitness</code> already power N₂ PEC, butadiene, and ethylene SA drivers; remaining work is scan design, uniform JSON summaries, and HTML refresh.<br><br>
+      <strong>Scientific value:</strong> Positive if inZOR-ND finds <strong>consistent</strong> active spaces where baselines fragment; a <strong>negative</strong> result (no shared small CAS) still bounds what emergent discrete search can guarantee in photochemical scans.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Related</h2>
+    <ul class="tight">
+      <li><a href="../qc_gaps_h2_ethylene_unified/index.html">QC gaps — H₂ &amp; ethylene unified chapter</a></li>
+      <li><a href="../active_space_comparative/index.html">inZOR-ND — eight-benchmark comparative (discrete search)</a></li>
+      <li><a href="../qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html">Ethylene (3D) continuous exploration (separate paradigm)</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p><a href="../../tests.html">← Tests catalogue</a> · Source plan: <code>zor_active_space/photochem_multigeom/</code> in ZOR repo</p>
+</div>
+</body>
+</html>
