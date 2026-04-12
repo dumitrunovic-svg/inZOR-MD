@@ -1,5 +1,9 @@
 # Nu adăuga niciodată cod sursă — doar web (HTML/CSS/imagini/PDF/JSON rezultate)
 *.py
+!tests/baws_battery_ecm_study/**/*.py
+!tests/baws_ik_rlds_study/**/*.py
+!tests/baws_yield_curve_ns/**/*.py
+!zenodo_publish/photochem_multigeom/generate_linkedin_animation.py
 *.pyc
 *.sh
 __pycache__/
