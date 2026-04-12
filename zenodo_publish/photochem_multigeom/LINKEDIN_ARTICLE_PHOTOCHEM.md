@@ -120,3 +120,17 @@ If NOON is your default on photochemical PECs: we published a multi-geometry ben
 4. **Trust bar:** “Same protocol · no molecule-specific tuning” — short, not a wall of jargon.
 
 For link-preview crops (~1200×627), keep text in the **upper two-thirds** of the image.
+
+---
+
+## Alternate graphic — “ACTIVE SPACE” variant
+
+**File:** `zenodo_publish/photochem_multigeom/linkedin_photochem_active_space.png`
+
+Use as a second carousel slide or A/B test in the feed. Copy on image:
+
+- ACTIVE SPACE / with inZOR-ND  
+- 12/12 geometries · (fulvene CAS(10,10))  
+- outperforms NOON-MP2  
+- multiple solutions — same result  
+- same protocol
