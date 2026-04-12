@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Generate a short looping GIF for LinkedIn — photochem benchmark infographic animation.
 
+Output is LinkedIn-only outreach (see LINKEDIN_ASSETS_NOTICE.md); do not embed in the public benchmark page or Zenodo.
+
 Requires: matplotlib, pillow (Pillow writes GIF frames).
 
 Run:

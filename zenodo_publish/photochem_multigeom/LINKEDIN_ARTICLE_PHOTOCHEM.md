@@ -1,5 +1,7 @@
 # LinkedIn — article / post (English, copy-paste)
 
+> **Distribution:** PNG/GIF assets listed below (`linkedin_*`, `infographic_photochem_*`, `photochem_linkedin_anim.gif`) are for **LinkedIn only** — not for the public benchmark HTML, Zenodo bundle, or other sites. See `LINKEDIN_ASSETS_NOTICE.md`.
+
 Tone: **evidence-led**, strong but not “marketing”. Use as **Article** or a single **post** + image.
 
 ---
