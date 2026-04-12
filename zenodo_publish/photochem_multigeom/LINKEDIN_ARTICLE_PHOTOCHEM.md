@@ -123,14 +123,16 @@ For link-preview crops (~1200×627), keep text in the **upper two-thirds** of th
 
 ---
 
-## Alternate graphic — “ACTIVE SPACE” variant
+## Alternate graphic — “ACTIVE SPACE” variant (light theme)
 
 **File:** `zenodo_publish/photochem_multigeom/linkedin_photochem_active_space.png`
 
-Use as a second carousel slide or A/B test in the feed. Copy on image:
+Light, soft background (sky–mint gradient). Hierarchy top → bottom:
 
-- ACTIVE SPACE / with inZOR-ND  
-- 12/12 geometries · (fulvene CAS(10,10))  
-- outperforms NOON-MP2  
-- multiple solutions — same result  
-- same protocol
+1. **QUANTUM CHEMISTRY** / **ACTIVE SPACE** (largest — primary subject)  
+2. **with inZOR-ND** (smaller, clearly visible)  
+3. **12/12 geometries**  
+4. **FULVENE CAS(10,10)**  
+5. **outperforms NOON-MP2**  
+
+Use as carousel slide 2 or standalone post image. English only on asset.
