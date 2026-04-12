@@ -139,8 +139,8 @@
     <div class="stat-box"><div class="val green">12/12</div><div class="lbl">Fulvene CAS(10,10)<br/>geometries won</div></div>
     <div class="stat-box"><div class="val green">5.22</div><div class="lbl">kcal/mol mean advantage<br/>Fulvene CAS(10,10)</div></div>
     <div class="stat-box"><div class="val green">5</div><div class="lbl">equivalent winning masks<br/>Fulvene CAS(10,10)</div></div>
-    <div class="stat-box"><div class="val">53/53</div><div class="lbl">total geometry wins<br/>across all systems</div></div>
-    <div class="stat-box"><div class="val">100%</div><div class="lbl">CASSCF convergence<br/>all systems</div></div>
+    <div class="stat-box"><div class="val">5/5</div><div class="lbl">system-level wins<br/>(mean Δ < 0 on each)</div></div>
+    <div class="stat-box"><div class="val">100%</div><div class="lbl">CASSCF convergence<br/>52/52 geometries</div></div>
   </div>
 
   <p>NOON-MP2 remains a strong, interpretable baseline. In this benchmark, it is consistently outperformed by inZOR-ND, and no longer represents the empirical upper bound in SA-CASSCF energy minimisation.</p>
@@ -302,7 +302,7 @@
   <div class="highlight">
     <strong>System:</strong> 1,3-Butadiene (C₄H₆) &nbsp;·&nbsp; CAS(4e,4o) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2)<br/>
     <strong>Geometries:</strong> 10 torsion angles (φ = 0°→180°, dihedral C–C=C–C)<br/>
-    <strong>Result:</strong> inZOR-ND MOs [12,14,33,35] &nbsp;·&nbsp; mean Δ = −4.45 kcal/mol &nbsp;·&nbsp; 10/10 wins
+    <strong>Result:</strong> inZOR-ND MOs [12,14,33,35] &nbsp;·&nbsp; mean Δ = −4.45 kcal/mol &nbsp;·&nbsp; 10/10 converged
   </div>
   <div class="fig-block">
     <img src="figures/fig4_butadiene_energy_gap.png"
@@ -318,17 +318,17 @@
       </thead>
       <tbody>
         <tr><td>φ = 0°</td><td>−154.11148386</td><td>−154.12322037</td><td class="win">−7.36</td><td class="win">inZOR-ND ✓</td></tr>
-        <tr><td>φ = 40°</td><td>−153.96741622</td><td>−153.96741623</td><td class="win">−0.00</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 40°</td><td>−153.96741622</td><td>−153.96741623</td><td>≈0</td><td>Equal</td></tr>
         <tr><td>φ = 60°</td><td>−153.70742619</td><td>−153.72510560</td><td class="win">−11.09</td><td class="win">inZOR-ND ✓</td></tr>
-        <tr><td>φ = 78°</td><td>−153.48967178</td><td>−153.47983701</td><td class="win">+6.17 → ZOR (CI region)</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 78°</td><td>−153.48967178</td><td>−153.47983701</td><td class="win-noon">+6.17</td><td class="win-noon">NOON-MP2</td></tr>
         <tr><td>φ = 86°</td><td>−153.42504207</td><td>−153.43445970</td><td class="win">−5.91</td><td class="win">inZOR-ND ✓</td></tr>
-        <tr><td>φ = 90°</td><td>−153.42725119</td><td>−153.42725119</td><td>0.00</td><td>Equal</td></tr>
-        <tr><td>φ = 94°</td><td>−153.42526436</td><td>−153.42526438</td><td class="win">−0.00</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 90°</td><td>−153.42725119</td><td>−153.42725119</td><td>≈0</td><td>Equal</td></tr>
+        <tr><td>φ = 94°</td><td>−153.42526436</td><td>−153.42526438</td><td>≈0</td><td>Equal</td></tr>
         <tr><td>φ = 102°</td><td>−153.48056172</td><td>−153.49085820</td><td class="win">−6.46</td><td class="win">inZOR-ND ✓</td></tr>
-        <tr><td>φ = 120°</td><td>−153.70934322</td><td>−153.70934325</td><td class="win">−0.00</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 120°</td><td>−153.70934322</td><td>−153.70934325</td><td>≈0</td><td>Equal</td></tr>
         <tr><td>φ = 180°</td><td>−154.09217907</td><td>−154.12384271</td><td class="win">−19.87</td><td class="win">inZOR-ND ✓</td></tr>
         <tr style="background:#f0fff4;font-weight:700;">
-          <td>Mean</td><td>—</td><td>—</td><td class="win">−4.45</td><td><span class="badge-12">10/10 ✓</span></td>
+          <td>Mean</td><td>−153.68356397</td><td>−153.69065986</td><td class="win">−4.45</td><td>inZOR-ND (mean)</td>
         </tr>
       </tbody>
     </table>
@@ -365,21 +365,22 @@
   <div class="tbl-wrap">
     <table>
       <thead>
-        <tr><th>System</th><th>CAS</th><th>Basis</th><th>Geometries</th><th>inZOR-ND conv</th><th>NOON conv</th><th>inZOR wins</th></tr>
+        <tr><th>System</th><th>CAS</th><th>Basis</th><th>Geometries</th><th>Convergence</th><th>Mean Δ [kcal/mol]</th><th>Result</th></tr>
       </thead>
       <tbody>
-        <tr><td><strong>Fulvene ★</strong></td><td>10e,10o</td><td>cc-pVDZ</td><td>12</td><td class="win">12/12</td><td>12/12</td><td class="win"><span class="badge-12">12/12</span></td></tr>
-        <tr><td>Fulvene</td><td>8e,8o</td><td>cc-pVDZ</td><td>5</td><td class="win">5/5</td><td>5/5</td><td class="win"><span class="badge-12">5/5</span></td></tr>
-        <tr><td>Fulvene</td><td>6e,6o</td><td>cc-pVDZ</td><td>9</td><td class="win">9/9</td><td>9/9</td><td class="win"><span class="badge-12">9/9</span></td></tr>
-        <tr><td>1,3-Butadiene</td><td>4e,4o</td><td>cc-pVDZ</td><td>10</td><td class="win">10/10</td><td>10/10</td><td class="win"><span class="badge-12">10/10</span></td></tr>
-        <tr><td>Ethylene</td><td>4e,4o</td><td>cc-pVDZ</td><td>16</td><td class="win">16/16</td><td>16/16</td><td class="win">16/16*</td></tr>
+        <tr><td><strong>Fulvene ★</strong></td><td>10e,10o</td><td>cc-pVDZ</td><td>12</td><td class="win">12/12</td><td class="win">−5.22</td><td class="win"><span class="badge-12">12/12 wins</span></td></tr>
+        <tr><td>Fulvene</td><td>8e,8o</td><td>cc-pVDZ</td><td>5</td><td class="win">5/5</td><td class="win">−13.33</td><td class="win"><span class="badge-12">5/5 wins</span></td></tr>
+        <tr><td>Fulvene</td><td>6e,6o</td><td>cc-pVDZ</td><td>9</td><td class="win">9/9</td><td class="win">−1.32</td><td class="win"><span class="badge-12">9/9 wins</span></td></tr>
+        <tr><td>1,3-Butadiene</td><td>4e,4o</td><td>cc-pVDZ</td><td>10</td><td class="win">10/10</td><td class="win">−4.45</td><td>mean advantage*</td></tr>
+        <tr><td>Ethylene</td><td>4e,4o</td><td>cc-pVDZ</td><td>16</td><td class="win">16/16</td><td>−0.04</td><td>near-equal**</td></tr>
         <tr style="font-weight:700;background:#f0fff4;">
-          <td>Total</td><td>—</td><td>—</td><td>52</td><td>52/52</td><td>52/52</td><td>51/52*</td>
+          <td>Total</td><td>—</td><td>—</td><td>52</td><td>52/52</td><td colspan="2">5/5 system-level wins</td>
         </tr>
       </tbody>
     </table>
   </div>
-  <p style="font-size:.88rem;color:#666;">* Ethylene: energies essentially equal (mean Δ ≈ 0.04 kcal/mol), gap profile favours inZOR-ND.</p>
+  <p style="font-size:.88rem;color:#666;">* Butadiene: inZOR-ND has lower mean energy (−4.45 kcal/mol); per-geometry results are mixed (NOON wins at φ=78° near the conical intersection region).<br/>
+  ** Ethylene: energies essentially equal (mean Δ ≈ 0.04 kcal/mol); gap profile significantly favours inZOR-ND (σ = 0.79 vs 1.18 eV).</p>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════ -->
