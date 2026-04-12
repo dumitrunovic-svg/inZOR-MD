@@ -136,3 +136,18 @@ Light, soft background (sky–mint gradient). Hierarchy top → bottom:
 5. **outperforms NOON-MP2**  
 
 Use as carousel slide 2 or standalone post image. English only on asset.
+
+---
+
+## Animated GIF (LinkedIn)
+
+**File:** `zenodo_publish/photochem_multigeom/photochem_linkedin_anim.gif`  
+**Generator:** `zenodo_publish/photochem_multigeom/generate_linkedin_animation.py`
+
+Short loop (~4 s): diagonal accents move subtly, text staggers in, **12/12** pulses. Dark theme, modern “bento” card. Regenerate after edits:
+
+```bash
+python3 zenodo_publish/photochem_multigeom/generate_linkedin_animation.py
+```
+
+LinkedIn accepts GIFs in posts; keep file size reasonable (~under a few MB).
