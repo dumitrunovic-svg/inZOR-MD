@@ -125,19 +125,21 @@ For link-preview crops (~1200×627), keep text in the **upper two-thirds** of th
 
 ---
 
-## Alternate graphic — “ACTIVE SPACE” variant (light theme)
+## Alternate graphic — “ACTIVE SPACE” variant (light theme, v3)
 
 **File:** `zenodo_publish/photochem_multigeom/linkedin_photochem_active_space.png`
 
-Light, soft background (sky–mint gradient). Hierarchy top → bottom:
+**Design:** airy layout — text ~left half, **whitespace / gradient** on the right so the frame does not feel “blocked”; **smaller** type than early drafts; palette **cream → sage** with subtle coral/teal accents (not cold hospital-blue). Editorial / magazine feel for LinkedIn.
 
-1. **QUANTUM CHEMISTRY** / **ACTIVE SPACE** (largest — primary subject)  
-2. **with inZOR-ND** (smaller, clearly visible)  
+Hierarchy (same content):
+
+1. **QUANTUM CHEMISTRY** / **ACTIVE SPACE**  
+2. **with inZOR-ND**  
 3. **12/12 geometries**  
 4. **FULVENE CAS(10,10)**  
 5. **outperforms NOON-MP2**  
 
-Use as carousel slide 2 or standalone post image. English only on asset.
+LinkedIn-only — see `LINKEDIN_ASSETS_NOTICE.md`.
 
 ---
 
