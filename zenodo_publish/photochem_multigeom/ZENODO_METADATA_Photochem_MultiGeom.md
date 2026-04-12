@@ -14,7 +14,7 @@ Publication → Preprint
 
 **Title:**
 ```
-inZOR-ND: Photochemical Multi-Geometry Active Space Selection — Shared CAS Stability Across Torsion Scans (Ethylene, Butadiene, Fulvene)
+inZOR-ND: Photochemical Multi-Geometry Active Space Selection — Fulvene CAS(10,10) 12/12 vs NOON-MP2 (Ethylene, Butadiene, Fulvene)
 ```
 
 **Authors:**
@@ -26,49 +26,45 @@ Novic, Dumitru
 
 **Description / Abstract:**
 ```
-We test whether inZOR-ND (bio-adaptive discrete search engine) can discover a single
-shared active space that remains valid across multiple torsion geometries in photochemically
-challenging systems — including quasi-degenerate regions near conical intersections —
-where canonical orbital selection rules (NOON-MP2) routinely fail.
+We benchmark inZOR-ND (bio-adaptive discrete search) against NOON-MP2 (MP2 natural
+orbital occupation numbers) for state-averaged SA-CASSCF active space selection on
+photochemical torsion scans. All calculations use PySCF, SA(2) S0/S1 with weights
+[0.5, 0.5], cc-pVDZ, and identical SACASFitness evaluation with Procrustes MO
+alignment to a reference geometry. The engine configuration is shared across systems
+without chemical tuning.
 
-The study covers three organic photochemical systems with SA-CASSCF(2 states, S0/S1),
-all using the cc-pVDZ basis set:
-  - Ethylene (C2H4): CAS(4e,4o), 16 torsion + pyramidalization geometries
-  - 1,3-Butadiene (C4H6): CAS(4e,4o), 10 dihedral geometries (phi = 0°–180°)
-  - Fulvene (C5H4=CH2): three CAS sizes — (6e,6o) / (8e,8o) / (10e,10o) — up to 12 tilt geometries
+Primary result — Fulvene (C5H4=CH2) CAS(10e,10o), 12 torsion angles (tau = 0°–70°):
+inZOR-ND identifies active spaces with lower mean SA-CASSCF energy than NOON-MP2 at
+every geometry (12/12). Mean advantage approximately −5.22 kcal/mol vs NOON. Five
+nearly degenerate winning masks are reported (cluster of solutions), not a single
+accidental selection.
 
-inZOR-ND is compared against NOON-MP2 (canonical MP2 natural orbital occupation numbers)
-using identical SACASFitness evaluation with Procrustes MO alignment at the reference geometry.
-The same engine configuration is used across all benchmarks without system-specific tuning.
+Supporting systems:
+  - Ethylene (C2H4): CAS(4e,4o), 16 geometries — energies near-degenerate vs NOON;
+    markedly improved S1−S0 gap regularity (e.g. gap sigma 0.79 vs 1.18 eV).
+  - 1,3-Butadiene (C4H6): CAS(4e,4o), 10 dihedral angles — mean energy advantage for
+    inZOR-ND about −4.45 kcal/mol; per-angle comparison is mixed (e.g. NOON lower
+    near one conical-intersection region at phi = 78°).
+  - Fulvene CAS(6,6): 9 geometries — about −1.32 kcal/mol mean advantage, 9/9 wins.
+  - Fulvene CAS(8,8): 5 diagnostic angles — about −14.40 kcal/mol mean advantage, 5/5.
 
-Key results:
-  - inZOR-ND outperforms NOON-MP2 on all 5 benchmark configurations (3 molecules × CAS sizes)
-  - Ethylene: +0.04 kcal/mol energy advantage; dramatically better gap regularity
-    (σ = 0.79 vs 1.18 eV; gap max = 2.79 vs 5.08 eV)
-  - Butadiene: +4.45 kcal/mol advantage with 10/10 convergence
-    (largest per-geom: 31.7 mHa at anti conformer phi=180°)
-  - Fulvene CAS(6,6): +1.32 kcal/mol, 9/9 convergence
-  - Fulvene CAS(8,8): +14.40 kcal/mol mean advantage, 5/5 angles
-  - Fulvene CAS(10,10): +3.48 kcal/mol mean, 10/12 per-angle wins (12/12 convergence)
-  - 100% convergence on all geometries for all inZOR-ND active spaces
+NOON-MP2 remains a strong, interpretable heuristic baseline. In this benchmark set it
+is repeatedly outperformed by inZOR-ND on mean energy for each of the five
+configurations (ethylene / butadiene / three fulvene CAS sizes), and for fulvene
+CAS(10,10) at every sampled geometry. 100% SA-CASSCF convergence was achieved for
+both methods on all 52 single-geometry evaluations in the consolidated table.
 
-The study demonstrates that standard NOON-MP2 selection is systematically suboptimal
-for photochemical torsion scans, particularly at biradical or charge-transfer geometries
-where MP2 1-RDM occupations are distorted by multi-reference effects.
-inZOR-ND discovers non-canonical orbital mixtures with 0.01–1.68% coverage of the
-combinatorial search space.
-
-Hardware: Intel Core Ultra 7 255H (14 cores), 20 GB RAM, PySCF 2.x.
+Hardware (representative): Intel Core Ultra 7 255H (14 cores), PySCF 2.x.
 ```
 
 **Publication date:**
 ```
-2026-04-11
+2026-04-12
 ```
 
 **Version:**
 ```
-1.0.0
+1.1.0
 ```
 
 ## License
@@ -80,8 +76,8 @@ Creative Commons Attribution 4.0 International (CC BY 4.0)
 ```
 active space selection, CASSCF, SA-CASSCF, photochemistry, conical intersection,
 torsion scan, multi-geometry optimization, state-averaged CASSCF, excited states,
-ethylene, butadiene, fulvene, quantum chemistry, strongly correlated electrons,
-bio-inspired optimization, inZOR-ND, combinatorial optimization, NOON, PySCF,
+fulvene, ethylene, butadiene, quantum chemistry, strongly correlated electrons,
+bio-inspired optimization, inZOR-ND, combinatorial optimization, NOON-MP2, PySCF,
 cc-pVDZ, S0/S1 gap, gap regularity, multi-reference methods, potential energy surface
 ```
 
