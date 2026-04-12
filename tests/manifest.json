@@ -1,37 +1,65 @@
 {
   "version": "1",
-  "updated_at": "2026-04-10",
+  "updated_at": "2026-04-12",
   "tests": [
     {
       "id": "photochem-multigeom-active-space",
-      "name": "Photochemical multi-geometry active space (inZOR-ND) — planned benchmark",
+      "name": "Photochemical Multi-Geometry Active Space — Fulvene CAS(10,10) 12/12 wins vs NOON-MP2",
       "category": "Quantum Chemistry",
-      "status": "planned",
+      "status": "finished",
       "published": true,
       "created_at": "2026-04-10",
-      "updated_at": "2026-04-10",
-      "description": "Design study: shared small CAS/SA-CASSCF across multiple geometries along photochemical coordinates (ethylene torsion, butadiene torsion, optional fulvene). Compare inZOR-ND discrete search vs AVAS, NOON/MP2, random (matched budget). Metrics: convergence rate, mean energy, gap regularity, n_eval, Jaccard vs reference geometry, quasi-degenerate candidate clusters. Protocol and scripts: zor_active_space/photochem_multigeom/ in ZOR repo. No RL/NN/backprop; same emergent paradigm as existing benchmarks.",
+      "updated_at": "2026-04-12",
+      "description": "Multi-geometry SA-CASSCF active space benchmark: inZOR-ND vs NOON-MP2 across ethylene (16 geom), 1,3-butadiene (10 geom), and fulvene (CAS 6,6 / 8,8 / 10,10, up to 12 geom). Primary result: fulvene CAS(10,10)/cc-pVDZ — inZOR-ND wins at all 12 torsion angles with mean Δ = −5.22 kcal/mol. Five nearly degenerate winning masks identified. 100% CASSCF convergence across all 52 geometries.",
       "key_findings": [
-        "Infrastructure already exists: CASFitness(List[MolSpec]), run_butadiene_pec.py, run_ethylene_sa.py, run_pec_benchmark.py",
-        "Delivered: EXPERIMENTAL_PLAN.md, benchmark_specs.json, aggregate_metrics.py, public HTML stub",
-        "Next: extend angle grids near quasi-degenerate regions; uniform summary.json from each driver; fill results table"
+        "Fulvene CAS(10,10): 12/12 geometries — inZOR-ND wins at every torsion angle (mean Δ = −5.22 kcal/mol)",
+        "5 nearly degenerate winning masks — robust cluster of equivalent solutions, not a single coincidence",
+        "Fulvene CAS(8,8): +14.40 kcal/mol mean advantage, 5/5 wins",
+        "Butadiene: −4.45 kcal/mol mean advantage across 10 geometries",
+        "100% SA-CASSCF convergence on all 52 geometries (both methods)",
+        "NOON-MP2 remains a strong baseline but is no longer the empirical upper bound in these benchmarks"
       ],
       "metrics": {
-        "Systems phase 1": "Ethylene, butadiene (+ optional fulvene)",
-        "Baselines": "inZOR-ND, AVAS, NOON/MP2, random"
+        "Primary result": "Fulvene CAS(10,10) — 12/12 wins",
+        "Mean Δ fulvene CAS(10,10)": "−5.22 kcal/mol",
+        "Equivalent winning masks": "5",
+        "Systems tested": "5 configs across 3 molecules",
+        "Total geometries": "52",
+        "Convergence": "100% (52/52)",
+        "Largest advantage": "+14.40 kcal/mol (fulvene CAS(8,8))"
       },
-      "images": [],
+      "images": [
+        {
+          "url": "tests/photochem_multi_geom_active_space/figures/fig1_fulvene_1010_delta_12of12.png",
+          "caption": "Fulvene CAS(10,10): ΔE per angle — 12/12 green bars, all inZOR-ND wins"
+        },
+        {
+          "url": "tests/photochem_multi_geom_active_space/figures/fig2_fulvene_1010_cluster.png",
+          "caption": "NOON vs inZOR-ND cluster of 5 equivalent masks — inZOR lower at every geometry"
+        },
+        {
+          "url": "tests/photochem_multi_geom_active_space/figures/fig6_summary_all_molecules.png",
+          "caption": "Cross-molecule summary: inZOR-ND advantage across all 5 configurations"
+        }
+      ],
       "links": [
         {
-          "label": "Study page (plan + metrics)",
+          "label": "Full Report",
           "url": "tests/photochem_multi_geom_active_space/index.html",
           "primary": true
         },
         {
-          "label": "QC gaps unified (context)",
-          "url": "tests/qc_gaps_h2_ethylene_unified/index.html"
+          "label": "Zenodo PDF",
+          "url": "zenodo_publish/photochem_multigeom/inZOR-ND_Photochem_MultiGeom_ActiveSpace_Zenodo.pdf"
+        },
+        {
+          "label": "8-Benchmark Comparative (context)",
+          "url": "tests/active_space_comparative/index.html"
         }
-      ]
+      ],
+      "domain": "Quantum Chemistry / Photochemistry",
+      "short_description": "Fulvene CAS(10,10) 12/12 wins vs NOON-MP2 — inZOR-ND identifies systematically better active spaces across 3 molecules and 52 geometries.",
+      "doi": ""
     },
     {
       "id": "zor-ethylene-3d-quasidegenerate-regions",
