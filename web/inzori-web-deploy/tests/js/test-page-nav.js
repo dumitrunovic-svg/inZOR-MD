@@ -1,6 +1,28 @@
 (function () {
   'use strict';
 
+  var __IZ_DBG = 'http://127.0.0.1:7244/ingest/7b5d7921-fd4d-4946-b70d-0f43fd6de381';
+
+  function dbg(payload) {
+    // #region agent log
+    try {
+      fetch(__IZ_DBG, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Debug-Session-Id': '0d7fc5',
+        },
+        body: JSON.stringify(
+          Object.assign(
+            { sessionId: '0d7fc5', timestamp: Date.now() },
+            payload
+          )
+        ),
+      }).catch(function () {});
+    } catch (e) {}
+    // #endregion
+  }
+
   function pathKey() {
     try {
       return (location.pathname || '').toLowerCase();
@@ -28,7 +50,7 @@
   const testsBase = root + 'tests/';
 
   const CSS =
-    '.iz-tpn-top{position:sticky;top:0;z-index:40000}' +
+    '.iz-tpn-top{position:fixed;top:0;left:0;right:0;width:100%;box-sizing:border-box;z-index:40000}' +
     '.iz-tpn-wrap{font-family:system-ui,-apple-system,sans-serif;font-size:0.92rem;line-height:1.35;position:relative}' +
     '.iz-tpn-site,.iz-tpn-chem{display:flex;flex-wrap:wrap;gap:0.45rem 1rem;align-items:center;' +
     'justify-content:center;padding:0.55rem 1rem;margin:0}' +
@@ -135,6 +157,17 @@
   }
 
   function inject() {
+    dbg({
+      location: 'test-page-nav.js:inject:enter',
+      message: 'inject enter',
+      data: {
+        hasBody: !!document.body,
+        protocol: typeof location !== 'undefined' ? location.protocol : '',
+        pathname: typeof location !== 'undefined' ? location.pathname : '',
+        root: root,
+      },
+      hypothesisId: 'M1',
+    });
     if (document.getElementById('iz-tpn-style')) return;
     if (!document.body) return;
     const st = document.createElement('style');
@@ -156,13 +189,39 @@
 
     document.body.insertAdjacentElement('afterbegin', top);
     document.body.appendChild(bot);
+
+    var topH = 0;
+    try {
+      topH = top.getBoundingClientRect().height;
+      document.body.style.paddingTop = Math.ceil(topH + 6) + 'px';
+    } catch (e) {}
+
+    dbg({
+      location: 'test-page-nav.js:inject:after',
+      message: 'inject done',
+      data: {
+        pathKey: p,
+        chemKey: chemKey,
+        topNavHeight: topH,
+        bodyPad: document.body.style.paddingTop,
+        firstChildTag: document.body.children[0]
+          ? document.body.children[0].tagName
+          : '',
+      },
+      hypothesisId: 'M2',
+    });
   }
 
   function run() {
     try {
       inject();
     } catch (err) {
-      /* no-op */
+      dbg({
+        location: 'test-page-nav.js:run:catch',
+        message: String(err && err.message),
+        data: { err: String(err) },
+        hypothesisId: 'M3',
+      });
     }
   }
 

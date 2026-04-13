@@ -374,6 +374,7 @@
       const dom = (test.domain || '').trim();
       if (/^quantum chemistry$/i.test(cat)) return 'Quantum Chemistry';
       if (/^quantum chemistry/i.test(dom)) return 'Quantum Chemistry';
+      if (/^power systems?\b/i.test(dom)) return 'Power Systems';
       return dom || cat || 'Other';
     }
 
@@ -505,6 +506,9 @@
 
         // domain options
         const domains = Array.from(new Set(all.map(domainOf))).sort((a,b) => a.localeCompare(b));
+        // #region agent log
+        fetch('http://127.0.0.1:7244/ingest/7b5d7921-fd4d-4946-b70d-0f43fd6de381',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'0d7fc5'},body:JSON.stringify({sessionId:'0d7fc5',location:'web/brochure/tests.html:init',message:'domain dropdown values',data:{domains,n:domains.length},timestamp:Date.now(),hypothesisId:'P1'})}).catch(function(){});
+        // #endregion
         domains.forEach(d => {
           const opt = document.createElement('option');
           opt.value = d;
