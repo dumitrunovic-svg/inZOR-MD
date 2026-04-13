@@ -370,7 +370,10 @@
     }
 
     function domainOf(test) {
-      return test.domain || test.category || 'Other';
+      const cat = (test.category || '').trim();
+      const dom = (test.domain || '').trim();
+      if (/^quantum chemistry$/i.test(cat)) return cat;
+      return dom || cat || 'Other';
     }
 
     function fmtDate(s) {

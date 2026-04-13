@@ -206,7 +206,12 @@
     return first.length > 160 ? (first.slice(0, 157).trim() + '…') : first;
   }
 
-  function domainOf(test) { return test.domain || test.category || 'Other'; }
+  function domainOf(test) {
+    const cat = (test.category || '').trim();
+    const dom = (test.domain || '').trim();
+    if (/^quantum chemistry$/i.test(cat)) return cat;
+    return dom || cat || 'Other';
+  }
 
   function fmtDate(s) {
     if (!s) return '';
