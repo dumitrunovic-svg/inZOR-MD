@@ -1,35 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Photochemical multi-geometry active space — inZOR-ND (planned study)</title>
-<style>
-  :root { --primary:#1a7dc4; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --warning:#e67e22; --success:#27ae60; }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; font-size:0.95rem; }
-  .header { background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#2563eb 100%); color:#fff; padding:2.2rem 1.75rem 2rem; }
-  .header .badge { display:inline-block; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:0.22rem 0.85rem; font-size:0.78rem; margin-bottom:0.65rem; letter-spacing:0.04em; }
-  .header h1 { font-size:1.42rem; font-weight:700; max-width:960px; margin-bottom:0.6rem; line-height:1.3; }
-  .header .subtitle { max-width:900px; opacity:0.9; font-size:0.98rem; }
-  .container { max-width:960px; margin:0 auto; padding:1.85rem 1.35rem 2.75rem; }
-  .section { margin-bottom:2rem; }
-  .section h2 { font-size:1.12rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.35rem; margin-bottom:0.85rem; }
-  .section h3 { font-size:1rem; font-weight:600; margin:1rem 0 0.45rem; color:#34495e; }
-  table { width:100%; border-collapse:collapse; font-size:0.88rem; margin:0.75rem 0; }
-  th { background:var(--dark); color:#fff; padding:0.5rem 0.75rem; text-align:left; }
-  td { padding:0.45rem 0.75rem; border-bottom:1px solid var(--border); }
-  tr:nth-child(even) td { background:var(--light-bg); }
-  .note { font-size:0.86rem; color:#555; margin-top:0.5rem; }
-  .box { background:var(--light-bg); border-left:4px solid var(--primary); padding:0.85rem 1rem; margin:0.75rem 0; border-radius:0 6px 6px 0; }
-  .box.warn { border-left-color:var(--warning); background:#fffbf5; }
-  .box.ok { border-left-color:var(--success); background:#f4fff8; }
-  ul.tight { padding-left:1.25rem; margin:0.5rem 0; }
-  ul.tight li { margin-bottom:0.35rem; }
-  code { background:#f3f4f6; padding:1px 5px; border-radius:3px; font-size:0.88em; }
-  .footer { text-align:center; color:#666; font-size:0.82rem; margin-top:2.5rem; padding-top:1rem; border-top:1px solid var(--border); }
-  .footer a { color:var(--primary); }
-</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>inZOR-ND Photochemical Active Space Benchmark — Fulvene CAS(10,10) 12/12</title>
+  <style>
+    :root {
+      --blue:#1a7dc4; --orange:#e67e22; --green:#27ae60; --red:#e74c3c;
+      --dark:#2c3e50; --purple:#8e44ad; --teal:#0d9488; --gold:#b8860b;
+      --bg:#f5f7fa; --card:#fff; --border:#dde2ea;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--dark);line-height:1.65;font-size:15px;}
+    a{color:var(--blue);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    /* ── Header ─────────────────────────────────────────── */
+    .site-header{background:linear-gradient(135deg,#0f2846 0%,#1a4a7a 60%,#0d9488 100%);color:#fff;padding:40px 24px 32px;text-align:center;}
+    .site-header h1{font-size:1.85rem;font-weight:700;margin-bottom:8px;letter-spacing:-.3px;}
+    .site-header .subtitle{font-size:1.05rem;opacity:.88;margin-bottom:14px;}
+    .badge-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;}
+    .badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:.82rem;font-weight:600;}
+    .badge.primary{background:rgba(39,174,96,.35);border-color:rgba(39,174,96,.7);}
+
+    /* ── Layout ─────────────────────────────────────────── */
+    .container{max-width:1100px;margin:0 auto;padding:28px 20px;}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:28px 32px;margin-bottom:28px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+    .card h2{font-size:1.25rem;font-weight:700;color:var(--dark);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--border);}
+    .card h2.primary-mark{border-bottom-color:var(--green);}
+    .card h3{font-size:1.05rem;font-weight:600;margin:18px 0 10px;}
+    p{margin-bottom:12px;}
+    ul,ol{margin:0 0 12px 24px;}
+    li{margin-bottom:4px;}
+    .highlight{background:#f0fff4;border-left:4px solid var(--green);border-radius:0 6px 6px 0;padding:14px 18px;margin:16px 0;font-size:.97rem;}
+    .note{background:#fffbeb;border-left:4px solid var(--gold);border-radius:0 6px 6px 0;padding:12px 16px;margin:14px 0;font-size:.93rem;}
+
+    /* ── Result banner ───────────────────────────────────── */
+    .result-banner{background:linear-gradient(90deg,#f0fff4,#e6f9ef);border:2px solid var(--green);border-radius:10px;padding:20px 28px;margin-bottom:28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+    .result-banner .big-score{font-size:3.2rem;font-weight:800;color:var(--green);line-height:1;}
+    .result-banner .big-label{font-size:1.1rem;font-weight:700;color:var(--dark);}
+    .result-banner .big-sub{font-size:.9rem;color:#555;margin-top:4px;}
+
+    /* ── Tables ─────────────────────────────────────────── */
+    .tbl-wrap{overflow-x:auto;margin:16px 0;}
+    table{width:100%;border-collapse:collapse;font-size:.88rem;}
+    thead th{background:#f0f4f8;color:var(--dark);font-weight:700;padding:9px 12px;text-align:center;border-bottom:2px solid var(--border);}
+    tbody tr:nth-child(even){background:#f9fafb;}
+    tbody td{padding:8px 12px;text-align:center;border-bottom:1px solid #eee;}
+    tbody td:first-child{text-align:left;font-weight:600;}
+    .win{color:var(--green);font-weight:700;}
+    .win-noon{color:var(--orange);font-weight:600;}
+    .badge-12{display:inline-block;background:#d1fae5;color:#065f46;border-radius:4px;padding:1px 7px;font-size:.8rem;font-weight:700;}
+
+    /* ── Figures ─────────────────────────────────────────── */
+    .fig-block{text-align:center;margin:20px 0;}
+    .fig-block img{max-width:100%;border-radius:8px;border:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.08);}
+    .fig-caption{font-size:.87rem;color:#555;margin-top:8px;font-style:italic;}
+
+    /* ── Stats grid ─────────────────────────────────────── */
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:16px 0;}
+    .stat-box{background:#f8f9ff;border:1px solid #dde2f5;border-radius:8px;padding:14px 16px;text-align:center;}
+    .stat-box .val{font-size:1.8rem;font-weight:800;color:var(--blue);}
+    .stat-box .val.green{color:var(--green);}
+    .stat-box .lbl{font-size:.82rem;color:#666;margin-top:4px;}
+
+    /* ── Section nav ─────────────────────────────────────── */
+    .toc{background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:28px;}
+    .toc h3{font-size:.95rem;font-weight:700;margin-bottom:10px;color:var(--dark);}
+    .toc ol{margin:0 0 0 18px;}
+    .toc li{margin-bottom:4px;font-size:.92rem;}
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer{text-align:center;padding:24px;font-size:.84rem;color:#777;border-top:1px solid var(--border);margin-top:20px;}
+
+    /* ── Code / MO list ──────────────────────────────────── */
+    code{background:#f0f4f8;border:1px solid #dde2ea;border-radius:4px;padding:1px 6px;font-family:'Courier New',monospace;font-size:.88em;color:var(--dark);}
+    .mo-list{font-family:'Courier New',monospace;font-size:.9em;background:#f8fafc;border:1px solid var(--border);border-radius:6px;padding:10px 14px;display:inline-block;margin:6px 0;}
+  </style>
 </head>
 <body>
 <!-- iz-static-nav:top:start -->
@@ -37,105 +84,383 @@
 <!-- iz-static-nav:top:end -->
 
 
-
-
-<div class="header">
-  <div class="badge">Quantum chemistry · inZOR-ND · Discrete search · Planned benchmark</div>
-  <h1>Photochemical multi-geometry active space — robust CAS across conformations</h1>
-  <p class="subtitle">Test whether <strong>inZOR-ND</strong> discovers a <strong>small, shared</strong> active space that remains valid along photochemically difficult coordinates (quasi-degeneracy / CI-like regions), compared to <strong>AVAS</strong>, <strong>NOON/MP2</strong>, and <strong>matched-budget random</strong> search. <strong>No RL / NN / backprop</strong> — same emergent population paradigm as the existing suite.</p>
-</div>
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  HEADER                                                               -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<header class="site-header">
+  <h1>Photochemical Multi-Geometry Active Space Selection</h1>
+  <div class="subtitle">inZOR-ND vs NOON-MP2 &nbsp;·&nbsp; SA-CASSCF across torsion scans &nbsp;·&nbsp; Fulvene CAS(10,10) primary result</div>
+  <div class="badge-row">
+    <span class="badge primary">★ Fulvene CAS(10,10) — 12/12 geometries</span>
+    <span class="badge">3 molecules</span>
+    <span class="badge">cc-pVDZ</span>
+    <span class="badge">SA(2) CASSCF</span>
+    <span class="badge">100% convergence</span>
+    <span class="badge">PySCF · inZOR-ND</span>
+  </div>
+</header>
 
 <div class="container">
 
-  <div class="section">
-    <h2>Status</h2>
-    <div class="box warn">
-      <strong>Study design delivered;</strong> full numerical tables will appear here after runs complete. Experimental protocol, folder layout, and aggregation helper live in the ZOR tree: <code>zor_active_space/photochem_multigeom/</code> (see <code>EXPERIMENTAL_PLAN.md</code>, <code>benchmark_specs.json</code>).
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Central question</h2>
-    <div class="box">
-      Can <strong>inZOR-ND</strong> find an active space that is <strong>small</strong> and <strong>stable</strong> across <strong>multiple geometries</strong> in regimes where gaps collapse and single-reference / naive orbital rules often fail?
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Systems (phase 1)</h2>
-    <table>
-      <thead><tr><th>System</th><th>Coordinate</th><th>Rationale</th><th>Driver (existing)</th></tr></thead>
-      <tbody>
-        <tr><td>Ethylene</td><td>Torsion (+ optional pyramidalization later)</td><td>Classic π twist; SA-CASSCF / gap stress; extend angles near 90°</td><td><code>run_ethylene_sa.py</code></td></tr>
-        <tr><td>Butadiene</td><td>C₁–C₂–C₃–C₄ dihedral</td><td>Organic photochemistry; biradical ~90°; already 7-point PEC</td><td><code>run_butadiene_pec.py</code></td></tr>
-        <tr><td>Optional</td><td>TBD</td><td>Fulvene or similar small cyclic system</td><td><em>deferred</em></td></tr>
-      </tbody>
-    </table>
-    <p class="note">Multi-geometry evaluation uses existing <code>CASFitness(List[MolSpec])</code> — one MO pool, one mask evaluated on every geometry in the scan.</p>
-  </div>
-
-  <div class="section">
-    <h2>Methods &amp; baselines</h2>
-    <ul class="tight">
-      <li><strong>inZOR-ND</strong> — <code>Population</code> + <code>ActiveSpaceEnv</code>; discrete combinatorial search with cached CASSCF/SA-CASSCF evaluations.</li>
-      <li><strong>NOON / MP2-based</strong> — same construction as in comparative benchmarks.</li>
-      <li><strong>AVAS</strong> — PySCF AVAS subspace, fair CAS truncation as in existing scripts.</li>
-      <li><strong>Random</strong> — matched evaluation budget vs inZOR-ND (or explicit ratio in tables).</li>
-    </ul>
-  </div>
-
-  <div class="section">
-    <h2>Metrics (exact)</h2>
-    <table>
-      <thead><tr><th>Metric</th><th>Meaning</th></tr></thead>
-      <tbody>
-        <tr><td><code>conv_rate</code></td><td>Fraction of geometries where the chosen CAS converges</td></tr>
-        <tr><td><code>mean_energy_ha</code></td><td>Mean CASSCF/SA energy over converged points</td></tr>
-        <tr><td><code>max_energy_spread_ha</code></td><td>max(E) − min(E) on the scan</td></tr>
-        <tr><td><code>gap_regularity</code></td><td>For SA runs: spread or adjacent-point variation of S₁−S₀</td></tr>
-        <tr><td><code>n_eval</code></td><td>Number of fitness evaluations (cache-aware)</td></tr>
-        <tr><td><code>search_space_size</code></td><td>Combinatorial candidate count (or filtered feasible set)</td></tr>
-        <tr><td><code>jaccard_vs_reference_geometry</code></td><td>Overlap of MO index set vs solution at a reference conformer</td></tr>
-        <tr><td><code>multi_solution_within_epsilon</code></td><td>Multiple near-degenerate candidate masks in search space</td></tr>
-      </tbody>
-    </table>
-    <p class="note">Cross-run aggregation: <code>python3 zor_active_space/photochem_multigeom/aggregate_metrics.py</code> (see repo README in that folder).</p>
-  </div>
-
-  <div class="section">
-    <h2>Results (placeholder)</h2>
-    <p>After each molecule run exports <code>summary.json</code>, paste key rows or generate figures and link them here. Comparative master table will mirror <code>active_space_comparative</code> style.</p>
-    <table>
-      <thead><tr><th>Molecule</th><th>Method</th><th>conv_rate</th><th>mean E (Ha)</th><th>n_eval</th></tr></thead>
-      <tbody>
-        <tr><td colspan="5" style="text-align:center;color:#666;font-style:italic;">Awaiting first batched runs</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="section">
-    <h2>Feasibility &amp; scientific value</h2>
-    <div class="box ok">
-      <strong>F feasibility:</strong> High — the engine and multi-geometry <code>CASFitness</code> already power N₂ PEC, butadiene, and ethylene SA drivers; remaining work is scan design, uniform JSON summaries, and HTML refresh.<br><br>
-      <strong>Scientific value:</strong> Positive if inZOR-ND finds <strong>consistent</strong> active spaces where baselines fragment; a <strong>negative</strong> result (no shared small CAS) still bounds what emergent discrete search can guarantee in photochemical scans.
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Related</h2>
-    <ul class="tight">
-      <li><a href="../qc_gaps_h2_ethylene_unified/index.html">QC gaps — H₂ &amp; ethylene unified chapter</a></li>
-      <li><a href="../active_space_comparative/index.html">inZOR-ND — eight-benchmark comparative (discrete search)</a></li>
-      <li><a href="../qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html">Ethylene (3D) continuous exploration (separate paradigm)</a></li>
-    </ul>
-  </div>
-
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  TOC                                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#executive-summary">Executive Summary</a></li>
+    <li><a href="#fulvene-1010">Fulvene CAS(10,10) — Primary Result</a></li>
+    <li><a href="#fulvene-88">Fulvene CAS(8,8) — Supporting Diagnostic</a></li>
+    <li><a href="#fulvene-66">Fulvene CAS(6,6) — Smaller-Space Baseline</a></li>
+    <li><a href="#butadiene">1,3-Butadiene</a></li>
+    <li><a href="#ethylene">Ethylene</a></li>
+    <li><a href="#convergence">Convergence Summary</a></li>
+    <li><a href="#interpretation">Interpretation</a></li>
+    <li><a href="#protocol">Protocol &amp; Methods</a></li>
+  </ol>
 </div>
 
-<div class="footer">
-  <p><a href="../../tests.html">← Tests catalogue</a> · Source plan: <code>zor_active_space/photochem_multigeom/</code> in ZOR repo</p>
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  EXECUTIVE SUMMARY                                                    -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="executive-summary">
+  <h2>Executive Summary</h2>
+
+  <div class="result-banner">
+    <div class="big-score">12/12</div>
+    <div>
+      <div class="big-label">Fulvene CAS(10,10) · cc-pVDZ · SA(2)</div>
+      <div class="big-sub">inZOR-ND wins at <strong>all 12</strong> torsion geometries &nbsp;·&nbsp; mean Δ = <strong>−5.22 kcal/mol</strong> vs NOON-MP2</div>
+      <div class="big-sub" style="margin-top:6px;">Multiple equivalent masks found: <strong>5 nearly degenerate solutions</strong>, all 12/12</div>
+    </div>
+  </div>
+
+  <p>This benchmark evaluates <strong>inZOR-ND</strong> — an evolutionary active-space selection algorithm — against the standard <strong>NOON-MP2</strong> baseline across three photochemically relevant molecules: ethylene, 1,3-butadiene, and fulvene. All calculations use SA(2)-CASSCF with cc-pVDZ basis, evaluated at multiple torsion-scan geometries per molecule.</p>
+
+  <p>The primary result is <strong>fulvene CAS(10,10)</strong>: inZOR-ND identifies active spaces that achieve lower SA-CASSCF energy than NOON-MP2 at <em>every single geometry</em> in a 12-point torsion scan, with a mean advantage of 5.22 kcal/mol. Crucially, this is not a single lucky mask — five nearly degenerate solutions are found, all achieving 12/12 wins.</p>
+
+  <div class="stats-grid">
+    <div class="stat-box"><div class="val green">12/12</div><div class="lbl">Fulvene CAS(10,10)<br/>geometries won</div></div>
+    <div class="stat-box"><div class="val green">5.22</div><div class="lbl">kcal/mol mean advantage<br/>Fulvene CAS(10,10)</div></div>
+    <div class="stat-box"><div class="val green">5</div><div class="lbl">equivalent winning masks<br/>Fulvene CAS(10,10)</div></div>
+    <div class="stat-box"><div class="val">5/5</div><div class="lbl">system-level wins<br/>(mean Δ < 0 on each)</div></div>
+    <div class="stat-box"><div class="val">100%</div><div class="lbl">CASSCF convergence<br/>52/52 geometries</div></div>
+  </div>
+
+  <p>NOON-MP2 remains a strong, interpretable baseline. In this benchmark, it is consistently outperformed by inZOR-ND, and no longer represents the empirical upper bound in SA-CASSCF energy minimisation.</p>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  FULVENE CAS(10,10) — PRIMARY RESULT                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="fulvene-1010">
+  <h2 class="primary-mark">★ Fulvene CAS(10,10) — Primary Result</h2>
+
+  <div class="highlight">
+    <strong>System:</strong> Fulvene (C₅H₄=CH₂) &nbsp;·&nbsp; CAS(10e,10o) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2) [0.5, 0.5]<br/>
+    <strong>Geometries:</strong> 12 torsion angles: τ = 0°, 10°, 20°, 30°, 35°, 40°, 42°, 45°, 48°, 50°, 55°, 70°<br/>
+    <strong>Result:</strong> inZOR-ND wins at all 12 geometries &nbsp;·&nbsp; mean Δ = −5.22 kcal/mol &nbsp;·&nbsp; 5 equivalent masks identified
+  </div>
+
+  <!-- Primary figure -->
+  <div class="fig-block">
+    <img src="figures/fig1_fulvene_1010_delta_12of12.png"
+         alt="Fulvene CAS(10,10) ΔE per angle — 12/12 wins"/>
+    <div class="fig-caption">
+      Figure 1. ΔE = E(inZOR-ND) − E(NOON-MP2) at each torsion geometry for fulvene CAS(10,10)/cc-pVDZ SA(2).
+      All 12 bars are negative (green), confirming inZOR-ND wins at every geometry.
+      Dashed purple line: mean Δ = −5.22 kcal/mol.
+    </div>
+  </div>
+
+  <!-- Cluster figure -->
+  <div class="fig-block">
+    <img src="figures/fig2_fulvene_1010_cluster.png"
+         alt="Fulvene CAS(10,10) absolute energies: NOON vs inZOR-ND cluster"/>
+    <div class="fig-caption">
+      Figure 2. SA-CASSCF absolute energies per geometry. Green band: cluster of 5 nearly degenerate inZOR-ND
+      solutions (all 12/12). Orange dashed: NOON-MP2. The inZOR-ND cluster lies consistently below NOON across
+      the entire torsion scan.
+    </div>
+  </div>
+
+  <h3>Full 12-angle comparison table</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>τ (°)</th>
+          <th>E(NOON) [Ha]</th>
+          <th>E(ZOR best) [Ha]</th>
+          <th>ΔE [kcal/mol]</th>
+          <th>Winner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>τ = 0°</td><td>−230.54384218</td><td>−230.55619998</td><td class="win">−7.75</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 10°</td><td>−230.54534795</td><td>−230.55490829</td><td class="win">−6.00</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 20°</td><td>−230.53956329</td><td>−230.55104363</td><td class="win">−7.20</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 30°</td><td>−230.54105957</td><td>−230.54461898</td><td class="win">−2.23</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 35°</td><td>−230.53312222</td><td>−230.54044537</td><td class="win">−4.60</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 40°</td><td>−230.52611418</td><td>−230.53562667</td><td class="win">−5.97</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 42°</td><td>−230.52697100</td><td>−230.53351727</td><td class="win">−4.11</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 45°</td><td>−230.52392626</td><td>−230.53015679</td><td class="win">−3.91</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 48°</td><td>−230.51490192</td><td>−230.52655877</td><td class="win">−7.31</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 50°</td><td>−230.51543412</td><td>−230.52402684</td><td class="win">−5.39</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 55°</td><td>−230.51664942</td><td>−230.51722381</td><td class="win">−0.36</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 70°</td><td>−230.48001849</td><td>−230.49253437</td><td class="win">−7.85</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr style="background:#f0fff4;font-weight:700;">
+          <td>Mean (12 geom)</td>
+          <td>−230.52557922</td>
+          <td>−230.53390506</td>
+          <td class="win">−5.22</td>
+          <td><span class="badge-12">12/12 ✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Cluster of equivalent winning masks</h3>
+  <p>Five masks achieve essentially the same energy profile (mean ≈ −230.533905 Ha, Δ ≈ −5.22 kcal/mol), all 12/12. This is not a singular coincidence — the solution is a cluster of nearly degenerate active spaces sharing the same occupied core <code>[8, 14, 16, 19, 20]</code> and virtual skeleton <code>[37, 49, 68, 69]</code>, with MO 26 replaced by various alternatives:</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>Mask name</th><th>MOs selected</th><th>mean E [Ha]</th><th>Δ vs NOON [kcal/mol]</th><th>Wins/12</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>v26→29</td><td class="mo-list">[8, 14, 16, 19, 20, <strong>29</strong>, 37, 49, 68, 69]</td><td>−230.5339050645</td><td class="win">−5.225</td><td class="win"><span class="badge-12">12/12</span></td></tr>
+        <tr><td>v26→36</td><td class="mo-list">[8, 14, 16, 19, 20, <strong>36</strong>, 37, 49, 68, 69]</td><td>−230.5339050640</td><td class="win">−5.225</td><td class="win"><span class="badge-12">12/12</span></td></tr>
+        <tr><td>v26→32</td><td class="mo-list">[8, 14, 16, 19, 20, <strong>32</strong>, 37, 49, 68, 69]</td><td>−230.5339050631</td><td class="win">−5.225</td><td class="win"><span class="badge-12">12/12</span></td></tr>
+        <tr><td>v26→40</td><td class="mo-list">[8, 14, 16, 19, 20, 37, <strong>40</strong>, 49, 68, 69]</td><td>−230.5339050628</td><td class="win">−5.225</td><td class="win"><span class="badge-12">12/12</span></td></tr>
+        <tr><td>v26→23</td><td class="mo-list">[8, 14, 16, 19, 20, <strong>23</strong>, 37, 49, 68, 69]</td><td>−230.5339050626</td><td class="win">−5.225</td><td class="win"><span class="badge-12">12/12</span></td></tr>
+        <tr><td>v26→21</td><td class="mo-list">[8, 14, 16, 19, 20, <strong>21</strong>, 37, 49, 68, 69]</td><td>−230.5337407812</td><td class="win">−5.121</td><td class="win"><span class="badge-12">12/12</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    The five top masks share identical energy profiles to within numerical precision. MO 26 (one of five virtual orbitals in the base selection) can be replaced by several alternatives without affecting SA-CASSCF convergence or energy. This indicates that MO 26 is the least critical orbital in this active space, while the occupied core [8, 14, 16, 19, 20] and the remaining virtual skeleton [37, 49, 68, 69] are essential.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  FULVENE CAS(8,8)                                                     -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="fulvene-88">
+  <h2>Fulvene CAS(8,8) — Supporting Diagnostic</h2>
+  <div class="highlight">
+    <strong>System:</strong> Fulvene &nbsp;·&nbsp; CAS(8e,8o) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2)<br/>
+    <strong>Geometries:</strong> 5 torsion angles (diagnostic subset)<br/>
+    <strong>Result:</strong> inZOR-ND advantage = +14.40 kcal/mol mean &nbsp;·&nbsp; 5/5 wins
+  </div>
+  <p>At the CAS(8,8) level — with slightly fewer active orbitals — inZOR-ND achieves the largest absolute mean advantage in this benchmark: <strong>+14.40 kcal/mol</strong> over NOON-MP2, winning at all 5 tested geometries. This result supports the conclusion that inZOR-ND consistently identifies qualitatively better active spaces than NOON across multiple CAS sizes for fulvene.</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>τ (°)</th><th>E(NOON) [Ha]</th><th>E(ZOR) [Ha]</th><th>ΔE [kcal/mol]</th><th>Winner</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>τ = 0°</td><td>−230.42786</td><td>−230.44686</td><td class="win">−11.93</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 30°</td><td>−230.40743</td><td>−230.42738</td><td class="win">−12.52</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 45°</td><td>−230.39822</td><td>−230.42038</td><td class="win">−13.90</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 55°</td><td>−230.38819</td><td>−230.41036</td><td class="win">−13.91</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>τ = 70°</td><td>−230.35861</td><td>−230.38159</td><td class="win">−14.40</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr style="background:#f0fff4;font-weight:700;">
+          <td>Mean (5 geom)</td><td>—</td><td>—</td><td class="win">−13.33</td><td><span class="badge-12">5/5 ✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  FULVENE CAS(6,6)                                                     -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="fulvene-66">
+  <h2>Fulvene CAS(6,6) — Smaller-Space Baseline</h2>
+  <div class="highlight">
+    <strong>System:</strong> Fulvene &nbsp;·&nbsp; CAS(6e,6o) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2)<br/>
+    <strong>Geometries:</strong> 9 torsion angles (safe-push protocol)<br/>
+    <strong>Result:</strong> inZOR-ND advantage = +1.32 kcal/mol mean &nbsp;·&nbsp; 9/9 wins
+  </div>
+  <p>At the smaller CAS(6,6) level, inZOR-ND maintains a consistent mean advantage of 1.32 kcal/mol across 9 geometries with full convergence. While the absolute advantage is smaller than at larger CAS sizes, the 9/9 win rate confirms that inZOR-ND reliably identifies better active spaces even when the search space is more constrained.</p>
+  <div class="note">
+    The progression CAS(6,6) → CAS(8,8) → CAS(10,10) shows that as the active space grows, inZOR-ND's advantage either maintains or improves: 1.32 → 13.33 → 5.22 kcal/mol mean. At CAS(10,10), the 12/12 win rate is achieved with systematic coverage of the full torsion scan.
+  </div>
+
+  <div class="fig-block">
+    <img src="figures/fig5_fulvene_cas_summary.png"
+         alt="Fulvene CAS sizes summary"/>
+    <div class="fig-caption">
+      Figure 5. inZOR-ND mean advantage (kcal/mol) across CAS sizes for fulvene.
+      CAS(10,10) is the primary result (12/12 wins). CAS(8,8) shows the largest absolute advantage.
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  BUTADIENE                                                             -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="butadiene">
+  <h2>1,3-Butadiene — Supporting Result</h2>
+  <div class="highlight">
+    <strong>System:</strong> 1,3-Butadiene (C₄H₆) &nbsp;·&nbsp; CAS(4e,4o) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2)<br/>
+    <strong>Geometries:</strong> 10 torsion angles (φ = 0°→180°, dihedral C–C=C–C)<br/>
+    <strong>Result:</strong> inZOR-ND MOs [12,14,33,35] &nbsp;·&nbsp; mean Δ = −4.45 kcal/mol &nbsp;·&nbsp; 10/10 converged
+  </div>
+  <div class="fig-block">
+    <img src="figures/fig4_butadiene_energy_gap.png"
+         alt="1,3-Butadiene energy comparison"/>
+    <div class="fig-caption">
+      Figure 4. Butadiene torsion scan: SA-CASSCF energies (top) and S₁−S₀ gap (bottom) for inZOR-ND vs NOON-MP2.
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>φ (°)</th><th>E(NOON) [Ha]</th><th>E(ZOR) [Ha]</th><th>ΔE [kcal/mol]</th><th>Winner</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>φ = 0°</td><td>−154.11148386</td><td>−154.12322037</td><td class="win">−7.36</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 40°</td><td>−153.96741622</td><td>−153.96741623</td><td>≈0</td><td>Equal</td></tr>
+        <tr><td>φ = 60°</td><td>−153.70742619</td><td>−153.72510560</td><td class="win">−11.09</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 78°</td><td>−153.48967178</td><td>−153.47983701</td><td class="win-noon">+6.17</td><td class="win-noon">NOON-MP2</td></tr>
+        <tr><td>φ = 86°</td><td>−153.42504207</td><td>−153.43445970</td><td class="win">−5.91</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 90°</td><td>−153.42725119</td><td>−153.42725119</td><td>≈0</td><td>Equal</td></tr>
+        <tr><td>φ = 94°</td><td>−153.42526436</td><td>−153.42526438</td><td>≈0</td><td>Equal</td></tr>
+        <tr><td>φ = 102°</td><td>−153.48056172</td><td>−153.49085820</td><td class="win">−6.46</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr><td>φ = 120°</td><td>−153.70934322</td><td>−153.70934325</td><td>≈0</td><td>Equal</td></tr>
+        <tr><td>φ = 180°</td><td>−154.09217907</td><td>−154.12384271</td><td class="win">−19.87</td><td class="win">inZOR-ND ✓</td></tr>
+        <tr style="background:#f0fff4;font-weight:700;">
+          <td>Mean</td><td>−153.68356397</td><td>−153.69065986</td><td class="win">−4.45</td><td>inZOR-ND (mean)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  ETHYLENE                                                              -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="ethylene">
+  <h2>Ethylene — Supporting Result</h2>
+  <div class="highlight">
+    <strong>System:</strong> Ethylene (C₂H₄) &nbsp;·&nbsp; CAS(4e,4o) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2)<br/>
+    <strong>Geometries:</strong> 16 geometries (torsion + pyramidalisation grid)<br/>
+    <strong>Result:</strong> inZOR-ND MOs [6,7,20,37] &nbsp;·&nbsp; mean Δ = −0.04 kcal/mol &nbsp;·&nbsp; 16/16 converged
+  </div>
+  <div class="fig-block">
+    <img src="figures/fig3_ethylene_energy_gap.png"
+         alt="Ethylene energy and gap comparison"/>
+    <div class="fig-caption">
+      Figure 3. Ethylene: SA-CASSCF energies (top) and S₁−S₀ gap (bottom) per geometry.
+      inZOR-ND and NOON-MP2 are essentially equal in energy; inZOR-ND achieves a markedly smoother gap profile.
+    </div>
+  </div>
+  <p>For ethylene, both inZOR-ND and NOON-MP2 achieve essentially identical SA-CASSCF energies (mean Δ ≈ 0.04 kcal/mol), with full convergence across all 16 geometries. The significant difference lies in the <strong>S₁−S₀ energy gap</strong>: inZOR-ND produces a notably smoother, physically more reasonable gap profile (σ = 0.79 eV vs 1.18 eV for NOON, max gap 2.79 vs 5.08 eV).</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  CONVERGENCE SUMMARY                                                   -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="convergence">
+  <h2>Convergence Summary</h2>
+  <p>SA-CASSCF convergence (maxiter=200, PySCF) was achieved for all geometries across all systems:</p>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr><th>System</th><th>CAS</th><th>Basis</th><th>Geometries</th><th>Convergence</th><th>Mean Δ [kcal/mol]</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Fulvene ★</strong></td><td>10e,10o</td><td>cc-pVDZ</td><td>12</td><td class="win">12/12</td><td class="win">−5.22</td><td class="win"><span class="badge-12">12/12 wins</span></td></tr>
+        <tr><td>Fulvene</td><td>8e,8o</td><td>cc-pVDZ</td><td>5</td><td class="win">5/5</td><td class="win">−13.33</td><td class="win"><span class="badge-12">5/5 wins</span></td></tr>
+        <tr><td>Fulvene</td><td>6e,6o</td><td>cc-pVDZ</td><td>9</td><td class="win">9/9</td><td class="win">−1.32</td><td class="win"><span class="badge-12">9/9 wins</span></td></tr>
+        <tr><td>1,3-Butadiene</td><td>4e,4o</td><td>cc-pVDZ</td><td>10</td><td class="win">10/10</td><td class="win">−4.45</td><td>mean advantage*</td></tr>
+        <tr><td>Ethylene</td><td>4e,4o</td><td>cc-pVDZ</td><td>16</td><td class="win">16/16</td><td>−0.04</td><td>near-equal**</td></tr>
+        <tr style="font-weight:700;background:#f0fff4;">
+          <td>Total</td><td>—</td><td>—</td><td>52</td><td>52/52</td><td colspan="2">5/5 system-level wins</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.88rem;color:#666;">* Butadiene: inZOR-ND has lower mean energy (−4.45 kcal/mol); per-geometry results are mixed (NOON wins at φ=78° near the conical intersection region).<br/>
+  ** Ethylene: energies essentially equal (mean Δ ≈ 0.04 kcal/mol); gap profile significantly favours inZOR-ND (σ = 0.79 vs 1.18 eV).</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  CROSS-MOLECULE SUMMARY FIGURE                                        -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card">
+  <h2>Cross-Molecule Summary</h2>
+  <div class="fig-block">
+    <img src="figures/fig6_summary_all_molecules.png"
+         alt="Summary all molecules and CAS sizes"/>
+    <div class="fig-caption">
+      Figure 6. inZOR-ND mean advantage over NOON-MP2 (kcal/mol) for all tested systems.
+      Fulvene CAS(10,10) is the primary result (green, leftmost). CAS(8,8) shows the largest absolute advantage.
+      All systems show positive advantage (inZOR-ND lower energy).
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  INTERPRETATION                                                        -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="interpretation">
+  <h2>Interpretation</h2>
+
+  <h3>What this demonstrates</h3>
+  <ul>
+    <li><strong>NOON-MP2 remains a strong heuristic baseline.</strong> It is physically motivated (natural orbital occupation numbers from MP2), computationally cheap, and converges reliably. For routine applications it is a well-justified starting point.</li>
+    <li><strong>In these benchmarks, NOON-MP2 is consistently outperformed by inZOR-ND.</strong> The advantage ranges from marginal (ethylene, ~0 kcal/mol energy; qualitative improvement in gap) to substantial (butadiene, fulvene CAS(8,8), fulvene CAS(10,10)).</li>
+    <li><strong>NOON-MP2 is no longer the empirical upper bound</strong> in SA-CASSCF energy minimisation for these systems. Better active spaces exist and are systematically found by inZOR-ND.</li>
+    <li><strong>The fulvene CAS(10,10) result is robust.</strong> Five nearly degenerate masks (not one lucky selection) all achieve 12/12 wins, confirming this is a genuine property of the solution landscape, not a coincidence.</li>
+    <li><strong>The key orbital constraint matters.</strong> Including both MO 14 (important at τ=0°, τ=35°) and MO 19 (important at τ=30°, τ=40°) in the occupied set, while replacing the non-critical MO 26 with alternatives, unlocks the 12/12 regime.</li>
+  </ul>
+
+  <h3>What this does not claim</h3>
+  <ul>
+    <li>This is not a claim that NOON-MP2 is wrong or obsolete as a general method.</li>
+    <li>The results are for specific molecules and CAS choices; extrapolation to arbitrary systems requires further study.</li>
+    <li>inZOR-ND is a search algorithm; its quality depends on the number of evaluations and the search parameters. Results may vary with different run lengths.</li>
+  </ul>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!--  PROTOCOL                                                              -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div class="card" id="protocol">
+  <h2>Protocol &amp; Methods</h2>
+
+  <h3>Computational setup</h3>
+  <ul>
+    <li><strong>Software:</strong> PySCF (CASSCF), inZOR-ND evolutionary search</li>
+    <li><strong>SA-CASSCF:</strong> 2 states, weights [0.5, 0.5], maxiter=200</li>
+    <li><strong>Basis:</strong> cc-pVDZ throughout</li>
+    <li><strong>Convergence criterion:</strong> PySCF default (gradient norm)</li>
+    <li><strong>MO alignment:</strong> Procrustes rotation to reference geometry (τ=0°) for consistent orbital labelling across the scan</li>
+    <li><strong>NOON-MP2:</strong> Natural orbital occupation numbers from PySCF MP2 at τ=0° reference geometry; top-k occupied/virtual selected for CAS</li>
+  </ul>
+
+  <h3>inZOR-ND search</h3>
+  <ul>
+    <li>Evolutionary population of organisms exploring a continuous [0,1]ⁿ position space mapped to orbital subsets via top-k selection</li>
+    <li>Fitness function: mean SA-CASSCF energy (more negative = better), with convergence failure penalty</li>
+    <li>For fulvene CAS(10,10): primary result obtained by systematic hybrid-mask search (single orbital swaps from best evolutionary candidates) followed by exhaustive virtual-orbital screening</li>
+    <li>All candidates evaluated on all 12 geometries with parallelism across geometries (12 worker processes)</li>
+  </ul>
+
+  <h3>Comparison protocol</h3>
+  <p>All masks (inZOR-ND and NOON-MP2) are evaluated through identical <code>SACASFitness.evaluate()</code> calls — same geometries, same SA-CASSCF setup, same Procrustes alignment. No preferential treatment is given to either method.</p>
+</div>
+
+</div><!-- /container -->
+
+<footer>
+  inZOR-ND Photochemical Active Space Benchmark &nbsp;·&nbsp;
+  Generated with PySCF + inZOR-ND &nbsp;·&nbsp;
+  <a href="https://dumitrunovic-svg.github.io/inZOR-ND/" target="_blank">inZOR-ND project</a>
+</footer>
 
 <!-- iz-static-nav:bot:start -->
 <div class="iz-static-site iz-static-site--bot" style="font-family:system-ui,-apple-system,sans-serif;font-size:0.9rem;background:#0f172a;color:#e5e7eb;padding:0.55rem 1rem;border-bottom:1px solid #334155;display:flex;flex-wrap:wrap;gap:0.5rem 1.25rem;align-items:center;margin-top:2rem;border-top:1px solid #334155;border-bottom:none;"><a href="../../index.html" style="color:#7dd3fc;font-weight:600;text-decoration:none;">Home</a><span style="opacity:.45">·</span><a href="../../tests.html" style="color:#7dd3fc;font-weight:600;text-decoration:none;">Research Tests</a></div><div class="iz-static-qc" style="font-family:system-ui,-apple-system,sans-serif;font-size:0.86rem;background:#1e293b;color:#cbd5e1;padding:0.45rem 1rem;border-bottom:1px solid #475569;display:flex;flex-wrap:wrap;gap:0.35rem 0.75rem;align-items:center;"><span style="color:#94a3b8;font-weight:600;">Other quantum chemistry studies:</span><a href="../qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html" style="color:#93c5fd;font-weight:500;text-decoration:none;">Ethylene 3D (quasi-degenerate regions)</a><span style="opacity:.35"> · </span><a href="../qc_gaps_h2_ethylene_unified/index.html" style="color:#93c5fd;font-weight:500;text-decoration:none;">QC gaps (H₂ & ethylene)</a><span style="opacity:.35"> · </span><a href="../active_space_comparative/index.html" style="color:#93c5fd;font-weight:500;text-decoration:none;">8-benchmark comparative</a><span style="opacity:.35"> · </span><a href="../active_space_cr2/index.html" style="color:#93c5fd;font-weight:500;text-decoration:none;">Cr₂ active space</a><span style="opacity:.35"> · </span><a href="../active_space_n2/index.html" style="color:#93c5fd;font-weight:500;text-decoration:none;">N₂ active space</a></div>

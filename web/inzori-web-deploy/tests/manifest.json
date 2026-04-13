@@ -57,6 +57,7 @@
           "url": "tests/active_space_comparative/index.html"
         }
       ],
+      "domain": "Quantum Chemistry / Photochemistry",
       "short_description": "Fulvene CAS(10,10) 12/12 wins vs NOON-MP2 — inZOR-ND identifies systematically better active spaces across 3 molecules and 52 geometries.",
       "doi": ""
     },

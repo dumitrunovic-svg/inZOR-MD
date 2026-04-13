@@ -24,9 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Mirror qc_gaps chapter from brochure into repo-root tests/ (single folder).
-      - name: Sync brochure qc_gaps → tests/
+      # Mirror brochure → inzori-web-deploy + repo-root tests/ (qc_gaps, photochem, manifest).
+      - name: Sync brochure → deploy + tests/
         run: ./web/pack_for_github_pages.sh
+
+      # pack overwrites tests/qc_gaps* and tests/photochem* with brochure copies (no hub nav).
+      # Reinject static Home/Tests + QC/PFΔ peer rows before assembling _site.
+      - name: Inject static nav into test HTML
+        run: python3 tests/_tools_inject_static_nav.py
 
       # Do NOT publish web/inzori-web-deploy alone: brochure/tests/ is a subset of
       # repo-root tests/ — manifest links would 404. Ship landing HTML + full tests/.
@@ -38,6 +43,7 @@ jobs:
             if [[ -f "$f" ]]; then cp -a "$f" "_site/$f"; fi
           done
           rsync -a tests/ _site/tests/
+          touch _site/.nojekyll
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
