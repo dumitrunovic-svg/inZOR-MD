@@ -1,9 +1,18 @@
 (function () {
   'use strict';
 
-  /** Path prefix from this page to site root (directory containing index.html + tests.html). */
+  function pathKey() {
+    try {
+      return (location.pathname || '').toLowerCase();
+    } catch (e) {
+      return '';
+    }
+  }
+
+  /** Prefix from this page to site root (folder with index.html + tests.html). */
   function upToSiteRoot() {
-    const segs = location.pathname.split('/').filter(Boolean);
+    const raw = location.pathname.split('/').filter(Boolean);
+    const segs = raw.slice();
     if (segs.length && /\.html?$/i.test(segs[segs.length - 1])) segs.pop();
     const ti = segs.indexOf('tests');
     if (ti >= 0) {
@@ -19,7 +28,8 @@
   const testsBase = root + 'tests/';
 
   const CSS =
-    '.iz-tpn-wrap{font-family:system-ui,-apple-system,sans-serif;font-size:0.92rem;line-height:1.35}' +
+    '.iz-tpn-top{position:sticky;top:0;z-index:40000}' +
+    '.iz-tpn-wrap{font-family:system-ui,-apple-system,sans-serif;font-size:0.92rem;line-height:1.35;position:relative}' +
     '.iz-tpn-site,.iz-tpn-chem{display:flex;flex-wrap:wrap;gap:0.45rem 1rem;align-items:center;' +
     'justify-content:center;padding:0.55rem 1rem;margin:0}' +
     '.iz-tpn-site{background:#0f172a;color:#e2e8f0;border-bottom:1px solid #334155}' +
@@ -29,14 +39,14 @@
     '.iz-tpn-chem .iz-tpn-lab{color:#94a3b8;font-weight:600;margin-right:0.25rem}' +
     '.iz-tpn-chem a{color:#93c5fd;text-decoration:none;font-weight:500}' +
     '.iz-tpn-chem a:hover{text-decoration:underline;color:#bfdbfe}' +
-    '.iz-tpn-bot .iz-tpn-site{border-bottom:none;border-top:1px solid #334155}' +
+    '.iz-tpn-bot .iz-tpn-site{border-bottom:none;border-top:1px solid #334155;margin-top:2rem}' +
     '.iz-tpn-bot .iz-tpn-chem{border-bottom:none;border-top:1px solid #475569}';
 
   const CHEM = [
     {
       key: 'photochem',
       match: function (p) {
-        return p.indexOf('/photochem_multi_geom_active_space/') !== -1;
+        return p.indexOf('photochem_multi_geom_active_space') !== -1;
       },
       href: 'photochem_multi_geom_active_space/index.html',
       label: 'Photochemistry (multi-geometry)',
@@ -44,7 +54,7 @@
     {
       key: 'ethylene3d',
       match: function (p) {
-        return p.indexOf('ethylene_3d_zor.html') !== -1;
+        return p.indexOf('ethylene_3d_zor') !== -1;
       },
       href: 'qc_gaps_h2_ethylene_unified/ethylene_3d_zor.html',
       label: 'Ethylene 3D (quasi-degenerate regions)',
@@ -53,7 +63,7 @@
       key: 'qcgaps',
       match: function (p) {
         return (
-          p.indexOf('/qc_gaps_h2_ethylene_unified/') !== -1 &&
+          p.indexOf('qc_gaps_h2_ethylene_unified') !== -1 &&
           p.indexOf('ethylene_3d_zor') === -1
         );
       },
@@ -63,7 +73,7 @@
     {
       key: 'comparative',
       match: function (p) {
-        return p.indexOf('/active_space_comparative/') !== -1;
+        return p.indexOf('active_space_comparative') !== -1;
       },
       href: 'active_space_comparative/index.html',
       label: '8-benchmark comparative',
@@ -71,7 +81,7 @@
     {
       key: 'cr2',
       match: function (p) {
-        return p.indexOf('/active_space_cr2/') !== -1;
+        return p.indexOf('active_space_cr2') !== -1;
       },
       href: 'active_space_cr2/index.html',
       label: 'Cr₂ active space',
@@ -79,16 +89,16 @@
     {
       key: 'n2',
       match: function (p) {
-        return p.indexOf('/active_space_n2/') !== -1;
+        return p.indexOf('active_space_n2') !== -1;
       },
       href: 'active_space_n2/index.html',
       label: 'N₂ active space',
     },
   ];
 
-  function currentChemKey(path) {
+  function currentChemKey(p) {
     for (let i = 0; i < CHEM.length; i++) {
-      if (CHEM[i].match(path)) return CHEM[i].key;
+      if (CHEM[i].match(p)) return CHEM[i].key;
     }
     return null;
   }
@@ -126,13 +136,14 @@
 
   function inject() {
     if (document.getElementById('iz-tpn-style')) return;
+    if (!document.body) return;
     const st = document.createElement('style');
     st.id = 'iz-tpn-style';
     st.textContent = CSS;
     document.head.appendChild(st);
 
-    const path = location.pathname;
-    const chemKey = currentChemKey(path);
+    const p = pathKey();
+    const chemKey = currentChemKey(p);
 
     const top = document.createElement('div');
     top.className = 'iz-tpn-wrap iz-tpn-top';
@@ -147,9 +158,17 @@
     document.body.appendChild(bot);
   }
 
+  function run() {
+    try {
+      inject();
+    } catch (err) {
+      /* no-op */
+    }
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inject);
+    document.addEventListener('DOMContentLoaded', run);
   } else {
-    inject();
+    run();
   }
 })();

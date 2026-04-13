@@ -209,7 +209,8 @@
   function domainOf(test) {
     const cat = (test.category || '').trim();
     const dom = (test.domain || '').trim();
-    if (/^quantum chemistry$/i.test(cat)) return cat;
+    if (/^quantum chemistry$/i.test(cat)) return 'Quantum Chemistry';
+    if (/^quantum chemistry/i.test(dom)) return 'Quantum Chemistry';
     return dom || cat || 'Other';
   }
 
