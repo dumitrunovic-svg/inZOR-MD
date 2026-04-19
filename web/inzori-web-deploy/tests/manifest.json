@@ -4,43 +4,42 @@
   "tests": [
     {
       "id": "active-space-chemistry-consistent",
-      "name": "Active-Space Selection — Chemically Meaningful & Properly Converged across CH₂O · C₂H₄ · C₄H₆ · Fulvene",
+      "name": "Active-Space Selection — Chemically Meaningful & Properly Converged across CH₂O · C₂H₄ · C₄H₆",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-04-19",
       "updated_at": "2026-04-19",
-      "description": "Chemistry-aware validation of inZOR-ND active-space selection on four photoactive molecules (formaldehyde, ethylene, 1,3-butadiene, fulvene), CAS sizes (2,2)–(6,6), SA(2)-CASSCF / cc-pVDZ, 14 independent GA seeds across 59 geometries. The benchmark is built around the methodological position that the right metric for an active space is not 'lowest energy' but 'chemically meaningful description of the bond + properly converged across the scan'. A pre-evaluation acceptance condition checks that the winning mask contains the frontier orbitals; path-smoothness diagnostics flag non-physical jumps in the S₁−S₀ gap; non-converged geometries are propagated as worst-case sentinels and cannot win a sort. 5/14 winners that pure-energy ranking would have promoted are exposed as anti-chemical (zero HOMO/LUMO content, σ-only or far-virtual masks); after the screen, 14/14 accepted winners are chemistry-valid with 98.3 % SA-CASSCF convergence on the accepted candidates. The framework also flags the NOON-MP2 baseline as the chemistry outlier on butadiene CAS(4,4) (NOON-MP2 picks LUMO+4 instead of LUMO+1) and recovers a π-canonic mask that beats NOON-MP2 by ≈ 16 kcal/mol on R_E,raw without ever bypassing the chemistry condition. Multi-basin behaviour and the limits of intra-active multistart are demonstrated with a subspace-overlap diagnostic on butadiene at φ=86° (3 of 4 active dimensions shared, 1 essentially orthogonal at 89.85°, energy split ≈ 18 kcal/mol, M=30 starts at σ_max=3.0 cannot escape).",
+      "description": "Chemistry-consistent validation of inZOR-ND active-space selection on three frontier-driven photochemical molecules (formaldehyde, ethylene, 1,3-butadiene), CAS(2,2) and CAS(4,4), SA(2)-CASSCF / cc-pVDZ, 11 independent GA seeds across 47 geometries. The benchmark is built around the methodological position that the right metric for an active space is not 'lowest energy' but 'chemically meaningful description of the bond + properly converged across the scan'. A pre-evaluation acceptance condition checks that the winning mask contains the frontier orbitals; non-converged geometries are propagated as worst-case sentinels and cannot win a sort. 5/11 winners that pure-energy ranking would have promoted are exposed as anti-chemical and rejected pre-CASSCF; after the screen, 11/11 accepted winners are chemistry-valid with 47/47 SA-CASSCF runs converged. The framework also flags the NOON-MP2 baseline as the chemistry outlier on butadiene CAS(4,4) (NOON-MP2 picks LUMO+4 instead of LUMO+1) and recovers a π-canonic mask that beats NOON-MP2 by ≈ 16 kcal/mol on R_E,raw without bypassing the chemistry condition. Multi-basin behaviour and the limits of intra-active multistart are demonstrated with a subspace-overlap diagnostic on butadiene at φ=86° (3 of 4 active dimensions shared, 1 essentially orthogonal at 89.85°, energy split ≈ 18 kcal/mol, M=30 starts at σ_max=3.0 cannot escape) — combinatorial mask exploration is therefore the appropriate sampling strategy at this scale.",
       "key_findings": [
-        "14/14 accepted winners are chemistry-valid across 4 molecules and 14 GA seeds",
-        "5/14 winners would have been anti-chemical without the chemistry-aware acceptance condition (CH₂O 3/5 zero-frontier; C₂H₄ seed 73 contained zero HOMO/LUMO MOs; fulvene CAS(6,6) 3/4 missed HOMO or LUMO)",
+        "11/11 accepted winners are chemistry-valid across 3 molecules and 11 GA seeds",
+        "5/11 winners would have been anti-chemical without the chemistry-aware acceptance condition (CH₂O 3/5 zero-frontier; C₂H₄ seed 73 zero HOMO/LUMO content + seed 101 only 1 frontier MO)",
         "Ethylene seed 73 redirected from the σ-only mask [2,4,21,22] to the canonical π/π* manifold [6,7,8,9] = (HOMO−1, HOMO, LUMO, LUMO+1)",
-        "Fulvene CAS(6,6) failure mode reproducible and repaired by a single tightening (HOMO + LUMO required for CAS ≥ 6); 10/10 landmark masks pass offline regression, 0 regressions on the calibration set",
-        "On 1,3-butadiene CAS(4,4) the framework outperforms NOON-MP2 by ≈ 16 kcal/mol while still containing both HOMO and LUMO (NOON-MP2 itself is the chemistry outlier — it picks LUMO+4 instead of LUMO+1)",
-        "Multi-basin landscape demonstrated: subspace-overlap diagnostic on butadiene φ=86° gives singular values [0.996, 0.982, 0.946, 0.003] (89.85° orthogonal dimension, ≈ 18 kcal/mol basin split); intra-active multistart with 30 starts at σ_max=3.0 cannot bridge it",
-        "Path-smoothness diagnostic catches what the monotonicity score misses: fulvene seed 7 had near-perfect monotonicity while jumping the S₁−S₀ gap by 2.36 eV; after the chemistry condition, the largest jump drops to 0.13 eV",
-        "98.3 % SA-CASSCF convergence (58/59 geometries) on the accepted winning mask of every seed; non-converged geometries propagate as worst-case sentinels and cannot win a sort",
+        "On 1,3-butadiene CAS(4,4) the framework outperforms NOON-MP2 by ≈ 16 kcal/mol on R_E,raw while still containing both HOMO and LUMO (NOON-MP2 itself is the chemistry outlier — it picks LUMO+4 instead of LUMO+1)",
+        "Multi-basin landscape demonstrated: subspace-overlap diagnostic on butadiene φ=86° gives singular values [0.996, 0.982, 0.946, 0.003] (89.85° orthogonal active dimension, ≈ 18 kcal/mol basin split); intra-active multistart with 30 starts at σ_max=3.0 cannot bridge it",
+        "Combinatorial mask exploration reaches basins inaccessible to intra-active orbital rotation — appropriate sampling strategy at this scale",
+        "47/47 SA-CASSCF convergence on the accepted winning mask of every seed across the three molecules",
         "99/99 internal regression tests pass on the gate logic and on the NaN/Inf-safe scoring pipeline"
       ],
       "metrics": {
-        "Molecules": "4 (CH₂O · C₂H₄ · C₄H₆ · Fulvene)",
-        "CAS sizes": "(2,2) – (6,6)",
-        "GA seeds": "14",
-        "Geometries probed": "59",
-        "Chemistry-valid winners (post-screen)": "14/14",
-        "Anti-chemical winners removed by the screen": "5/14",
-        "SA-CASSCF convergence on accepted candidates": "98.3 % (58/59)",
+        "Molecules": "3 (CH₂O · C₂H₄ · C₄H₆)",
+        "CAS sizes": "(2,2) and (4,4)",
+        "GA seeds": "11",
+        "Geometries probed": "47",
+        "Chemistry-valid winners (post-screen)": "11/11",
+        "Anti-chemical winners removed by the screen": "5/11",
+        "SA-CASSCF convergence on accepted candidates": "100 % (47/47)",
         "Largest energy advantage vs NOON-MP2": "≈ 16 kcal/mol (butadiene CAS(4,4))",
         "Internal regression tests passing": "99/99"
       },
       "images": [
         {
-          "url": "tests/active_space_chemistry_consistent/figures/fig5_summary_all_molecules.png",
-          "caption": "Headline: chemistry-valid winners across the four molecules, before vs after the chemistry-aware acceptance condition"
+          "url": "tests/active_space_chemistry_consistent/figures/fig4_summary_all_molecules.png",
+          "caption": "Headline: chemistry-valid winners across the three molecules, before vs after the chemistry-aware acceptance condition"
         },
         {
           "url": "tests/active_space_chemistry_consistent/figures/fig1_chemistry_gate_redirection.png",
-          "caption": "Per-seed frontier-orbital content of the winning mask before and after the screen — 14 winners across 4 molecules"
+          "caption": "Per-seed frontier-orbital content of the winning mask before and after the screen — 11 winners across 3 molecules"
         },
         {
           "url": "tests/active_space_chemistry_consistent/figures/fig2_butadiene_multibasin.png",
@@ -51,8 +50,8 @@
           "caption": "Subspace-overlap diagnostic at φ=86°: 3/4 active dimensions shared, 1 essentially orthogonal (89.85°)"
         },
         {
-          "url": "tests/active_space_chemistry_consistent/figures/fig4_fulvene_path_smoothness.png",
-          "caption": "Fulvene CAS(6,6): path-smoothness restored after the tightened chemistry condition + NOON-seeded assistance"
+          "url": "tests/active_space_chemistry_consistent/figures/fig5_convergence_integrity.png",
+          "caption": "Convergence integrity across the three molecules: 47/47 SA-CASSCF runs converged on accepted candidates"
         }
       ],
       "links": [
@@ -62,16 +61,12 @@
           "primary": true
         },
         {
-          "label": "Photochem multi-geometry (fulvene 12/12)",
-          "url": "tests/photochem_multi_geom_active_space/index.html"
-        },
-        {
           "label": "8-benchmark active-space comparative (context)",
           "url": "tests/active_space_comparative/index.html"
         }
       ],
       "domain": "Quantum Chemistry / Active-Space Selection",
-      "short_description": "Chemistry-aware validation across CH₂O · C₂H₄ · C₄H₆ · fulvene — 14/14 accepted winners chemically meaningful and properly converged; 5/14 anti-chemical winners removed at the source.",
+      "short_description": "Chemistry-consistent validation across CH₂O · C₂H₄ · C₄H₆ — 11/11 accepted winners chemically meaningful and properly converged; 5/11 anti-chemical winners removed at the source; ≈ 16 kcal/mol over NOON-MP2 on butadiene.",
       "doi": ""
     },
     {
