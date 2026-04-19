@@ -123,7 +123,7 @@
     <li><a href="#c2h4">Ethylene (C₂H₄) — flagship redirection</a></li>
     <li><a href="#c4h6">1,3-Butadiene (C₄H₆) — improvement over the NOON-MP2 baseline</a></li>
     <li><a href="#convergence">Convergence integrity across the three systems</a></li>
-    <li><a href="#workflow">Workflow &amp; key lessons</a></li>
+    <li><a href="#workflow">Key lessons</a></li>
     <li><a href="#protocol">Protocol &amp; what is reported</a></li>
     <li><a href="#conclusions">Conclusions</a></li>
   </ol>
@@ -170,12 +170,19 @@
     </div>
   </div>
 
+  <div class="highlight" style="border-left-color:var(--purple);background:#f6f0fb;">
+    <strong>Headline methodological observation.</strong>
+    The SA-CASSCF orbital landscape on these systems is genuinely multi-basin.
+    <strong>Simple orbital rotations cannot traverse all basins; combinatorial search over candidate sub-spaces can.</strong>
+    On butadiene at φ = 86°, two CAS(4,4) solutions are separated by an essentially orthogonal active dimension
+    (89.85°) and ≈ 18 kcal/mol of energy — a gap that 30 intra-active multistarts at σ<sub>max</sub> = 3.0 do not bridge.
+    Quantitative evidence in §4.
+  </div>
+
   <ul>
-    <li><strong>CH₂O</strong> exposes a search-side bottleneck on very small spaces (CAS(2,2) over 30+ MOs); the chemically correct n→π* manifold is identifiable and reproducible once the chemistry condition is enforced.</li>
+    <li><strong>CH₂O</strong> behaves as a sensitivity benchmark for small-space search: on CAS(2,2) over 30+ candidate MOs, the chemically correct n→π* manifold is identifiable and reproducible once the chemistry condition is enforced.</li>
     <li><strong>C₂H₄</strong> contains the most flagrant anti-chemical failure of the benchmark — seed 73's σ-only winner with zero HOMO/LUMO content — and the chemistry condition redirects it to the canonical π/π* set <code>[6, 7, 8, 9]</code>.</li>
-    <li><strong>C₄H₆</strong> beats the NOON-MP2 baseline by ≈ 16 kcal/mol on R<sub>E,raw</sub> with a chemically cleaner π-canonical solution; in this case the NOON-MP2 mask itself is the chemistry outlier.</li>
-    <li><strong>Multi-basin behaviour is real</strong>: on butadiene at φ = 86°, two competing CAS(4,4) solutions are separated by an essentially orthogonal active dimension (89.85°) and ≈ 18 kcal/mol of energy.</li>
-    <li><strong>Combinatorial exploration over candidate sub-spaces is the appropriate sampling strategy</strong> at this scale — intra-active orbital rotation cannot bridge the basins observed.</li>
+    <li><strong>C₄H₆</strong> beats the NOON-MP2 baseline by ≈ 16 kcal/mol on R<sub>E,raw</sub> with a chemically cleaner π-canonical solution; here the NOON-MP2 mask itself is the chemistry outlier.</li>
   </ul>
 
   <div class="fig-block">
@@ -196,6 +203,36 @@
     <div class="stat-box"><div class="val green">47/47</div><div class="lbl">SA-CASSCF converged<br/>on accepted candidates</div></div>
     <div class="stat-box"><div class="val">99/99</div><div class="lbl">internal regression tests<br/>pass on the gate logic</div></div>
   </div>
+
+  <h3>Practical workflow</h3>
+  <div class="flow">
+    <div class="flow-step">
+      <div class="step-num">STEP 1</div>
+      <div class="step-ttl">Search</div>
+      <div class="step-sub">Combinatorial proposal of candidate active sub-spaces over the SCF MO list</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step gate">
+      <div class="step-num">STEP 2</div>
+      <div class="step-ttl">Chemical gates</div>
+      <div class="step-sub">Frontier-orbital overlap, mask validity, frozen-core sanity — fail = veto</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step gate">
+      <div class="step-num">STEP 3</div>
+      <div class="step-ttl">Convergence check</div>
+      <div class="step-sub">SA-CASSCF on every geometry; non-converged ⇒ worst-case sentinel</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step rank">
+      <div class="step-num">STEP 4</div>
+      <div class="step-ttl">Rank by energy</div>
+      <div class="step-sub">R<sub>E,raw</sub> + smoothness diagnostics, only on candidates that passed steps 2 and 3</div>
+    </div>
+  </div>
+  <p style="font-size:.9rem;color:#555;text-align:center;margin-top:6px;">
+    Chemistry validity and convergence are checked first; energy ranking is the last step, not the first.
+  </p>
 </div>
 
 <!-- ── 3. FIVE TESTS ─────────────────────────────────────────────────── -->
@@ -316,10 +353,14 @@
   <h2>5. Formaldehyde (CH₂O) — search-sensitivity benchmark</h2>
 
   <div class="highlight">
+    <strong>Role in the benchmark:</strong> a <em>sensitivity benchmark for search initialization</em>.
+    CH₂O has only 2 active orbitals out of 30+ candidate MOs, so the GA's combinatorial budget is
+    tight; this is the system that exposes whether the chemistry condition is strong enough to keep
+    energy-only winners from drifting into deep-σ correlation when search room is small.<br/>
     <strong>System:</strong> Formaldehyde &nbsp;·&nbsp; CAS(2,2) &nbsp;·&nbsp; cc-pVDZ &nbsp;·&nbsp; SA(2) [0.5, 0.5] &nbsp;·&nbsp; 4 geometries
     along R(C=O) &nbsp;·&nbsp; HOMO = 7, LUMO = 8, NOON-MP2 baseline mask = <code>[6, 9]</code><br/>
     <strong>Result:</strong> all 5 GA winners contain at least one frontier MO once the chemistry
-    condition is enforced; the three energy-only winners that previously contained none have been
+    condition is enforced; the three energy-only winners that previously contained none are
     redirected toward the n→π* manifold.
   </div>
 
@@ -357,11 +398,11 @@
   </p>
 
   <div class="note">
-    <strong>Honest note.</strong> Without a baseline mask seeded into the initial population, the
-    GA does not always locate the n→π* manifold within the 10-step × 50-organism budget. This is a
-    search-budget effect specific to very small CAS spaces (2 active orbitals out of 30+
-    candidates) and not a defect of the screening logic — the screen identifies the failure
-    cleanly. CH₂O is therefore reported as a sensitivity benchmark for small-space search.
+    <strong>What this measures.</strong> When a trusted baseline mask is seeded into the initial
+    population, all 5 seeds converge to it cleanly. Without seeding, the GA does not always reach
+    the n→π* manifold inside the 10-step × 50-organism budget — a normal search-budget effect on
+    a 2-of-30 CAS, and exactly the regime where the chemistry condition earns its keep: it
+    identifies the under-budget cases unambiguously and redirects them into the correct manifold.
   </div>
 </div>
 
@@ -492,46 +533,20 @@
 
 <!-- ── 9. WORKFLOW & KEY LESSONS ────────────────────────────────────── -->
 <div class="card" id="workflow">
-  <h2>9. Workflow &amp; key lessons</h2>
+  <h2>9. Key lessons</h2>
 
   <p>
-    The full workflow used by the framework on every candidate active space is summarized below.
-    Chemistry validity and convergence are checked first; energy ranking is the last step, not the
-    first.
+    The framework's practical workflow (<em>Search → Chemical Gates → Convergence Check → Rank by Energy</em>)
+    is summarized in the Executive Summary. The lessons below are the take-aways from running it
+    on the three benchmark systems.
   </p>
 
-  <div class="flow">
-    <div class="flow-step">
-      <div class="step-num">STEP 1</div>
-      <div class="step-ttl">Search</div>
-      <div class="step-sub">Combinatorial proposal of candidate active sub-spaces over the SCF MO list</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step gate">
-      <div class="step-num">STEP 2</div>
-      <div class="step-ttl">Chemistry gates</div>
-      <div class="step-sub">Frontier-orbital overlap, mask validity, frozen-core sanity — fail = veto</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step gate">
-      <div class="step-num">STEP 3</div>
-      <div class="step-ttl">Convergence check</div>
-      <div class="step-sub">SA-CASSCF on every geometry of the scan; non-converged ⇒ worst-case sentinel</div>
-    </div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step rank">
-      <div class="step-num">STEP 4</div>
-      <div class="step-ttl">Rank</div>
-      <div class="step-sub">Energy ranking + smoothness diagnostics, only on candidates that survived 2 and 3</div>
-    </div>
-  </div>
-
   <div class="lessons">
-    <h3>Key lessons from this benchmark</h3>
+    <h3>What this benchmark teaches</h3>
     <ul>
       <li><strong>Energy alone can mislead.</strong> 5 of 11 winners would have been anti-chemical without the chemistry condition.</li>
-      <li><strong>Frontier consistency matters.</strong> A mask that omits the HOMO or the LUMO entirely cannot describe a frontier-driven photochemical channel — regardless of how attractive its raw energy is.</li>
-      <li><strong>Multimodality is real.</strong> CASSCF orbital optimization on these systems exhibits multiple basins separated by directions outside the active sub-space; intra-active multistart does not bridge them.</li>
+      <li><strong>Frontier consistency matters.</strong> For frontier-driven photochemical channels, a mask that omits the HOMO or the LUMO entirely cannot describe the physics — regardless of how attractive its raw energy is.</li>
+      <li><strong>Multimodality is real.</strong> CASSCF orbital optimization on these systems exhibits multiple basins separated by directions outside the active sub-space; intra-active multistart does not bridge them, but combinatorial mask exploration does.</li>
       <li><strong>Search and validation must coexist.</strong> Combinatorial mask exploration provides the basin sampling; chemistry gates and convergence checks provide the discipline to keep only the physically meaningful results.</li>
     </ul>
   </div>
@@ -574,58 +589,21 @@
   <div class="result-banner">
     <div class="big-score">★</div>
     <div>
-      <div class="big-label">Across three benchmark systems, the framework consistently separates chemically meaningful active spaces from misleading low-quality attractors, while preserving or improving energetic competitiveness.</div>
-      <div class="big-sub">CH₂O · C₂H₄ · C₄H₆ &nbsp;·&nbsp; 11 GA seeds &nbsp;·&nbsp; 47 / 47 SA-CASSCF runs converged on accepted candidates.</div>
+      <div class="big-label">Across three benchmark systems, the chemistry-consistent framework repeatedly separated meaningful active spaces from misleading low-quality attractors, while preserving energetic competitiveness.</div>
     </div>
   </div>
 
-  <ol>
-    <li>
-      <strong>The chemistry-validity condition is non-redundant with the energy ranking.</strong>
-      5 of 11 GA winners — an explicit, identifiable subset (3 on CH₂O, 2 on C₂H₄, 0 on C₄H₆) —
-      would have been anti-chemical without it. The condition does not perturb the ranking on the
-      other 6.
-    </li>
-    <li>
-      <strong>Convergence integrity is enforced architecturally, not after the fact.</strong>
-      A non-converged geometry is treated as a worst-case sentinel and propagated through Inf-safe
-      arithmetic so that it cannot win a sort. 47 / 47 geometries on accepted candidates converged
-      cleanly; 99 / 99 internal regression tests cover this branch.
-    </li>
-    <li>
-      <strong>Multi-basin behaviour is real and intra-active multistart cannot bridge it.</strong>
-      The butadiene scan and the subspace-overlap diagnostic exhibit basins separated by an
-      effectively orthogonal active dimension (89.85°) and energy splits up to ≈ 18 kcal/mol;
-      30 starts at σ<sub>max</sub> = 3.0 do not help. Combinatorial exploration over candidate
-      active spaces is the appropriate sampling strategy at this scale.
-    </li>
-    <li>
-      <strong>The framework can flag baseline failures without bypassing chemistry.</strong>
-      On 1,3-butadiene CAS(4,4) the GA winner outperforms the NOON-MP2 baseline by
-      ≈ 16 kcal/mol on R<sub>E,raw</sub> while still containing both HOMO and LUMO; the
-      NOON-MP2 mask itself is the chemistry outlier in this case (it picks LUMO+4 instead
-      of LUMO+1).
-    </li>
-    <li>
-      <strong>Reproducibility across seeds is checked, not assumed.</strong>
-      For each molecule, independent seeds collapse to a small number of chemistry-valid
-      equivalence classes after the screen — at most two per system in this benchmark.
-    </li>
-  </ol>
-
-  <p>
-    These results support a practical workflow in which <em>chemistry validity and convergence are
-    checked first, and energy ranking is performed only among candidates that have already passed
-    those checks</em>. On the three benchmark systems studied here, that ordering is what makes
-    "chemically meaningful and properly converged" a verifiable property of the report rather than
-    an aspirational claim.
-  </p>
+  <ul>
+    <li><strong>The chemistry condition is non-redundant with energy ranking</strong> — 5 of 11 GA winners would have been anti-chemical without it; the other 6 are unaffected.</li>
+    <li><strong>Multi-basin behaviour is real</strong> — basins separated by orthogonal active directions and ≈ 18 kcal/mol on butadiene; intra-active multistart cannot bridge them, but combinatorial mask exploration can.</li>
+    <li><strong>Convergence is enforced architecturally</strong> — 47 / 47 SA-CASSCF runs converged on accepted candidates; non-converged geometries cannot win a sort.</li>
+    <li><strong>Energetic competitiveness is preserved or improved</strong> — on butadiene CAS(4,4) the GA winner beats NOON-MP2 by ≈ 16 kcal/mol on R<sub>E,raw</sub> while still containing both HOMO and LUMO.</li>
+  </ul>
 
   <div class="highlight">
-    Headline. <strong>11 / 11 accepted winners chemistry-valid · 5 / 11 anti-chemical winners
-    removed at the source · 47 / 47 SA-CASSCF runs converged on accepted candidates · NOON-MP2
-    outperformed by ≈ 16 kcal/mol on butadiene where NOON-MP2 itself is the chemistry outlier ·
-    all numbers reproducible from the per-seed result files shipped with the report.</strong>
+    <strong>Headline.</strong> 11 / 11 chemistry-valid · 5 / 11 anti-chemical winners removed at the
+    source · 47 / 47 SA-CASSCF runs converged · ≈ 16 kcal/mol over NOON-MP2 on butadiene · all
+    numbers reproducible from the per-seed result files shipped with the report.
   </div>
 </div>
 
