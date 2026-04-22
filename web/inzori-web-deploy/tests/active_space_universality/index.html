@@ -504,7 +504,7 @@
     <div class="finding-box">
       <div class="finding-icon">⚡</div>
       <div class="finding-ttl">NOON Injection for Large CAS</div>
-      <div class="finding-body">For CAS(6,6) aromatic systems (Pyridine), NOON-MP2 injection is a necessary condition for SA-CASSCF convergence. Without it, 0/10 geometries converge. The negative control confirms this definitively.</div>
+      <div class="finding-body">For CAS(6,6) aromatic systems (Pyridine), NOON-MP2 injection is required for SA-CASSCF convergence at the current compute budget. Without it, 0/10 geometries converge (negative control). With injection: 100% convergence, ΔE = −0.069 kcal/mol vs NOON-MP2, with one seed finding an energetically superior basin. With larger budget or molecule-specific tuning, stronger no-injection performance is expected — but the injected result stands as the primary demonstrated result.</div>
     </div>
     <div class="finding-box">
       <div class="finding-icon">🔩</div>
