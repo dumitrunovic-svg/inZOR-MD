@@ -4,7 +4,7 @@
   "tests": [
     {
       "id": "active-space-universality",
-      "name": "inZOR-ND Universality Study — Active-Space Selection across 15 Molecular Systems",
+      "name": "inZOR-ND — Cross-Family Robustness of Active-Space Discovery (15 Molecular Systems)",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
