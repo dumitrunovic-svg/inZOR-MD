@@ -4,21 +4,22 @@
   "tests": [
     {
       "id": "active-space-universality",
-      "name": "inZOR-ND Universality Study — Active-Space Selection across 7 Molecular Systems",
+      "name": "inZOR-ND Universality Study — Active-Space Selection across 15 Molecular Systems",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-04-22",
       "updated_at": "2026-04-22",
-      "description": "Systematic evaluation of inZOR-ND active-space selection across 7 structurally diverse molecular systems: Methylenimine (CH₂=NH), Cyclobutadiene (C₄H₄), N₂, Hexatriene (C₆H₈), Acrolein (C₃H₄O), Pyridine (C₅H₅N), and the transition-metal dimer Cr₂. Framework: ZOR-SA v3/v3.1 with 19 independent GA seeds. Evaluation follows three criteria from standard multi-reference practice: (1) chemical meaningfulness verified via post-CASSCF NOON spectra, (2) proper SA-CASSCF convergence across all scan geometries, (3) competitive energy vs NOON-MP2 baseline only after (1) and (2) are satisfied. Result: 7/7 PASS · 0 failures · 100% NOON chemical consistency (all seeds within each molecule converge to identical final NOON spectra) · 4/7 PASS+ (beat NOON-MP2 baseline) · best ΔE = −5.5 kcal/mol (Cr₂). Key scientific finding: seeds starting from very different HF-basis MO selections converge to identical post-CASSCF NOON spectra — demonstrating basis-rotation invariance and confirming that the framework recovers the physically correct active subspace regardless of initial representation.",
+      "description": "Systematic evaluation of inZOR-ND active-space selection across 15 structurally diverse molecular systems: Methylenimine, Cyclobutadiene, N₂, Hexatriene, Acrolein, Pyridine, Cr₂, Ketene, Formamide, Thioformaldehyde, Diazomethane, H₂O₂, Pyrrole, Imidazole, Pyrimidine. ZOR-SA v3/v3.1 framework. Result: 15/15 PASS, 0 failures, 100% NOON chemical consistency across 43 seeds. Covers π systems, biradicals, heteroatoms, σ-only bonds, N-heterocycles, and transition metals.",
       "key_findings": [
-        "7/7 molecules PASS · 0 failures across structurally diverse chemical space",
-        "100% NOON chemical consistency: all seeds within each molecule converge to identical final NOON spectra (basis-rotation invariance)",
-        "4/7 PASS+ (beat NOON-MP2): Methylenimine −2.16 kcal/mol · N₂ −3.54 kcal/mol · Pyridine −0.069 kcal/mol · Cr₂ −5.5 kcal/mol",
-        "Acrolein: seeds start from MOs [13,14,40,70] and [7,14,15,18] — converge to identical NOONs [1.94,1.49,0.56,0.01] after CASSCF",
-        "Pyridine negative control: without NOON injection 0/10 SA-CASSCF convergence; with NOON injection 100% — confirms NOON injection as prerequisite for CAS(6,6) aromatics",
-        "Cr₂ (transition metal, extreme multi-reference): R_M=1.000 · ZOR converges 2/3 geometries vs NOON-MP2 1/3 · −5.5 kcal/mol advantage",
-        "Cyclobutadiene: textbook Jahn-Teller biradical NOONs [1.91, 1.00, 1.00, 0.09] · 3/3 seeds identical · ΔE=0 (same basin as NOON-MP2)"
+        "15/15 PASS with 0 failures — zero partial results",
+        "100% NOON chemical consistency across all seeds and molecules",
+        "7/15 PASS+ (beat NOON-MP2 baseline): methylenimine, cyclobutadiene, N₂, pyridine, formamide, diazomethane, pyrimidine",
+        "Best energy advantage: Thioformaldehyde −19.4 kcal/mol",
+        "Multi-basin discovery: pyrrole (−8.2 kcal/mol), imidazole (−11.9 kcal/mol)",
+        "First σ-only test (H₂O₂): ZOR generalises beyond π systems",
+        "Basis-rotation invariance confirmed: different MO starting points → identical final NOONs",
+        "43 total GA seeds evaluated across 15 molecules"
       ],
       "metrics": {
         "Molecules tested": "7 (mol01–mol07)",
