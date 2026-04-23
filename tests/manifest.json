@@ -1,51 +1,52 @@
 {
   "version": "1",
-  "updated_at": "2026-04-22",
+  "updated_at": "2026-04-23",
   "tests": [
     {
       "id": "active-space-universality",
-      "name": "inZOR-ND Universality Study — Active-Space Selection across 7 Molecular Systems",
+      "name": "inZOR-ND Cross-Family Robustness Study — 15 Molecular Systems",
       "category": "Quantum Chemistry",
       "status": "finished",
       "published": true,
       "created_at": "2026-04-22",
-      "updated_at": "2026-04-22",
-      "description": "Systematic evaluation of inZOR-ND active-space selection across 7 structurally diverse molecular systems: Methylenimine (CH₂=NH), Cyclobutadiene (C₄H₄), N₂, Hexatriene (C₆H₈), Acrolein (C₃H₄O), Pyridine (C₅H₅N), and the transition-metal dimer Cr₂. Framework: ZOR-SA v3/v3.1 with 19 independent GA seeds. Evaluation follows three criteria from standard multi-reference practice: (1) chemical meaningfulness verified via post-CASSCF NOON spectra, (2) proper SA-CASSCF convergence across all scan geometries, (3) competitive energy vs NOON-MP2 baseline only after (1) and (2) are satisfied. Result: 7/7 PASS · 0 failures · 100% NOON chemical consistency (all seeds within each molecule converge to identical final NOON spectra) · 4/7 PASS+ (beat NOON-MP2 baseline) · best ΔE = −5.5 kcal/mol (Cr₂). Key scientific finding: seeds starting from very different HF-basis MO selections converge to identical post-CASSCF NOON spectra — demonstrating basis-rotation invariance and confirming that the framework recovers the physically correct active subspace regardless of initial representation.",
+      "updated_at": "2026-04-23",
+      "description": "Chemistry-first active-space discovery tested across 15 unrelated molecular families (not a claim of formal universality). All 15 systems satisfied the chemistry-consistency acceptance protocol (43 GA seeds; 0 failures). Primary emphasis: reproducible, chemically meaningful final NOON manifolds across seeds. 6/15 PASS+ (lower raw energy than NOON-MP2 while preserving chemistry); 9/15 PASS. Families: π systems, heteroatom n/π*, biradicals, σ-only (H₂O₂), aromatic N-heterocycles, preliminary Cr₂ (STO-3G). ZOR-SA v3 / v3.1.",
       "key_findings": [
-        "7/7 molecules PASS · 0 failures across structurally diverse chemical space",
-        "100% NOON chemical consistency: all seeds within each molecule converge to identical final NOON spectra (basis-rotation invariance)",
-        "4/7 PASS+ (beat NOON-MP2): Methylenimine −2.16 kcal/mol · N₂ −3.54 kcal/mol · Pyridine −0.069 kcal/mol · Cr₂ −5.5 kcal/mol",
-        "Acrolein: seeds start from MOs [13,14,40,70] and [7,14,15,18] — converge to identical NOONs [1.94,1.49,0.56,0.01] after CASSCF",
-        "Pyridine negative control: without NOON injection 0/10 SA-CASSCF convergence; with NOON injection 100% — confirms NOON injection as prerequisite for CAS(6,6) aromatics",
-        "Cr₂ (transition metal, extreme multi-reference): R_M=1.000 · ZOR converges 2/3 geometries vs NOON-MP2 1/3 · −5.5 kcal/mol advantage",
-        "Cyclobutadiene: textbook Jahn-Teller biradical NOONs [1.91, 1.00, 1.00, 0.09] · 3/3 seeds identical · ΔE=0 (same basin as NOON-MP2)"
+        "15/15 systems satisfied the acceptance protocol — 0 failures, 0 partial",
+        "100% final-NOON manifold consistency across accepted systems (43 seeds)",
+        "6/15 PASS+ (lower raw energy than NOON-MP2 while preserving chemistry): methylenimine, N₂, pyridine, formamide, diazomethane, pyrimidine",
+        "Empirical basis-label invariance: distinct initial MO masks often converge to equivalent post-CASSCF manifolds",
+        "Multi-basin landscapes (pyrrole, imidazole, thioformaldehyde): alternative chemically valid basins, some lower in energy",
+        "Largest single-system raw-energy gain vs NOON-MP2: thioformaldehyde −19.4 kcal/mol (verdict PASS; PASS+ applies only where mean-scan energy beats baseline under protocol)",
+        "Preliminary transition-metal stress test: Cr₂ under STO-3G / CAS(8,8), reduced geometry set",
+        "First σ-only benchmark: H₂O₂ confirms behaviour beyond π-driven systems"
       ],
       "metrics": {
-        "Molecules tested": "7 (mol01–mol07)",
-        "Verdicts": "7/7 PASS (4 PASS+ · 3 PASS · 0 PARTIAL · 0 FAIL)",
-        "Total seeds": "19",
-        "NOON chemical consistency": "100% (all seeds → identical final NOON spectra)",
-        "SA-CASSCF convergence (organic)": "100% on 6/7 molecules",
-        "Best ΔE vs NOON-MP2": "−5.5 kcal/mol (Cr₂)",
-        "Seeds beating NOON-MP2": "9/15 (methylenimine 5/5 · N₂ 2/3 · pyridine 1/3 · Cr₂ 1/1)",
-        "Framework version": "ZOR-SA v3 / v3.1"
+        "Systems tested": "15",
+        "Verdicts": "15/15 accepted (6 PASS+ · 9 PASS · 0 PARTIAL · 0 FAIL)",
+        "Total seeds": "43",
+        "Final-NOON consistency": "100% across accepted systems",
+        "Molecular families": "6 (π, heteroatom n/π*, biradical, σ-only, N-heteroaromatic, preliminary TM)",
+        "Best ΔE vs NOON-MP2 (single system)": "−19.4 kcal/mol (thioformaldehyde)",
+        "PASS+ definition": "PASS plus strictly lower mean scan energy vs NOON-MP2, chemistry preserved",
+        "Framework": "ZOR-SA v3 / v3.1"
       },
       "images": [
         {
           "url": "tests/active_space_universality/figures/fig1_universality_summary.png",
-          "caption": "Energy advantage vs NOON-MP2 (left) and SA-CASSCF convergence rate (right) across 7 molecular systems"
+          "caption": "Energy vs NOON-MP2 and SA-CASSCF convergence — 15 systems, cross-family robustness study"
         },
         {
           "url": "tests/active_space_universality/figures/fig2_universality_dashboard.png",
-          "caption": "4-panel dashboard: energy advantage, convergence rates, seeds per molecule, convergence vs energy scatter"
+          "caption": "Four-panel dashboard: energy, convergence, seeds per system, scatter plot"
         },
         {
           "url": "tests/active_space_universality/figures/fig3_criteria_heatmap.png",
-          "caption": "Evaluation criteria heatmap — all 7 molecules pass chemical meaningfulness, gate, and monotone R_M"
+          "caption": "Criteria heatmap across all 15 systems"
         },
         {
           "url": "tests/active_space_universality/figures/fig4_noon_spectra.png",
-          "caption": "Post-CASSCF NOON spectra per molecule — all chemically interpretable bonding/antibonding patterns"
+          "caption": "Post-CASSCF NOON spectra — all chemically interpretable"
         }
       ],
       "links": [
@@ -64,7 +65,7 @@
         }
       ],
       "domain": "Quantum Chemistry / Active-Space Selection",
-      "short_description": "7/7 PASS across structurally diverse molecular systems — methylenimine, cyclobutadiene, N₂, hexatriene, acrolein, pyridine, Cr₂. 100% NOON consistency. 4/7 beat NOON-MP2 baseline. Basis-rotation invariance demonstrated.",
+      "short_description": "Cross-family robustness of inZOR-ND active-space discovery: 15 systems, 43 seeds, 0 failures. Manifold consistency first; 6/15 also improve raw energy vs NOON-MP2 with chemistry preserved. Does not claim formal universality.",
       "doi": ""
     },
     {
