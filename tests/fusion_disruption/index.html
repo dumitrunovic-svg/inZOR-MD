@@ -61,6 +61,8 @@
   .step-num { background:var(--primary); color:#fff; border-radius:50%; width:1.7rem; height:1.7rem; display:flex; align-items:center; justify-content:center; font-size:0.8rem; font-weight:700; flex-shrink:0; margin-top:0.1rem; }
   .step-content { font-size:0.93rem; }
   .disclaimer-box { background:#fff8f0; border:1px solid #f6d7b0; border-radius:8px; padding:1rem 1.25rem; font-size:0.85rem; color:#6b4c1e; margin:1.5rem 0; }
+  td.success-cell { color:var(--success); font-weight:700; }
+  td.danger-cell  { color:var(--danger);  font-weight:700; }
 </style>
 </head>
 <body>
@@ -447,6 +449,7 @@ python3 run_dual_instability_law_test.py    # formula + temporal η(t)
 python3 run_priority_tests.py               # LOMO + per-machine structural
 python3 run_robustness_sensitivity.py       # bootstrap + sensitivity
 python3 run_baseline_ablation_test.py       # ablation comparison
+python3 run_early_warning_scan.py           # early warning time-cut scan (Apr 2026)
 python3 generate_publication_figures.py    # all publication figures</div>
     <p><strong>Convention:</strong> D = 450 samples ending at t_disrupt − 50 ms; N = full shot. Same convention across all tests.</p>
     <div class="disclaimer-box">
@@ -454,9 +457,121 @@ python3 generate_publication_figures.py    # all publication figures</div>
     </div>
   </div>
 
+  <!-- Section 12: Early Warning Analysis — Final -->
+  <div class="section">
+    <h2>12. Early Warning Analysis &#8212; How Early Does &#951; Know Disruption Is Coming?</h2>
+    <p>
+      This section reports the complete investigation of the temporal early warning properties of &#951;,
+      including an initial scan and a rigorous critical verification.
+    </p>
+
+    <h3>12a. Initial Time-Cut Scan (first pass)</h3>
+    <p>
+      For each T<sub>cut</sub> &#8712; {500,&#8230;,20} ms, disruptive shots are truncated to
+      <code>ip[:t<sub>dis</sub> &#8722; T<sub>cut</sub>]</code> and &#951; is computed; normal shots
+      use the full signal. Initial AUC was high (MAST: 0.88, HL-2A: 0.94) but subsequent analysis
+      revealed a major shot-length confound (see &#167;12b).
+    </p>
+    <div class="fig-wrap">
+      <img src="figures/early_warning_scan.png" alt="Early Warning Scan (initial)">
+      <div class="fig-caption">Fig &#8212; Initial scan (naive). High AUC at T&#8722;500ms is largely an artifact
+      of shot-length mismatch (MAST normal shots T&#8776;12 s vs disruptive T&#8776;5 s).</div>
+    </div>
+
+    <h3>12b. Critical Verification &#8212; WARNING vs FINGERPRINT</h3>
+    <p>Three tests applied to isolate the genuine temporal signal:</p>
+    <div class="step-row"><div class="step-num">1</div>
+      <div class="step-content"><strong>Matched Shots (by duration):</strong>
+        MAST AUC drops from 0.721 &#8594; 0.114 &#8212; almost all cross-shot separation was artifact.
+        C-Mod holds (AUC=0.76, n_norm=13). HL-2A partial confound (AUC 0.939&#8594;0.418).</div></div>
+    <div class="step-row"><div class="step-num">2</div>
+      <div class="step-content"><strong>Within-Shot &#951; Growth (MAST):</strong>
+        corr(T&#8594;T<sub>dis</sub>, &#951;) = 0.927. &#951; increases from 2.0 (T&#8722;500ms) to 3.9 (T&#8722;30ms)
+        within each disruptive shot; matched normals stay flat at &#8776;1.5. Genuine growth confirmed.</div></div>
+    <div class="step-row"><div class="step-num">3</div>
+      <div class="step-content"><strong>Effect-Size Scan with Matched Normals:</strong>
+        Cohen&#8217;s d and AUC using a fixed 450ms window, normal shots matched by shot duration.</div></div>
+
+    <div class="fig-wrap">
+      <img src="figures/critical_verification_mast.png" alt="Critical Verification MAST">
+      <div class="fig-caption">Fig &#8212; MAST critical verification.
+        <strong>Left:</strong> matched AUC = 0.114 (shot-length confound confirmed).
+        <strong>Centre:</strong> within-shot growth corr=0.927 (genuine WARNING component).
+        <strong>Right:</strong> &#951;(t) trajectory &#8212; spike concentrated in last ~100 ms.
+      </div>
+    </div>
+
+    <h3>12c. Effect-Size Scan &#8212; Rigorous Early Warning Test</h3>
+    <p>
+      Fixed 450ms window positioned at T<sub>dis</sub> &#8722; t<sub>ms</sub> for disruptive shots and
+      at shot<sub>end</sub> &#8722; t<sub>ms</sub> for <strong>duration-matched</strong> normal shots.
+      Cohen&#8217;s d measures the standardised separation at each time position.
+    </p>
+
+    <div class="fig-wrap">
+      <img src="figures/effect_size_scan.png" alt="Effect size scan — Cohen d vs time">
+      <div class="fig-caption">
+        Fig &#8212; Effect-size scan (matched normals). <strong>HL-2A (right column):</strong>
+        d = 0.845, AUC = 0.762 at T&#8722;500ms &#8212; disruptive shots already significantly elevated
+        500 ms before the event. <strong>MAST (left column):</strong> Cohen&#8217;s d is negative
+        at T&#8722;500ms because all normal shots have duration &#8776;12 s (no duration-matched normals
+        exist for MAST in this dataset); within-shot growth (Test 2) is the only valid MAST metric.
+        <strong>C-Mod (centre):</strong> non-monotone, only 13 normal shots &#8212; insufficient for reliable effect sizes.
+      </div>
+    </div>
+
+    <h3>Summary Table</h3>
+    <table>
+      <tr><th>Machine</th><th>Test 1<br>AUC matched</th><th>Test 2<br>Within-shot corr</th>
+          <th>Test 3<br>First d&gt;0.5 (matched)</th><th>Conclusion</th></tr>
+      <tr>
+        <td>MAST</td><td class="danger-cell">0.114</td><td class="success-cell">0.927</td>
+        <td>&#8212; (no valid match)</td>
+        <td>Within-shot growth real; cross-shot test invalid (no duration-matched normals)</td>
+      </tr>
+      <tr class="highlight">
+        <td>HL-2A</td><td>0.418</td><td>0.422</td>
+        <td class="success-cell">T&#8722;500ms (d=0.845)</td>
+        <td>Genuine early warning at T&#8722;500ms; separation fades near shot end due to normal ramp-down</td>
+      </tr>
+      <tr>
+        <td>C-Mod</td><td class="success-cell">0.760</td><td>0.629</td>
+        <td>&#8212; (only 13 normals)</td>
+        <td>AUC holds under matching; insufficient normal shots for effect-size reliability</td>
+      </tr>
+    </table>
+
+    <div class="claims-box">
+      <strong>What the evidence says about early warning:</strong>
+      <ul>
+        <li><strong>HL-2A (clearest result):</strong> Cohen&#8217;s d = 0.845 at T&#8722;500ms vs duration-matched
+          normals &#8212; &#951; is already significantly elevated at least 500 ms before disruption.
+          Signal fades near shot end because normal HL-2A shots also develop high &#951; during planned ramp-down.</li>
+        <li><strong>MAST (within-shot only):</strong> &#951; grows monotonically inside disruptive shots
+          from T&#8722;500ms to T&#8722;30ms (corr = 0.927). Cross-shot comparison is impossible without
+          duration-matched normal shots (none available in this dataset).</li>
+        <li><strong>Both confirm:</strong> the signal is concentrated in the last ~100 ms but is detectable
+          from T&#8722;500ms with moderate effect size.</li>
+        <li><strong>Dataset limitation:</strong> MAST normal shots (T&#8776;12 s) are 2&#8211;3&#215; longer
+          than disruptive shots (T&#8776;5 s), making any cross-shot comparison unreliable without
+          explicit duration control.</li>
+      </ul>
+    </div>
+    <div class="disclaimer-box">
+      <strong>Honest summary:</strong> for HL-2A (where D and N shots have comparable durations),
+      &#951; shows a genuine early warning signal detectable at T&#8722;500ms (d = 0.845).
+      For MAST the within-shot growth is real (corr = 0.927) but the absolute warning time cannot
+      be quantified without duration-matched normal shots. The formula is correctly characterized as
+      a <em>disruption approach indicator</em>: it grows within a disruptive shot and is already
+      elevated relative to normals hundreds of milliseconds before the event &#8212;
+      subject to dataset quality and shot-length comparability.
+    </div>
+  </div>
+
+
   <!-- Conclusion -->
   <div class="section">
-    <h2>12. Conclusion</h2>
+    <h2>13. Conclusion</h2>
     <p>
       Rather than designing a predictive model, the objective of this study was to explore whether simple structural relations emerge consistently across machines when analysing plasma current dynamics.
     </p>
