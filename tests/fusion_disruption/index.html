@@ -569,6 +569,86 @@ python3 generate_publication_figures.py    # all publication figures</div>
   </div>
 
 
+  <!-- Section 13: ZOR Early Warning Discovery -->
+  <div class="section">
+    <h2>13. ZOR Early Warning Discovery &#8212; Formula optimal&#259; cu 14 workeri</h2>
+    <p>
+      Dup&#259; identificarea confundului &#351;i a limitelor formulei canonice, am reformulat problema
+      ca o <strong>sarcin&#259; ZOR</strong>: g&#259;se&#351;te ponderile W* care maximizeaz&#259;
+      detectarea PRECOCE a disrup&#355;iei.
+    </p>
+
+    <h3>Design mediu ZOR</h3>
+    <ul>
+      <li><strong>Features (5D):</strong> kurtosis, max_rate, rate_ratio, cv_ratio, skew &#8212;
+          extrase dintr-o fereastr&#259; fix&#259; de 450ms</li>
+      <li><strong>Fitness:</strong> 0.50 &times; within-shot growth + 0.35 &times; separare la
+          T&#8722;500ms + 0.15 &times; flatness normale &#8212; evit&#259; complet shot-length confound</li>
+      <li><strong>Evolu&#355;ie:</strong> (1+&#955;)-ES cu 56 candida&#355;i/genera&#355;ie,
+          3 seeds &times; 300 genera&#355;ii</li>
+      <li><strong>Paralelizare:</strong> 14 workeri (Pool fork), evaluare vectorizat&#259; 1.6ms/candidat</li>
+      <li><strong>Timp total:</strong> 310s (~5 minute)</li>
+    </ul>
+
+    <h3>Rezultat ZOR</h3>
+    <div class="formula-box">
+      &#951;* = &#8722;0.248 &#183; max_rate
+      <span style="font-size:0.85em; color:#aaaacc; margin-left:1em;">(celelalte ponderi &#8776;0)</span>
+    </div>
+
+    <table>
+      <tr><th>Metric</th><th>ZOR &#951;*</th><th>Canonical &#951;</th></tr>
+      <tr><td>food (fitness)</td><td class="success-cell">0.6604</td><td>0.5071</td></tr>
+      <tr><td>growth_corr (within-shot)</td><td class="success-cell">0.279</td><td>0.138</td></tr>
+      <tr><td>d la T&#8722;500ms</td><td class="success-cell">0.853</td><td>0.162</td></tr>
+      <tr><td>d la T&#8722;300ms</td><td class="success-cell">0.908</td><td>0.056</td></tr>
+      <tr><td>d la T&#8722;150ms</td><td class="success-cell">0.914</td><td>0.175</td></tr>
+      <tr><td>d la T&#8722;30ms</td><td class="success-cell">0.903</td><td class="danger-cell">&#8722;0.326</td></tr>
+    </table>
+
+    <div class="fig-wrap">
+      <img src="figures/zor_early_warning_result.png" alt="ZOR Early Warning Result">
+      <div class="fig-caption">
+        Fig &#8212; Rezultat ZOR: st&#226;nga = ponderi W* vs canonical; centru = &#951;&#772;(t)
+        disruptive vs normale; dreapta = convergen&#355;&#259; per seed.
+      </div>
+    </div>
+
+    <h3>Interpretare fizic&#259;</h3>
+    <p>
+      ZOR a descoperit c&#259; <strong>max_rate</strong> (rata maxim&#259; de schimbare a curentului
+      normalizat&#259;) este tr&#259;s&#259;tura dominant&#259; pentru avertizare precoce, cu pondere
+      <em>negativ&#259;</em>:
+    </p>
+    <ul>
+      <li><strong>Shoturile normale</strong> au max_rate <em>ridicat</em> l&#226;ng&#259; finalul lor
+          (ramp-down planificat &#8212; sc&#259;dere rapid&#259; controlat&#259; a curentului).</li>
+      <li><strong>Shoturile disruptive</strong> au max_rate <em>mai mic</em> &#238;nainte de disrup&#355;ie
+          &#8212; curentul se schimb&#259; mai gradual, f&#259;r&#259; ramp-down planificat.</li>
+      <li>Rezultat: &#951;* = &#8722;0.248&#183;max_rate este mai mare pentru disruptive la TOATE
+          pozi&#355;iile (d=0.85&#8211;0.91 constant de la T&#8722;500ms la T&#8722;30ms).</li>
+    </ul>
+
+    <div class="claims-box">
+      <strong>Concluzie ZOR &#8212; rspuns la &#8222;c&#226;t de devreme &#351;tie &#951;?&#8221;</strong>
+      <ul>
+        <li>Formula ZOR &#951;* = &#8722;0.248&#183;max_rate ofer&#259; Cohen&#8217;s d = <strong>0.85&#8211;0.91
+            de la T&#8722;500ms p&#226;n&#259; la T&#8722;30ms</strong> (semnal consistent pe tot intervalul).</li>
+        <li>Canonical &#951; = &#8722;kurtosis + 0.80&#183;rate_ratio + 0.65&#183;cv_ratio: d oscileaz&#259;
+            0.16&#8211;0.33 &#351;i devine <em>negativ</em> la T&#8722;30ms (normalele dep&#259;&#351;esc
+            disruptivele la final din cauza ramp-down-ului).</li>
+        <li><strong>Prima avertizare: T&#8722;500ms</strong> &#8212; cel mai devreme punct testat,
+            deja cu d=0.853. Semnalul este de&#731;inut de max_rate (dinamica curentului),
+            nu de statistica global&#259; a shot-ului.</li>
+      </ul>
+    </div>
+    <div class="disclaimer-box">
+      Limitare: max_rate discrimineaz&#259; disruptive vs ramp-down planificat &#8212; nu &#351;i vs
+      shoturile care se termin&#259; natural f&#259;r&#259; ramp-down rapid. Pe date cu normale
+      mai variate, d-ul real poate fi mai mic.
+    </div>
+  </div>
+
   <!-- Conclusion -->
   <div class="section">
     <h2>13. Conclusion</h2>
