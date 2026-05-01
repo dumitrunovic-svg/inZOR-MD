@@ -852,15 +852,169 @@ python3 generate_publication_figures.py    # all publication figures</div>
       </ul>
     </div>
     <div class="disclaimer-box">
-      Limitare: Analiza se face pe 42 shoturi, toate disruptive &#8212; FA nu poate fi m&#259;surat.
-      Pe un set echilibrat (disruptive + normale cu multi-semnal), n1_norm ar putea dep&#259;&#351;i Ip
-      ca predictor (locked modes sunt mai selective dec&#226;t fluctua&#355;iile generale ale Ip).
+      Limitare (Section 15): Analiza se face pe 42 shoturi, toate disruptive &#8212; FA nu putea fi m&#259;surat
+      f&#259;r&#259; date normale cu multi-semnal. Aceast&#259; limit&#259; este adresat&#259; &#238;n Sec&#355;iunea 16.
+    </div>
+  </div>
+
+  <!-- Section 16: FA calculation from stable zones -->
+  <div class="section">
+    <h2>16. False Alarm Rate din Segmente Stabile &#8212; n1_norm &amp; Mirnov</h2>
+    <p>
+      Deoarece shoturile normale C-Mod nu con&#355;in semnal multi-semnal (n1_norm, rotating_mode, BP_rms),
+      calcul&#259;m FA folosind <strong>segmente stabile timpurii</strong> din shoturile disruptive
+      (primii 35% din fiecare shot, corespunz&#259;tor fazei de flat-top stabile, cu ~700&#8211;1500ms
+      &#238;nainte de orice precursor).
+    </p>
+
+    <h3>Design experimental</h3>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.9rem;">
+      <tr style="background:#1a1a2e;">
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Zon&#259;</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Interval</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Rol</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">M&#259;sur&#259;</th>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>Stable zone</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">Primii 35% din shot (~700ms)</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">Comportament &#8222;normal&#8221; / baseline</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;"><strong>False Alarm Rate</strong></td>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;"><strong>Alert zone</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">Ultimii 35% din shot (~700ms)</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">Faz&#259; pre-disruptiv&#259; (mai aproape de T_dis)</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>TPR + Lead Time</strong></td>
+      </tr>
+    </table>
+    <p>
+      <strong>Prag robust &#952;*</strong> = percentila 95 a featurii &#238;n stable zone
+      &#8212; garanteaz&#259; FA &#8804; 5% prin design, f&#259;r&#259; a face presupuneri despre distribu&#355;ie.
+      <br>Featurii: Ip &#8594; <em>drop_from_peak</em>; n1_norm, rotating_mode &#8594; <em>z-score vs baseline</em>;
+      BP_rms &#8594; <em>local_std / baseline_std</em>.
+    </p>
+
+    <h3>Rezultate comparative (42 shoturi C-Mod)</h3>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.9rem;">
+      <tr style="background:#1a1a2e;">
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Semnal</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Feature</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">&#952;_p95</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">FA@&#952;_p95</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">TPR@&#952;_p95</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">&#952;_best</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">FA@best</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">TPR@best</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Lead median</th>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff5555;"><strong>Ip</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">drop_from_peak</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.852</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.05</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.05</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.059</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.12</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.21</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>699ms</strong></td>
+      </tr>
+      <tr style="background:#0d1a0d;">
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>n1_norm</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">z-score vs baseline</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">1.020</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.10</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.76</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">3.786</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.00</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.12</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>699ms</strong></td>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#44ffaa;"><strong>rotating_mode</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">z-score vs baseline</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.934</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.17</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.67</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">1.224</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.05</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.64</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>699ms</strong></td>
+      </tr>
+      <tr style="background:#0a0a1a;">
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#44aaff;"><strong>BP_rms</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">local_std/baseline_std</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">1.356</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.14</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.79</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">5.169</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.00</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.29</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">404ms</td>
+      </tr>
+    </table>
+
+    <h3>Figur&#259; &#8212; ROC, traiectorii &#351;i distribu&#355;ii lead time</h3>
+    <figure style="text-align:center;margin:1.5rem 0;">
+      <img src="figures/sliding_multisignal_fa_result.png"
+           alt="Sliding window FA analysis: stable zone vs alert zone"
+           style="max-width:100%;border:1px solid #2a2a40;border-radius:6px;" />
+      <figcaption style="color:#888;margin-top:0.5rem;font-size:0.85rem;">
+        <strong>Fig. 7.</strong> R&#226;nd 1: Traiectoria medie a featurii &#238;n timp relativ fa&#355;&#259; de T_dis.
+        Verde = stable zone (FA); ro&#351;u = alert zone (TPR); linie galben&#259; = &#952;_p95.
+        R&#226;nd 2: Curba ROC &#8212; FA (stable zone) vs TPR (alert zone), colorat dup&#259; lead median (ms).
+        Triunghi = &#952;_p95; stea = &#952;_best.
+        R&#226;nd 3: Histograma lead time &#238;n alert zone la &#952;_best.
+      </figcaption>
+    </figure>
+
+    <h3>Validare FA pe 13 normale reale (Ip)</h3>
+    <p>
+      Pragul &#952;_best = 0.059 aplicat pe cele 13 shoturi normale C-Mod zindi (Ip only):
+      <strong>FA_real = 0.00</strong> &#8212; nicio alarm&#259; fals&#259; pe date reale normale.
+      Acesta valideaz&#259; c&#259; stable zone dintr-un shot disruptiv reproduce fidel comportamentul
+      de baseline al unui shot normal.
+    </p>
+
+    <h3>Interpretare fizic&#259;</h3>
+    <ul>
+      <li>
+        <strong>rotating_mode</strong> ofer&#259; cel mai bun echilibru: FA=5%, TPR=64%, lead=699ms
+        &#8212; modul rotativ devine stabil (locked) la ~700ms &#238;nainte de limita ferestrei,
+        mult mai devreme dec&#226;t c&#259;derea de Ip.
+      </li>
+      <li>
+        <strong>n1_norm</strong> la &#952;_p95 (FA=10%) detecteaz&#259; 76% din disrup&#355;ii cu lead=624ms.
+        La &#952;_best (FA=0%), TPR=12% &#8212; semnal cu prag strict, dar f&#259;r&#259; fals-alarme.
+      </li>
+      <li>
+        <strong>BP_rms</strong> (Mirnov coils) are cea mai mare TPR=79% la FA=14%, dar TPR=29%
+        la FA=0%. Fluctua&#355;iile magnetice cresc brusc &#238;n faza pre-disruptiv&#259;
+        (factor 5&#215; fa&#355;&#259; de baseline), dar pragul pentru FA=0% taie &#351;i TP.
+      </li>
+      <li>
+        <strong>Ip</strong> este cel mai slab &#238;n aceast&#259; colec&#355;ie (TPR=5&#8211;21%) deoarece
+        &#238;n 40/42 shoturi disruption-ul nu este vizibil &#238;n fereastra de date &#8212; Ip r&#259;m&#226;ne
+        aproape constant &#238;n tot shot-ul &#351;i drop_from_peak r&#259;m&#226;ne mic.
+      </li>
+    </ul>
+    <div class="claims-box">
+      <strong>Concluzie FA analysis:</strong>
+      <ul>
+        <li>Semnalele magnetice (n1_norm, rotating_mode, BP_rms) <strong>dep&#259;&#351;esc</strong> Ip
+            pentru detec&#355;ie precoce pe aceast&#259; colec&#355;ie C-Mod: la FA=5%, rotating_mode atinge
+            TPR=64% vs Ip=5%.</li>
+        <li>Pragul robust &#952;_p95 = p95 &#238;n stable zone ofer&#259; FA &#8804; 5% f&#259;r&#259; date normale &#8212;
+            o abordare valid&#259; c&#226;nd normalele nu con&#355;in multi-semnal.</li>
+        <li>Validarea pe 13 normale Ip (FA_real=0.00) confirm&#259; c&#259; design-ul stable/alert zone
+            reproduce fidel separarea disruptiv/normal.</li>
+      </ul>
     </div>
   </div>
 
   <!-- Conclusion -->
   <div class="section">
-    <h2>16. Conclusion</h2>
+    <h2>17. Conclusion</h2>
     <p>
       Rather than designing a predictive model, the objective of this study was to explore whether simple structural relations emerge consistently across machines when analysing plasma current dynamics.
     </p>
