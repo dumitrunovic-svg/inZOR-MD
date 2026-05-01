@@ -747,9 +747,120 @@ python3 generate_publication_figures.py    # all publication figures</div>
     </div>
   </div>
 
+  <!-- Section 15: Multi-signal sliding window -->
+  <div class="section">
+    <h2>15. Sliding Window Multi-Semnal &#8212; Ip vs n1_norm vs Mirnov (C-Mod)</h2>
+    <p>
+      Am extins analiza ferestrei locale glisante la semnale magnetice disponibile pe C-Mod:
+      <strong>n1_norm</strong> (amplitudinea modului n=1 normalizat&#259;, proxy pentru locked mode),
+      <strong>rotating_mode</strong> (amplitudinea modului MHD rotitor),
+      <strong>BP_rms</strong> (RMS-ul ansamblului sondelor Mirnov poloidale).
+    </p>
+
+    <h3>Date &#351;i limitare</h3>
+    <ul>
+      <li><strong>42 shoturi C-Mod</strong> cu AMBELE: etichete (IsDisrupt=1, ip&#64;1kHz din zindi)
+          <em>&#351;i</em> semnale multiple (n1_norm, rotating_mode, BP coils din cmod_shots).</li>
+      <li><strong>Toate 42 sunt disruptive</strong> &#8212; nici un shot normal nu are multi-semnal
+          &#8658; <strong>False Alarm Rate nu poate fi calculat din aceste date.</strong>
+          FA de referin&#355;&#259; (din Sec&#355;. 14 pe 432 shoturi Ip): <strong>C-Mod FA=0%</strong>.</li>
+      <li>Shoturile sunt trimmate la fereastra pre-disruption &#8212; unele semnale (rotating_mode,
+          BP) sunt deja &#238;n faz&#259; pre-disrup&#355;ie la startul ferestrei.</li>
+    </ul>
+
+    <h3>Feature per semnal</h3>
+    <ul>
+      <li><strong>Ip</strong>: drop_from_peak = 1 &#8722; mean(Ip_local) / running_max(Ip) &nbsp;[&#8595; la disruption]</li>
+      <li><strong>n1_norm</strong>: rise_from_min = mean(n1_local) / running_min(n1) &#8722; 1 &nbsp;[&#8593; la disruption]</li>
+      <li><strong>rotating_mode</strong>: idem rise_from_min</li>
+      <li><strong>BP_rms</strong>: local_RMS / baseline_RMS (primii 20% din shot) &nbsp;[&#8593; la disruption MHD]</li>
+    </ul>
+
+    <h3>Rezultate &#8212; Lead Time Comparație (42 shoturi disruptive C-Mod)</h3>
+    <table>
+      <tr>
+        <th>Semnal</th><th>Feature</th><th>Lead P10</th>
+        <th>Lead median</th><th>Lead P90</th><th>TPR</th><th>FA (ref.)</th>
+      </tr>
+      <tr>
+        <td><strong>Ip</strong></td><td>drop_from_peak</td>
+        <td>840ms</td><td class="success-cell"><strong>1 603 ms</strong></td>
+        <td>1 808ms</td><td class="success-cell">1.00</td><td class="success-cell">0%</td>
+      </tr>
+      <tr>
+        <td><strong>n1_norm</strong> (n=1 amplitude)</td><td>rise_from_min</td>
+        <td>1 114ms</td><td class="success-cell"><strong>1 438 ms</strong></td>
+        <td>1 768ms</td><td>0.93</td><td>N/A*</td>
+      </tr>
+      <tr>
+        <td>rotating_mode</td><td>rise_from_min</td>
+        <td>1 808ms</td><td>1 808ms&#8224;</td>
+        <td>1 808ms</td><td>1.00</td><td>N/A*</td>
+      </tr>
+      <tr>
+        <td>BP_rms (Mirnov)</td><td>local_RMS/base</td>
+        <td>1 808ms</td><td>1 808ms&#8224;</td>
+        <td>1 808ms</td><td>1.00</td><td>N/A*</td>
+      </tr>
+    </table>
+    <p style="font-size:0.85em; color:#aaaacc; margin-top:0.5rem;">
+      * FA indisponibil &#8212; nu exist&#259; normale cu multi-semnal.<br>
+      &#8224; Lead=1808ms = alarma se declan&#351;eaz&#259; la primul window posibil (shot start+200ms):
+      semnalul era deja &#238;n faz&#259; pre-disrup&#355;ie la startul ferestrei de observa&#355;ie.
+    </p>
+
+    <div class="fig-wrap">
+      <img src="figures/sliding_multisignal_result.png" alt="Multi-signal sliding window result">
+      <div class="fig-caption">
+        Fig &#8212; Comparație multi-semnal sliding window 200ms. R&#226;nd 1: traiectoria medie a
+        caracteristicii locale (disruptive, aliniate la T_dis=0). R&#226;nd 2: TPR vs Lead Time per
+        prag &#952;. R&#226;nd 3: distribu&#355;ia lead time la pragul optim.
+      </div>
+    </div>
+
+    <h3>Interpretare fizic&#259;</h3>
+    <ul>
+      <li>
+        <strong>n1_norm</strong> arat&#259; o cre&#351;tere GRADUAL&#258; din T&#8722;1500ms
+        p&#226;n&#259; la T&#8722;200ms &#8212; reflect&#259; instalarea progresiv&#259; a modului
+        n=1 (locked mode precursor). Lead median = 1438ms cu TPR=93%.
+      </li>
+      <li>
+        <strong>Ip</strong> are lead=1603ms (mai mare) pentru c&#259; drop_from_peak detecteaz&#259;
+        &#351;i scăderile parțiale de curent care preced disruption-ul, nu doar evenimentul final.
+        &#350;i FA=0% (cel mai bun global).
+      </li>
+      <li>
+        <strong>rotating_mode &#351;i BP_rms</strong> se declan&#351;eaz&#259; la startul shotului
+        &#8212; aceste shoturi C-Mod sunt deja &#238;n stare MHD activ&#259; la momentul &#238;nceperii
+        ferestrei de observa&#355;ie (shot windows trimmate la faza pre-disrup&#355;ie).
+        Semnalele sunt informative dar necesit&#259; o fereastr&#259; de context mai lung&#259; sau
+        un detector de baseline dinamic.
+      </li>
+    </ul>
+
+    <div class="claims-box">
+      <strong>Concluzie comparatie multi-semnal:</strong>
+      <ul>
+        <li><strong>n1_norm</strong> (n=1 MHD mode amplitude) este cel mai bun predictor magnetic:
+            lead=1438ms, TPR=93%, cu cre&#351;tere gradual&#259; detectabil&#259; din T&#8722;1.5s.</li>
+        <li><strong>Ip</strong> r&#259;m&#226;ne cel mai robust (lead=1603ms, TPR=100%, FA=0%) datorit&#259;
+            semnalului de sc&#259;dere din peak care e clar, monoton &#351;i f&#259;r&#259; ambiguitate.</li>
+        <li>Pe aceast&#259; colec&#355;ie C-Mod, semnalul magnetic <em>nu dep&#259;&#351;e&#351;te</em>
+            semnalul de curent &#8212; dar adaug&#259; informa&#355;ie fizic&#259; independent&#259;:
+            locked mode precede disruption-ul cu ~160ms (1603 &#8722; 1438 ms).</li>
+      </ul>
+    </div>
+    <div class="disclaimer-box">
+      Limitare: Analiza se face pe 42 shoturi, toate disruptive &#8212; FA nu poate fi m&#259;surat.
+      Pe un set echilibrat (disruptive + normale cu multi-semnal), n1_norm ar putea dep&#259;&#351;i Ip
+      ca predictor (locked modes sunt mai selective dec&#226;t fluctua&#355;iile generale ale Ip).
+    </div>
+  </div>
+
   <!-- Conclusion -->
   <div class="section">
-    <h2>15. Conclusion</h2>
+    <h2>16. Conclusion</h2>
     <p>
       Rather than designing a predictive model, the objective of this study was to explore whether simple structural relations emerge consistently across machines when analysing plasma current dynamics.
     </p>
