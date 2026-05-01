@@ -649,9 +649,107 @@ python3 generate_publication_figures.py    # all publication figures</div>
     </div>
   </div>
 
+  <!-- Section 14: Sliding Local Window -->
+  <div class="section">
+    <h2>14. Sliding &#951;(t) &#8212; Fereastr&#259; Local&#259; f&#259;r&#259; Agregare pe Shot</h2>
+    <p>
+      Metodologia precedent&#259; calcula &#951; pe fereastra <em>&#238;ntreag&#259;</em> (sau un prefix lung).
+      Am testat dac&#259; putem m&#259;sura &#951;(t) <strong>doar din ultimii W ms &#238;nainte de t</strong>,
+      glisnd pe tot shot-ul, &#351;i s&#259; detect&#259;m <em>primul moment stabil</em> (&#8805;K ferestre consecutive)
+      c&#226;nd dep&#259;&#351;e&#351;te un prag &#8212; f&#259;r&#259; a folosi max sau agreg&#259;ri pe intervalul &#238;ntreg.
+    </p>
+
+    <h3>Design</h3>
+    <ul>
+      <li><strong>Feature local:</strong>
+          <code>drop_frac(t) = 1 &minus; mean(|Ip[t&minus;200ms:t]|) / running_max(|Ip[0:t]|)</code>
+          <ul>
+            <li><em>running_max</em>: maximul cauzal v&#259;zut p&#226;n&#259; la t (f&#259;r&#259; informa&#355;ii viitoare)</li>
+            <li><em>local_mean</em>: media pe fereastr&#259; de 200ms &#8212; atenueaz&#259; ELM-urile scurte (&lt;50ms)</li>
+            <li>drop_frac &#8712; [0,1]: 0 = curent la nivel maxim; 1 = curent aproape zero</li>
+          </ul>
+      </li>
+      <li><strong>Pas glisant:</strong> 10ms &nbsp;&#183;&nbsp; <strong>Alarmă stabilă:</strong> &#8805;5 ferestre consecutive = &#8805;50ms sus&#355;inut</li>
+      <li><strong>F&#259;r&#259; max sau agreg&#259;ri pe shot &#238;ntreg</strong> &#8212; pur local, cauzal</li>
+      <li><strong>Calibrare prag:</strong> din distribu&#355;ia datelor; evaluat pe &#238;ntreg dataset</li>
+    </ul>
+
+    <h3>Rezultate</h3>
+    <table>
+      <tr>
+        <th>Ma&#351;in&#259;</th><th>n_disr</th><th>n_norm</th>
+        <th>&#952; optim</th><th>Lead median</th><th>TPR</th><th>FA rate</th>
+      </tr>
+      <tr>
+        <td>C-Mod</td><td>419</td><td>13</td>
+        <td>0.084</td><td class="success-cell"><strong>1 507 ms</strong></td>
+        <td>0.08</td><td class="success-cell">0.00</td>
+      </tr>
+      <tr>
+        <td>HL-2A</td><td>345</td><td>600</td>
+        <td>0.181</td><td>518 ms</td>
+        <td class="danger-cell">0.05</td><td>0.10</td>
+      </tr>
+      <tr>
+        <td>MAST</td><td>830</td><td>3647</td>
+        <td>&#8212;</td><td>&#8212;</td>
+        <td class="danger-cell">&#8212;</td><td class="danger-cell">1.00</td>
+      </tr>
+    </table>
+
+    <div class="fig-wrap">
+      <img src="figures/sliding_eta_result.png" alt="Sliding drop_from_peak result">
+      <div class="fig-caption">
+        Fig &#8212; Sliding drop_frac(t). St&#226;nga: traiectoria medie disruptive (ro&#351;u) vs normale
+        (albastru) aliniate la T_dis / Shot_end. Centru: ROC temporal&#259; (lead_time vs FA, culoare =
+        TPR). Dreapta: distribu&#355;ia lead time la pragul optim.
+      </div>
+    </div>
+
+    <h3>Interpretare fizic&#259; &#8212; de ce func&#355;ioneaz&#259; diferit per ma&#351;in&#259;</h3>
+    <ul>
+      <li>
+        <strong>C-Mod (func&#355;ioneaz&#259;):</strong> Plasma C-Mod este relativ curat&#259;; shoturile normale
+        au drop_frac &lt; 0.04 pe tot parcursul flat-top-ului, iar disruption-urile creeaz&#259; o
+        sc&#259;dere brusc&#259; sus&#355;inut&#259; (drop_frac &gt; 0.08) cu 1.5s &#238;nainte &#8212;
+        separare clar&#259;, FA = 0%.
+      </li>
+      <li>
+        <strong>MAST (e&#351;ueaz&#259;):</strong> Shoturile normale MAST con&#355;in <em>ramp-down planificat</em>
+        la final &#8212; curentul scade de la flat-top la zero controlat, ceea ce produce
+        drop_frac &#8776; 0.999 pentru <em>toate</em> shoturile normale la finalul lor. Imposibil de
+        distins de un disruption. FA = 100% la orice prag util.
+      </li>
+      <li>
+        <strong>HL-2A (marginal):</strong> Distribu&#355;iile disruptive &#351;i normale se suprapun
+        (p90 normalelor &gt; p90 disruptivelor &#238;n ultimii 500ms). Singura zon&#259; de separare apare
+        la prag ridicat (&#952;=0.18), unde TPR coboar&#259; la 5%.
+      </li>
+    </ul>
+
+    <div class="claims-box">
+      <strong>Concluzie fereastr&#259; local&#259;:</strong>
+      <ul>
+        <li>Pe Ip singur, fereastra local&#259; de 200ms func&#355;ioneaz&#259; curat <strong>doar pe C-Mod</strong>
+            (FA=0%, lead=1.5s, TPR=8%).</li>
+        <li>Pe MAST/HL-2A, ramp-down-urile planificate &#351;i fluctua&#355;iile plasma (ELM-uri) contamineaz&#259;
+            detec&#355;ia &#8212; un semnal Ip singur NU este suficient.</li>
+        <li>Fereastra local&#259; ofer&#259; lead time autentic (f&#259;r&#259; confund din lungimea shot-ului),
+            dar cu sensibilitate redus&#259; (8%) pe C-Mod &#351;i inoperant pe MAST.</li>
+        <li>Solu&#355;ie: combinarea drop_frac cu semnale multiple (fluctua&#355;ii magnetice, radia&#355;ie)
+            sau cu un detecton de flat-top care exclud automat ramp-down-urile planificate.</li>
+      </ul>
+    </div>
+    <div class="disclaimer-box">
+      Limitare: Analiza ferestrei locale pe Ip singur confirm&#259; c&#259; avertizarea precoce robust&#259;
+      necesit&#259; mai mult&#259; informa&#355;ie dec&#226;t un singur semnal scalar &#8212; concluzie
+      consistent&#259; cu literatura de disruption prediction multi-semnal.
+    </div>
+  </div>
+
   <!-- Conclusion -->
   <div class="section">
-    <h2>13. Conclusion</h2>
+    <h2>15. Conclusion</h2>
     <p>
       Rather than designing a predictive model, the objective of this study was to explore whether simple structural relations emerge consistently across machines when analysing plasma current dynamics.
     </p>
