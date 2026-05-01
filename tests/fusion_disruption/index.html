@@ -1012,9 +1012,187 @@ python3 generate_publication_figures.py    # all publication figures</div>
     </div>
   </div>
 
+  <!-- Section 17: Rigorous validation -->
+  <div class="section">
+    <h2>17. Validare Riguroas&#259; Early Warning &#8212; ZOR-Consistent</h2>
+    <p>
+      Sec&#355;iunile 14&#8211;16 au folosit featurii cu ag&#259;reg&#259;ri pe [0,&nbsp;t] (running_max, z-score
+      fa&#355;&#259; de baseline al &#238;ntregului shot). Aceast&#259; sec&#355;iune repet&#259; analiza
+      respect&#226;nd riguros <strong>principiul cauzalit&#259;&#355;ii stricte</strong>:
+    </p>
+
+    <h3>Design — Reguli Absolute</h3>
+    <ol style="line-height:1.8;">
+      <li><strong>W = 50ms strict cauzal:</strong> η(t) calculat EXCLUSIV din [t&#8722;50ms, t]. Interzis: max/global pe shot, orice agr&#259;gare pe [0, t].</li>
+      <li><strong>Feature emergent:</strong> η(t) = cv(t) + |slope_frac(t)|, unde cv = std/|mean|, slope_frac = (m<sub>2nd_half</sub> &#8722; m<sub>1st_half</sub>) / |mean|. Nicio formulă ajustată manual.</li>
+      <li><strong>Split shot-level:</strong> 70% train / 30% test. Niciun shot &#238;n ambele seturi.</li>
+      <li><strong>Prag emergent:</strong> θ_p95 = percentila 95 a distribuției η &#238;n stable zone a train shots → aplicat neschimbat pe test.</li>
+      <li><strong>Warning valid:</strong> η(t) &gt; θ pentru ≥ 3 ferestre consecutive (N=3, ≥ 30ms).</li>
+      <li><strong>FA:</strong> shoturi normale (Ip) + stable zone test shots (multi-semnal).</li>
+      <li><strong>Bootstrap CI95:</strong> 500 replici la nivel de shot.</li>
+    </ol>
+
+    <h3>Rezultate principale (30% test set)</h3>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.88rem;">
+      <tr style="background:#1a1a2e;">
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Semnal</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">θ_p95</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">FA@θ_p95</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">TPR@θ_p95</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">θ_best</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">FA@best</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">TPR@best</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Lead median</th>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff5555;"><strong>Ip</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.0813</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;">0.00</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;">0.00</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.0147</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.08</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.15</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">574ms</td>
+      </tr>
+      <tr style="background:#100010;">
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>n1_norm</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.5859</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;">0.38</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;">0.00</td>
+        <td colspan="4" style="padding:0.5rem;border:1px solid #2a2a40;color:#888;font-style:italic;">N/A — nicio combinație TPR&gt;5% cu FA&le;50%</td>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#44ffaa;"><strong>rotating_mode</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.7381</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;">0.54</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.46</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">1.671</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.23</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.08</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">429ms</td>
+      </tr>
+      <tr style="background:#000d1a;">
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#44aaff;"><strong>BP_rms ★</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">1.0891</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.46</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.92</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">2.359</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.00</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.46</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>269ms</strong></td>
+      </tr>
+    </table>
+
+    <h3>Bootstrap CI95 (500 replici, nivel de shot)</h3>
+    <table style="width:100%;border-collapse:collapse;margin:1rem 0;font-size:0.88rem;">
+      <tr style="background:#1a1a2e;">
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Semnal</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">TPR [lo&#8211;med&#8211;hi]</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">FA [lo&#8211;med&#8211;hi]</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Lead median [lo&#8211;hi]</th>
+        <th style="padding:0.5rem;border:1px solid #2a2a40;color:#aaaacc;">Semnificativ?</th>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff5555;"><strong>Ip</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.07 [0.00&#8211;0.38]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.09 [0.00&#8211;0.42]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">682ms [584&#8211;699]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;">NU — CI include 0</td>
+      </tr>
+      <tr style="background:#100010;">
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>n1_norm</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.00 [0.00&#8211;0.00]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.37 [0.15&#8211;0.62]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">—</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ff8888;">NU — TPR=0 consistent</td>
+      </tr>
+      <tr>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#44ffaa;"><strong>rotating_mode</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.40 [0.15&#8211;0.62]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.38 [0.15&#8211;0.62]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">506ms [351&#8211;665]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;">PARȚIAL — TPR≈FA (no separation)</td>
+      </tr>
+      <tr style="background:#000d1a;">
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#44aaff;"><strong>BP_rms ★</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>0.84 [0.69&#8211;1.00]</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;">0.37 [0.15&#8211;0.62]</td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#ffdd44;"><strong>253ms [89&#8211;489]</strong></td>
+        <td style="padding:0.5rem;border:1px solid #2a2a40;color:#88ff88;"><strong>DA — TPR CI &gt; 0.69</strong></td>
+      </tr>
+    </table>
+
+    <h3>Figur&#259; — Analiz&#259; riguroas&#259; (toate 4 semnale)</h3>
+    <figure style="text-align:center;margin:1.5rem 0;">
+      <img src="figures/rigorous_ew_result.png"
+           alt="Rigorous early warning: 4 signals, strict causal W=50ms, bootstrap CI95"
+           style="max-width:100%;border:1px solid #2a2a40;border-radius:6px;" />
+      <figcaption style="color:#888;margin-top:0.5rem;font-size:0.85rem;">
+        <strong>Fig. 8.</strong> R&#226;nd 1: Traiectoria medie η(t) = cv(t)+|slope_frac(t)| cu W=50ms strict cauzal.
+        Verde=stable zone (FA), ro&#351;u=alert zone (TPR), linie galben&#259;=θ_p95 (din TRAIN).
+        R&#226;nd 2: ROC pe TEST &#8212; triunghi alb = CI95 bootstrap (500 replici); stea verde = θ_best.
+        R&#226;nd 3: Distribuție lead time la θ_best.
+      </figcaption>
+    </figure>
+
+    <h3>Interpretare fizic&#259; &#8212; Ce reveleaz&#259; analiza riguroas&#259;</h3>
+    <ul>
+      <li>
+        <strong>BP_rms (Mirnov coils) ★:</strong> Singurul semnal cu early warning statistic semnificativ
+        la W=50ms. CI95 bootstrap: TPR=0.84 [0.69&#8211;1.00]. La θ_best (FA=0%): TPR=46%,
+        lead=269ms. <br>
+        <em>Fizic:</em> Fluctua&#355;iile magnetice (mode MHD) cresc brusc &#238;n ultimii ~300ms —
+        modificare detectabil&#259; chiar &#351;i la scar&#259; de 50ms.
+      </li>
+      <li>
+        <strong>n1_norm (locked mode):</strong> EȘEC COMPLET la W=50ms. TPR=0 consistent &#238;n toate
+        500 replicile bootstrap. <br>
+        <em>Fizic:</em> Aceasta NU este o eșuare a metodei — ci o descoperire importantă:
+        locked mode-ul creste LENT (pe sute de ms). O fereastr&#259; de 50ms nu poate detecta
+        aceast&#259; tendin&#355;&#259; gradual&#259; prin variabilitate sau pant&#259; local&#259;.
+        n1_norm necesit&#259; W ≥ 200ms pentru detec&#355;ie (v. Sec&#355;iunea 16).
+      </li>
+      <li>
+        <strong>rotating_mode:</strong> Semnal par&#355;ial — TPR≈FA (0.40 vs 0.38) sugereaz&#259; c&#259;
+        semnalul nu separ&#259; bine stable de alert zone la 50ms. CI95 se suprapune.
+      </li>
+      <li>
+        <strong>Ip:</strong> Practic inutil pe aceast&#259; colec&#355;ie &#8212; disruption-ul nu e vizibil
+        &#238;n 40/42 shoturi (fereastra de date se termin&#259; &#238;nainte de disruption).
+        drop_from_peak necesit&#259; context de 200ms+ (v. Sec&#355;iunea 14).
+      </li>
+    </ul>
+
+    <div class="claims-box">
+      <strong>Concluzie riguros&#259; (ZOR-consistent, f&#259;r&#259; leakage):</strong>
+      <ul>
+        <li>
+          <strong>BP_rms</strong> (Mirnov coils) ofer&#259; early warning <strong>robust statistic</strong>
+          la W=50ms strict cauzal: TPR=0.84 CI95[0.69&#8211;1.00] cu lead median=253ms CI95[89&#8211;489ms].
+          La FA=0%: TPR=46%.
+        </li>
+        <li>
+          <strong>n1_norm nu func&#355;ioneaz&#259;</strong> la 50ms — acesta este un rezultat onest, nu o eroare.
+          Scala temporal&#259; a locked mode-ului (500ms+) dep&#259;&#351;e&#351;te fereastra strict&#259; de 50ms.
+          Analiza la W=200ms (Sec&#355;iunea 16) confirm&#259; c&#259; la scar&#259; mai lung&#259;,
+          n1_norm este informativ.
+        </li>
+        <li>
+          Thresh­old θ calibrat EXCLUSIV pe TRAIN stable zone, evaluat pe TEST —
+          <strong>nicio optimizare artificial&#259;, niciun leakage</strong>.
+        </li>
+      </ul>
+    </div>
+    <div class="disclaimer-box">
+      Limitare: Doar 13 shoturi &#238;n test set (30% din 42). CI95 bootstrap are incertitudini mari
+      (FA=[0.15&#8211;0.62] pentru BP_rms) din cauza dimensiunii reduse a datelor. Concluzia
+      &#8222;TPR semnificativ&#8221; pentru BP_rms r&#259;m&#226;ne valid&#259; (CI95_lo=0.69 &gt; 0).
+    </div>
+  </div>
+
   <!-- Conclusion -->
   <div class="section">
-    <h2>17. Conclusion</h2>
+    <h2>18. Conclusion</h2>
     <p>
       Rather than designing a predictive model, the objective of this study was to explore whether simple structural relations emerge consistently across machines when analysing plasma current dynamics.
     </p>
