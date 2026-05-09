@@ -1,7 +1,71 @@
 {
   "version": "1",
-  "updated_at": "2026-04-23",
+  "updated_at": "2026-05-09",
   "tests": [
+    {
+      "id": "ctf-ks-chaotic",
+      "name": "inZOR-ND: Chaotic Systems Benchmark — KS_Official (AI-DEEDS 2026, +286%)",
+      "category": "scientific",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-05-09",
+      "updated_at": "2026-05-09",
+      "description": "inZOR-ND applied to the AI-DEEDS 2026 Chaotic Systems Challenge (Kuramoto-Sivashinsky PDE, 1024 spatial dimensions). Evolutionary hyperparameter search revealed a structural dataset anomaly: 3 of 9 training datasets (X2, X3, X5) are IID samples, not temporal sequences. ESN trained on IID data learns noise, producing catastrophic scores (−40 to −150). A data-type-aware hybrid predictor auto-detects each pair's type and routes to the optimal strategy (5 strategies: esn, esn_long_patch, iid_zeros, iid_random, iid_mixed). Internal validation: −20.55 → +38.30 mean score (+58.85 pts, +286%). Submitted as CTF for Science PR #20. Kaggle deadline: 25 May 2026.",
+      "key_findings": [
+        "Discovered 3/9 training datasets are IID samples (not temporal) — structural anomaly not documented by dataset authors",
+        "IID detection: median delta-norm ratio > 0.3; TEMPORAL ~0.02, IID ~1.0 (50× difference)",
+        "ESN on IID data learns noise → scores −40 to −150; hybrid predictor fixes this structurally",
+        "E3 long_time: −79.46 → +71.11 (+150.56); E5 long_time: −91.90 → +48.33 (+140.24)",
+        "Mean score: −20.55 → +38.30 (+58.85 pts, +286%) across 8 validated metrics",
+        "ESN hyperparameters ρ=0.85, λ=10⁻⁴ discovered by ZOR evolutionary search on X1train proxy",
+        "5 dispatch strategies: esn, esn_long_patch, iid_zeros, iid_random, iid_mixed",
+        "Submitted to AI-DEEDS 2026 CTF for Science challenge (PR #20); top submissions invited to workshop"
+      ],
+      "metrics": {
+        "Mean score (ESN uniform)": "−20.55",
+        "Mean score (ZOR_ESN_Hybrid)": "+38.30",
+        "Improvement": "+58.85 pts (+286%)",
+        "IID pairs discovered": "3/9 (X2, X3, X5)",
+        "Best metric gain": "+150.56 (E3 long_time)",
+        "Strategies dispatched": "5",
+        "Spatial dimensions": "1024",
+        "Competition": "AI-DEEDS 2026 Chaotic Systems Challenge",
+        "Submission": "CTF for Science PR #20",
+        "Kaggle deadline": "25 May 2026"
+      },
+      "images": [
+        {
+          "url": "tests/ctf_ks_chaotic/figures/fig2_strategy_dispatch.png",
+          "caption": "Per-pair strategy dispatch — data type, metric, and optimal strategy for all 9 pairs"
+        },
+        {
+          "url": "tests/ctf_ks_chaotic/figures/fig1_scores_comparison.png",
+          "caption": "ESN uniform vs ZOR_ESN_Hybrid per metric — internal validation scores"
+        },
+        {
+          "url": "tests/ctf_ks_chaotic/figures/fig3_improvement_delta.png",
+          "caption": "Score improvement Δ per metric — mean +58.85 pts (+286%)"
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/ctf_ks_chaotic/index.html",
+          "primary": true
+        },
+        {
+          "label": "CTF PR #20 (KS_Official)",
+          "url": "https://github.com/CTF-for-Science/ctf4science/pull/20"
+        },
+        {
+          "label": "CTF PR #19 (Lorenz)",
+          "url": "https://github.com/CTF-for-Science/ctf4science/pull/19"
+        }
+      ],
+      "domain": "Chaotic Systems / Scientific ML",
+      "short_description": "inZOR-ND discovers structural IID anomaly in KS_Official dataset and builds data-type-aware hybrid predictor: −20.55 → +38.30 mean score (+286%). Submitted to AI-DEEDS 2026.",
+      "doi": ""
+    },
     {
       "id": "active-space-universality",
       "name": "inZOR-ND Cross-Family Robustness Study — 15 Molecular Systems",
