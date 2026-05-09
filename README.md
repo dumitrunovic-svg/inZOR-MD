@@ -1,12 +1,12 @@
-# inZOR-ND — Artificial-Life Research Platform
+# inZOR-ND — Emergent Discovery System
 
-**inZOR-ND** is an artificial-life system in which populations of autonomous organisms explore
-parameter spaces through biological dynamics — reproduction, competition, environmental pressure,
-and emergent social behavior. It is not reinforcement learning, not a neural network, and does
-not use backpropagation. Discovery emerges from the interaction between organisms and their
-environment.
+**inZOR-ND** is an emergent discovery system. Populations of autonomous organisms explore
+abstract parameter spaces through ecological dynamics — reproduction, competition, environmental
+pressure, emergent social behavior. It is not reinforcement learning, not a neural network, and
+does not use backpropagation. Solutions are not computed or optimized explicitly: they emerge
+from population dynamics in non-dimensional search spaces.
 
-The research results are public. The biological engine is proprietary.
+The research results are public. The engine is proprietary.
 
 **Live research archive:** [dumitrunovic-svg.github.io/inZOR-ND](https://dumitrunovic-svg.github.io/inZOR-ND/)
 
@@ -14,18 +14,23 @@ The research results are public. The biological engine is proprietary.
 
 ## What is inZOR-ND?
 
-The engine operates on a continuous 2D world. Each organism carries a genome that encodes
-a candidate solution (hyperparameters, orbital selections, control parameters, etc.).
-The environment provides a fitness landscape — food and danger fields — derived from the
-actual scientific problem. Organisms evolve, compete, and reproduce. The population converges
-toward high-fitness regions without gradient computation or explicit optimization objectives.
+The system operates on a continuous non-dimensional 2D space. Each organism carries a genome
+that maps its position to a candidate solution — hyperparameters, orbital selections, control
+parameters, or any other scientific target. The environment provides a fitness landscape (food
+and danger fields) derived from the actual scientific problem. Organisms move, compete, and
+reproduce. Discoveries emerge from the dynamics of the population as a whole, without any
+explicit computation of gradients or optimization objectives.
+
+Biology is the mechanism, not the goal. The ecological dynamics (food, danger, reproduction,
+social pressure) are an instrument for producing discoveries in abstract parameter spaces.
 
 Key properties:
-- Non-RL, non-NN, non-backprop
-- Biologically inspired: organisms, genomes, food, danger, reproduction, death
-- Population-level emergent search with social dynamics
-- Applicable to any domain where a fitness proxy can be defined
-- Extended by Z2W (world memory) for long-horizon evolutionary continuity
+- Non-RL, non-NN, non-backprop, non-gradient
+- Ecological dynamics as exploration mechanism
+- Population-level emergent discovery
+- Non-dimensional parameter spaces (coordinates map to any scientific domain)
+- Applicable wherever a fitness proxy can be defined
+- Extended by world memory for long-horizon discovery continuity
 
 ---
 
@@ -124,10 +129,10 @@ Dedicated repo: [inZOR-Chaotic](https://github.com/dumitrunovic-svg/inZOR-Chaoti
 
 ---
 
-### Core Biology — Foundational Experiments (7 experiments)
+### Core Dynamics — Foundational Experiments (7 experiments)
 
-These experiments demonstrate the biological engine directly, without an external scientific
-benchmark. They establish the behavioral properties of the platform.
+These experiments demonstrate the system's ecological dynamics directly, without an external
+scientific benchmark. They establish the emergent behavioral properties of the engine.
 
 | Experiment | What it shows | Report |
 |---|---|---|
@@ -146,8 +151,8 @@ benchmark. They establish the behavioral properties of the platform.
 This repository hosts the public research archive (GitHub Pages) and the portfolio index
 for the inZOR-ND research program.
 
-The inZOR-ND engine — biological evolution core, organism dynamics, genome encoding,
-world memory system (Z2W) — is proprietary and not included in any public repository.
+The inZOR-ND engine — ecological dynamics core, organism behavior, genome encoding,
+world memory system — is proprietary and not included in any public repository.
 
 The domain research repos (`inZOR-ActiveSpace`, `inZOR-QEC`, `inZOR-Fusion`, `inZOR-BAWS`,
 `inZOR-Chaotic`) contain experiment descriptions, benchmark configurations, visualizations,
