@@ -34,33 +34,6 @@ Key properties:
 
 ---
 
-## Architecture
-
-```
-Scientific Problem
-        │
-        ▼
-  Environment (2D world)
-  ┌─────────────────────────────┐
-  │  Food field  (fitness+)     │
-  │  Danger field (fitness-)    │
-  │  World memory (Z2W priors)  │
-  └──────────────┬──────────────┘
-                 │
-         ┌───────┴────────┐
-         │   Population   │
-         │  [organism₁]   │
-         │  [organism₂]   │
-         │       …        │
-         │  [organismₙ]   │
-         └───────┬────────┘
-                 │ genome → parameter mapping
-                 ▼
-        Validated Discovery
-```
-
----
-
 ## Research Portfolio
 
 26 published experiments across 6 scientific domains.
