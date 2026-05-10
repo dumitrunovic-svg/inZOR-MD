@@ -1,7 +1,72 @@
 {
   "version": "1",
-  "updated_at": "2026-05-09",
+  "updated_at": "2026-05-10",
   "tests": [
+    {
+      "id": "gravitybench",
+      "name": "GravityBench-v1: 100% full-obs · 86.4% budget-obs-100 (ICML 2025)",
+      "category": "Physics / Scientific Benchmarks",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-05-10",
+      "updated_at": "2026-05-10",
+      "description": "Independent reference solver for all 206 tasks of GravityBench-v1 (Koblischke et al., ICML 2025). Reads only star positions (x,y,z) and time from simulation_csv_content — no metadata leakage (variation_name is never consulted). Unit detection (SI / cgs / yr-AU-M☉), mass estimation, and OOD physics identification (modified gravity exponent, linear drag) are all derived from kinematic patterns. Achieves 100% on full-obs and 86.4% on budget-obs-100, outperforming the paper's PhD reference (82.5%) and the best LLM agent o4-mini-high (49%) on the budgeted protocol. ~900-line Python script, ~25 seconds wall time, no API calls.",
+      "key_findings": [
+        "100% pass rate on full-obs (206/206 tasks, all within 5% error threshold)",
+        "86.4% on budget-obs-100 (uniform 100-point subsampling, no planning) — +3.9 pp above PhD reference",
+        "+37 pp above best LLM agent (o4-mini-high, 49%) on budget-obs-100",
+        "Zero metadata leakage: variation_name is never read; all OOD detection is data-driven",
+        "Unit system (SI/cgs/yr-AU-M☉) detected automatically via acceleration method M = a·d²/G",
+        "Modified gravity exponent α recovered from log-log regression of acceleration vs radius",
+        "Linear drag timescale τ recovered from exponential fit of semi-major axis decay",
+        "Median relative error (full-obs): 0.0001%; max: 2.73% (linear drag variant)",
+        "Wall time: ~25 seconds for 206 tasks on a 14-core CPU"
+      ],
+      "metrics": {
+        "Full-obs pass (5% strict)": "100% (206/206)",
+        "Budget-obs-100 pass (task thr.)": "86.4% (178/206)",
+        "Budget-obs-100 pass (5% strict)": "73.8% (152/206)",
+        "PhD ref budget-obs-100": "82.5%",
+        "Best LLM (o4-mini-high) budget-obs-100": "49%",
+        "Median relative error (full-obs)": "0.0001%",
+        "Max relative error (full-obs)": "2.73%",
+        "Wall time": "~25 s / protocol (14-core CPU)",
+        "Benchmark": "GravityBench-v1 (ICML 2025)",
+        "Tasks": "206 (parameter discovery + measurement + boolean)"
+      },
+      "images": [
+        {
+          "url": "tests/gravitybench/figures/comparison.png",
+          "caption": "Pass rate comparison — this solver vs PhD reference vs top LLMs, on full-obs and budget-obs-100"
+        },
+        {
+          "url": "tests/gravitybench/figures/error_distribution.png",
+          "caption": "Relative error distribution on full-obs (206 tasks). All within 5%; median 0.0001%."
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Report",
+          "url": "tests/gravitybench/index.html",
+          "primary": true
+        },
+        {
+          "label": "Zenodo DOI",
+          "url": "https://doi.org/10.5281/zenodo.20108468"
+        },
+        {
+          "label": "GitHub Repo",
+          "url": "https://github.com/dumitrunovic-svg/inZOR-GravityBench"
+        },
+        {
+          "label": "GravityBench Paper (arXiv)",
+          "url": "https://arxiv.org/abs/2501.18411"
+        }
+      ],
+      "domain": "Gravitational Physics / Scientific Discovery",
+      "short_description": "Independent solver for GravityBench-v1 (ICML 2025): 100% full-obs, 86.4% budget-obs-100 — outperforms PhD reference and all LLM agents. No metadata leakage. ~900 lines, ~25 s.",
+      "doi": "10.5281/zenodo.20108468"
+    },
     {
       "id": "ctf-ks-chaotic",
       "name": "inZOR-ND: Chaotic Systems Benchmark — KS_Official (AI-DEEDS 2026, +286%)",
