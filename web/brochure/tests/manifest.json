@@ -6,7 +6,7 @@
       "id": "baws-v4-warm-start",
       "name": "BAWS-v4: Memory-Safe Warm-Start for Newton-Raphson — Validated on Four Independently Implemented Benchmark Families",
       "category": "Numerical Methods / Power Systems",
-      "domain": "Newton-Raphson / Warm-Start / Power Flow",
+      "domain": "Numerical Methods / BAWS Warm-Start",
       "status": "finished",
       "published": true,
       "created_at": "2026-05-13",
@@ -747,7 +747,7 @@
     {
       "id": "baws-nr-universal",
       "name": "BAWS-NR: Universal 1.59× Speedup for Newton-Raphson Across 6 Scientific Domains",
-      "category": "scientific",
+      "category": "Numerical Methods",
       "status": "finished",
       "published": true,
       "created_at": "2026-02-27",
@@ -810,12 +810,13 @@
         }
       ],
       "doi": "10.5281/zenodo.18816838",
-      "zenodo_url": "https://doi.org/10.5281/zenodo.18816838"
+      "zenodo_url": "https://doi.org/10.5281/zenodo.18816838",
+      "domain": "Numerical Methods / BAWS Warm-Start"
     },
     {
       "id": "re-study-n1-security",
       "name": "inZORi: 1.66× Faster Real-Time N-1 Grid Security Under Renewable Volatility",
-      "category": "scientific",
+      "category": "Power Systems / N-1 Security",
       "status": "finished",
       "published": true,
       "created_at": "2026-02-27",
@@ -879,12 +880,13 @@
           "url": "tests/re_study/inZORi_RE_Study_N1_Security_Zenodo.pdf",
           "label": "PDF (Zenodo preprint)"
         }
-      ]
+      ],
+      "domain": "Power Systems / N-1 Real-Time Security"
     },
     {
       "id": "pfdelta-phase6-capacity",
       "name": "PFΔ Phase 6 ★ FINAL — Capacity Boundary on case1354pegase (1354-bus Pan-European)",
-      "category": "scientific",
+      "category": "Power Systems / PFΔ",
       "status": "finished",
       "published": true,
       "created_at": "2026-02-25",
@@ -942,12 +944,13 @@
           "url": "results/capacity_full_results.json",
           "label": "Raw JSON Results"
         }
-      ]
+      ],
+      "domain": "Power Systems / PFΔ Phase 6 (Capacity boundary, 1354-bus)"
     },
     {
       "id": "pfdelta-phase5-entsoe",
       "name": "PFΔ Phase 5 — ENTSO-E Real Load: Romania, Germany, France (2024)",
-      "category": "scientific",
+      "category": "Power Systems / PFΔ",
       "status": "finished",
       "published": true,
       "created_at": "2026-02-23",
@@ -1010,12 +1013,13 @@
           "url": "zenodo_publish/phase5/inZORi_PFDelta_Phase5_Zenodo.pdf",
           "label": "📥 PDF Zenodo"
         }
-      ]
+      ],
+      "domain": "Power Systems / PFΔ Phase 5 (ENTSO-E real load)"
     },
     {
       "id": "pfdelta-phase4-real",
       "name": "PFΔ Phase 4 — Real Load Profiles UA/DE/FR + Historical Blackouts",
-      "category": "scientific",
+      "category": "Power Systems / PFΔ",
       "status": "finished",
       "published": true,
       "created_at": "2026-02-21",
@@ -1068,14 +1072,14 @@
           "url": "tests/pfdelta_phase4_real/figures/fig3_blackout_scenarios.png"
         }
       ],
-      "domain": "Power Systems / Real Data Validation",
+      "domain": "Power Systems / PFΔ Phase 4 (Real European load + blackouts)",
       "short_description": "inZORi FrozenElite on real European load profiles (UA/DE/FR) + 3 historical blackouts. +3.3–3.7% advantage over NR, CI95 confirmed.",
       "doi": "10.5281/zenodo.18735099"
     },
     {
       "id": "pfdelta-phase3-n2",
       "name": "PFΔ Phase 3 — N-2 Contingency Robustness (IEEE 118-bus)",
-      "category": "scientific",
+      "category": "Power Systems / PFΔ",
       "status": "finished",
       "published": true,
       "created_at": "2026-02-21",
@@ -1123,7 +1127,7 @@
           "url": "tests/pfdelta_phase3_n2/figures/fig2_recovery_n1_n2.png"
         }
       ],
-      "domain": "Power Systems / Grid Stability",
+      "domain": "Power Systems / PFΔ Phase 3 (N-2 contingency)",
       "short_description": "N-2 contingency (2 simultaneous line outages): inZORi +16pp, 2.8× faster recovery, LUPA-refined genome.",
       "doi": "10.5281/zenodo.18735120"
     },
@@ -1715,7 +1719,7 @@
     {
       "id": "pfdelta-phase2-real",
       "name": "PFΔ Phase 2 — Real AC Power Flow (118-bus + N-1)",
-      "category": "scientific",
+      "category": "Power Systems / PFΔ",
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-20",
@@ -1773,7 +1777,7 @@
           "url": "https://doi.org/10.5281/zenodo.18716837"
         }
       ],
-      "domain": "Power systems (Real AC PF)",
+      "domain": "Power Systems / PFΔ Phase 2 (Real AC PF + N-1)",
       "short_description": "Full real AC Power Flow on IEEE 118-bus at near-collapse load (1.75×). inZORi Frozen Elite vs static baselines under N-1 shocks.",
       "images": [
         {
@@ -1804,7 +1808,7 @@
     {
       "id": "pfdelta-phase1-118",
       "name": "PFΔ Phase 1 (118 + N-1)",
-      "category": "scientific",
+      "category": "Power Systems / PFΔ",
       "status": "finished",
       "published": true,
       "updated_at": "2026-02-20",
@@ -1852,7 +1856,7 @@
           "url": "https://doi.org/10.5281/zenodo.18717007"
         }
       ],
-      "domain": "Power systems (PFΔ)",
+      "domain": "Power Systems / PFΔ Phase 1 (IEEE 118 calibration)",
       "short_description": "Streaming power flow robustness under multi-zone shocks and N-1 topology events",
       "images": [
         {
