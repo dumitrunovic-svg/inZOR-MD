@@ -4,7 +4,7 @@
   "tests": [
     {
       "id": "baws-v4-warm-start",
-      "name": "BAWS-v4: Memory-Safe Warm-Start for Newton-Raphson — Validated on 4 Benchmark Families",
+      "name": "BAWS-v4: Memory-Safe Warm-Start for Newton-Raphson — Validated on Four Independently Implemented Benchmark Families",
       "category": "Numerical Methods / Power Systems",
       "domain": "Newton-Raphson / Warm-Start / Power Flow",
       "status": "finished",
@@ -12,9 +12,9 @@
       "created_at": "2026-05-13",
       "updated_at": "2026-05-13",
       "short_description": "A residual-driven warm-start selector that preserves the previous solution when memory is safe and recovers automatically when it is not. Same selector validated unchanged on CSTR continuation, IEEE case118, L2RPN real chronics, and PGLib-style IEEE cases (case30/57/118/300).",
-      "description": "BAWS-v4 is a minimal selector for Newton-Raphson warm-starts: at every step, choose between the previous solution and a flat-start guess based on which one has the smaller power-flow mismatch at the current operating point. When previous memory is safe (the common case) the selector reproduces the standard previous-solution warm-start bit-for-bit; when memory is unsafe (state-estimator corruption, topology-induced operating-point jump, large stale snapshot) it falls back to flat-start and converges in 2–3 iterations instead of diverging. The selector has zero tunable parameters and the same implementation was run unchanged on four independent benchmark families: CSTR steady-state continuation, IEEE 118-bus synthetic scenarios, L2RPN real operator chronics, and the four PGLib-style IEEE test cases (case30, case57, case118, case300). All five sanity invariants (determinism, no-harm, justification, switched-flag consistency, residual oracle) pass on every benchmark.",
+      "description": "BAWS-v4 is a minimal selector for Newton-Raphson warm-starts: at every step, choose between the previous solution and a flat-start guess based on which one has the smaller power-flow mismatch at the current operating point. When previous memory is safe (the common case) the selector reproduces the standard previous-solution warm-start bit-for-bit; when memory is unsafe (state-estimator corruption, topology-induced operating-point jump, large stale snapshot) it falls back to flat-start and converges in 2–3 iterations instead of diverging. The selector has zero tunable parameters and the same implementation was run unchanged across four independently implemented benchmark families: CSTR steady-state continuation (Uppal-Ray 2-D nonlinear reactor with saddle-node multiplicity), IEEE 118-bus synthetic scenarios, L2RPN real operator chronics, and the four PGLib-style IEEE test cases (case30, case57, case118, case300). All five sanity invariants (determinism, no-harm, justification, switched-flag consistency, residual oracle) pass on every benchmark. The contribution is not a new nonlinear solver, but a residual-based safety gate for warm-start reuse.",
       "key_findings": [
-        "Bit-for-bit identical to the standard previous-solution warm-start on every safe step verified — 2,800+ measured safe steps across four benchmark families, zero false-positive fallbacks",
+        "Bit-for-bit identical to the standard previous-solution warm-start on every safe step verified — 2,800+ measured safe steps across four independently implemented benchmark families, zero false-positive fallbacks (no-harm invariant verified across all tested safe-memory regimes)",
         "Recovery from corrupted voltage-angle memory: 100% convergence achieved on every one of six independent power-flow test systems (case118, L2RPN-118, case30, case57, case118-PGLib, case300), recovering 113 Newton-Raphson failures into 113 convergences",
         "Branch-outage win on case300 (the largest and most ill-conditioned IEEE case): convergence rate lifts from 25.5% to 99.5%, with 148 out of 149 standard-warm-start failures recovered and roughly 7× lower wall-clock per step on average",
         "Per-step overhead measured at ≈50 µs — well below one Newton iteration on every case (37–67 µs depending on system size)",
@@ -47,7 +47,7 @@
         },
         {
           "url": "tests/baws_v4_warm_start/figures/fig3_no_harm_smooth.png",
-          "caption": "Fig 3 — No-harm guarantee: BAWS-v4 (dashed green) overlaps the standard warm-start (solid grey) on every step of a smooth load ramp across all four IEEE cases."
+          "caption": "Fig 3 — No-harm invariant: BAWS-v4 (dashed green) overlaps the standard warm-start (solid grey) on every step of a smooth load ramp across all four IEEE cases."
         },
         {
           "url": "tests/baws_v4_warm_start/figures/fig4_overall_scoreboard.png",
