@@ -1,7 +1,71 @@
 {
   "version": "1",
-  "updated_at": "2026-05-09",
+  "updated_at": "2026-05-13",
   "tests": [
+    {
+      "id": "baws-v4-warm-start",
+      "name": "BAWS-v4: Memory-Safe Warm-Start for Newton-Raphson — Validated on 4 Benchmark Families",
+      "category": "Numerical Methods / Power Systems",
+      "domain": "Newton-Raphson / Warm-Start / Power Flow",
+      "status": "finished",
+      "published": true,
+      "created_at": "2026-05-13",
+      "updated_at": "2026-05-13",
+      "short_description": "A residual-driven warm-start selector that preserves the previous solution when memory is safe and recovers automatically when it is not. Same selector validated unchanged on CSTR continuation, IEEE case118, L2RPN real chronics, and PGLib-style IEEE cases (case30/57/118/300).",
+      "description": "BAWS-v4 is a minimal selector for Newton-Raphson warm-starts: at every step, choose between the previous solution and a flat-start guess based on which one has the smaller power-flow mismatch at the current operating point. When previous memory is safe (the common case) the selector reproduces the standard previous-solution warm-start bit-for-bit; when memory is unsafe (state-estimator corruption, topology-induced operating-point jump, large stale snapshot) it falls back to flat-start and converges in 2–3 iterations instead of diverging. The selector has zero tunable parameters and the same implementation was run unchanged on four independent benchmark families: CSTR steady-state continuation, IEEE 118-bus synthetic scenarios, L2RPN real operator chronics, and the four PGLib-style IEEE test cases (case30, case57, case118, case300). All five sanity invariants (determinism, no-harm, justification, switched-flag consistency, residual oracle) pass on every benchmark.",
+      "key_findings": [
+        "Bit-for-bit identical to the standard previous-solution warm-start on every safe step verified — 2,800+ measured safe steps across four benchmark families, zero false-positive fallbacks",
+        "Recovery from corrupted voltage-angle memory: 100% convergence achieved on every one of six independent power-flow test systems (case118, L2RPN-118, case30, case57, case118-PGLib, case300), recovering 113 Newton-Raphson failures into 113 convergences",
+        "Branch-outage win on case300 (the largest and most ill-conditioned IEEE case): convergence rate lifts from 25.5% to 99.5%, with 148 out of 149 standard-warm-start failures recovered and roughly 7× lower wall-clock per step on average",
+        "Per-step overhead measured at ≈50 µs — well below one Newton iteration on every case (37–67 µs depending on system size)",
+        "No parameter tuning, no formula changes, no benchmark-specific calibration between the four validation families",
+        "Honest negative result on parameter-induced failures: when a load spike makes the system infeasible, the selector's failed-prev rule costs about 0.06–0.11 extra iterations on the recovery step — reported but not patched, as the failure is not a memory problem",
+        "All five sanity invariants (T1 determinism · T2 no-harm · T3 justification · T4 switched-flag · T5 residual oracle) PASS on every one of the four benchmark families"
+      ],
+      "metrics": {
+        "Benchmark families validated": "4 (CSTR · case118 · L2RPN · PGLib)",
+        "Test systems covered": "7 (CSTR, IEEE case30, case57, 2×case118, case300, L2RPN 118-bus)",
+        "Corrupted-memory convergence (prev)": "≈ 90.5%–92.0%",
+        "Corrupted-memory convergence (BAWS-v4)": "100.0% on every system",
+        "case300 branch-outage convergence (prev)": "25.5%",
+        "case300 branch-outage convergence (BAWS-v4)": "99.5%",
+        "case300 branch-outage mean iterations (prev)": "23.12",
+        "case300 branch-outage mean iterations (BAWS-v4)": "3.02",
+        "No-harm rate on safe scenarios": "100% (bit-identical)",
+        "Per-step selector overhead": "≈ 50 µs (under one Newton iteration)",
+        "Tunable parameters": "0",
+        "Sanity invariants passed": "5 / 5 on every benchmark"
+      },
+      "images": [
+        {
+          "url": "tests/baws_v4_warm_start/figures/fig1_corrupted_memory_recovery.png",
+          "caption": "Fig 1 — Recovery from corrupted voltage-angle memory across 6 independent power-flow test systems. Standard warm-start loses ~9% of steps to divergence; BAWS-v4 recovers 100% on every system."
+        },
+        {
+          "url": "tests/baws_v4_warm_start/figures/fig2_case300_branch_outage.png",
+          "caption": "Fig 2 — case300 with random branch outages every 25 steps. BAWS-v4 turns a 25.5%-convergence regime into 99.5%, recovering 148 of 149 standard-warm-start failures."
+        },
+        {
+          "url": "tests/baws_v4_warm_start/figures/fig3_no_harm_smooth.png",
+          "caption": "Fig 3 — No-harm guarantee: BAWS-v4 (dashed green) overlaps the standard warm-start (solid grey) on every step of a smooth load ramp across all four IEEE cases."
+        },
+        {
+          "url": "tests/baws_v4_warm_start/figures/fig4_overall_scoreboard.png",
+          "caption": "Fig 4 — Aggregate wins and losses across the four benchmark families. Same selector, no per-benchmark tuning."
+        }
+      ],
+      "links": [
+        {
+          "label": "Full Details",
+          "url": "tests/baws_v4_warm_start/index.html",
+          "primary": true
+        },
+        {
+          "label": "Earlier BAWS-NR Study (Universal 1.59× Speedup, 6 Domains)",
+          "url": "tests/baws_nr_study/index.html"
+        }
+      ]
+    },
     {
       "id": "ctf-ks-chaotic",
       "name": "inZOR-ND: Chaotic Systems Benchmark — KS_Official (AI-DEEDS 2026, +286%)",
