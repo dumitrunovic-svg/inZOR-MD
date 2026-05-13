@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inZORi — GravityBench-v1: 100% full-obs, 86.4% budget-obs-100 (ICML 2025)</title>
+<style>
+  :root { --primary:#1a7dc4; --success:#27ae60; --danger:#e74c3c; --warning:#e67e22; --dark:#2c3e50; --light-bg:#f8f9fa; --border:#dee2e6; --purple:#8e44ad; --teal:#0d9488; --gold:#b8860b; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:'Segoe UI',system-ui,sans-serif; background:#fff; color:var(--dark); line-height:1.6; }
+  .header { background:linear-gradient(135deg,#0a1628 0%,#1a3a5c 50%,#2563eb 100%); color:#fff; padding:2.5rem 2rem 2rem; }
+  .header .phase-badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:0.25rem 1rem; font-size:0.85rem; margin-bottom:0.75rem; letter-spacing:0.05em; }
+  .header h1 { font-size:1.6rem; font-weight:700; margin-bottom:0.5rem; }
+  .header .subtitle { font-size:1rem; opacity:0.85; margin-bottom:1rem; }
+  .header .meta { font-size:0.82rem; opacity:0.7; }
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; }
+  .abstract-box { background:linear-gradient(135deg,#eff6ff,#dbeafe); border-left:4px solid var(--primary); border-radius:8px; padding:1.25rem 1.5rem; margin-bottom:2rem; }
+  .abstract-box h2 { font-size:1rem; color:var(--primary); margin-bottom:0.5rem; text-transform:uppercase; letter-spacing:0.05em; }
+  .abstract-box p { font-size:0.95rem; }
+  .key-result-banner { background:linear-gradient(135deg,#0a1628,#1a3a5c); color:#fff; border-radius:12px; padding:1.75rem 2rem; margin:2rem 0; text-align:center; }
+  .key-result-banner .kr-label { font-size:0.8rem; opacity:0.7; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:0.6rem; }
+  .key-result-banner .kr-number { font-size:3rem; font-weight:900; color:#60a5fa; line-height:1.0; }
+  .key-result-banner .kr-sub { font-size:1rem; opacity:0.85; margin-top:0.4rem; }
+  .key-results { display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kr-card { background:var(--light-bg); border:1px solid var(--border); border-radius:10px; padding:1.2rem; text-align:center; }
+  .kr-card .kr-value { font-size:1.6rem; font-weight:800; color:var(--primary); line-height:1.1; }
+  .kr-card .kr-value.success { color:var(--success); }
+  .kr-card .kr-label { font-size:0.82rem; color:#666; margin-top:0.3rem; }
+  .section { margin-bottom:2.5rem; }
+  .section h2 { font-size:1.2rem; font-weight:700; color:var(--dark); border-bottom:2px solid var(--primary); padding-bottom:0.4rem; margin-bottom:1.2rem; }
+  .section h3 { font-size:1rem; font-weight:600; margin:1.2rem 0 0.6rem; color:#34495e; }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; margin:1rem 0; }
+  th { background:var(--dark); color:#fff; padding:0.6rem 1rem; text-align:left; font-weight:600; }
+  td { padding:0.55rem 1rem; border-bottom:1px solid var(--border); }
+  tr:nth-child(even) td { background:var(--light-bg); }
+  tr.highlight td { background:#dbeafe; font-weight:700; }
+  tr.winner td { background:#d1fae5; font-weight:700; }
+  .verdict-box { background:#f0fff4; border-left:4px solid var(--success); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .insight-box { background:#fffbeb; border-left:4px solid var(--warning); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .ref-box { background:#f5f0ff; border-left:4px solid var(--purple); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .repro-box { background:#f0f9ff; border-left:4px solid var(--primary); border-radius:8px; padding:1rem 1.25rem; margin:1rem 0; }
+  .fig-wrap { background:var(--light-bg); border:1px solid var(--border); border-radius:8px; padding:1rem; margin:1.2rem 0; text-align:center; }
+  .fig-wrap img { max-width:100%; max-height:480px; width:auto; height:auto; border-radius:4px; display:block; margin:0 auto; object-fit:contain; }
+  .fig-caption { font-size:0.82rem; color:#555; margin-top:0.6rem; font-style:italic; }
+  .footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:2rem; text-align:center; font-size:0.85rem; margin-top:3rem; }
+  .footer a { color:rgba(255,255,255,0.8); }
+  p { margin-bottom:0.75rem; }
+  ul, ol { padding-left:1.4rem; margin-bottom:0.75rem; }
+  li { margin-bottom:0.3rem; font-size:0.92rem; }
+  code { background:#f3f4f6; padding:1pt 4pt; border-radius:3pt; font-family:Consolas,monospace; font-size:0.88em; }
+  .badge-row { display:flex; flex-wrap:wrap; gap:0.5rem; margin:0.5rem 0 1rem; }
+  .badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); border-radius:12px; padding:0.2rem 0.75rem; font-size:0.8rem; }
+  .nav-bar { background:#fff; border-bottom:1px solid var(--border); padding:0.6rem 1.5rem; display:flex; gap:1.5rem; align-items:center; font-size:0.9rem; }
+  .nav-bar a { color:var(--primary); text-decoration:none; font-weight:500; }
+  .nav-bar a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <a href="/inZOR-ND/">← inZORi Home</a>
+  <a href="/inZOR-ND/tests.html">Tests</a>
+</div>
+
+<div class="header">
+  <div class="phase-badge">inZORi — GRAVITY-BENCH-V1 · ICML 2025 · 206 TASKS · NO METADATA LEAKAGE</div>
+  <h1>GravityBench-v1: 100% full-obs · 86.4% budget-obs-100</h1>
+  <div class="subtitle">Independent reference solver — orbital mechanics + data-driven OOD detection · No LLM · No metadata leakage</div>
+  <div class="meta">Dumitru Novic · May 2026 · 14-core CPU · ~25 s per protocol</div>
+  <div class="badge-row" style="margin-top:1rem;">
+    <span class="badge">206 tasks</span>
+    <span class="badge">3 unit systems (SI / cgs / yr-AU-M☉)</span>
+    <span class="badge">6 OOD variations</span>
+    <span class="badge">Zenodo DOI: 10.5281/zenodo.20108468</span>
+    <span class="badge">arXiv: 2501.18411</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="abstract-box">
+    <h2>Abstract</h2>
+    <p>
+      We implement an independent, open-source Python solver for all 206 tasks of
+      <strong>GravityBench-v1</strong> (Koblischke et al., ICML 2025), following the PhD-level
+      methodology described in Appendix B of the original paper. The solver reads only what an
+      agent is given at evaluation time: star positions <em>(x, y, z)</em> and time from
+      <code>simulation_csv_content</code>. We deliberately do <em>not</em> consult
+      <code>variation_name</code> — that field encodes ground-truth masses, the unit system,
+      and out-of-distribution labels, making it metadata for benchmark authors, not agent input.
+    </p>
+    <p>
+      All unit detection (SI / cgs / yr-AU-M☉), mass estimation, OOD physics identification
+      (modified gravity exponent, linear drag), and boolean answers are derived entirely from
+      kinematic patterns in the data. The solver achieves <strong>100% on full-obs</strong> and
+      <strong>86.4% on budget-obs-100</strong> (uniform 100-point subsampling, no planning),
+      outperforming both the paper's PhD reference (82.5%) and the best LLM agent
+      (o4-mini-high, 49%) on budget-obs-100.
+    </p>
+  </div>
+
+  <div class="key-result-banner">
+    <div class="kr-label">Full-obs pass rate (5% error threshold, all 206 tasks)</div>
+    <div class="kr-number">100%</div>
+    <div class="kr-sub">206 / 206 tasks · Median error 0.0001% · Max error 2.73%</div>
+  </div>
+
+  <div class="key-results">
+    <div class="kr-card">
+      <div class="kr-value success">100%</div>
+      <div class="kr-label">Full-obs (206/206)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value success">86.4%</div>
+      <div class="kr-label">Budget-obs-100 (178/206)</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:var(--warning);">82.5%</div>
+      <div class="kr-label">PhD ref budget-obs-100</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value" style="color:var(--danger);">49%</div>
+      <div class="kr-label">o4-mini-high budget-obs-100</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value">~25 s</div>
+      <div class="kr-label">Wall time · 14-core CPU</div>
+    </div>
+    <div class="kr-card">
+      <div class="kr-value">0</div>
+      <div class="kr-label">API calls / LLM queries</div>
+    </div>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="section">
+    <h2>Results vs. Published Baselines</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Full-obs (task thr.)</th>
+          <th>Full-obs (5% strict)</th>
+          <th>Budget-obs-100 (task thr.)</th>
+          <th>Budget-obs-100 (5% strict)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="winner">
+          <td><strong>This solver</strong></td>
+          <td>100%</td>
+          <td>100%</td>
+          <td><strong>86.4%</strong></td>
+          <td>73.8%</td>
+        </tr>
+        <tr>
+          <td>PhD reference (paper)</td>
+          <td>100%</td>
+          <td>100%</td>
+          <td>82.5%</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>o4-mini-high (best LLM)</td>
+          <td>74%</td>
+          <td>—</td>
+          <td>49%</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>o3 (LLM)</td>
+          <td>70%</td>
+          <td>—</td>
+          <td>43%</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Claude 3.5 Sonnet (LLM)</td>
+          <td>56%</td>
+          <td>—</td>
+          <td>31%</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>GPT-4o (LLM)</td>
+          <td>50%</td>
+          <td>—</td>
+          <td>30%</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="verdict-box">
+      <strong>Key finding:</strong> A compact (~900-line) analytical Python script, using only
+      positions and time as input, matches the PhD reference on full-obs and surpasses it by
+      <strong>+3.9 pp</strong> on budget-obs-100 — while outperforming the best LLM agent by
+      <strong>+37 pp</strong> on the budgeted protocol.
+    </div>
+  </div>
+
+  <!-- Figures -->
+  <div class="section">
+    <h2>Figures</h2>
+
+    <div class="fig-wrap">
+      <img src="figures/comparison.png" alt="Pass rate comparison bar chart">
+      <div class="fig-caption">
+        Fig. 1 — Pass rate comparison across methods and protocols. This solver (blue) achieves 100% full-obs
+        and 86.4% budget-obs-100, versus 82.5% for the PhD reference and 49% for the best LLM.
+      </div>
+    </div>
+
+    <div class="fig-wrap">
+      <img src="figures/error_distribution.png" alt="Error distribution histogram — full-obs">
+      <div class="fig-caption">
+        Fig. 2 — Relative error distribution for full-obs (206 tasks). Median: 0.0001%.
+        All tasks within the 5% threshold. Max error: 2.73% (one linear-drag variant).
+      </div>
+    </div>
+  </div>
+
+  <!-- Methodology -->
+  <div class="section">
+    <h2>Methodology</h2>
+
+    <h3>No metadata leakage</h3>
+    <p>
+      The GravityBench dataset includes a <code>variation_name</code> field that encodes the
+      unit system (SI / cgs / yr-AU-M☉), masses of both stars, and out-of-distribution labels
+      ("Modified Gravity", "Drag", "Unbound"). Using this field gives an unfair advantage.
+      This solver ignores it entirely — all inference is from kinematics only.
+    </p>
+
+    <h3>Unit detection</h3>
+    <p>
+      For each trajectory, we probe all three unit systems and estimate stellar masses via the
+      <em>acceleration method</em> (<code>M = a·d²/G</code>, as in Appendix B of the paper).
+      The unit system that yields a mass in the plausible stellar range
+      (10²⁸ – 10³³ kg) is selected automatically.
+    </p>
+
+    <h3>Task types</h3>
+    <ul>
+      <li><strong>Kinematic measurements</strong> (periapsis, apoapsis, period, eccentricity, travel time,
+      Roche lobe radius, semi-major axis): computed analytically from trajectory extrema and arc-length integration.</li>
+      <li><strong>Energy quantities</strong> (K, U, K+U): mass is estimated from the acceleration method;
+      velocities are computed by finite differences.</li>
+      <li><strong>Mass-scaling tasks</strong> (multiply_mass_period, Kepler_units): application of
+      Kepler's Third Law T ∝ (M_total)^{-1/2} · a^{3/2}.</li>
+      <li><strong>Boolean tasks</strong> (is_bound, kepler_3rd_law, virial_theorem): data-driven detection
+      of total energy sign, modified-gravity signature (log-log slope of a vs r ≠ −2), and drag
+      (exponential decay of semi-major axis).</li>
+      <li><strong>OOD tasks</strong>: modified-gravity exponent α from log-log regression;
+      linear-drag timescale τ from exponential fit of semi-major axis decay.</li>
+    </ul>
+
+    <h3>Budget-obs-100 protocol</h3>
+    <p>
+      The same solver is called on a uniformly subsampled trajectory of exactly 100 points,
+      with no other changes. No query planning or adaptive sampling is used.
+    </p>
+
+    <div class="insight-box">
+      <strong>Why we outperform the PhD reference on budget-obs-100:</strong> The paper's reference
+      solution hard-codes unit systems per simulation (using metadata labels). Our solver detects
+      units and OOD physics from data patterns — which is more robust when only 100 points are
+      available and the trajectory is noisier.
+    </div>
+  </div>
+
+  <!-- Task breakdown -->
+  <div class="section">
+    <h2>Task Categories</h2>
+    <table>
+      <thead>
+        <tr><th>Category</th><th># Tasks</th><th>Full-obs</th><th>Budget-obs-100</th><th>Method</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Periapsis / Apoapsis</td><td>~24</td><td>100%</td><td>100%</td><td>Extrema detection</td></tr>
+        <tr><td>Period / Eccentricity / Semi-major axis</td><td>~36</td><td>100%</td><td>~95%</td><td>FFT + Kepler elements</td></tr>
+        <tr><td>Travel time (% of orbital path)</td><td>~12</td><td>100%</td><td>~83%</td><td>Arc-length from periapsis</td></tr>
+        <tr><td>Kinetic / Potential / Total energy</td><td>~24</td><td>100%</td><td>~88%</td><td>Acceleration method</td></tr>
+        <tr><td>Mass-scaling (multiply_mass_period)</td><td>~12</td><td>100%</td><td>~83%</td><td>Kepler III</td></tr>
+        <tr><td>Roche lobe radius</td><td>~12</td><td>100%</td><td>~83%</td><td>Eggleton (1983)</td></tr>
+        <tr><td>Boolean (is_bound, Kepler III, virial)</td><td>~36</td><td>100%</td><td>~81%</td><td>Energy sign + OOD detection</td></tr>
+        <tr><td>OOD: modified gravity α</td><td>~30</td><td>100%</td><td>~80%</td><td>Log-log regression a vs r</td></tr>
+        <tr><td>OOD: linear drag τ</td><td>~20</td><td>100%</td><td>~75%</td><td>Exponential fit semi-major axis</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Reproducibility -->
+  <div class="section">
+    <h2>Reproducibility</h2>
+
+    <div class="repro-box">
+      <p><strong>Single command:</strong> <code>python3 solve_all_206.py</code></p>
+      <p>Dependencies: <code>numpy scipy pandas datasets</code> — all standard scientific Python.</p>
+      <p>No API keys, no GPU, no LLM. Runs in ~25 seconds on a 14-core CPU.</p>
+    </div>
+
+    <table>
+      <thead><tr><th>Resource</th><th>Link</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Zenodo archive (code + results)</td>
+          <td><a href="https://doi.org/10.5281/zenodo.20108468" target="_blank">10.5281/zenodo.20108468</a></td>
+        </tr>
+        <tr>
+          <td>GitHub repo (solver)</td>
+          <td><a href="https://github.com/dumitrunovic-svg/inZOR-GravityBench" target="_blank">dumitrunovic-svg/inZOR-GravityBench</a></td>
+        </tr>
+        <tr>
+          <td>GravityBench paper (arXiv)</td>
+          <td><a href="https://arxiv.org/abs/2501.18411" target="_blank">arXiv:2501.18411</a></td>
+        </tr>
+        <tr>
+          <td>GravityBench dataset (HuggingFace)</td>
+          <td><a href="https://huggingface.co/datasets/GravityBench/GravityBench" target="_blank">GravityBench/GravityBench</a></td>
+        </tr>
+        <tr>
+          <td>GravityBench GitHub</td>
+          <td><a href="https://github.com/NolanKoblischke/GravityBench" target="_blank">NolanKoblischke/GravityBench</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Citation -->
+  <div class="section">
+    <h2>Citation</h2>
+    <div class="ref-box">
+      <p><strong>If you use this solver, please also cite the original GravityBench paper:</strong></p>
+      <pre style="background:#f3f4f6;padding:0.75rem;border-radius:6px;font-size:0.82rem;overflow-x:auto;">@inproceedings{koblischke2025gravitybench,
+  title     = {GravityBench: A Benchmark for AI Agents in Gravitational Physics Discovery},
+  author    = {Koblischke, Nolan and Ali-Dib, Mohamad and Menou, Kristen},
+  booktitle = {ICML 2025},
+  year      = {2025},
+  eprint    = {2501.18411},
+  archivePrefix = {arXiv}
+}</pre>
+      <p style="margin-top:0.75rem;"><strong>This solver:</strong></p>
+      <pre style="background:#f3f4f6;padding:0.75rem;border-radius:6px;font-size:0.82rem;overflow-x:auto;">@software{novic2026gravitybench,
+  title     = {Gravity-Bench-v1 — Independent reference solver (no metadata leakage)},
+  author    = {Novic, Dumitru},
+  year      = {2026},
+  doi       = {10.5281/zenodo.20108468},
+  url       = {https://doi.org/10.5281/zenodo.20108468}
+}</pre>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>inZORi — Emergent Intelligence · Autonomous Evolutionary Universe</p>
+  <p style="margin-top:0.4rem;">
+    <a href="https://github.com/dumitrunovic-svg/inZOR-ND">GitHub</a> ·
+    <a href="https://doi.org/10.5281/zenodo.20108468">Zenodo DOI</a> ·
+    dumitru.novic@gmail.com
+  </p>
+  <p style="margin-top:0.4rem;">© 2026 Dumitru Novic. All rights reserved.</p>
+</div>
+
+</body>
+</html>
