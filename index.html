@@ -120,17 +120,9 @@
   }
   .topbar {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 2.2rem;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
   }
-  .brand-small {
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    font-size: 1.15rem;
-  }
-  .brand-small span { color: var(--cyan); }
   .nav {
     display: flex;
     align-items: center;
@@ -148,20 +140,22 @@
     background: rgba(255,255,255,0.04);
   }
   .nav .tests {
-    background: rgba(34, 211, 238, 0.16);
-    color: #e0faff;
-    border-color: rgba(34, 211, 238, 0.55);
-    box-shadow: 0 0 24px rgba(34,211,238,0.18);
+    background: linear-gradient(135deg, var(--cyan), #60a5fa);
+    color: #03111f;
+    border-color: rgba(186, 230, 253, 0.95);
+    box-shadow: 0 0 30px rgba(34,211,238,0.36);
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
+    padding: 0.72rem 1.55rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
   .hero {
     flex: 1;
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.72fr);
-    gap: 2rem;
+    display: flex;
     align-items: center;
   }
   .title-block {
-    max-width: 720px;
+    max-width: 820px;
   }
   .logo {
     font-size: clamp(3.4rem, 8vw, 6.2rem);
@@ -189,51 +183,35 @@
   }
   .manifest strong { color: var(--cyan); font-weight: 800; }
   .claim {
-    max-width: 690px;
+    max-width: 760px;
     color: var(--muted);
-    font-size: 1rem;
+    font-size: clamp(1rem, 1.6vw, 1.18rem);
     line-height: 1.75;
   }
   .claim b { color: #fff; }
-  .side-panel {
-    justify-self: end;
-    width: min(100%, 360px);
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 1.15rem;
-    box-shadow: 0 18px 60px rgba(0,0,0,0.34), inset 0 0 24px rgba(34,211,238,0.05);
-    backdrop-filter: blur(10px);
+  .cta-line {
+    margin-top: 1.15rem;
+    color: #eaf6ff;
+    font-size: clamp(1.02rem, 1.7vw, 1.22rem);
+    line-height: 1.6;
   }
-  .mini-chart {
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 14px;
-    padding: 0.8rem 0.8rem 0.6rem;
-    margin-bottom: 1rem;
-    background: rgba(2,6,23,0.42);
-  }
-  .legend {
-    display: flex;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: 0.78rem;
-    font-weight: 800;
-    margin-bottom: 0.55rem;
-  }
-  .legend .food { color: var(--green); }
-  .legend .danger { color: var(--red); }
-  svg { width: 100%; height: 110px; display: block; }
-  .metric {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.35rem 0;
-    color: #d7e7f6;
-    font-size: 0.82rem;
+  .cta-line strong { color: var(--cyan); }
+  .hero-test {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.3rem;
+    padding: 0.85rem 1.6rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--cyan), #60a5fa);
+    color: #03111f;
+    text-decoration: none;
+    font-size: clamp(1.08rem, 2.1vw, 1.55rem);
+    font-weight: 950;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    box-shadow: 0 0 34px rgba(34,211,238,0.38);
   }
-  .metric span:last-child { color: var(--cyan); font-variant-numeric: tabular-nums; }
   .pill-row {
     display: flex;
     flex-wrap: wrap;
@@ -316,13 +294,12 @@
   .footer a { color: rgba(248,250,252,0.75); text-decoration: none; }
   @media (max-width: 920px) {
     .page { padding: 1.35rem; }
-    .hero { grid-template-columns: 1fr; align-items: start; }
-    .side-panel { justify-self: stretch; width: 100%; }
+    .hero { align-items: start; }
     .bottom { grid-template-columns: 1fr 1fr; }
     .tagline { letter-spacing: 0.22em; }
   }
   @media (max-width: 560px) {
-    .topbar { align-items: flex-start; flex-direction: column; }
+    .topbar { justify-content: stretch; }
     .nav { width: 100%; }
     .nav a { flex: 1; text-align: center; }
     .bottom { grid-template-columns: 1fr; }
@@ -345,9 +322,7 @@
 
 <main class="page">
   <header class="topbar">
-    <div class="brand-small">in<span>ZOR</span>-ND</div>
     <nav class="nav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
       <a href="tests.html" class="tests">Research Tests</a>
     </nav>
   </header>
@@ -366,9 +341,13 @@
       </div>
       <p class="claim">
         inZOR-ND does not hand-program the answer. A domain defines the world and evaluator;
-        populations explore, remember, fail, survive, and adapt. Useful solutions appear through
-        selection pressure, then are frozen and tested as fixed artefacts.
+        populations explore, remember, fail, survive, and adapt.
       </p>
+      <p class="cta-line">
+        I solve problems where fixed systems struggle:
+        <strong>changing data, fragile heuristics, noisy states, hard scientific choices.</strong>
+      </p>
+      <a href="tests.html" class="hero-test">Research Tests &rarr;</a>
       <div class="pill-row">
         <div class="pill green">Evolutionary</div>
         <div class="pill cyan">Autonomous</div>
@@ -378,23 +357,6 @@
       </div>
     </div>
 
-    <aside class="side-panel">
-      <div class="mini-chart">
-        <div class="legend">
-          <span class="food">● Food</span>
-          <span class="danger">● Danger</span>
-        </div>
-        <svg viewBox="0 0 300 120" role="img" aria-label="stylized food and danger signal">
-          <polyline points="0,82 18,64 35,70 52,48 72,58 92,36 110,44 126,29 144,52 164,39 184,68 205,55 225,75 246,62 268,70 300,42" fill="none" stroke="#4ade80" stroke-width="3" opacity="0.95"/>
-          <polyline points="0,95 18,90 35,101 52,86 72,96 92,80 110,92 126,78 144,83 164,91 184,72 205,86 225,76 246,95 268,82 300,91" fill="none" stroke="#fb4b5d" stroke-width="3" opacity="0.9"/>
-        </svg>
-      </div>
-      <div class="metric"><span>Organisms</span><span>Autonomous</span></div>
-      <div class="metric"><span>Worlds</span><span>Persistent</span></div>
-      <div class="metric"><span>Memory</span><span>Biological</span></div>
-      <div class="metric"><span>Solutions</span><span>Emergent</span></div>
-      <div class="metric"><span>Evidence</span><span>Public tests</span></div>
-    </aside>
   </section>
 
   <section class="bottom" aria-label="Core principles">
@@ -425,10 +387,10 @@
     </div>
   </section>
 
-  <div class="rule">No neural nets · No RL · No backpropagation · <span>100% biological evolution</span></div>
+  <div class="rule">No neural nets · No RL · No backpropagation · <span>100% evolution</span></div>
 
   <footer class="footer">
-    <span>inZOR-ND / inZORi — Emergent Scientific Discovery</span>
+    <span>inZOR-ND — Emergent Scientific Discovery</span>
     <span><a href="tests.html">Research Tests</a> · <a href="https://github.com/dumitrunovic-svg/inZORi">GitHub</a> · <a href="mailto:dumitru.novic@gmail.com">dumitru.novic@gmail.com</a></span>
   </footer>
 </main>
