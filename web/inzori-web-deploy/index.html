@@ -150,7 +150,9 @@
     text-transform: uppercase;
   }
   .hero {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.72fr);
+    gap: clamp(1.5rem, 5vw, 4.5rem);
     align-items: end;
   }
   .title-block {
@@ -182,17 +184,26 @@
   }
   .manifest strong { color: var(--cyan); font-weight: 800; }
   .claim {
-    max-width: 760px;
-    color: var(--muted);
-    font-size: clamp(0.95rem, 1.35vw, 1.08rem);
-    line-height: 1.55;
+    background: rgba(5, 14, 28, 0.62);
+    border: 1px solid rgba(34, 211, 238, 0.24);
+    border-radius: 18px;
+    box-shadow: 0 18px 46px rgba(0,0,0,0.22), inset 0 0 28px rgba(34,211,238,0.04);
+    color: #dbeafe;
+    font-size: clamp(1rem, 1.45vw, 1.18rem);
+    line-height: 1.58;
+    padding: clamp(1rem, 2vw, 1.35rem);
+    max-width: 460px;
+    justify-self: end;
+    align-self: center;
+    backdrop-filter: blur(10px);
   }
   .claim b { color: #fff; }
   .cta-line {
-    margin-top: 0.8rem;
+    margin-top: 0.95rem;
     color: #eaf6ff;
-    font-size: clamp(0.98rem, 1.45vw, 1.13rem);
+    font-size: clamp(1rem, 1.5vw, 1.18rem);
     line-height: 1.45;
+    max-width: 760px;
   }
   .cta-line strong { color: var(--cyan); }
   .hero-test {
@@ -257,15 +268,15 @@
   }
   .feature h3 {
     color: currentColor;
-    font-size: clamp(0.72rem, 1vw, 0.82rem);
+    font-size: clamp(0.86rem, 1.18vw, 1.02rem);
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem;
   }
   .feature p {
     color: var(--muted);
-    font-size: clamp(0.7rem, 0.95vw, 0.78rem);
-    line-height: 1.35;
+    font-size: clamp(0.82rem, 1.02vw, 0.95rem);
+    line-height: 1.42;
   }
   .green-text { color: var(--green); }
   .cyan-text { color: var(--cyan); }
@@ -298,7 +309,8 @@
       padding: 1rem;
       overflow: visible;
     }
-    .hero { align-items: center; }
+    .hero { grid-template-columns: 1fr; align-items: center; }
+    .claim { max-width: 100%; justify-self: stretch; }
     .bottom { grid-template-columns: 1fr 1fr; }
     .tagline { letter-spacing: 0.22em; }
   }
@@ -314,15 +326,16 @@
     .logo { font-size: clamp(2.6rem, 6.4vw, 5.1rem); }
     .tagline { font-size: clamp(0.86rem, 1.55vw, 1.15rem); margin-bottom: 0.75rem; }
     .manifest { font-size: clamp(0.9rem, 1.35vw, 1.08rem); line-height: 1.42; margin-bottom: 0.65rem; }
-    .claim { font-size: 0.88rem; line-height: 1.42; max-width: 660px; }
-    .cta-line { font-size: 0.9rem; line-height: 1.35; margin-top: 0.55rem; }
+    .hero { grid-template-columns: minmax(0, 1fr) minmax(260px, 0.55fr); gap: 1rem; }
+    .claim { font-size: 0.84rem; line-height: 1.35; max-width: 360px; padding: 0.75rem; }
+    .cta-line { font-size: 0.9rem; line-height: 1.35; margin-top: 0.55rem; max-width: 640px; }
     .hero-test { padding: 0.56rem 1.15rem; font-size: 1rem; margin-top: 0.58rem; }
     .pill-row { margin-top: 0.7rem; gap: 0.38rem; }
     .pill { font-size: 0.62rem; padding: 0.26rem 0.55rem; }
     .bottom { padding-top: 0.6rem; gap: 0.45rem; }
     .icon { width: 40px; height: 40px; margin-bottom: 0.28rem; }
-    .feature p { font-size: 0.66rem; line-height: 1.25; }
-    .feature h3 { font-size: 0.68rem; }
+    .feature p { font-size: 0.74rem; line-height: 1.24; }
+    .feature h3 { font-size: 0.76rem; }
     .footer { font-size: 0.68rem; }
   }
 </style>
@@ -359,12 +372,8 @@
         <strong>No reinforcement learning.</strong><br>
         Results are not forced — they <strong>emerge</strong>.
       </div>
-      <p class="claim">
-        inZOR-ND does not hand-program the answer. A domain defines the world and evaluator;
-        populations explore, remember, fail, survive, and adapt.
-      </p>
       <p class="cta-line">
-        I solve problems where fixed systems struggle:
+        I help with problems where fixed systems struggle:
         <strong>changing data, fragile heuristics, noisy states, hard scientific choices.</strong>
       </p>
       <a href="tests.html" class="hero-test">Research Tests &rarr;</a>
@@ -376,6 +385,10 @@
         <div class="pill cyan">Evidence-linked</div>
       </div>
     </div>
+    <p class="claim">
+      inZOR-ND does not hand-program the answer. A domain defines the world and evaluator;
+      populations explore, remember, fail, survive, and adapt.
+    </p>
 
   </section>
 
