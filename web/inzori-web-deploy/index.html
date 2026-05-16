@@ -113,15 +113,15 @@
   .o6 { left: 33%; top: 67%; }
 
   .page {
-    min-height: 100vh;
-    padding: 2rem 2.3rem;
-    display: flex;
-    flex-direction: column;
+    min-height: 100svh;
+    padding: clamp(1rem, 2.5vh, 1.65rem) clamp(1rem, 2.5vw, 2rem);
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto auto auto;
+    gap: clamp(0.65rem, 1.7vh, 1.2rem);
   }
   .topbar {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 2rem;
   }
   .nav {
     display: flex;
@@ -150,19 +150,18 @@
     text-transform: uppercase;
   }
   .hero {
-    flex: 1;
     display: flex;
-    align-items: center;
+    align-items: end;
   }
   .title-block {
     max-width: 820px;
   }
   .logo {
-    font-size: clamp(3.4rem, 8vw, 6.2rem);
+    font-size: clamp(3rem, 7.2vw, 5.8rem);
     font-weight: 900;
     line-height: 0.95;
     letter-spacing: -0.06em;
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.45rem;
   }
   .logo .zor { color: var(--cyan); text-shadow: 0 0 28px rgba(34,211,238,0.32); }
   .tagline {
@@ -170,43 +169,43 @@
     letter-spacing: 0.38em;
     text-transform: uppercase;
     color: #dbeafe;
-    margin-bottom: 2rem;
+    margin-bottom: clamp(1rem, 2.3vh, 1.6rem);
   }
   .tagline span { color: var(--cyan); }
   .manifest {
     border-left: 3px solid var(--cyan);
     padding-left: 1.1rem;
-    margin-bottom: 2.2rem;
+    margin-bottom: clamp(0.85rem, 1.8vh, 1.25rem);
     color: #eef7ff;
     font-size: clamp(1.08rem, 2vw, 1.35rem);
-    line-height: 1.65;
+    line-height: 1.5;
   }
   .manifest strong { color: var(--cyan); font-weight: 800; }
   .claim {
     max-width: 760px;
     color: var(--muted);
-    font-size: clamp(1rem, 1.6vw, 1.18rem);
-    line-height: 1.75;
+    font-size: clamp(0.95rem, 1.35vw, 1.08rem);
+    line-height: 1.55;
   }
   .claim b { color: #fff; }
   .cta-line {
-    margin-top: 1.15rem;
+    margin-top: 0.8rem;
     color: #eaf6ff;
-    font-size: clamp(1.02rem, 1.7vw, 1.22rem);
-    line-height: 1.6;
+    font-size: clamp(0.98rem, 1.45vw, 1.13rem);
+    line-height: 1.45;
   }
   .cta-line strong { color: var(--cyan); }
   .hero-test {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-top: 1.3rem;
-    padding: 0.85rem 1.6rem;
+    margin-top: 0.9rem;
+    padding: 0.72rem 1.45rem;
     border-radius: 999px;
     background: linear-gradient(135deg, var(--cyan), #60a5fa);
     color: #03111f;
     text-decoration: none;
-    font-size: clamp(1.08rem, 2.1vw, 1.55rem);
+    font-size: clamp(1rem, 1.8vw, 1.35rem);
     font-weight: 950;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -216,7 +215,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.55rem;
-    margin-top: 2rem;
+    margin-top: clamp(0.8rem, 1.6vh, 1.2rem);
   }
   .pill {
     border: 1px solid rgba(255,255,255,0.18);
@@ -234,39 +233,39 @@
   .pill.violet { border-color: rgba(167,139,250,0.42); color: #ddd6fe; }
   .pill.gold { border-color: rgba(250,204,21,0.46); color: #fef08a; }
   .bottom {
-    margin-top: 2.1rem;
+    margin-top: 0;
     border-top: 1px solid rgba(255,255,255,0.12);
-    padding-top: 1.15rem;
+    padding-top: 0.85rem;
     display: grid;
     grid-template-columns: repeat(5, minmax(120px, 1fr));
-    gap: 1rem;
+    gap: 0.75rem;
   }
   .feature {
     text-align: center;
     padding: 0.3rem 0.4rem;
   }
   .icon {
-    width: 62px;
-    height: 62px;
+    width: clamp(44px, 5.2vw, 58px);
+    height: clamp(44px, 5.2vw, 58px);
     border: 1px solid currentColor;
     border-radius: 50%;
-    margin: 0 auto 0.7rem;
+    margin: 0 auto 0.45rem;
     display: grid;
     place-items: center;
-    font-size: 1.55rem;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
     box-shadow: 0 0 22px currentColor;
   }
   .feature h3 {
     color: currentColor;
-    font-size: 0.86rem;
+    font-size: clamp(0.72rem, 1vw, 0.82rem);
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    margin-bottom: 0.45rem;
+    margin-bottom: 0.25rem;
   }
   .feature p {
     color: var(--muted);
-    font-size: 0.82rem;
-    line-height: 1.45;
+    font-size: clamp(0.7rem, 0.95vw, 0.78rem);
+    line-height: 1.35;
   }
   .green-text { color: var(--green); }
   .cyan-text { color: var(--cyan); }
@@ -274,16 +273,16 @@
   .gold-text { color: var(--gold); }
   .blue-text { color: var(--blue); }
   .rule {
-    margin-top: 1.35rem;
+    margin-top: 0.1rem;
     text-align: center;
     color: #e5edf7;
     letter-spacing: 0.30em;
     text-transform: uppercase;
-    font-size: clamp(0.78rem, 1.5vw, 1.05rem);
+    font-size: clamp(0.68rem, 1.25vw, 0.95rem);
   }
   .rule span { color: var(--cyan); font-weight: 900; }
   .footer {
-    margin-top: 1.25rem;
+    margin-top: 0;
     color: rgba(248,250,252,0.55);
     font-size: 0.78rem;
     display: flex;
@@ -293,8 +292,13 @@
   }
   .footer a { color: rgba(248,250,252,0.75); text-decoration: none; }
   @media (max-width: 920px) {
-    .page { padding: 1.35rem; }
-    .hero { align-items: start; }
+    .page {
+      min-height: 100svh;
+      height: auto;
+      padding: 1rem;
+      overflow: visible;
+    }
+    .hero { align-items: center; }
     .bottom { grid-template-columns: 1fr 1fr; }
     .tagline { letter-spacing: 0.22em; }
   }
@@ -304,6 +308,22 @@
     .nav a { flex: 1; text-align: center; }
     .bottom { grid-template-columns: 1fr; }
     .rule { letter-spacing: 0.16em; }
+  }
+  @media (min-width: 921px) and (max-height: 760px) {
+    .page { height: 100svh; overflow: hidden; }
+    .logo { font-size: clamp(2.6rem, 6.4vw, 5.1rem); }
+    .tagline { font-size: clamp(0.86rem, 1.55vw, 1.15rem); margin-bottom: 0.75rem; }
+    .manifest { font-size: clamp(0.9rem, 1.35vw, 1.08rem); line-height: 1.42; margin-bottom: 0.65rem; }
+    .claim { font-size: 0.88rem; line-height: 1.42; max-width: 660px; }
+    .cta-line { font-size: 0.9rem; line-height: 1.35; margin-top: 0.55rem; }
+    .hero-test { padding: 0.56rem 1.15rem; font-size: 1rem; margin-top: 0.58rem; }
+    .pill-row { margin-top: 0.7rem; gap: 0.38rem; }
+    .pill { font-size: 0.62rem; padding: 0.26rem 0.55rem; }
+    .bottom { padding-top: 0.6rem; gap: 0.45rem; }
+    .icon { width: 40px; height: 40px; margin-bottom: 0.28rem; }
+    .feature p { font-size: 0.66rem; line-height: 1.25; }
+    .feature h3 { font-size: 0.68rem; }
+    .footer { font-size: 0.68rem; }
   }
 </style>
 </head>
